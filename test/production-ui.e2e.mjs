@@ -484,7 +484,7 @@ async function runLoopback(core) {
         core.detailContext.upgrade.authority,
       );
       await expect(productionDetails).toContainText(
-        core.detailContext.upgrade.multisig,
+        core.detailContext.upgrade.owner,
       );
       await expect(productionDetails).toContainText("172800 seconds");
       await expect(productionDetails).toContainText(
@@ -701,7 +701,7 @@ async function runLoopback(core) {
         });
         await page.locator("#synthetic-tampered-deposit").click();
         await expect(page.locator("#toast")).toContainText(
-          "require the explicit verified production environment",
+          "require their exact verified production or Chiado test environment",
         );
         assert.equal(
           result.requests

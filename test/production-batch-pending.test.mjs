@@ -61,3 +61,67 @@ test("chain1 pending batches remain bound to production mode, backend instance, 
     "mismatches never erase the original intent",
   );
 });
+
+test("V9 Chiado batch mode and backend remain isolated while normal Chiado key bytes stay unchanged", () => {
+  const values = new Map(),
+    origin = "https://v9-test.example.invalid";
+  const journal = createBatchPendingJournal(
+    {
+      getItem: (k) => values.get(k) ?? null,
+      setItem: (k, v) => values.set(k, v),
+      removeItem: (k) => values.delete(k),
+    },
+    { origin },
+  );
+  const scope = {
+    eventId: "event-e",
+    instanceId: "server-e",
+    wallet: "0x" + "1".repeat(40),
+    chainId: 10200,
+    contract: "0x" + "2".repeat(40),
+    contractVersion: "kleros-event-v9-uups-chiado",
+    mode: "hosted-v9-testnet",
+    action: "check-in",
+  };
+  const marker = {
+    version: 1,
+    scope,
+    id: "reviewed-e",
+    nonce: "request-e-123456",
+    selectedCount: 1,
+    items: [{ participantId: "person-e", wallet: "0x" + "3".repeat(40) }],
+    phase: "unknown",
+  };
+  journal.save(scope, marker);
+  assert.equal(journal.load(scope).scope.mode, "hosted-v9-testnet");
+  assert.equal(journal.load({ ...scope, instanceId: "other-server" }), null);
+  for (const change of [
+    { mode: undefined },
+    { mode: "hosted-testnet" },
+    { chainId: 1 },
+    { contractVersion: "kleros-event-v8" },
+  ])
+    assert.throws(() => journal.load({ ...scope, ...change }));
+  const legacy = {
+    ...scope,
+    contractVersion: "kleros-event-v8",
+    mode: "hosted-testnet",
+  };
+  journal.save(legacy, { ...marker, scope: legacy, id: "legacy-marker" });
+  const expected =
+    "kleros.offchain-batch-pending.v1:" +
+    encodeURIComponent(
+      JSON.stringify([
+        origin,
+        legacy.eventId,
+        legacy.wallet,
+        10200,
+        legacy.contract,
+        legacy.contractVersion,
+        legacy.action,
+        null,
+      ]),
+    );
+  assert.equal(values.has(expected), true);
+  assert.equal(Object.hasOwn(journal.load(legacy).scope, "mode"), false);
+});

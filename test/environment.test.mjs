@@ -12,6 +12,8 @@ import {
   networkLabel,
   nativeCurrencySymbol,
   productionContextIssue,
+  isV9TestnetMode,
+  v9TestnetContextIssue,
 } from "../public/environment.js";
 import {
   PRODUCTION_CONTRACT_VERSION as V,
@@ -19,6 +21,9 @@ import {
   isVerifiedProductionEvent,
   contractProfileForEvent,
   supportsBatchJournalProfile,
+  V9_TESTNET_CONTRACT_VERSION as E,
+  isVerifiedV9TestnetEvent,
+  isTest15mVersion,
 } from "../public/contract-profiles.js";
 
 const a = (n) => "0x" + n.repeat(40),
@@ -79,6 +84,11 @@ function context() {
       eip7702: false,
       notice: "Standard wallets only",
     },
+    governance: {
+      kind: "single-owner-timelock",
+      initialOwner: a("8"),
+      minimumDelaySeconds: 172800,
+    },
     session: { mode: "wallet", wallet: a("1") },
   };
   const detail = {
@@ -100,7 +110,11 @@ function context() {
       implementationCodeHash: h("b"),
       version: 9,
       authority: a("8"),
-      multisig: a("9"),
+      governanceKind: "single-owner-timelock",
+      owner: a("9"),
+      pendingOwner: null,
+      pendingOperationCount: 0,
+      executingOperationCount: 0,
       delaySeconds: 172800,
       pending: null,
     },
@@ -280,7 +294,11 @@ test("governance details and queued upgrade facts cannot be omitted or malformed
     implementationCodeHash: h("0"),
     version: 8,
     authority: a("0"),
-    multisig: "missing",
+    governanceKind: "multisig",
+    owner: "missing",
+    pendingOwner: "missing",
+    pendingOperationCount: -1,
+    executingOperationCount: -1,
     delaySeconds: 900,
     pending: undefined,
   })) {
@@ -364,4 +382,156 @@ test("neutral network labels reject controls and do not infer monetary value", (
     before = JSON.stringify(c);
   assert.equal(ready(c), null);
   assert.equal(JSON.stringify(c), before);
+});
+
+function testnetContext() {
+  const c = context();
+  c.bootstrap.mode = "hosted-v9-testnet";
+  c.bootstrap.contractVersion = E;
+  c.bootstrap.contractProfile = {
+    ...profile(),
+    contractVersion: E,
+    abiVersion: E,
+    chainId: 10200,
+    testOnly: true,
+  };
+  c.bootstrap.environment = {
+    production: false,
+    network: "chiado",
+    chainId: 10200,
+  };
+  c.bootstrap.chain = {
+    ...c.bootstrap.chain,
+    chainId: 10200,
+    name: "Chiado",
+    nativeCurrency: { symbol: "XDAI", decimals: 18 },
+  };
+  c.bootstrap.capabilities = {
+    ...c.bootstrap.capabilities,
+    production: false,
+    v9Testnet: true,
+  };
+  c.bootstrap.arbitration = {
+    ...c.bootstrap.arbitration,
+    mode: "controlled",
+    label: "Controlled Chiado arbitration",
+    notice:
+      "Synthetic Chiado test transactions with a controlled arbitrator; no independent Kleros jury.",
+  };
+  c.detail.event = {
+    ...c.detail.event,
+    contractVersion: E,
+    abiVersion: E,
+    chainId: 10200,
+    contractProfile: { ...c.bootstrap.contractProfile },
+  };
+  return c;
+}
+const testnetReady = ({ bootstrap, detail }) =>
+  v9TestnetContextIssue(bootstrap, detail, {
+    requireTransactions: true,
+    requireWallet: true,
+  });
+
+test("V9 Chiado is an explicit public mode, independent from old testnet and production authorization", () => {
+  const c = testnetContext();
+  assert.equal(isV9TestnetMode(c.bootstrap.mode), true);
+  assert.equal(classifyEnvironment(c.bootstrap.mode), "v9-testnet");
+  assert.equal(isTestnetMode(c.bootstrap.mode), false);
+  assert.equal(isProductionMode(c.bootstrap.mode), false);
+  assert.equal(isSandboxMode(c.bootstrap.mode), false);
+  assert.equal(isPublicMode(c.bootstrap.mode), true);
+  assert.equal(testnetReady(c), null);
+  assert.ok(ready(c));
+  assert.ok(testnetReady(context()));
+  c.bootstrap.capabilities.transactionsReady = false;
+  assert.equal(v9TestnetContextIssue(c.bootstrap), null);
+  assert.ok(testnetReady(c));
+});
+
+test("V9 testOnly profile uses exact one-day windows and never the historical 15-minute branch", () => {
+  const c = testnetContext();
+  assert.equal(isVerifiedV9TestnetEvent(c.detail.event), true);
+  assert.equal(isTest15mVersion(E), false);
+  assert.equal(
+    contractProfileForEvent(c.detail.event).challengeWindowSeconds,
+    86400,
+  );
+  for (const change of [
+    (x) => (x.bootstrap.mode = "hosted-testnet"),
+    (x) => (x.bootstrap.capabilities.v9Testnet = false),
+    (x) => (x.bootstrap.capabilities.production = true),
+    (x) => (x.bootstrap.contractProfile.challengeWindowSeconds = 900),
+    (x) => (x.detail.event.contractProfile.matchWindowSeconds = 900),
+    (x) => (x.detail.event.contractProfile.testOnly = false),
+    (x) => (x.detail.event.chainId = 1),
+    (x) => (x.bootstrap.arbitration.mode = "kleros-v1"),
+    (x) => (x.bootstrap.arbitration.verified = false),
+    (x) => (x.bootstrap.contractVersion = "kleros-event-v8-test15m"),
+  ]) {
+    const bad = testnetContext();
+    change(bad);
+    assert.ok(testnetReady(bad));
+  }
+  assert.equal(
+    contractProfileForEvent({
+      ...c.detail.event,
+      contractVersion: E + "-future",
+    }),
+    null,
+  );
+  assert.equal(
+    supportsBatchJournalProfile({
+      contractVersion: E,
+      chainId: 10200,
+      mode: "hosted-v9-testnet",
+    }),
+    true,
+  );
+  for (const scope of [
+    { contractVersion: E, chainId: 1, mode: "hosted-v9-testnet" },
+    { contractVersion: E, chainId: 10200, mode: "hosted-testnet" },
+    {
+      contractVersion: "kleros-event-v8",
+      chainId: 10200,
+      mode: "hosted-v9-testnet",
+    },
+    {
+      contractVersion: "kleros-event-v8-test15m",
+      chainId: 10200,
+      mode: "hosted-v9-testnet",
+    },
+  ])
+    assert.equal(supportsBatchJournalProfile(scope), false);
+});
+
+test("single-owner governance is typed without freezing valid queued operations or ownership transfers", () => {
+  for (const factory of [context, testnetContext]) {
+    const c = factory(),
+      issue = c.bootstrap.mode === "hosted-production" ? ready : testnetReady;
+    c.detail.upgrade.owner = a("5");
+    c.detail.upgrade.pendingOwner = a("6");
+    c.detail.upgrade.pendingOperationCount = 3;
+    c.detail.upgrade.executingOperationCount = 1;
+    assert.equal(
+      issue(c),
+      null,
+      "current owner may differ from historical initialOwner and positive counts remain valid",
+    );
+    for (const change of [
+      (x) => delete x.bootstrap.governance,
+      (x) => (x.bootstrap.governance.initialOwner = a("0")),
+      (x) => (x.bootstrap.governance.minimumDelaySeconds = 900),
+      (x) => (x.detail.upgrade.owner = a("0")),
+      (x) => delete x.detail.upgrade.pendingOwner,
+      (x) => (x.detail.upgrade.pendingOwner = "bad"),
+      (x) => (x.detail.upgrade.pendingOperationCount = 0.5),
+      (x) => (x.detail.upgrade.executingOperationCount = -1),
+      (x) => (x.detail.upgrade.governanceKind = "multisig"),
+    ]) {
+      const bad = factory();
+      change(bad);
+      assert.ok(issue(bad));
+    }
+  }
 });

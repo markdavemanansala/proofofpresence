@@ -124,6 +124,20 @@ function parse(argv, env = {}) {
     timeoutMs,
   };
 }
+function requiredFrontendAssets(publicFiles, { baseline = false } = {}) {
+  if (baseline) return ["index.html", "app.js", "styles.css"];
+  return [
+    "index.html",
+    "app.js",
+    "styles.css",
+    "loading.css",
+    "ui-keyboard.js",
+    "selected-event.js",
+    ...["environment.js", "contract-profiles.js"].filter((name) =>
+      publicFiles.has(name),
+    ),
+  ];
+}
 function assetName(url) {
   if (url.pathname === "/" || url.pathname === "/index.html")
     return "index.html";
@@ -498,6 +512,39 @@ async function selfTest() {
       UI_RELEASE_SOURCE_COMMIT: plan.source,
     }).eventId === plan.eventId,
     "Explicit environment inputs supported",
+  );
+  const legacyRequired = [
+    "index.html",
+    "app.js",
+    "styles.css",
+    "loading.css",
+    "ui-keyboard.js",
+    "selected-event.js",
+  ];
+  ok(
+    JSON.stringify(requiredFrontendAssets(new Set())) ===
+      JSON.stringify(legacyRequired),
+    "Older optimized source retains all six existing required assets without inventing new files",
+  );
+  for (const added of [
+    ["environment.js"],
+    ["contract-profiles.js"],
+    ["environment.js", "contract-profiles.js"],
+  ])
+    ok(
+      JSON.stringify(requiredFrontendAssets(new Set(added))) ===
+        JSON.stringify([...legacyRequired, ...added]),
+      "Each new release module is independently mandatory exactly when present in expected Git: " +
+        added.join(","),
+    );
+  ok(
+    JSON.stringify(
+      requiredFrontendAssets(
+        new Set(["environment.js", "contract-profiles.js"]),
+        { baseline: true },
+      ),
+    ) === JSON.stringify(["index.html", "app.js", "styles.css"]),
+    "Explicit historical baseline keeps its original exact required asset set",
   );
   const files = new Set(["index.html", "app.js", "assets/font.woff2"]);
   ok(
@@ -981,17 +1028,9 @@ async function run(plan) {
     .split("\n")
     .filter((x) => x.startsWith("public/"))
     .map((x) => x.slice(7));
-  const publicFiles = new Set(paths);
-  for (const name of plan.baseline
-    ? ["index.html", "app.js", "styles.css"]
-    : [
-        "index.html",
-        "app.js",
-        "styles.css",
-        "loading.css",
-        "ui-keyboard.js",
-        "selected-event.js",
-      ])
+  const publicFiles = new Set(paths),
+    requiredAssets = requiredFrontendAssets(publicFiles, plan);
+  for (const name of requiredAssets)
     assert(
       publicFiles.has(name),
       "Expected source lacks required frontend asset " + name,
@@ -1023,6 +1062,7 @@ async function run(plan) {
     checkerSha256: sha(await fs.readFile(fileURLToPath(import.meta.url))),
     conditions: {
       contexts: "fresh anonymous",
+      assertionTimeoutMs: plan.timeoutMs,
       network: "unthrottled",
       cpuThrottleRate: 1,
       httpCache: "disabled by Playwright routing",
@@ -1032,6 +1072,7 @@ async function run(plan) {
     startedAt: new Date().toISOString(),
     validatorSha256: validatorBinding.localSha256,
     validatorBinding,
+    requiredFrontendAssets: requiredAssets,
     assetComparisonPolicy: {
       default: "Exact bytes",
       reviewedMainComment,
@@ -1065,7 +1106,9 @@ async function run(plan) {
   };
   let browser;
   try {
-    const { chromium, expect } = await import("@playwright/test");
+    const playwright = await import("@playwright/test");
+    const { chromium } = playwright;
+    const expect = playwright.expect.configure({ timeout: plan.timeoutMs });
     browser = await chromium.launch({ headless: true });
     for (const device of ["desktop", "mobile"]) {
       const mobile = device === "mobile",
@@ -1487,16 +1530,7 @@ async function run(plan) {
         data.assets.every((x) => x.matches),
         "Frontend bytes differ from expected source",
       );
-      for (const name of plan.baseline
-        ? ["index.html", "app.js", "styles.css"]
-        : [
-            "index.html",
-            "app.js",
-            "styles.css",
-            "loading.css",
-            "ui-keyboard.js",
-            "selected-event.js",
-          ])
+      for (const name of requiredAssets)
         assert(
           data.assets.some((x) => x.path === name && x.matches),
           "Required source asset not observed: " + name,

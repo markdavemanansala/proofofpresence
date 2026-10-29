@@ -109,7 +109,7 @@ async function mount(scope) {
         const retained = journal.load(scope);
         if (
           !retained ||
-          retained.scope.mode !== "hosted-production" ||
+          retained.scope.mode !== scope.mode ||
           retained.scope.instanceId !== scope.instanceId
         )
           throw Error("Production intent was not durable before request");
@@ -156,77 +156,92 @@ try {
   const page = await context.newPage();
   page.on("pageerror", (error) => errors.push(error.message));
   await page.goto(origin);
-  await page.evaluate(mount, scope);
-  await expect(page.locator("#rows input")).toBeEnabled();
-  assert.equal(
-    await page.evaluate(() => window.fixture.loadedScopes[0].mode),
-    "hosted-production",
-  );
-  await page.locator("#rows input").check();
-  await page.locator('#toolbar [data-batch-action="review"]').click();
-  await expect(page.locator("dialog")).toBeVisible();
-  await page.locator("[data-batch-confirm]").check();
-  await page.locator('[data-batch-action="commit"]').click();
-  await expect(page.locator("[data-batch-review-error]")).toContainText(
-    /could not be confirmed/i,
-  );
-  const retained = await page.evaluate(() => ({
-    saved: window.fixture.savedScopes,
-    marker: window.fixture.journal.load(window.fixture.scope),
-    calls: window.fixture.calls,
-  }));
-  assert.equal(retained.saved[0].mode, "hosted-production");
-  assert.equal(retained.marker.scope.mode, "hosted-production");
-  assert.equal(retained.marker.scope.instanceId, scope.instanceId);
-  assert.deepEqual(
-    retained.calls.map((call) => call.method),
-    ["POST", "POST"],
-  );
-  checks.push(
-    "Controller load and durable pre-request save retain explicit production mode and instance",
-  );
-  await page.reload();
-  await page.evaluate(mount, scope);
-  await expect(
-    page.locator(
-      '#toolbar > .batch-selection-tools [data-batch-action="status"]',
-    ),
-  ).toBeVisible();
-  await expect(page.locator("#rows input")).toBeDisabled();
-  assert.deepEqual(await page.evaluate(() => window.fixture.calls), []);
-  checks.push(
-    "Reload reconstructs pending production intent from actual journal without replay",
-  );
-  await page.evaluate(mount, { ...scope, instanceId: "production-server-two" });
-  await expect(page.locator("#rows input")).toBeEnabled();
-  await expect(
-    page.locator(
-      '#toolbar > .batch-selection-tools [data-batch-action="status"]',
-    ),
-  ).toBeHidden();
-  assert.deepEqual(await page.evaluate(() => window.fixture.calls), []);
-  checks.push(
-    "A different production backend instance cannot inherit the pending controller or marker",
-  );
-  for (const chainId of [1337, 10200]) {
-    await page.evaluate(mount, {
-      ...scope,
-      chainId,
-      contractVersion: "kleros-event-v8",
-      mode: "local-demo",
-      instanceId: "legacy-instance",
-    });
+  async function runScope(scope) {
+    await page.evaluate(mount, scope);
     await expect(page.locator("#rows input")).toBeEnabled();
     assert.equal(
-      await page.evaluate(() =>
-        Object.hasOwn(window.fixture.loadedScopes[0], "mode"),
-      ),
-      false,
+      await page.evaluate(() => window.fixture.loadedScopes[0].mode),
+      scope.mode,
     );
+    await page.locator("#rows input").check();
+    await page.locator('#toolbar [data-batch-action="review"]').click();
+    await expect(page.locator("dialog")).toBeVisible();
+    await page.locator("[data-batch-confirm]").check();
+    await page.locator('[data-batch-action="commit"]').click();
+    await expect(page.locator("[data-batch-review-error]")).toContainText(
+      /could not be confirmed/i,
+    );
+    const retained = await page.evaluate(() => ({
+      saved: window.fixture.savedScopes,
+      marker: window.fixture.journal.load(window.fixture.scope),
+      calls: window.fixture.calls,
+    }));
+    assert.equal(retained.saved[0].mode, scope.mode);
+    assert.equal(retained.marker.scope.mode, scope.mode);
+    assert.equal(retained.marker.scope.instanceId, scope.instanceId);
+    assert.deepEqual(
+      retained.calls.map((call) => call.method),
+      ["POST", "POST"],
+    );
+    checks.push(
+      "Controller load and durable pre-request save retain explicit production mode and instance",
+    );
+    await page.reload();
+    await page.evaluate(mount, scope);
+    await expect(
+      page.locator(
+        '#toolbar > .batch-selection-tools [data-batch-action="status"]',
+      ),
+    ).toBeVisible();
+    await expect(page.locator("#rows input")).toBeDisabled();
+    assert.deepEqual(await page.evaluate(() => window.fixture.calls), []);
+    checks.push(
+      "Reload reconstructs pending production intent from actual journal without replay",
+    );
+    await page.evaluate(mount, {
+      ...scope,
+      instanceId: "production-server-two",
+    });
+    await expect(page.locator("#rows input")).toBeEnabled();
+    await expect(
+      page.locator(
+        '#toolbar > .batch-selection-tools [data-batch-action="status"]',
+      ),
+    ).toBeHidden();
+    assert.deepEqual(await page.evaluate(() => window.fixture.calls), []);
+    checks.push(
+      "A different production backend instance cannot inherit the pending controller or marker",
+    );
+    for (const chainId of [1337, 10200]) {
+      await page.evaluate(mount, {
+        ...scope,
+        chainId,
+        contractVersion: "kleros-event-v8",
+        mode: "local-demo",
+        instanceId: "legacy-instance",
+      });
+      await expect(page.locator("#rows input")).toBeEnabled();
+      assert.equal(
+        await page.evaluate(() =>
+          Object.hasOwn(window.fixture.loadedScopes[0], "mode"),
+        ),
+        false,
+      );
+    }
+    checks.push(
+      "Legacy controller/journal scopes do not acquire a mode field or changed namespace",
+    );
+    assert.deepEqual(await page.evaluate(() => window.walletAccess), []);
   }
-  checks.push(
-    "Legacy controller/journal scopes do not acquire a mode field or changed namespace",
-  );
+  await runScope(scope);
+  await runScope({
+    ...scope,
+    eventId: "v9-testnet-event",
+    instanceId: "v9-testnet-server",
+    chainId: 10200,
+    contractVersion: "kleros-event-v9-uups-chiado",
+    mode: "hosted-v9-testnet",
+  });
   assert.deepEqual(await page.evaluate(() => window.walletAccess), []);
   assert.deepEqual(blocked, []);
   assert.deepEqual(errors, []);

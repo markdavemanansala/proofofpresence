@@ -1,0 +1,13 @@
+{
+  "status": "held-not-release-proof",
+  "earlierBrowserGroups": 8,
+  "earlierCapturedAppSha256": "307b6e8bafd15575e7c1a163537587cb943778a714b5153516618a4a4a34e467",
+  "currentAppSha256": "ef71380cb4a4f6f5e7b98a1919fba6bccb26cd44bfa3247a7fd2b1bb895d0982",
+  "sourceChangedAfterRun": [
+    "app.js"
+  ],
+  "mockedPreparations": 1,
+  "financialSends": 0,
+  "publicRequests": 0,
+  "note": "E work explicitly held by root after PASS8. No further E browser run or release claim. Prior auth-mock mismatch failure retained."
+}
