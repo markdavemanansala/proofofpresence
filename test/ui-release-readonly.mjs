@@ -19,6 +19,22 @@ const reviewedMainComment = Object.freeze({
   commentSha256:
     "92069763abfc97148ccff5f46fb5b80a9c7249b83b5e0b5c4fe1cc1ddac6f6c5",
 });
+// Literal and anchor reviewed from the D financial helper source only, never imported.
+// The literal includes its final LF; the original Git HTML's charset anchor ends at byte 71.
+const reviewedDComment = Object.freeze({
+  origin: "https://kleros-fast15m-d-20261029-9fe71683.netlify.app",
+  asset: "index.html",
+  anchor: '<meta charset="utf-8" />\n',
+  anchorOffset: 46,
+  offset: 71,
+  bytes: 326,
+  sha256: "b3371ba22e9850e2b33ce0718c03e1526b7167ed930360d4803449910e3abee0",
+  commentSha256:
+    "8a2a8b9875a56c0adb41e560eddebfa48daa161f12c49b0bcc153877df6f1e5e",
+  anchorReferenceCommit: "7bdd40a3478e487f84b0c00aa0d58e25d13e0d5e",
+  anchorReferenceHtmlSha256:
+    "dbd0f2cd8a070df519b8928bea1ba82adaf56ec906f7cc6ff6fef60fb957f8aa",
+});
 const usage =
   "node test/ui-release-readonly.mjs --execute --origin https://EXPLICIT_ORIGIN --event EVENT_ID --source FULL_GIT_SHA [--source-root PATH] [--baseline] [--extended-layout] [--timeout-ms 90000]";
 function parse(argv, env = {}) {
@@ -177,6 +193,44 @@ function compareAssetBytes(origin, name, served, expected) {
     removedBytes: 0,
   };
   if (exact.matches) return exact;
+  if (origin === reviewedDComment.origin && name === reviewedDComment.asset) {
+    const anchor = Buffer.from(reviewedDComment.anchor, "utf8");
+    if (
+      served.length !== expected.length + reviewedDComment.bytes ||
+      expected.indexOf(anchor) !== reviewedDComment.anchorOffset ||
+      expected.lastIndexOf(anchor) !== reviewedDComment.anchorOffset ||
+      reviewedDComment.anchorOffset + anchor.length !==
+        reviewedDComment.offset ||
+      !served
+        .subarray(reviewedDComment.anchorOffset, reviewedDComment.offset)
+        .equals(anchor)
+    )
+      return exact;
+    const removed = served.subarray(
+      reviewedDComment.offset,
+      reviewedDComment.offset + reviewedDComment.bytes,
+    );
+    if (sha(removed) !== reviewedDComment.sha256) return exact;
+    const normalized = Buffer.concat([
+      served.subarray(0, reviewedDComment.offset),
+      served.subarray(reviewedDComment.offset + reviewedDComment.bytes),
+    ]);
+    if (!normalized.equals(expected)) return exact;
+    return {
+      matches: true,
+      servedSha256,
+      normalizedSha256: sha(normalized),
+      expectedSha256,
+      transform: "remove-exact-reviewed-d-netlify-comment-for-comparison",
+      removedBytes: reviewedDComment.bytes,
+      removedOffset: reviewedDComment.offset,
+      removedSha256: sha(removed),
+      anchorOffset: reviewedDComment.anchorOffset,
+      anchorSha256: sha(anchor),
+      responseDelivered:
+        "Unchanged; normalization applies only to byte comparison",
+    };
+  }
   if (
     origin !== reviewedMainComment.origin ||
     name !== reviewedMainComment.asset ||
@@ -616,6 +670,174 @@ async function selfTest() {
       "Reviewed comment exception rejects " + reason,
     );
   }
+  const dCommentFixture = await fs.readFile(
+    new URL("./fixtures/netlify-d-reviewed-comment.txt", import.meta.url),
+  );
+  ok(
+    dCommentFixture.length === reviewedDComment.bytes,
+    "D trusted literal includes exactly 326 reviewed bytes",
+  );
+  ok(
+    sha(dCommentFixture) === reviewedDComment.sha256,
+    "D trusted literal matches its fixed full digest",
+  );
+  ok(
+    dCommentFixture.at(-1) === 10 &&
+      sha(dCommentFixture.subarray(0, -1)) === reviewedDComment.commentSha256,
+    "D literal already includes the LF removed by its financial helper",
+  );
+  const dHtmlFixture = execFileSync(
+    "git",
+    ["show", `${reviewedDComment.anchorReferenceCommit}:public/index.html`],
+    { cwd: root, maxBuffer: 1_000_000 },
+  );
+  ok(
+    sha(dHtmlFixture) === reviewedDComment.anchorReferenceHtmlSha256,
+    "D anchor reference is the exact reviewed original Git HTML",
+  );
+  const dAnchor = Buffer.from(reviewedDComment.anchor, "utf8");
+  ok(
+    dHtmlFixture.indexOf(dAnchor) === reviewedDComment.anchorOffset &&
+      dHtmlFixture.lastIndexOf(dAnchor) === reviewedDComment.anchorOffset &&
+      reviewedDComment.anchorOffset + dAnchor.length ===
+        reviewedDComment.offset,
+    "D unique charset anchor derives insertion offset 71 from original Git bytes",
+  );
+  const dInserted = (
+    comment,
+    offset = reviewedDComment.offset,
+    body = dHtmlFixture,
+  ) =>
+    Buffer.concat([body.subarray(0, offset), comment, body.subarray(offset)]);
+  const dServed = dInserted(dCommentFixture);
+  const dMatch = compareAssetBytes(
+    reviewedDComment.origin,
+    "index.html",
+    dServed,
+    dHtmlFixture,
+  );
+  ok(
+    dMatch.matches &&
+      dMatch.removedBytes === 326 &&
+      dMatch.removedOffset === 71 &&
+      dMatch.anchorOffset === 46 &&
+      dMatch.removedSha256 === reviewedDComment.sha256 &&
+      dMatch.servedSha256 === sha(dServed) &&
+      dMatch.normalizedSha256 === sha(dHtmlFixture) &&
+      dMatch.transform ===
+        "remove-exact-reviewed-d-netlify-comment-for-comparison",
+    "D exact-origin index insertion alone normalizes to identical reviewed Git bytes",
+  );
+  ok(
+    compareAssetBytes(
+      reviewedDComment.origin,
+      "index.html",
+      dHtmlFixture,
+      dHtmlFixture,
+    ).transform === "exact-bytes",
+    "D unmodified source passes without applying any exception",
+  );
+  const dAlteredComment = Buffer.from(dCommentFixture);
+  dAlteredComment[20] ^= 1;
+  const dAlteredSource = Buffer.from(dServed);
+  dAlteredSource[reviewedDComment.offset + reviewedDComment.bytes + 1] ^= 1;
+  const dWrongAnchor = Buffer.from(dHtmlFixture);
+  dWrongAnchor[reviewedDComment.anchorOffset + 2] ^= 1;
+  for (const [origin, name, bytes, expected, reason] of [
+    [
+      reviewedMainComment.origin,
+      "index.html",
+      dServed,
+      dHtmlFixture,
+      "MAIN origin",
+    ],
+    [
+      "https://kleros-ui-c-20261029-9fe71683.netlify.app",
+      "index.html",
+      dServed,
+      dHtmlFixture,
+      "C origin",
+    ],
+    [
+      "https://other.invalid",
+      "index.html",
+      dServed,
+      dHtmlFixture,
+      "unknown site",
+    ],
+    [
+      reviewedDComment.origin,
+      "app.js",
+      dServed,
+      dHtmlFixture,
+      "non-index asset",
+    ],
+    [
+      reviewedDComment.origin,
+      "index.html",
+      dInserted(dCommentFixture, reviewedDComment.offset + 1),
+      dHtmlFixture,
+      "moved byte offset",
+    ],
+    [
+      reviewedDComment.origin,
+      "index.html",
+      dInserted(dAlteredComment),
+      dHtmlFixture,
+      "altered comment byte",
+    ],
+    [
+      reviewedDComment.origin,
+      "index.html",
+      dAlteredSource,
+      dHtmlFixture,
+      "altered source byte",
+    ],
+    [
+      reviewedDComment.origin,
+      "index.html",
+      dInserted(Buffer.concat([dCommentFixture, dCommentFixture])),
+      dHtmlFixture,
+      "repeated literal",
+    ],
+    [
+      reviewedDComment.origin,
+      "index.html",
+      Buffer.concat([
+        dServed,
+        Buffer.from("<script src='/unknown.js'></script>"),
+      ]),
+      dHtmlFixture,
+      "extra script",
+    ],
+    [
+      reviewedDComment.origin,
+      "index.html",
+      dInserted(dCommentFixture.subarray(0, -1)),
+      dHtmlFixture,
+      "missing literal LF",
+    ],
+    [
+      reviewedDComment.origin,
+      "index.html",
+      dInserted(Buffer.concat([dCommentFixture, Buffer.from("\n")])),
+      dHtmlFixture,
+      "extra literal LF",
+    ],
+    [
+      reviewedDComment.origin,
+      "index.html",
+      dInserted(dCommentFixture, reviewedDComment.offset, dWrongAnchor),
+      dWrongAnchor,
+      "changed charset anchor even when remaining body matches",
+    ],
+  ]) {
+    const rejected = compareAssetBytes(origin, name, bytes, expected);
+    ok(
+      !rejected.matches && rejected.removedBytes === 0,
+      "D comment exception rejects " + reason,
+    );
+  }
   const validatorFixture = "export const syntheticValidator = 'exact-binding';";
   ok(
     validatorSourceBinding(validatorFixture, validatorFixture)
@@ -813,6 +1035,7 @@ async function run(plan) {
     assetComparisonPolicy: {
       default: "Exact bytes",
       reviewedMainComment,
+      reviewedDComment,
       deliveredResponse: "Never modified by this checker",
     },
     passScope: {
@@ -823,7 +1046,7 @@ async function run(plan) {
         ? "Actual serial HTTP responses checked with a synthetic bundle wrapper and local compatibility validator; no release-validator source claim."
         : "Returned selected-event context checked by the exact release-source validator.",
       source:
-        "Observed required frontend assets match the explicit Git source commit; only the fixed reviewed main-site index comment may be removed for comparison.",
+        "Observed required frontend assets match the explicit Git source commit; only the fixed reviewed MAIN or D index comment may be removed for its exact corresponding origin and position.",
       requestCount: plan.baseline
         ? "Legacy arrival API requests are observed, without an optimized request-count gate."
         : "Selected-event arrival uses exactly one API GET.",
@@ -1279,7 +1502,7 @@ async function run(plan) {
           "Required source asset not observed: " + name,
         );
       data.checks.push(
-        "Observed frontend assets match Git source under the exact-byte policy and sole reviewed main-index comment exception; no writes, off-origin traffic, RPC, wallet, WS, service worker or page error",
+        "Observed frontend assets match Git source under the exact-byte policy and narrowly reviewed origin-specific MAIN/D index comment exceptions; no writes, off-origin traffic, RPC, wallet, WS, service worker or page error",
       );
       await context.close();
     }

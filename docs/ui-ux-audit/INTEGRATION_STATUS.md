@@ -90,3 +90,15 @@ This source/binding pass alone is not an optimization acceptance or before/after
 The isolated P2/P3 follow-up is ready at f7db9b486a666648aa3a01dea5d119019d0ac983, with28validator,
 14session browser and27UX checks plus typecheck passed. See SESSION_FIX_REPORT.md. Primary reports
 its backend combined25-test run/typecheck passed; final integrated release review remains pending.
+
+## Final isolated candidate and release boundary
+
+Final combined code is8fd010c7dba27434e8e861178848529614121d09. The actual final checks and
+source hashes are in INTEGRATED_TEST_REPORT.md. The final authority reorg finding is closed;
+root focused40/types/build and real joint12/18load checks passed after earlier broad292/compatibility
+runs. No public release has occurred from this chat.
+
+Primary chose the existing isolated D site/backend for deployment only after its full financial
+completion and explicit baseline GO. Main A/B and C assets/jobs remain unchanged. Offline D checking
+is ready (81 guards); no public D baseline or updated-asset request has been made here. Primary's
+settlement receipt confirmation is not yet treated as completed final proof at this checkpoint.

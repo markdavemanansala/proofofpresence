@@ -27,6 +27,36 @@ deadlines, first read the primary operator’s current canonical brain at
 `/Users/hashmanansala/Documents/ChatGPT/Kleros projects/PROJECT_BRAIN.md`. That chat remains the
 sole signing operator. Never resume financial work from this audit branch’s historical checkpoint.
 
+## Active integration checkpoint — 29 October, UI candidate ready
+
+The human authorized coordination with primary to finish backend optimization, integrate UI fixes and
+update Netlify, preserving financial tests/schedules. Final isolated combined source candidate is
+**8fd010c7dba27434e8e861178848529614121d09**. UI commits ab979223+f7db9b4 and primary backend
+patchab8ab6 plus authority delta9f67c7 are incorporated. Primary owns final integration/deployment;
+never merge this frozen memory or older registry snapshots over its current canonical source.
+
+Actual validation: broad Node292/292 and six browser suites passed on the preceding directory-privacy
+candidate. Final two-file authority hardening then passed focused40/40, types, pinned-ABI/syntax build
+and real v7/v8 joint browser12 groups/18 one-GET loads. Source reviewer closed the canonical-authority
+finding. Exact hashes and scope are in docs/ui-ux-audit/INTEGRATED_TEST_REPORT.md and
+artifacts/ui-ux-audit/integrated/final-authority-validation.json. No financial write occurred here.
+
+Release boundary confirmed by primary: **existing D origin/backend ONLY, AFTER verified full D
+financial completion and explicit complete-baseline GO**. Origin is
+https://kleros-fast15m-d-20261029-9fe71683.netlify.app; event is
+chiado-ui-70688861-87e2-4936-9e2e-bdc9a7c7a5fd-d. Old frontend7bdd40a; new release commit still
+comes from primary. No public D request by this chat is allowed before that GO. Offline release
+checker test/ui-release-readonly.mjs now passes81 guards, with exact separate main/D Netlify comment
+fixtures, strict validator/source bytes, anonymous privacy and one-GET checks. Main paired baseline
+is not a D performance comparison. Public after-release checks/deployment are still pending.
+
+Main A/B remainsf4643f8 (primary fixed optional HUD/badge only); C and original scheduled jobs stay
+on verified frozen d406 operator/142 files, same journals and schedules. D completion does not complete
+older A/B/C flows. Primary reports settlement receipt confirmed but is still closing final UI/aggregate
+proofs at this snapshot; do not declare completion or replay anything from this branch. Read its current
+canonical brain/live coordination for actual financial status. UI reviewer ordinary+ruled presentation
+PASS is scoped in docs/ui-ux-audit/D_CRITICAL_UI_REVIEW.md; settled review awaits explicit stage.
+
 ## Current phase: simpler v8 app and controlled Chiado testnet
 
 The user requested simpler UX, integration of the new contract, and the full deposit→dispute→kickback
@@ -112,11 +142,11 @@ faucet funding; controlled mocks do not establish independent jury arbitration.
 The scheduled C run completed actual UI attendance, Bob's challenge and owner matching, one reviewed
 wallet request/broadcast each; no prior action was replayed:
 
-| Stage | Canonical transaction | Block | UI checks | Independent C observer |
-|---|---|---|---|---|
-| Alice-only attendance | `0x661804b1b74975dc19ac487a9a4b511aa54906938b46efa5583286434954dbfd` |23736947|33|96|
-| Same Bob UI depositor challenges omission | `0x1093fd138977a95c946670de24f4ef267f9ea4b068441b995cf5547d5f91187b` |23737036|31|110|
-| C owner matches | `0xcad5d288f2a518aeef233a989a7a27f225baf54c8536b2a554f6e8c2aa3ad8c2` |23737132|31|115|
+| Stage                                     | Canonical transaction                                                | Block    | UI checks | Independent C observer |
+| ----------------------------------------- | -------------------------------------------------------------------- | -------- | --------- | ---------------------- |
+| Alice-only attendance                     | `0x661804b1b74975dc19ac487a9a4b511aa54906938b46efa5583286434954dbfd` | 23736947 | 33        | 96                     |
+| Same Bob UI depositor challenges omission | `0x1093fd138977a95c946670de24f4ef267f9ea4b068441b995cf5547d5f91187b` | 23737036 | 31        | 110                    |
+| C owner matches                           | `0xcad5d288f2a518aeef233a989a7a27f225baf54c8536b2a554f6e8c2aa3ad8c2` | 23737132 | 31        | 115                    |
 
 Summary/immutable proofs: `artifacts/ui-c-attendance.json`, `ui-c-challenge.json`, `ui-c-match.json`.
 Every operation and full stage proved A/B financial snapshots unchanged. The Waiting-case observer
@@ -535,11 +565,11 @@ Re-read the current branch and compare it with the snapshots. Repository code an
 
 All three default branches were main at review time.
 
-| Repository | Inspected commit | Actual role |
-|---|---|---|
+| Repository                            | Inspected commit                         | Actual role                                                                                                                  |
+| ------------------------------------- | ---------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------- |
 | weiwei-ooi/devcon-side-event-kickback | 57fc1c8233c60e31c1b5988c631ef57d7c3f1b81 | Single-event native ETH deposit contract, Luma CSV verification, attendance disputes, payouts, organizer console, guest page |
-| weiwei-ooi/kleros-events | fa732b8ea20e57648516b6e46e1076c0bf2ab434 | Multi-event directory, private/public events, recordings, materials, live Q&A, personal history, Luma metadata sync |
-| weiwei-ooi/kleros-devcon-checkin | 169220bb41787b8aabdec5190ab85379328f143f | Booth lead collection, optional newsletter signup, promotional merch tiers, Google Sheets dashboard |
+| weiwei-ooi/kleros-events              | fa732b8ea20e57648516b6e46e1076c0bf2ab434 | Multi-event directory, private/public events, recordings, materials, live Q&A, personal history, Luma metadata sync          |
+| weiwei-ooi/kleros-devcon-checkin      | 169220bb41787b8aabdec5190ab85379328f143f | Booth lead collection, optional newsletter signup, promotional merch tiers, Google Sheets dashboard                          |
 
 Repository roots:
 
@@ -574,16 +604,16 @@ Preserve non-deposit participation: the current Luma workflow has a committed sp
 
 ### Required separation of concepts
 
-| Concept | Current meaning | Financial authority? |
-|---|---|---|
-| Event content | Description, venue, program, recordings, public/private visibility | No |
-| Personal “saved/going/attended” record | User's own event history | No |
-| Booth check-in | Lead intake / merch workflow | No |
-| Luma registration approval | Organizer's admission decision | Necessary input for current workflow, not a deposit by itself |
-| Verified deposit | Successful on-chain receipt linked to the relevant wallet and event contract | Financial evidence, subject to current admission model |
-| Verified attendance record | Trusted event-specific check-in or organizer-approved evidence | Input to the attendance proposal |
-| Contract attendance/payout state | On-chain state after proposal, challenge rules, and final case outcomes | Authoritative for settlement |
-| Newsletter consent/confirmation | Marketing preference and subscription state | Never |
+| Concept                                | Current meaning                                                              | Financial authority?                                          |
+| -------------------------------------- | ---------------------------------------------------------------------------- | ------------------------------------------------------------- |
+| Event content                          | Description, venue, program, recordings, public/private visibility           | No                                                            |
+| Personal “saved/going/attended” record | User's own event history                                                     | No                                                            |
+| Booth check-in                         | Lead intake / merch workflow                                                 | No                                                            |
+| Luma registration approval             | Organizer's admission decision                                               | Necessary input for current workflow, not a deposit by itself |
+| Verified deposit                       | Successful on-chain receipt linked to the relevant wallet and event contract | Financial evidence, subject to current admission model        |
+| Verified attendance record             | Trusted event-specific check-in or organizer-approved evidence               | Input to the attendance proposal                              |
+| Contract attendance/payout state       | On-chain state after proposal, challenge rules, and final case outcomes      | Authoritative for settlement                                  |
+| Newsletter consent/confirmation        | Marketing preference and subscription state                                  | Never                                                         |
 
 Product roles should distinguish attendee, event content editor, door/check-in staff, financial organizer/contract owner, and platform administrator. A content role or confirmed team email must not automatically acquire wallet signing authority.
 
@@ -605,38 +635,38 @@ A unified user experience need not rewrite every existing subsystem in its first
 - Luma CSV input and optional manual door-list CSV.
 - No multi-event application database or event registry in the inspected implementation. [K1] [K6]
 
-| Path | Purpose |
-|---|---|
-| contracts/TruthPaysKickback.sol | Custody, admission state, attendance, challenge/matching, held shares, refunds, claims |
-| scripts/lib.mjs | Configuration, chain constants, CSV helpers, RPC scans, matching, metaevidence construction |
-| scripts/verify-deposits.mjs | Guest CSV + transaction receipt/log verification + approval categorization |
-| scripts/build-payout.mjs | Trusted check-in import matched to verified identities and current stakers |
-| scripts/owner.mjs | Developer CLI for organizer actions |
-| scripts/console.mjs and console/index.html | Local organizer interface |
-| scripts/build-site.mjs and site/index.html | Public guest/deposit/case interface |
-| docs/attendance-policy.md | Published juror policy for the existing event |
-| docs/metaevidence.template.json | Case description template |
-| deployments/truth-pays-mainnet/ | Recorded deployment and verification inputs |
-| test/ | Existing contract, script, browser, and local-fork test suites |
-| CLAUDE.md and REVIEW.md | Operational memory and prior review history |
+| Path                                       | Purpose                                                                                     |
+| ------------------------------------------ | ------------------------------------------------------------------------------------------- |
+| contracts/TruthPaysKickback.sol            | Custody, admission state, attendance, challenge/matching, held shares, refunds, claims      |
+| scripts/lib.mjs                            | Configuration, chain constants, CSV helpers, RPC scans, matching, metaevidence construction |
+| scripts/verify-deposits.mjs                | Guest CSV + transaction receipt/log verification + approval categorization                  |
+| scripts/build-payout.mjs                   | Trusted check-in import matched to verified identities and current stakers                  |
+| scripts/owner.mjs                          | Developer CLI for organizer actions                                                         |
+| scripts/console.mjs and console/index.html | Local organizer interface                                                                   |
+| scripts/build-site.mjs and site/index.html | Public guest/deposit/case interface                                                         |
+| docs/attendance-policy.md                  | Published juror policy for the existing event                                               |
+| docs/metaevidence.template.json            | Case description template                                                                   |
+| deployments/truth-pays-mainnet/            | Recorded deployment and verification inputs                                                 |
+| test/                                      | Existing contract, script, browser, and local-fork test suites                              |
+| CLAUDE.md and REVIEW.md                    | Operational memory and prior review history                                                 |
 
 ### 5.2 Recorded deployment
 
 The repository records this deployment; verify current on-chain state separately if needed for implementation. Do not infer current balances or active users from the record. [K3]
 
-| Field | Recorded value |
-|---|---|
-| Chain | Ethereum mainnet, chain ID 1 |
-| Event | Truth Pays: Devcon Mumbai 2026 |
-| Contract | 0xd5c6A73c05FA431c748781DaBAA99Fe2590d677D |
-| Deposit | 0.01 ETH |
-| Deployment block | 26290226 |
-| Deployment time | 28 October 2026, 09:07:59 UTC / 16:07:59 Asia/Bangkok |
-| Event start | 4 November 2026, 18:00 Asia/Kolkata / 19:30 Asia/Bangkok |
-| Attendance-posting deadline | 18 November 2026, 18:00 Asia/Kolkata |
-| Recorded source revision | 21b8f58, v7 |
-| Arbitrator route | Kleros V1 Dispute Resolver → KlerosLiquid, General Court, three jurors |
-| Upgrade model | Direct deployment; no upgradeable proxy in this contract |
+| Field                       | Recorded value                                                         |
+| --------------------------- | ---------------------------------------------------------------------- |
+| Chain                       | Ethereum mainnet, chain ID 1                                           |
+| Event                       | Truth Pays: Devcon Mumbai 2026                                         |
+| Contract                    | 0xd5c6A73c05FA431c748781DaBAA99Fe2590d677D                             |
+| Deposit                     | 0.01 ETH                                                               |
+| Deployment block            | 26290226                                                               |
+| Deployment time             | 28 October 2026, 09:07:59 UTC / 16:07:59 Asia/Bangkok                  |
+| Event start                 | 4 November 2026, 18:00 Asia/Kolkata / 19:30 Asia/Bangkok               |
+| Attendance-posting deadline | 18 November 2026, 18:00 Asia/Kolkata                                   |
+| Recorded source revision    | 21b8f58, v7                                                            |
+| Arbitrator route            | Kleros V1 Dispute Resolver → KlerosLiquid, General Court, three jurors |
+| Upgrade model               | Direct deployment; no upgradeable proxy in this contract               |
 
 The contract's claimDeadline is used for timely attendance posting and the no-list emergency withdrawal path. Do not rename it in the UI as a universal deadline for every claim or arbitrated case.
 
@@ -669,11 +699,11 @@ Contract phases are Open, Listed, Finalized, and Cancelled. Finalized does not m
 
 Current ruling policy:
 
-| Ruling | Attendance result | Remaining challenge deposits |
-|---|---|---|
-| 1, Attended | Participant becomes an attendee | Challenger receives the remainder after arbitration cost |
-| 2, Did not attend | Participant remains excluded | Matcher receives that remainder |
-| 0, Refused to arbitrate | Same attendance treatment as absent | Remainder split between challenger and matcher |
+| Ruling                  | Attendance result                   | Remaining challenge deposits                             |
+| ----------------------- | ----------------------------------- | -------------------------------------------------------- |
+| 1, Attended             | Participant becomes an attendee     | Challenger receives the remainder after arbitration cost |
+| 2, Did not attend       | Participant remains excluded        | Matcher receives that remainder                          |
+| 0, Refused to arbitrate | Same attendance treatment as absent | Remainder split between challenger and matcher           |
 
 Do not invent a principal-refund fallback for ruling 0. The current deployed policy already specifies its treatment. [K2] [K7]
 
@@ -786,15 +816,15 @@ X/LinkedIn steps are recorded on tap and quiz progression is client-reported/ret
 
 ### 7.2 Verified multi-event limitations and defects
 
-| Finding | Source-observed behavior | Required treatment if this module enters the new product |
-|---|---|---|
-| Global client state | Local storage keys use kleros_devcon_self and global queues; a previous ticket reopens without event validation | Namespace storage and jobs by stable event ID and environment |
-| Cross-event identity checks | Claimed-email and Telegram checks scan the whole sheet without Event scoping | Define uniqueness within the intended event/edition |
-| Incomplete exports | Dashboard record mapping and CSV omit Event | Include event identity in views and exports |
-| Weak server intake validation | checkIn_ requires id/ticket/name/company; form-only required fields include valid email and interests | Validate field types, lengths, canonical event, and input shape on server |
-| Consent display defect | Dashboard marks newsletter Confirmed after successful merch handover | Keep consent, subscription confirmation, eligibility and handover separate |
-| Shared admin bearer credential | Key persisted in localStorage and sent in URLs; merch changes via GET | Use scoped staff authorization and authenticated mutations in a larger product |
-| Documentation drift | Early setup prose says everyone must wait for Ghost; later policy and code exempt opt-outs / gate-off behavior | Reconcile documentation with intended behavior and actual configuration |
+| Finding                        | Source-observed behavior                                                                                        | Required treatment if this module enters the new product                       |
+| ------------------------------ | --------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------ |
+| Global client state            | Local storage keys use kleros_devcon_self and global queues; a previous ticket reopens without event validation | Namespace storage and jobs by stable event ID and environment                  |
+| Cross-event identity checks    | Claimed-email and Telegram checks scan the whole sheet without Event scoping                                    | Define uniqueness within the intended event/edition                            |
+| Incomplete exports             | Dashboard record mapping and CSV omit Event                                                                     | Include event identity in views and exports                                    |
+| Weak server intake validation  | checkIn\_ requires id/ticket/name/company; form-only required fields include valid email and interests          | Validate field types, lengths, canonical event, and input shape on server      |
+| Consent display defect         | Dashboard marks newsletter Confirmed after successful merch handover                                            | Keep consent, subscription confirmation, eligibility and handover separate     |
+| Shared admin bearer credential | Key persisted in localStorage and sent in URLs; merch changes via GET                                           | Use scoped staff authorization and authenticated mutations in a larger product |
+| Documentation drift            | Early setup prose says everyone must wait for Ghost; later policy and code exempt opt-outs / gate-off behavior  | Reconcile documentation with intended behavior and actual configuration        |
 
 These findings do not demonstrate a live exploit or leaked credential. The admin key's value was not obtained. [B2] [B3] [B4]
 
@@ -812,11 +842,11 @@ Codex should make and record an architecture decision after baseline inspection,
 
 Compare these three options:
 
-| Option | Advantages | Costs and main risks |
-|---|---|---|
-| Extend the three apps and add adapters | Small initial changes, existing operations remain familiar | Fragmented UX, duplicated configuration/auth, cross-repo releases |
-| Unified web application using the events app as a foundation, modular Kickback integration | Reuses event IDs, content/admin surface, auth and privacy work; can replace static financial UI | Existing code breadth, role separation, careful migrations and permission testing |
-| Clean new application or monorepo using the old repos as reference/compatibility modules | Clear domain boundaries, consistent testing and UI, controlled developer setup | Greater rebuild and data-migration work, risk of dropping proven financial behavior and useful existing features |
+| Option                                                                                     | Advantages                                                                                      | Costs and main risks                                                                                             |
+| ------------------------------------------------------------------------------------------ | ----------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------- |
+| Extend the three apps and add adapters                                                     | Small initial changes, existing operations remain familiar                                      | Fragmented UX, duplicated configuration/auth, cross-repo releases                                                |
+| Unified web application using the events app as a foundation, modular Kickback integration | Reuses event IDs, content/admin surface, auth and privacy work; can replace static financial UI | Existing code breadth, role separation, careful migrations and permission testing                                |
+| Clean new application or monorepo using the old repos as reference/compatibility modules   | Clear domain boundaries, consistent testing and UI, controlled developer setup                  | Greater rebuild and data-migration work, risk of dropping proven financial behavior and useful existing features |
 
 **Recommended starting hypothesis:** a unified interface and shared event domain with separate modules for content, financial commitments, and verified check-in, backed by a versioned adapter to separate per-event Kickback contracts. The current Next/Supabase app is a plausible foundation. Choose a cleaner new application if inspection demonstrates lower total complexity and a credible compatibility/migration path.
 
@@ -1165,4 +1195,3 @@ All references below are pinned to the inspected commits. Review newer commits b
 [B5]: https://github.com/weiwei-ooi/kleros-devcon-checkin/blob/169220bb41787b8aabdec5190ab85379328f143f/scripts/apps-script-bundle.sh
 [B6]: https://github.com/weiwei-ooi/kleros-devcon-checkin/blob/169220bb41787b8aabdec5190ab85379328f143f/site/config.js
 [B7]: https://github.com/weiwei-ooi/kleros-devcon-checkin/blob/169220bb41787b8aabdec5190ab85379328f143f/site/connect.html
-
