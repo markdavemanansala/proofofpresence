@@ -1,0 +1,572 @@
+
+> kleros-event-workbench@1.0.0 test
+> npm run compile:v8 && npm run compile:test15m && node --test --test-concurrency=1 test/*.test.mjs
+
+
+> kleros-event-workbench@1.0.0 compile:v8
+> node scripts/compile-contracts.mjs
+
+Compiled KlerosEventV8: creation 24258, runtime 21206 bytes
+Compiled KlerosEventFactoryV8: creation 27944, runtime 2803 bytes
+
+> kleros-event-workbench@1.0.0 compile:test15m
+> node scripts/compile-contracts-test15m.mjs
+
+Compiled KlerosEventV8Test15m: creation 24305, runtime 21205 bytes
+Compiled KlerosEventFactoryV8Test15m: creation 28043, runtime 2807 bytes
+bigint: Failed to load bindings, pure JS will be used (try npm run rebuild?)
+This version of µWS is not compatible with your Node.js build:
+
+Error: Cannot find module '../binaries/uws_darwin_arm64_141.node'
+Require stack:
+- /Users/hashmanansala/Documents/ChatGPT/Kleros projects/node_modules/ganache/node_modules/@trufflesuite/uws-js-unofficial/src/uws.js
+- /Users/hashmanansala/Documents/ChatGPT/Kleros projects/node_modules/ganache/dist/node/core.js
+Falling back to a NodeJS implementation; performance may be degraded.
+
+
+✔ reviewed Court delivery respects a one-sided appeal override and direct contributor rewards (15398.323416ms)
+✔ batch pending intent survives reload and external-backend restart without contacts or proof fabrication (0.896375ms)
+✔ pending batch scope isolates wallet/event/contract/chain/action/origin and ephemeral local resets (0.119083ms)
+✔ an unresolved batch cannot be overwritten, corrupted or silently dropped (0.216584ms)
+✔ storage failures cannot masquerade as a safely journaled commit (0.082917ms)
+bigint: Failed to load bindings, pure JS will be used (try npm run rebuild?)
+This version of µWS is not compatible with your Node.js build:
+
+Error: Cannot find module '../binaries/uws_darwin_arm64_141.node'
+Require stack:
+- /Users/hashmanansala/Documents/ChatGPT/Kleros projects/node_modules/ganache/node_modules/@trufflesuite/uws-js-unofficial/src/uws.js
+- /Users/hashmanansala/Documents/ChatGPT/Kleros projects/node_modules/ganache/dist/node/core.js
+Falling back to a NodeJS implementation; performance may be degraded.
+
+
+✔ batch preview keeps every selected row and masks contacts for unknown, foreign or unverified wallet links (3.927083ms)
+✔ batch input rejects duplicate wallets/participants, unsupported actions, extra fields and oversized selection (1.962958ms)
+✔ approval commit is explicit, complete, audited and retry-idempotent without financial registration (0.534417ms)
+✔ uncommitted reviews bind event, active session, actor and exact nonce, and expire at the boundary (0.326291ms)
+✔ revision, selected record, deployment and canonical state changes invalidate review atomically (0.767209ms)
+✔ returned/unavailable deposits and closed admission phases cannot become curated approvals (0.533416ms)
+✔ a role revoked during slow preview validation cannot receive selected guest contacts (0.271417ms)
+✔ current owner transfer revokes both pending commits and completed result replay (0.400334ms)
+✔ staff can check in linked free guests only during actual hours, using chain time and replay-safe IDs (0.614291ms)
+✔ expiry or event end reached during asynchronous final validation cannot leave partial check-ins (0.5055ms)
+✔ synchronous persistence failure rolls back all approvals, observations, nonce use, audit and revision; retry applies once (0.485042ms)
+✔ concurrent batch commits create one complete audit and single-request races preserve the newer individual decision (0.390209ms)
+✔ batch status reports ready/blocked/ambiguous unknown without contacts and permits same-wallet relogin only for reads (0.483708ms)
+✔ batch status keeps the actual paused commit committing after TTL and unrelated preview pruning (0.291791ms)
+✔ batch status sees completion during a paused authorization instead of falsely releasing as expired (0.174041ms)
+✔ batch status recovers committed audit results after service restart and requires current authority (0.336458ms)
+✔ batch status reauthorizes the actual action when an ambiguous lookup becomes a committed approval (0.182125ms)
+✔ batch status terminal expiry prevents delayed apply after clock rewind or restored financial fingerprint (0.84125ms)
+✔ actual v8 HTTP approval keeps mixed unknown/returned wallets blocked and is separate from financial registration (24693.874666ms)
+✔ actual v8 HTTP staff batch observes paid and free guests at chain time, stays replay-safe and does not post financial attendance (17306.146041ms)
+✔ batch status HTTP GET requires authentication and exact wallet/event/deployment scope across relogin (23674.990709ms)
+bigint: Failed to load bindings, pure JS will be used (try npm run rebuild?)
+This version of µWS is not compatible with your Node.js build:
+
+Error: Cannot find module '../binaries/uws_darwin_arm64_141.node'
+Require stack:
+- /Users/hashmanansala/Documents/ChatGPT/Kleros projects/node_modules/ganache/node_modules/@trufflesuite/uws-js-unofficial/src/uws.js
+- /Users/hashmanansala/Documents/ChatGPT/Kleros projects/node_modules/ganache/dist/node/core.js
+Falling back to a NodeJS implementation; performance may be degraded.
+
+
+✔ v7 trust boundary: pending deposits are spare, owner can redirect them, outsider cannot (191.149333ms)
+✔ v7 trust boundary: aggregate funding permits a nonpayer registration and unchallengeable inclusion (148.406458ms)
+✔ v7 recovery gap: Open accepts deposits after claimDeadline but unregistered payer cannot self-withdraw (143.824541ms)
+✔ v7 ownership transfer leaves immutable organizer evidence identity unchanged (720.170042ms)
+security capacity probe: 240 attendees require 20123447 gas; cap 16777216
+✔ v7 capacity gap: 240 gas-burning attendees exceed the Ethereum transaction gas cap (2880.251417ms)
+✔ D observer requires externally reviewed exact plan/origin/child/raw-manifest pins (6.881583ms)
+✔ matching raw hash cannot authorize mainnet, production ABI or incorrect timers (1.091959ms)
+✔ D CLI cannot run with omitted, duplicate or unknown public pins or phases (0.2465ms)
+✔ ordinary and delivered-ruling checkpoints preserve unpaid Bob held share (0.373875ms)
+✔ settled proof requires exact Bob attendance delivery, correct recipient and cleared liabilities (0.304667ms)
+✔ payment reconciliation rejects altered amount, receipt, recipient and duplicates (4.717917ms)
+bigint: Failed to load bindings, pure JS will be used (try npm run rebuild?)
+This version of µWS is not compatible with your Node.js build:
+
+Error: Cannot find module '../binaries/uws_darwin_arm64_141.node'
+Require stack:
+- /Users/hashmanansala/Documents/ChatGPT/Kleros projects/node_modules/ganache/node_modules/@trufflesuite/uws-js-unofficial/src/uws.js
+- /Users/hashmanansala/Documents/ChatGPT/Kleros projects/node_modules/ganache/dist/node/core.js
+Falling back to a NodeJS implementation; performance may be degraded.
+
+
+✔ real v8 inbox tracks unknown receive deposits, partial credit recovery, readmission, wrapper refunds/owed and payout without inventing contacts (19347.1755ms)
+✔ v7 inbox preserves aggregate-spare semantics and reports successful refunds without inventing payer-owned credit (1486.073875ms)
+bigint: Failed to load bindings, pure JS will be used (try npm run rebuild?)
+This version of µWS is not compatible with your Node.js build:
+
+Error: Cannot find module '../binaries/uws_darwin_arm64_141.node'
+Require stack:
+- /Users/hashmanansala/Documents/ChatGPT/Kleros projects/node_modules/ganache/node_modules/@trufflesuite/uws-js-unofficial/src/uws.js
+- /Users/hashmanansala/Documents/ChatGPT/Kleros projects/node_modules/ganache/dist/node/core.js
+Falling back to a NodeJS implementation; performance may be degraded.
+
+
+✔ inbox projection pins reads, validates exact canonical lots and accepts wrapper payers (3.551666ms)
+✔ inbox rejects missing/failed receipts, forged logs, duplicate lots and noncanonical blocks (2.258209ms)
+✔ inbox refuses overlong history or excess lots before ledger/payment indexing (0.3085ms)
+✔ cache singleflight, manual cooldown, fresh provenance checks and exact contact joins (2.829542ms)
+✔ a known reorg hides orphaned rows even when rebuilding fails, without leaking errors (0.61375ms)
+✔ cache is registry scoped and current ownership is checked even before cached access (0.402958ms)
+✔ unavailable current ownership never discloses cached contacts, and a wrong chain fails cache reuse closed (0.272375ms)
+✔ first index failure returns an explicit empty stale status and recovers only through a successful bounded index (0.264ms)
+✔ transient indexing failure preserves still-canonical last-good rows as explicitly non-actionable (0.266416ms)
+✔ client timeout aborts new work and retains underlying singleflight until the actual operation ends (12.762125ms)
+✔ ownership changing during an awaited index prevents final contact disclosure (0.280375ms)
+bigint: Failed to load bindings, pure JS will be used (try npm run rebuild?)
+This version of µWS is not compatible with your Node.js build:
+
+Error: Cannot find module '../binaries/uws_darwin_arm64_141.node'
+Require stack:
+- /Users/hashmanansala/Documents/ChatGPT/Kleros projects/node_modules/ganache/node_modules/@trufflesuite/uws-js-unofficial/src/uws.js
+- /Users/hashmanansala/Documents/ChatGPT/Kleros projects/node_modules/ganache/dist/node/core.js
+Falling back to a NodeJS implementation; performance may be degraded.
+
+
+✔ v8 factory stores exact immutable child code and respects runtime/initcode limits (582.889833ms)
+✔ v8 event identities isolate creator, factory and chain domains; copied keys cannot front-run (657.562ms)
+✔ v8 factory rejects invalid creation atomically and retains no privileged custody path (504.896875ms)
+✔ v8 factory-created events isolate shared participants, disputes, held shares and settlement (1706.828666ms)
+✔ v8 template helper escapes event data and exposes per-case organizer aliases (639.009792ms)
+bigint: Failed to load bindings, pure JS will be used (try npm run rebuild?)
+This version of µWS is not compatible with your Node.js build:
+
+Error: Cannot find module '../binaries/uws_darwin_arm64_141.node'
+Require stack:
+- /Users/hashmanansala/Documents/ChatGPT/Kleros projects/node_modules/ganache/node_modules/@trufflesuite/uws-js-unofficial/src/uws.js
+- /Users/hashmanansala/Documents/ChatGPT/Kleros projects/node_modules/ganache/dist/node/core.js
+Falling back to a NodeJS implementation; performance may be degraded.
+
+
+✔ v8 waits for delivered final ruling across a funded appeal and rewards actual contributors directly (739.597041ms)
+✔ v8 follows one-sided appeal funding override and leaves contributor reimbursements outside custody (673.068834ms)
+✔ v8 ruling zero excludes the challenger, splits challenge escrow and redistributes its held share while retaining pending credit (500.438458ms)
+✔ v8 cancellation and subsequent owed claims resist recipient callbacks without consuming pending credit (264.861375ms)
+bigint: Failed to load bindings, pure JS will be used (try npm run rebuild?)
+This version of µWS is not compatible with your Node.js build:
+
+Error: Cannot find module '../binaries/uws_darwin_arm64_141.node'
+Require stack:
+- /Users/hashmanansala/Documents/ChatGPT/Kleros projects/node_modules/ganache/node_modules/@trufflesuite/uws-js-unofficial/src/uws.js
+- /Users/hashmanansala/Documents/ChatGPT/Kleros projects/node_modules/ganache/dist/node/core.js
+Falling back to a NodeJS implementation; performance may be degraded.
+
+
+✔ test15m factory fixes version, 900-second windows and exact child code within EVM size limits (536.661708ms)
+✔ test15m factory and direct child constructors reject Ethereum, Gnosis and ordinary local chain IDs (281.23125ms)
+✔ test15m factory events isolate creators, deposits, pending credits and owner permissions (604.402792ms)
+✔ test15m payout remains too early at the exact 900-second boundary and pays immediately after (139.236875ms)
+✔ test15m unmatched challenge gets a full 900 seconds and only resolves after its exact boundary (433.446959ms)
+✔ test15m ordinary batch holds Bob's share until delivered ruling1 and pays that same Bob (552.734417ms)
+✔ test15m ruling0 retains production refusal economics, odd collateral split and protected pending credit (556.503167ms)
+bigint: Failed to load bindings, pure JS will be used (try npm run rebuild?)
+This version of µWS is not compatible with your Node.js build:
+
+Error: Cannot find module '../binaries/uws_darwin_arm64_141.node'
+Require stack:
+- /Users/hashmanansala/Documents/ChatGPT/Kleros projects/node_modules/ganache/node_modules/@trufflesuite/uws-js-unofficial/src/uws.js
+- /Users/hashmanansala/Documents/ChatGPT/Kleros projects/node_modules/ganache/dist/node/core.js
+Falling back to a NodeJS implementation; performance may be degraded.
+
+
+✔ v8 reserves per-wallet pending credit: owner cannot redirect it or register a nonpayer (259.495625ms)
+✔ v8 pending withdrawal supports partial/alternate recovery and reverts atomically on a failed recipient (132.856542ms)
+✔ v8 rejects reused credit and preserves principal plus excess through rejection/readmission/cancellation (165.156125ms)
+✔ v8 deposit cutoff and no-list recovery preserve unregistered credit without organizer action (123.434959ms)
+✔ v8 pending withdrawal callback cannot reenter or spend another credit (108.307958ms)
+✔ v8 pending withdrawals during Listed leave admitted attendance collateral intact (140.19775ms)
+✔ v8 failed pending-payer rejection reserves owed principal independently from excess credit (129.013125ms)
+✔ v8 caps lifetime unique admissions and repeated readmission never grows settlement history (2000.785292ms)
+✔ v8 final absent/refused rulings cannot be overridden by addAttendees inside the original window (827.534ms)
+✔ v8 case organizer identity follows ownership before challenge and stays fixed afterward (1518.197958ms)
+v8 maximal metadata match: 1720652 gas, encoded template 12288 bytes / 32 slots
+✔ v8 metadata bounds reject excess size/slots and a maximal valid case matches below the gas cap (4027.110958ms)
+✔ v8 rejects a resolver that names an EOA as its arbitrator (22.585792ms)
+v8 worst failure gas: 150 release 12611013, open-case release 12576884, lost-case settlement 9188135
+✔ v8 bounded 150-recipient failure batches preserve pending reserves and fit the transaction cap (5203.809ms)
+✔ v8 seeded settlement orders conserve pool, pending reserves and equal held shares with failed-wallet claims (5493.791083ms)
+✔ gateway configuration requires a fixed credential-free HTTPS backend origin and a strong proxy key (0.832042ms)
+✔ API reads use the fixed backend, preserve query data and cookies, and discard caller-controlled forwarding headers (18.971625ms)
+✔ API mutations forward the actual same-origin body and cookie without manufacturing success (0.715959ms)
+✔ wrong public URL origin fails closed even with a forged correct Origin, including RPC (0.41825ms)
+✔ all API writes require the exact actual public Origin; the RPC exception cannot authorize API actions (0.917791ms)
+✔ only workbench route prefixes and supported HTTP methods reach the backend (0.386792ms)
+✔ advanced finance and local evidence/policy routes remain fixed-origin reads (0.297459ms)
+✔ API response bytes, status and Secure cookie survive while caching is forced private (0.189833ms)
+✔ JSON and evidence upload limits reject oversized bodies before any upstream request (0.764625ms)
+✔ valid local evidence bytes and content type are passed through without reinterpretation (0.159459ms)
+✔ unexpected mutation content types are rejected before parsing or forwarding user data (0.160875ms)
+✔ HEAD remains a fixed-origin read and cannot leak an upstream response body (0.116166ms)
+✔ RPC accepts a native-wallet Origin but strips ambient authorization and cookies in both directions (0.190833ms)
+✔ RPC with no Origin is normalized only on the exact RPC endpoint (0.152625ms)
+✔ RPC OPTIONS is a local credential-free preflight and cannot proxy an API method (0.128416ms)
+✔ encoded/query-controlled destinations cannot move the upstream request to another host (0.103167ms)
+✔ backend redirects are never followed with the proxy secret (0.088167ms)
+✔ transport errors produce an explicit unavailable response without leaking secrets or fabricated data (0.127041ms)
+✔ RPC transport failures retain public cookie-free CORS without exposing backend errors (0.123334ms)
+bigint: Failed to load bindings, pure JS will be used (try npm run rebuild?)
+This version of µWS is not compatible with your Node.js build:
+
+Error: Cannot find module '../binaries/uws_darwin_arm64_141.node'
+Require stack:
+- /Users/hashmanansala/Documents/ChatGPT/Kleros projects/node_modules/ganache/node_modules/@trufflesuite/uws-js-unofficial/src/uws.js
+- /Users/hashmanansala/Documents/ChatGPT/Kleros projects/node_modules/ganache/dist/node/core.js
+Falling back to a NodeJS implementation; performance may be degraded.
+
+
+✔ hosted legacy financial pages refuse another chain1337 instance before signing (1491.792666ms)
+✔ hosted configuration is explicit and rejects incomplete or insecure origins and proxy credentials (0.220459ms)
+✔ only minimal health is public; all other hosted routes require the exact backend Host and proxy key (258.694584ms)
+✔ hosted sessions require the public HTTPS origin and issue secure cookies and public-domain nonces (505.383916ms)
+✔ hosted RPC allows reads but rejects unlocked/admin calls and unsigned, foreign, oversized or unregistered transactions (74.502792ms)
+✔ hosted wallet transport mines an actual signed reviewed deposit without an RPC session cookie (1528.532625ms)
+✔ hosted compatibility pages use the public same-origin RPC and writable instance-scoped runtime root (1134.674042ms)
+✔ hosted wallet accepts only the captured instance block hash (1.042083ms)
+✔ another chain1337 instance is rejected before signing (0.211084ms)
+✔ missing or failed wallet block reads fail closed (0.123041ms)
+✔ missing instance metadata fails before any wallet request (0.060041ms)
+bigint: Failed to load bindings, pure JS will be used (try npm run rebuild?)
+This version of µWS is not compatible with your Node.js build:
+
+Error: Cannot find module '../binaries/uws_darwin_arm64_141.node'
+Require stack:
+- /Users/hashmanansala/Documents/ChatGPT/Kleros projects/node_modules/ganache/node_modules/@trufflesuite/uws-js-unofficial/src/uws.js
+- /Users/hashmanansala/Documents/ChatGPT/Kleros projects/node_modules/ganache/dist/node/core.js
+Falling back to a NodeJS implementation; performance may be degraded.
+
+
+✔ HTTP import preview never applies rows before explicit reviewed single-use commit (3408.096417ms)
+✔ local evidence upload preserves exact bytes and reports their SHA256 without a public pin (3.659459ms)
+✔ local HTTP rejects cross-origin writes, spoofed hosts, RPC mutations and unauthenticated event actions (498.244333ms)
+✔ HTTP sessions rotate; owner-only details and participant rows stay event scoped (1679.742542ms)
+✔ wallet authentication verifies domain-bound expiring signed nonce and rejects replay (368.862208ms)
+✔ logging into the same demo wallet creates a new signing context and invalidates an earlier draft (435.457208ms)
+✔ legacy local modules contain only selected event and loopback RPC/upload configuration (2150.210542ms)
+✔ private event HTTP routes exclude outsiders while retaining creator access (1528.58125ms)
+✔ concurrent local servers cannot overwrite each other’s generated financial configuration (2266.600083ms)
+✔ editorial draft privacy preserves existing participants' financial recovery access (2655.137875ms)
+bigint: Failed to load bindings, pure JS will be used (try npm run rebuild?)
+This version of µWS is not compatible with your Node.js build:
+
+Error: Cannot find module '../binaries/uws_darwin_arm64_141.node'
+Require stack:
+- /Users/hashmanansala/Documents/ChatGPT/Kleros projects/node_modules/ganache/node_modules/@trufflesuite/uws-js-unofficial/src/uws.js
+- /Users/hashmanansala/Documents/ChatGPT/Kleros projects/node_modules/ganache/dist/node/core.js
+Falling back to a NodeJS implementation; performance may be degraded.
+
+
+✔ guest and attendance previews expose proposed rows and received CSV text provenance without applying anything (2389.414542ms)
+✔ missing review is retryable, commit is explicit and a successful opaque ID is single-use (1814.182292ms)
+✔ caller input and returned proposal edits cannot rewrite the server-owned import (1427.92725ms)
+✔ event, wallet and same-wallet new-session mismatches fail without consuming the legitimate preview (2601.107625ms)
+✔ a review cannot override known source conflicts or duplicate financial evidence (4096.134833ms)
+✔ revision, event deployment and financial state changes invalidate an original preview (3359.7465ms)
+✔ an unrelated event transaction does not invalidate this event's unchanged review (3105.247375ms)
+✔ expiry is enforced at the exact boundary and again after receipt RPC validation (3255.709625ms)
+✔ same-ID and same-source concurrent commits create exactly one complete batch (2749.139208ms)
+✔ a concurrent admission change during receipt validation preserves the new decision and blocks import mutation (2923.715583ms)
+✔ the compatibility import route remains explicit and invalidates a prior preview (4783.736667ms)
+✔ commit reauthorizes the current financial owner, including a private ownership transition (4194.0335ms)
+✔ retained booth demo newsletter work can flush after a live config switch (documented legacy risk) (3.217584ms)
+✔ retained booth Connect demo queue can flush after config switch (documented legacy risk) (0.88675ms)
+✔ legacy merch status is promotional and accepts client reported quiz/social steps (0.966875ms)
+bigint: Failed to load bindings, pure JS will be used (try npm run rebuild?)
+This version of µWS is not compatible with your Node.js build:
+
+Error: Cannot find module '../binaries/uws_darwin_arm64_141.node'
+Require stack:
+- /Users/hashmanansala/Documents/ChatGPT/Kleros projects/node_modules/ganache/node_modules/@trufflesuite/uws-js-unofficial/src/uws.js
+- /Users/hashmanansala/Documents/ChatGPT/Kleros projects/node_modules/ganache/dist/node/core.js
+Falling back to a NodeJS implementation; performance may be degraded.
+
+
+✔ payment projection indexes actual attendance payouts and late top-ups at a fixed canonical block (3086.117167ms)
+✔ principal returns, failed credits and alternate-recipient claims stay separate without double counting (2207.892875ms)
+✔ CSV parser preserves quoted commas, newlines, escaped quotes and BOM (1.133875ms)
+✔ CSV parser rejects malformed quoting, ragged records and normalized duplicate headers (1.068875ms)
+✔ known event, chain, contract and Luma conflicts stay hard-blocked despite provenance (0.510042ms)
+✔ foreign participant ID cannot fall back to a matching event email or wallet (0.098542ms)
+✔ email identity matching is case-insensitive and wallet-only rows require supported identity (0.1205ms)
+✔ duplicate participants, reused and malformed receipt evidence are visible and block whole review (0.12025ms)
+✔ new receipt references remain explicitly unverified; preview never mutates supplied projections (0.067792ms)
+✔ free, pending, declined and missing-deposit rows remain visible outside reward-pool registration (0.094792ms)
+✔ personal history or merch cannot substitute for trusted attendance timestamp (0.063666ms)
+✔ trusted observations respect timezone, current chain time and this event's time window (0.594125ms)
+bigint: Failed to load bindings, pure JS will be used (try npm run rebuild?)
+This version of µWS is not compatible with your Node.js build:
+
+Error: Cannot find module '../binaries/uws_darwin_arm64_141.node'
+Require stack:
+- /Users/hashmanansala/Documents/ChatGPT/Kleros projects/node_modules/ganache/node_modules/@trufflesuite/uws-js-unofficial/src/uws.js
+- /Users/hashmanansala/Documents/ChatGPT/Kleros projects/node_modules/ganache/dist/node/core.js
+Falling back to a NodeJS implementation; performance may be degraded.
+
+
+✔ manual deposit receipt recovery retires the pending reference and permits a fresh deposit after refund (3560.031292ms)
+✔ expired non-deposit submissions reconcile across same-wallet sessions without restoring signing authority or resending (1847.891625ms)
+✔ a canonical reverted submission reconciles as failed without inventing payment or owed credit (1711.064875ms)
+✔ a deposit signed after cancellation recovers as failed without funding A or blocking B (2493.836708ms)
+bigint: Failed to load bindings, pure JS will be used (try npm run rebuild?)
+This version of µWS is not compatible with your Node.js build:
+
+Error: Cannot find module '../binaries/uws_darwin_arm64_141.node'
+Require stack:
+- /Users/hashmanansala/Documents/ChatGPT/Kleros projects/node_modules/ganache/node_modules/@trufflesuite/uws-js-unofficial/src/uws.js
+- /Users/hashmanansala/Documents/ChatGPT/Kleros projects/node_modules/ganache/dist/node/core.js
+Falling back to a NodeJS implementation; performance may be degraded.
+
+
+✔ selected registration verifies only the reviewed wallets while an unrelated approved payer has recovered credit (12318.683667ms)
+bigint: Failed to load bindings, pure JS will be used (try npm run rebuild?)
+This version of µWS is not compatible with your Node.js build:
+
+Error: Cannot find module '../binaries/uws_darwin_arm64_141.node'
+Require stack:
+- /Users/hashmanansala/Documents/ChatGPT/Kleros projects/node_modules/ganache/node_modules/@trufflesuite/uws-js-unofficial/src/uws.js
+- /Users/hashmanansala/Documents/ChatGPT/Kleros projects/node_modules/ganache/dist/node/core.js
+Falling back to a NodeJS implementation; performance may be degraded.
+
+
+✔ submitted wallet hash stays event scoped, blocks duplicate deposit and reconciles one confirmed record (2003.489625ms)
+✔ a concurrent submission record cannot receive another demo transaction’s receipt status (1699.406917ms)
+bigint: Failed to load bindings, pure JS will be used (try npm run rebuild?)
+This version of µWS is not compatible with your Node.js build:
+
+Error: Cannot find module '../binaries/uws_darwin_arm64_141.node'
+Require stack:
+- /Users/hashmanansala/Documents/ChatGPT/Kleros projects/node_modules/ganache/node_modules/@trufflesuite/uws-js-unofficial/src/uws.js
+- /Users/hashmanansala/Documents/ChatGPT/Kleros projects/node_modules/ganache/dist/node/core.js
+Falling back to a NodeJS implementation; performance may be degraded.
+
+
+✔ actual local fast-profile testnet HTTP supports signed deposits, batch admission, safe credit recovery and canonical 900-second windows (17816.941625ms)
+✔ test15m source differs from pinned production only by explicit test identity, chain guard, timing and timing docs (5.832166ms)
+✔ test15m ABI preserves all financial calls and events, and artifacts bind exact generated sources (4.041375ms)
+bigint: Failed to load bindings, pure JS will be used (try npm run rebuild?)
+This version of µWS is not compatible with your Node.js build:
+
+Error: Cannot find module '../binaries/uws_darwin_arm64_141.node'
+Require stack:
+- /Users/hashmanansala/Documents/ChatGPT/Kleros projects/node_modules/ganache/node_modules/@trufflesuite/uws-js-unofficial/src/uws.js
+- /Users/hashmanansala/Documents/ChatGPT/Kleros projects/node_modules/ganache/dist/node/core.js
+Falling back to a NodeJS implementation; performance may be degraded.
+
+
+✔ testnet configuration refuses mainnets and verifies the RPC's reported chain (0.794542ms)
+✔ a priority oracle spike cannot exceed the explicit testnet fee budget (0.565084ms)
+✔ prepared plans contain public identities, exact source/policy bindings and unchanged windows (32.083125ms)
+✔ disposable signing material is reused and requires owner-only permissions (15.415667ms)
+✔ policy publication is byte verified without following a redirect or inventing a pin (1.466583ms)
+✔ changed source bytes are refused before an old compilation can be deployed (1.344583ms)
+✔ public testnet rehearsal refuses early payout instead of advancing chain time (0.069916ms)
+✔ a confirmed journal resumes the same receipt without signing or broadcasting (6.059333ms)
+✔ an ambiguous submission is journaled before broadcast and never automatically replayed (5.494416ms)
+✔ controlled tooling deploys and rehearses real v8 custody locally, including credit recovery and held-share topups (9200.737834ms)
+bigint: Failed to load bindings, pure JS will be used (try npm run rebuild?)
+This version of µWS is not compatible with your Node.js build:
+
+Error: Cannot find module '../binaries/uws_darwin_arm64_141.node'
+Require stack:
+- /Users/hashmanansala/Documents/ChatGPT/Kleros projects/node_modules/ganache/node_modules/@trufflesuite/uws-js-unofficial/src/uws.js
+- /Users/hashmanansala/Documents/ChatGPT/Kleros projects/node_modules/ganache/dist/node/core.js
+Falling back to a NodeJS implementation; performance may be degraded.
+
+
+✔ testnet state persists scoped records atomically as owner-only data without following temp symlinks (1711.751791ms)
+✔ external registry rejects wrong network, currency, duplicate custody and changed contract metadata (655.574625ms)
+✔ external immutable proofs reduce calls but recheck chain/code/canonical anchors and never cache money, fees or owners (1282.542ms)
+✔ real HTTPS external mode requires wallet signatures and recovers a single signed deposit after server restart (2971.16425ms)
+✔ off-chain sync allowlist refuses contract execution, funding, clock, ruling, RPC-send and review mutations (34.37525ms)
+✔ check-in allowlist considers each intended same-event attendee and rejects Bob or wrong-owner nonces (16.048083ms)
+✔ only the exact fresh app-origin/chain/wallet challenge may be signed (15.570208ms)
+✔ existing deposit proof checks canonical receipt, exact sender/child/value and actual log (18.523041ms)
+✔ sync preserves existing Alice records, links other actual deposits, checks in intended attendees and is idempotent (17.453583ms)
+✔ a missing financial fact cannot silently turn into unchanged-state proof (0.078209ms)
+bigint: Failed to load bindings, pure JS will be used (try npm run rebuild?)
+This version of µWS is not compatible with your Node.js build:
+
+Error: Cannot find module '../binaries/uws_darwin_arm64_141.node'
+Require stack:
+- /Users/hashmanansala/Documents/ChatGPT/Kleros projects/node_modules/ganache/node_modules/@trufflesuite/uws-js-unofficial/src/uws.js
+- /Users/hashmanansala/Documents/ChatGPT/Kleros projects/node_modules/ganache/dist/node/core.js
+Falling back to a NodeJS implementation; performance may be degraded.
+
+
+✔ C operator guards require actual held ordinary share, attended ruling1 and delivered payments (2.100792ms)
+✔ local10200 C controlled ruling targets dynamic case1, preserves A/B and independently proves winner payout/collateral (26043.263583ms)
+✔ D UI checks final fees, nonce and exact payer/call before signing (2.670708ms)
+bigint: Failed to load bindings, pure JS will be used (try npm run rebuild?)
+This version of µWS is not compatible with your Node.js build:
+
+Error: Cannot find module '../binaries/uws_darwin_arm64_141.node'
+Require stack:
+- /Users/hashmanansala/Documents/ChatGPT/Kleros projects/node_modules/ganache/node_modules/@trufflesuite/uws-js-unofficial/src/uws.js
+- /Users/hashmanansala/Documents/ChatGPT/Kleros projects/node_modules/ganache/dist/node/core.js
+Falling back to a NodeJS implementation; performance may be degraded.
+
+
+✔ D ruling fee refetch spike, stale nonce and insufficient reserve stop before key use or journaling (30.021334ms)
+✔ D controlled operator requires its own profile and actual sent/held/owed separation (0.43775ms)
+✔ local10200 D deploys its own factory once and verifies900s held-share/ruling1/same-Bob delivery without changing A/B+C (37305.61975ms)
+✔ D explicit preparation ceiling is immutable, positive, budget bounded and prepare-only (0.898334ms)
+✔ D profile is isolated from A/B+C, pins80015/900s and preserves a hosting/deposit lead (17.836167ms)
+✔ D factory+child provenance changes fail before funding or provider access (10.494042ms)
+✔ D budget includes new factory, child, three grants and protected A/B+C reserve (0.289542ms)
+✔ D pre-sign guard stops a fee spike after quote/sendOnce fee refetch without key use or journal (5.768708ms)
+bigint: Failed to load bindings, pure JS will be used (try npm run rebuild?)
+This version of µWS is not compatible with your Node.js build:
+
+Error: Cannot find module '../binaries/uws_darwin_arm64_141.node'
+Require stack:
+- /Users/hashmanansala/Documents/ChatGPT/Kleros projects/node_modules/ganache/node_modules/@trufflesuite/uws-js-unofficial/src/uws.js
+- /Users/hashmanansala/Documents/ChatGPT/Kleros projects/node_modules/ganache/dist/node/core.js
+Falling back to a NodeJS implementation; performance may be degraded.
+
+
+✔ C funding rechecks remaining grants and A/B reserve after recovering an earlier pending transfer (33.277875ms)
+✔ C plan permits one isolated child and preserves shared-stack/policy identity (1.401083ms)
+✔ C deploy budget is exact and refuses excess gas, fees, role count or unavailable funding (0.114291ms)
+✔ real local chain10200 C reuses existing verified stack, journals four operations and recovers without replay (7634.010792ms)
+✔ wallet submission preserves exact wei and resolver recipient in canonical EIP-1193 hex (1.829542ms)
+✔ a delayed confirmation stays attached to original Event A after the interface switches to B (0.234209ms)
+✔ confirmation failure preserves durable hash across reload and never resends the reviewed draft (0.793083ms)
+✔ optional submitted-record callback failure retains the hash and does not auto-confirm or retry (0.182416ms)
+✔ journal namespaces isolate event, server instance, chain, event contract, wallet, ABI and mode (0.148916ms)
+✔ wrong wallet is rejected before a financial wallet prompt (0.138084ms)
+✔ wrong chain is rejected before a financial wallet prompt (0.094875ms)
+✔ a rejected wallet prompt creates no submitted record and has no submittedHash (0.108084ms)
+✔ blocked storage fails before validation or any wallet request (0.124167ms)
+✔ a quota change after send still returns the submittedHash and never starts confirmation (0.203417ms)
+✔ a changed context or changed authoritative transaction invalidates the review before send (0.132625ms)
+✔ a context switch during wallet account/network reads is caught before signing (0.095166ms)
+✔ same-draft concurrent requests share a guard even with separate journal objects (0.124375ms)
+✔ pending or wrong-event confirmations preserve a submitted record rather than claiming success (0.305583ms)
+✔ a canonical reverted receipt is terminal failed, preserves its hash and cannot resend the reviewed draft (0.324167ms)
+✔ mismatched or incomplete failed receipt identities never mark the submitted transaction failed (1.116667ms)
+✔ the existing confirmed terminal guard also rejects a late failed status (0.102459ms)
+✔ a frozen confirmation error cannot hide the submitted hash (0.141333ms)
+✔ corrupt journals and lossy wei input fail closed before sending (0.109583ms)
+bigint: Failed to load bindings, pure JS will be used (try npm run rebuild?)
+This version of µWS is not compatible with your Node.js build:
+
+Error: Cannot find module '../binaries/uws_darwin_arm64_141.node'
+Require stack:
+- /Users/hashmanansala/Documents/ChatGPT/Kleros projects/node_modules/ganache/node_modules/@trufflesuite/uws-js-unofficial/src/uws.js
+- /Users/hashmanansala/Documents/ChatGPT/Kleros projects/node_modules/ganache/dist/node/core.js
+Falling back to a NodeJS implementation; performance may be degraded.
+
+
+✔ UI assets preserve exact binary fonts and SVGs without exposing arbitrary public files (844.7275ms)
+✔ UI pending-reference namespaces receive a stable distinct ID for each server instance (2080.721ms)
+bigint: Failed to load bindings, pure JS will be used (try npm run rebuild?)
+This version of µWS is not compatible with your Node.js build:
+
+Error: Cannot find module '../binaries/uws_darwin_arm64_141.node'
+Require stack:
+- /Users/hashmanansala/Documents/ChatGPT/Kleros projects/node_modules/ganache/node_modules/@trufflesuite/uws-js-unofficial/src/uws.js
+- /Users/hashmanansala/Documents/ChatGPT/Kleros projects/node_modules/ganache/dist/node/core.js
+Falling back to a NodeJS implementation; performance may be degraded.
+
+
+✔ resolved unmatched challenge never borrows another event’s resolver case zero (14080.557583ms)
+bigint: Failed to load bindings, pure JS will be used (try npm run rebuild?)
+This version of µWS is not compatible with your Node.js build:
+
+Error: Cannot find module '../binaries/uws_darwin_arm64_141.node'
+Require stack:
+- /Users/hashmanansala/Documents/ChatGPT/Kleros projects/node_modules/ganache/node_modules/@trufflesuite/uws-js-unofficial/src/uws.js
+- /Users/hashmanansala/Documents/ChatGPT/Kleros projects/node_modules/ganache/dist/node/core.js
+Falling back to a NodeJS implementation; performance may be degraded.
+
+
+✔ explicit versions retain v7 and create independent v8 children through one trusted factory (2647.732792ms)
+✔ v8 snapshots separate withdrawable payer credits from committed pool and preserve lifetime capacity (3227.964709ms)
+✔ v8 verification rejects changed terms, identity, factory, receipt and compiler-fixed creation code (2977.614084ms)
+✔ v8 projection retains held-share payouts and pending credits while a matched case is open (5810.985375ms)
+✔ v8 testnet descriptions use the explicitly configured native currency (0.663334ms)
+bigint: Failed to load bindings, pure JS will be used (try npm run rebuild?)
+This version of µWS is not compatible with your Node.js build:
+
+Error: Cannot find module '../binaries/uws_darwin_arm64_141.node'
+Require stack:
+- /Users/hashmanansala/Documents/ChatGPT/Kleros projects/node_modules/ganache/node_modules/@trufflesuite/uws-js-unofficial/src/uws.js
+- /Users/hashmanansala/Documents/ChatGPT/Kleros projects/node_modules/ganache/dist/node/core.js
+Falling back to a NodeJS implementation; performance may be degraded.
+
+
+✔ profile dispatch is exact, preserves defaults and separates compiler inputs/artifacts (4641.625917ms)
+✔ real factories and children retain separate versions, periods and canonical constructor provenance (831.207208ms)
+✔ a supplied test factory address without canonical birth evidence cannot create a child (494.782583ms)
+✔ cross-profile identities, periods, constructor artifacts and registry edits fail closed (2466.150834ms)
+✔ the adapter and both test-profile constructors refuse other chains, including mainnets (322.41575ms)
+✔ external HTTPS runtime binds the exact profile and rechecks both canonical creation anchors (785.4115ms)
+✔ 900-second challenge and match periods preserve held shares, pending credits and late attended payments (8982.642334ms)
+bigint: Failed to load bindings, pure JS will be used (try npm run rebuild?)
+This version of µWS is not compatible with your Node.js build:
+
+Error: Cannot find module '../binaries/uws_darwin_arm64_141.node'
+Require stack:
+- /Users/hashmanansala/Documents/ChatGPT/Kleros projects/node_modules/ganache/node_modules/@trufflesuite/uws-js-unofficial/src/uws.js
+- /Users/hashmanansala/Documents/ChatGPT/Kleros projects/node_modules/ganache/dist/node/core.js
+Falling back to a NodeJS implementation; performance may be degraded.
+
+
+✔ a wallet with no guest profile can authenticate and recover its own plain-transfer v8 credit to a chosen address (17363.212416ms)
+bigint: Failed to load bindings, pure JS will be used (try npm run rebuild?)
+This version of µWS is not compatible with your Node.js build:
+
+Error: Cannot find module '../binaries/uws_darwin_arm64_141.node'
+Require stack:
+- /Users/hashmanansala/Documents/ChatGPT/Kleros projects/node_modules/ganache/node_modules/@trufflesuite/uws-js-unofficial/src/uws.js
+- /Users/hashmanansala/Documents/ChatGPT/Kleros projects/node_modules/ganache/dist/node/core.js
+Falling back to a NodeJS implementation; performance may be degraded.
+
+
+✔ v8 application reviews own-credit recovery, invalidates old receipts and settles a matched case with kickbacks (35313.890042ms)
+bigint: Failed to load bindings, pure JS will be used (try npm run rebuild?)
+This version of µWS is not compatible with your Node.js build:
+
+Error: Cannot find module '../binaries/uws_darwin_arm64_141.node'
+Require stack:
+- /Users/hashmanansala/Documents/ChatGPT/Kleros projects/node_modules/ganache/node_modules/@trufflesuite/uws-js-unofficial/src/uws.js
+- /Users/hashmanansala/Documents/ChatGPT/Kleros projects/node_modules/ganache/dist/node/core.js
+Falling back to a NodeJS implementation; performance may be degraded.
+
+
+✔ catalogue has two independent deployments and the same verified wallet in both (1611.254042ms)
+✔ organizer, attendee and event staff authorization is enforced by the backend (1770.587083ms)
+✔ self-reported history and merch payloads cannot alter financial state or trusted attendance (1116.333917ms)
+✔ deposit receipts, admission and registration remain distinct in both events (10050.51025ms)
+✔ raw attendance origin requires review and known wrong-event evidence cannot be relabelled (2842.553333ms)
+✔ authenticated door observations reject replay and cross-event participant IDs (1762.387875ms)
+✔ Event A pays normal attendees while two cases remain open; Event B continues independently (15955.588083ms)
+✔ a late loser redistributes to attendees and open cases, then winner receives the full grown reserve (10801.472833ms)
+✔ drafts are bound to event, wallet, authoritative snapshot and single execution (2028.669834ms)
+✔ event creation validates stable slug, timezone and local financial association (6857.494792ms)
+✔ a private local event is usable by its creator and absent from unauthorized views (5602.769833ms)
+✔ versioned deployment dispatch refuses a corrupt registry before producing actionable state (1810.303708ms)
+✔ late winner then loser has the same cumulative entitlement as loser then winner (30648.321ms)
+✔ refused ruling excludes the challenger and divides only the challenge remainder (17618.45075ms)
+✔ an unmatched challenge becomes attendance after its own matching period (10702.448958ms)
+✔ cancellation refunds registered spots once, and no-list emergency withdrawal waits for the exact contract condition (15673.757958ms)
+✔ a refusing contract wallet cannot block refunds and can recover its owed balance to an alternate address (5528.137333ms)
+✔ unmatched deposits are event scoped, reviewed as spare returns, and cannot consume registered principal (8887.167375ms)
+✔ a checked-in registered guest can be rejected/refunded without blocking the remaining attendance list (12047.740833ms)
+(node:82523) MaxListenersExceededWarning: Possible EventEmitter memory leak detected. 11 close listeners added to [Server]. MaxListeners is 10. Use emitter.setMaxListeners() to increase limit
+(Use `node --trace-warnings ...` to show where the warning was created)
+✔ late ETH remains possible in v7 but the verifier refuses admission evidence and exposes an unmatched return (4883.013709ms)
+✔ a rejected participant can return with a fresh receipt while the refunded receipt remains unusable (10890.73075ms)
+✔ private event pending and current financial owners can complete two-step ownership transfer (5751.054291ms)
+✔ wallet confirmation rejects historical transactions, consumed hashes, expired review and changed admission (4513.19375ms)
+✔ guest import refuses duplicate financial evidence and does not overwrite a concurrent admission decision (9048.994833ms)
+✔ per-event metaevidence retains policy linkage, participant aliases and exact-byte retryable local publication (2037.777542ms)
+ℹ tests 253
+ℹ suites 0
+ℹ pass 253
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 641145.907792

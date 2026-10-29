@@ -212,3 +212,20 @@ provided pinned profile metadata must agree. Unknown version prefixes and protot
 no financial support. Payer credit, admission, separate batch curation and exact signing review keep
 their established behavior. The contact-free pending journal admits this profile only on Chiado and
 keeps it isolated by version from normal v8; existing v7/v8 presentation and journal scopes remain.
+
+### Stable loading and keyboard recovery
+
+Files: `public/index.html`, `public/loading.css`, `public/ui-keyboard.js`, `public/app.js` · 29 October 2026
+
+| Property             | Pattern                                                                                                                                                                            |
+| -------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Loading              | Static `aria-hidden` cards using existing deep/surface/raised/line/radius tokens; 36rem initial main reserve.                                                                      |
+| Accent and type      | Scoped loading teal `--loading-accent: var(--teal, #4ccebd)`; existing Instrument Serif heading and Geist 14px status.                                                             |
+| Compact mobile shell | Same navigation geometry before/after hydration at ≤600px; preallocated account slot ≤45%; 44px refresh keeps a screen-reader label.                                               |
+| Announcements        | Stage status outside busy content; one explicit read-error alert with a focused retry only when focus remains in the request context.                                              |
+| Focus                | Skip focuses main without routing; event/tab focus intent binds to the current load; background refresh retains the most recent focus and never displaces a moved-to live control. |
+| Disclosures/dialogs  | Closed details expose only their first summary subtree to the trap. Native interior Tab/Escape remain; wrap only visible boundaries.                                               |
+| Motion               | Skeleton stays static; reduced-motion stops the spinner.                                                                                                                           |
+
+Pending money/actions remain unavailable until fresh detail and existing journal guards are restored.
+Never add simulated percentages, cached eligibility or optimistic payment success to loading UI.

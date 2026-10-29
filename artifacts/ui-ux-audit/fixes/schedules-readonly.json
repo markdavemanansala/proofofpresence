@@ -1,0 +1,18 @@
+{
+  "checkedAt": "2026-10-29T03:14:28.952524+00:00",
+  "mode": "read-only; no schedule updated",
+  "automations": [
+    {
+      "id": "finish-kleros-testnet-kickbacks",
+      "status": "ACTIVE",
+      "configSha256": "9ac2647729ccc9650f1869ea2c5a43f30c220b356effec96a6197d79d8d62d83",
+      "rruleSha256": "dfee8aedeee7379431bc48cedda2412a0793ae376cfa29a79c45aa1ca65ea82f"
+    },
+    {
+      "id": "finish-kleros-ui-testnet-flow-c",
+      "status": "ACTIVE",
+      "configSha256": "610c6d7c27ca031c4f0a6586d40b0da1ac00a90a4d838a46acbeb2efaaadb599",
+      "rruleSha256": "b07c0d819d3a0583038b81dd61bef4784ff5458097dee00bb6d9d92c602a7f2d"
+    }
+  ]
+}

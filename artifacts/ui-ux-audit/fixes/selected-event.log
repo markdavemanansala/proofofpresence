@@ -1,0 +1,28 @@
+✔ accepts exact capability-bound truth-pays-v7 detail without mutation (1.539167ms)
+✔ accepts exact capability-bound kleros-event-v8 detail without mutation (0.080083ms)
+✔ accepts exact capability-bound kleros-event-v8-test15m detail without mutation (0.054ms)
+✔ old backend and unsupported capability preserve serial GET fallback (0.143ms)
+✔ instance and selected/detail event mismatches cannot reuse bundled data (0.120042ms)
+✔ response actor, captured actor and explicit anonymous session must agree (0.111958ms)
+✔ unknown first-load session can be established only by one internally bound response (0.415959ms)
+✔ wallet comparison is address-case insensitive without rewriting inputs (0.05925ms)
+✔ malformed response and captured wallets never normalize into anonymity (0.202833ms)
+✔ chain and deployed contract disagreement requires a separate event GET (0.215125ms)
+✔ deploymentBlock mismatch or jointly missing binding never qualifies as bundled detail (0.081833ms)
+✔ contractVersion mismatch or jointly missing binding never qualifies as bundled detail (0.050458ms)
+✔ abiVersion mismatch or jointly missing binding never qualifies as bundled detail (0.050083ms)
+✔ policyURI mismatch or jointly missing binding never qualifies as bundled detail (0.044166ms)
+✔ templateHash mismatch or jointly missing binding never qualifies as bundled detail (0.042708ms)
+✔ malformed event lists and missing detail structure fall back without throwing (0.182375ms)
+✔ a bound 4xx/5xx error needs no public summary or extra private detail read (0.090792ms)
+✔ unbound errors and malformed error statuses cannot replace the event read (0.099625ms)
+✔ detail and error are an exclusive union (0.028292ms)
+✔ deeply frozen response and capture are accepted without mutation (0.071417ms)
+ℹ tests 20
+ℹ suites 0
+ℹ pass 20
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 71.531666

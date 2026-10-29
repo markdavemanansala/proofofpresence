@@ -1,4 +1,6 @@
 // @ts-check
+import { focusMain, trapDialogTab } from "./ui-keyboard.js";
+import { selectedEventResult } from "./selected-event.js";
 import { analyzeImport } from "./reconciliation.js";
 import { assertDemoChainInstance } from "./hosted-wallet.js";
 import { mountContractInbox } from "./contract-inbox.js";
@@ -140,7 +142,6 @@ const app = {
   importReview: null,
   pending: [],
   pendingInstanceId: null,
-  focusTab: false,
   csvReadToken: 0,
   unsignedReviewVersion: 0,
   batchRegistrationSelection: null,
@@ -713,11 +714,17 @@ function invalidateDraft() {
   const dialog = $("#review-dialog");
   if (dialog.open) dialog.close();
 }
-function navigate(eventId, view = "participant") {
-  disposeContractInbox();
-  location.hash = eventId
-    ? new URLSearchParams({ event: eventId, view }).toString()
+function navigate(eventId, view = "participant", focusSelector = null) {
+  const hash = eventId
+    ? `#${new URLSearchParams({ event: eventId, view })}`
     : "";
+  if (location.hash === hash) {
+    if (focusSelector) $(focusSelector)?.focus();
+    return;
+  }
+  disposeContractInbox();
+  navigationFocus = focusSelector ? { hash, selector: focusSelector } : null;
+  location.hash = hash;
 }
 function readRoute() {
   const params = new URLSearchParams(location.hash.slice(1));
@@ -812,6 +819,7 @@ function sidebar() {
     identity.className = "button button-small button-secondary";
     $(".topbar-actions").insertBefore(identity, $("#refresh"));
   }
+  identity.disabled = false;
   identity.textContent =
     currentIdentity()?.label ??
     (isTestnet() ? "Connect wallet" : "Choose identity");
@@ -834,6 +842,7 @@ function showIdentityDialog() {
 }
 async function switchIdentity(id) {
   if (id === "connected-wallet") return;
+  cancelRead();
   disposeContractInbox();
   invalidateDraft();
   if (!id) await api("/api/session", { method: "DELETE", body: "{}" });
@@ -861,6 +870,7 @@ function installWalletSessionListeners(provider) {
   provider.__klerosListeners = true;
   const invalidateSession = async () => {
     if (currentIdentity()?.mode !== "wallet") return;
+    cancelRead();
     disposeContractInbox();
     invalidateDraft();
     await api("/api/session", { method: "DELETE", body: "{}" });
@@ -938,6 +948,7 @@ async function connectWallet() {
     method: "personal_sign",
     params: [messageHex, accounts[0]],
   });
+  cancelRead();
   await post("/api/auth/verify", { nonce, signature });
   await load({ silent: true });
   installWalletSessionListeners(provider);
@@ -948,19 +959,109 @@ async function connectWallet() {
   );
 }
 
-async function load({ silent = false } = {}) {
+// Only GETs belong to this controller. Reconciliation and wallet submissions keep
+// their existing once-only journals and are never aborted/replayed by navigation.
+let activeLoad = null;
+let navigationFocus = null;
+function cancelRead() {
+  if (!activeLoad) return;
+  activeLoad.controller.abort();
+  activeLoad = null;
+  app.generation++;
+  setReadBusy(false);
+}
+function setReadBusy(busy) {
+  $("#refresh").disabled = busy;
+  $("#refresh").setAttribute("aria-busy", String(busy));
+  $("#content").setAttribute("aria-busy", String(busy));
+}
+function loadingStage(message, title = null) {
+  $("#loading-status").textContent = message;
+  if (title) $("#loading-title").textContent = title;
+}
+async function readForLoad(path, record) {
+  const controller = new AbortController();
+  const abort = () => controller.abort();
+  record.controller.signal.addEventListener("abort", abort, { once: true });
+  if (record.controller.signal.aborted) abort();
+  let timedOut = false;
+  const timer = setTimeout(() => {
+    timedOut = true;
+    controller.abort();
+  }, 35000);
+  try {
+    return await api(path, { signal: controller.signal });
+  } catch (error) {
+    if (timedOut && !record.controller.signal.aborted)
+      throw new Error(
+        "Reading this view took too long. Try again to request a fresh snapshot.",
+      );
+    throw error;
+  } finally {
+    clearTimeout(timer);
+    record.controller.signal.removeEventListener("abort", abort);
+  }
+}
+function load({ silent = false, coalesce = false } = {}) {
+  const route = readRoute();
+  const key = JSON.stringify(route);
+  if (coalesce && activeLoad?.key === key) return activeLoad.promise;
+  cancelRead();
+  const record = {
+    key,
+    route,
+    controller: new AbortController(),
+    generation: ++app.generation,
+    capturedWallet: currentIdentity()?.wallet ?? null,
+    hasCapturedSession: app.bootstrap !== null,
+    focusIntent:
+      navigationFocus?.hash === location.hash ? navigationFocus : null,
+    focusedElement: document.activeElement,
+    promise: null,
+  };
+  navigationFocus = null;
+  activeLoad = record;
+  setReadBusy(true);
+  record.promise = loadView(record, silent).finally(() => {
+    if (activeLoad === record) {
+      activeLoad = null;
+      setReadBusy(false);
+      if (
+        record.restoreRefresh &&
+        document.activeElement === document.body &&
+        !$("#review-dialog").open
+      )
+        $("#refresh").focus();
+    }
+  });
+  return record.promise;
+}
+function mayRestoreFocus(record) {
+  return (
+    !$("#review-dialog").open &&
+    (document.activeElement === document.body ||
+      document.activeElement === record.focusedElement)
+  );
+}
+async function loadView(record, silent) {
   app.batchRegistrationSelection = null;
   disposeContractInbox();
-  const focused = focusKey(document.activeElement);
-  const generation = ++app.generation;
+  const generation = record.generation;
   invalidateDraft();
-  app.route = readRoute();
+  app.route = record.route;
   if (!silent) {
+    loadingStage(
+      "Checking your event network…",
+      app.route.eventId ? "Opening your event" : "Opening your events",
+    );
     $("#loading").hidden = false;
     $("#content").hidden = true;
   }
   try {
-    const bootstrap = await api("/api/bootstrap");
+    const bootstrapPath = app.route.eventId
+      ? `/api/bootstrap?${new URLSearchParams({ selectedEventId: app.route.eventId })}`
+      : "/api/bootstrap";
+    const bootstrap = await readForLoad(bootstrapPath, record);
     if (generation !== app.generation) return;
     app.bootstrap = bootstrap;
     if (bootstrap.session?.mode === "wallet")
@@ -987,13 +1088,30 @@ async function load({ silent = false } = {}) {
         /* Preserve in-flight memory guards if this browser blocks sessionStorage. */
       }
     }
-    const detail = app.route.eventId
-      ? await api(`/api/events/${encodeURIComponent(app.route.eventId)}`)
-      : null;
+    const selectedSummary = bootstrap.events?.find(
+      (event) => event.id === app.route.eventId,
+    );
+    loadingStage("Reading the selected event…", selectedSummary?.title);
+    const bundled = selectedEventResult(bootstrap, {
+      eventId: record.route.eventId,
+      capturedWallet: record.capturedWallet,
+      hasCapturedSession: record.hasCapturedSession,
+    });
+    if (bundled?.error)
+      throw Object.assign(new Error(bundled.error.message), bundled.error);
+    const detail =
+      bundled?.detail ??
+      (app.route.eventId
+        ? await readForLoad(
+            `/api/events/${encodeURIComponent(app.route.eventId)}`,
+            record,
+          )
+        : null);
     if (generation !== app.generation) return;
     app.detail = detail;
     restoreTransactionJournal();
     let recoveredChange = false;
+    loadingStage("Checking submitted transactions…");
     if (detail)
       for (const pending of app.pending.slice()) {
         if (
@@ -1059,6 +1177,11 @@ async function load({ silent = false } = {}) {
       }
     if (generation !== app.generation) return;
     if (recoveredChange) return load({ silent: true });
+    // Decide before replacing DOM: a user may have moved focus during a read.
+    const restoreNavigation = mayRestoreFocus(record);
+    const latestFocus = silent ? focusKey(document.activeElement) : null;
+    record.restoreRefresh =
+      restoreNavigation && record.focusedElement === $("#refresh");
     sidebar();
     $("#content").innerHTML = app.detail ? renderEvent() : renderHome();
     $("#loading").hidden = true;
@@ -1067,20 +1190,23 @@ async function load({ silent = false } = {}) {
     annotateHostedForms();
     mountOwnerContractInbox();
     mountOrganizerBatchActions();
-    if (app.focusTab) {
-      $(`[data-view="${app.route.view}"]`)?.focus();
-      app.focusTab = false;
-    } else if (silent && focused) $(focused)?.focus();
+    if (restoreNavigation && record.focusIntent)
+      $(record.focusIntent.selector)?.focus();
+    else if (silent && latestFocus && !$("#review-dialog").open)
+      $(latestFocus)?.focus();
     document.title = app.detail
       ? `${app.detail.event.title} · Kleros`
       : "Kleros · Events & commitments";
   } catch (error) {
-    if (generation !== app.generation) return;
+    if (generation !== app.generation || record.controller.signal.aborted)
+      return;
+    const restoreError = mayRestoreFocus(record);
     $("#loading").hidden = true;
     $("#content").hidden = false;
     app.detail = null;
     $("#content").innerHTML =
-      `<div class="page-header"><div><div class="eyebrow">Event workbench</div><h1>We couldn’t load this view.</h1></div></div><div class="error-panel">${escape(error.message)}</div><div class="button-row"><button class="button button-primary" data-reload>Try again</button><a href="#" class="button button-secondary">All events</a></div>`;
+      `<div class="page-header"><div><div class="eyebrow">Event workbench</div><h1>We couldn’t load this view.</h1></div></div><div class="error-panel" role="alert">${escape(error.message)}</div><div class="button-row"><button class="button button-primary" data-reload>Try again</button><a href="#" class="button button-secondary">All events</a></div>`;
+    if (restoreError) $("[data-reload]")?.focus();
   }
 }
 
@@ -2197,7 +2323,7 @@ document.addEventListener("change", async (event) => {
   try {
     if (target.id === "event-switch") {
       invalidateDraft();
-      navigate(target.value, app.route.view);
+      navigate(target.value, app.route.view, "#event-switch");
       return;
     }
     if (target.closest('[data-form="import"]')) {
@@ -2347,7 +2473,7 @@ document.addEventListener("click", async (event) => {
       return;
     }
     if ("view" in data) {
-      navigate(app.route.eventId, data.view);
+      navigate(app.route.eventId, data.view, `[data-view="${data.view}"]`);
       return;
     }
     if ("demoHelp" in data) {
@@ -2631,20 +2757,7 @@ $("#review-dialog").addEventListener("close", () => {
 document.addEventListener("keydown", (event) => {
   const dialog = $("#review-dialog");
   if (dialog.open && event.key === "Tab") {
-    const controls = $$(
-      'button:not(:disabled), a[href], input:not(:disabled), select:not(:disabled), textarea:not(:disabled), summary, [tabindex="0"]',
-      dialog,
-    ).filter((element) => element.getClientRects().length > 0);
-    if (controls.length) {
-      event.preventDefault();
-      const index = controls.indexOf(document.activeElement);
-      const next = event.shiftKey
-        ? index <= 0
-          ? controls.length - 1
-          : index - 1
-        : (index + 1) % controls.length;
-      controls[next].focus();
-    }
+    trapDialogTab(event, dialog);
     return;
   }
   if (
@@ -2662,10 +2775,14 @@ document.addEventListener("keydown", (event) => {
   else if (event.key === "End") next = tabs.length - 1;
   else return;
   event.preventDefault();
-  app.focusTab = true;
-  navigate(app.route.eventId, tabs[next].dataset.view);
+  navigate(
+    app.route.eventId,
+    tabs[next].dataset.view,
+    `[data-view="${tabs[next].dataset.view}"]`,
+  );
 });
-$("#refresh").addEventListener("click", () => load());
+$("#refresh").addEventListener("click", () => load({ coalesce: true }));
+$(".skip").addEventListener("click", (event) => focusMain(event, $("#main")));
 $("#demo-help").addEventListener("click", showDemoHelp);
 // A filter creates a new review context; durable unresolved saves stay locked.
 function resetBatchFilterContext(event) {

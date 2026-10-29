@@ -1,0 +1,653 @@
+{
+  "baselineCommit": "99ffe139193edc8f372f7527f7f94dc3f830ab46",
+  "mode": "baseline-only",
+  "checks": [],
+  "measurements": [
+    {
+      "baseline": true,
+      "run": 1,
+      "viewport": "390x844",
+      "bootstrapDelayMs": 800,
+      "eventDelayMs": 900,
+      "initialTopbar": {
+        "x": 0,
+        "y": 224.171875,
+        "width": 390,
+        "height": 135.390625
+      },
+      "finalTopbar": {
+        "x": 0,
+        "y": 157.5,
+        "width": 390,
+        "height": 77
+      },
+      "cls": 0.37188043804882626,
+      "sum": 0.37188043804882626,
+      "shifts": [
+        {
+          "value": 0.09634182464454977,
+          "time": 982.5,
+          "sources": [
+            {
+              "tag": "DIV",
+              "id": "",
+              "cls": "app-shell",
+              "previous": {
+                "x": 0,
+                "y": 0,
+                "width": 390,
+                "height": 844,
+                "top": 0,
+                "right": 390,
+                "bottom": 844,
+                "left": 0
+              },
+              "current": {
+                "x": 0,
+                "y": 81.3125,
+                "width": 390,
+                "height": 762.6875,
+                "top": 81.3125,
+                "right": 390,
+                "bottom": 844,
+                "left": 0
+              }
+            }
+          ]
+        },
+        {
+          "value": 0.2755386134042765,
+          "time": 1928.5999999940395,
+          "sources": [
+            {
+              "tag": "DIV",
+              "id": "",
+              "cls": "main-shell",
+              "previous": {
+                "x": 0,
+                "y": 285.09375,
+                "width": 390,
+                "height": 558.90625,
+                "top": 285.09375,
+                "right": 390,
+                "bottom": 844,
+                "left": 0
+              },
+              "current": {
+                "x": 0,
+                "y": 157.5,
+                "width": 390,
+                "height": 686.5,
+                "top": 157.5,
+                "right": 390,
+                "bottom": 844,
+                "left": 0
+              }
+            },
+            {
+              "tag": "DIV",
+              "id": "",
+              "cls": "sidebar-foot",
+              "previous": {
+                "x": 16,
+                "y": 190.703125,
+                "width": 358,
+                "height": 77.390625,
+                "top": 190.703125,
+                "right": 374,
+                "bottom": 268.09375,
+                "left": 16
+              },
+              "current": {
+                "x": 258.125,
+                "y": 96.90625,
+                "width": 115.875,
+                "height": 44,
+                "top": 96.90625,
+                "right": 374,
+                "bottom": 140.90625,
+                "left": 258.125
+              }
+            },
+            {
+              "tag": "A",
+              "id": "all-events-link",
+              "cls": "nav-link",
+              "previous": {
+                "x": 227.46875,
+                "y": 99.90625,
+                "width": 146.53125,
+                "height": 55.1875,
+                "top": 99.90625,
+                "right": 374,
+                "bottom": 155.09375,
+                "left": 227.46875
+              },
+              "current": {
+                "x": 127.5,
+                "y": 93.3125,
+                "width": 122.625,
+                "height": 51.1875,
+                "top": 93.3125,
+                "right": 250.125,
+                "bottom": 144.5,
+                "left": 127.5
+              }
+            },
+            {
+              "tag": "A",
+              "id": "",
+              "cls": "brand",
+              "previous": {
+                "x": 16,
+                "y": 97.3125,
+                "width": 133.515625,
+                "height": 60.390625,
+                "top": 97.3125,
+                "right": 149.515625,
+                "bottom": 157.703125,
+                "left": 16
+              },
+              "current": {
+                "x": 16,
+                "y": 103.90625,
+                "width": 80,
+                "height": 30,
+                "top": 103.90625,
+                "right": 96,
+                "bottom": 133.90625,
+                "left": 16
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "baseline": true,
+      "run": 2,
+      "viewport": "390x844",
+      "bootstrapDelayMs": 800,
+      "eventDelayMs": 900,
+      "initialTopbar": {
+        "x": 0,
+        "y": 224.171875,
+        "width": 390,
+        "height": 135.390625
+      },
+      "finalTopbar": {
+        "x": 0,
+        "y": 157.5,
+        "width": 390,
+        "height": 77
+      },
+      "cls": 0.37188043804882626,
+      "sum": 0.37188043804882626,
+      "shifts": [
+        {
+          "value": 0.09634182464454977,
+          "time": 835,
+          "sources": [
+            {
+              "tag": "DIV",
+              "id": "",
+              "cls": "app-shell",
+              "previous": {
+                "x": 0,
+                "y": 0,
+                "width": 390,
+                "height": 844,
+                "top": 0,
+                "right": 390,
+                "bottom": 844,
+                "left": 0
+              },
+              "current": {
+                "x": 0,
+                "y": 81.3125,
+                "width": 390,
+                "height": 762.6875,
+                "top": 81.3125,
+                "right": 390,
+                "bottom": 844,
+                "left": 0
+              }
+            }
+          ]
+        },
+        {
+          "value": 0.2755386134042765,
+          "time": 1768.9000000059605,
+          "sources": [
+            {
+              "tag": "DIV",
+              "id": "",
+              "cls": "main-shell",
+              "previous": {
+                "x": 0,
+                "y": 285.09375,
+                "width": 390,
+                "height": 558.90625,
+                "top": 285.09375,
+                "right": 390,
+                "bottom": 844,
+                "left": 0
+              },
+              "current": {
+                "x": 0,
+                "y": 157.5,
+                "width": 390,
+                "height": 686.5,
+                "top": 157.5,
+                "right": 390,
+                "bottom": 844,
+                "left": 0
+              }
+            },
+            {
+              "tag": "DIV",
+              "id": "",
+              "cls": "sidebar-foot",
+              "previous": {
+                "x": 16,
+                "y": 190.703125,
+                "width": 358,
+                "height": 77.390625,
+                "top": 190.703125,
+                "right": 374,
+                "bottom": 268.09375,
+                "left": 16
+              },
+              "current": {
+                "x": 258.125,
+                "y": 96.90625,
+                "width": 115.875,
+                "height": 44,
+                "top": 96.90625,
+                "right": 374,
+                "bottom": 140.90625,
+                "left": 258.125
+              }
+            },
+            {
+              "tag": "A",
+              "id": "all-events-link",
+              "cls": "nav-link",
+              "previous": {
+                "x": 227.46875,
+                "y": 99.90625,
+                "width": 146.53125,
+                "height": 55.1875,
+                "top": 99.90625,
+                "right": 374,
+                "bottom": 155.09375,
+                "left": 227.46875
+              },
+              "current": {
+                "x": 127.5,
+                "y": 93.3125,
+                "width": 122.625,
+                "height": 51.1875,
+                "top": 93.3125,
+                "right": 250.125,
+                "bottom": 144.5,
+                "left": 127.5
+              }
+            },
+            {
+              "tag": "A",
+              "id": "",
+              "cls": "brand",
+              "previous": {
+                "x": 16,
+                "y": 97.3125,
+                "width": 133.515625,
+                "height": 60.390625,
+                "top": 97.3125,
+                "right": 149.515625,
+                "bottom": 157.703125,
+                "left": 16
+              },
+              "current": {
+                "x": 16,
+                "y": 103.90625,
+                "width": 80,
+                "height": 30,
+                "top": 103.90625,
+                "right": 96,
+                "bottom": 133.90625,
+                "left": 16
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "requests": [
+    {
+      "id": 1,
+      "method": "GET",
+      "path": "/",
+      "baseline": true,
+      "startedAt": 1793242956485,
+      "closedEarly": false
+    },
+    {
+      "id": 2,
+      "method": "GET",
+      "path": "/assets/geist-latin.woff2",
+      "baseline": true,
+      "startedAt": 1793242956507,
+      "closedEarly": false
+    },
+    {
+      "id": 3,
+      "method": "GET",
+      "path": "/assets/kleros-logo.svg",
+      "baseline": true,
+      "startedAt": 1793242956517,
+      "closedEarly": false
+    },
+    {
+      "id": 4,
+      "method": "GET",
+      "path": "/assets/instrument-serif-regular.woff2",
+      "baseline": true,
+      "startedAt": 1793242956525,
+      "closedEarly": false
+    },
+    {
+      "id": 5,
+      "method": "GET",
+      "path": "/styles.css",
+      "baseline": true,
+      "startedAt": 1793242956534,
+      "closedEarly": false
+    },
+    {
+      "id": 6,
+      "method": "GET",
+      "path": "/contract-inbox.css",
+      "baseline": true,
+      "startedAt": 1793242956541,
+      "closedEarly": false
+    },
+    {
+      "id": 7,
+      "method": "GET",
+      "path": "/batch-actions.css",
+      "baseline": true,
+      "startedAt": 1793242956550,
+      "closedEarly": false
+    },
+    {
+      "id": 8,
+      "method": "GET",
+      "path": "/app.js",
+      "baseline": true,
+      "startedAt": 1793242956559,
+      "closedEarly": false
+    },
+    {
+      "id": 9,
+      "method": "GET",
+      "path": "/reconciliation.js",
+      "baseline": true,
+      "startedAt": 1793242956580,
+      "closedEarly": false
+    },
+    {
+      "id": 10,
+      "method": "GET",
+      "path": "/hosted-wallet.js",
+      "baseline": true,
+      "startedAt": 1793242956589,
+      "closedEarly": false
+    },
+    {
+      "id": 11,
+      "method": "GET",
+      "path": "/contract-inbox.js",
+      "baseline": true,
+      "startedAt": 1793242956597,
+      "closedEarly": false
+    },
+    {
+      "id": 12,
+      "method": "GET",
+      "path": "/transaction-context.js",
+      "baseline": true,
+      "startedAt": 1793242956604,
+      "closedEarly": false
+    },
+    {
+      "id": 13,
+      "method": "GET",
+      "path": "/batch-actions.js",
+      "baseline": true,
+      "startedAt": 1793242956611,
+      "closedEarly": false
+    },
+    {
+      "id": 14,
+      "method": "GET",
+      "path": "/batch-pending.js",
+      "baseline": true,
+      "startedAt": 1793242956618,
+      "closedEarly": false
+    },
+    {
+      "id": 15,
+      "method": "GET",
+      "path": "/contract-profiles.js",
+      "baseline": true,
+      "startedAt": 1793242956626,
+      "closedEarly": false
+    },
+    {
+      "id": 16,
+      "method": "GET",
+      "path": "/batch-selection.js",
+      "baseline": true,
+      "startedAt": 1793242956635,
+      "closedEarly": false
+    },
+    {
+      "id": 17,
+      "method": "GET",
+      "path": "/api/bootstrap",
+      "baseline": true,
+      "startedAt": 1793242956650,
+      "closedEarly": false,
+      "respondedAt": 1793242957452
+    },
+    {
+      "id": 18,
+      "method": "GET",
+      "path": "/api/events/event-b",
+      "baseline": true,
+      "startedAt": 1793242957461,
+      "closedEarly": false,
+      "respondedAt": 1793242958363
+    },
+    {
+      "id": 19,
+      "method": "GET",
+      "path": "/assets/geist-mono-latin.woff2",
+      "baseline": true,
+      "startedAt": 1793242958410,
+      "closedEarly": false
+    },
+    {
+      "id": 20,
+      "method": "GET",
+      "path": "/",
+      "baseline": true,
+      "startedAt": 1793242959252,
+      "closedEarly": false
+    },
+    {
+      "id": 21,
+      "method": "GET",
+      "path": "/assets/geist-latin.woff2",
+      "baseline": true,
+      "startedAt": 1793242959256,
+      "closedEarly": false
+    },
+    {
+      "id": 22,
+      "method": "GET",
+      "path": "/assets/instrument-serif-regular.woff2",
+      "baseline": true,
+      "startedAt": 1793242959257,
+      "closedEarly": false
+    },
+    {
+      "id": 23,
+      "method": "GET",
+      "path": "/app.js",
+      "baseline": true,
+      "startedAt": 1793242959257,
+      "closedEarly": false
+    },
+    {
+      "id": 24,
+      "method": "GET",
+      "path": "/styles.css",
+      "baseline": true,
+      "startedAt": 1793242959257,
+      "closedEarly": false
+    },
+    {
+      "id": 25,
+      "method": "GET",
+      "path": "/contract-inbox.css",
+      "baseline": true,
+      "startedAt": 1793242959258,
+      "closedEarly": false
+    },
+    {
+      "id": 26,
+      "method": "GET",
+      "path": "/batch-actions.css",
+      "baseline": true,
+      "startedAt": 1793242959258,
+      "closedEarly": false
+    },
+    {
+      "id": 27,
+      "method": "GET",
+      "path": "/assets/kleros-logo.svg",
+      "baseline": true,
+      "startedAt": 1793242959258,
+      "closedEarly": false
+    },
+    {
+      "id": 28,
+      "method": "GET",
+      "path": "/reconciliation.js",
+      "baseline": true,
+      "startedAt": 1793242959269,
+      "closedEarly": false
+    },
+    {
+      "id": 29,
+      "method": "GET",
+      "path": "/hosted-wallet.js",
+      "baseline": true,
+      "startedAt": 1793242959270,
+      "closedEarly": false
+    },
+    {
+      "id": 30,
+      "method": "GET",
+      "path": "/contract-inbox.js",
+      "baseline": true,
+      "startedAt": 1793242959270,
+      "closedEarly": false
+    },
+    {
+      "id": 31,
+      "method": "GET",
+      "path": "/batch-actions.js",
+      "baseline": true,
+      "startedAt": 1793242959270,
+      "closedEarly": false
+    },
+    {
+      "id": 32,
+      "method": "GET",
+      "path": "/batch-pending.js",
+      "baseline": true,
+      "startedAt": 1793242959271,
+      "closedEarly": false
+    },
+    {
+      "id": 33,
+      "method": "GET",
+      "path": "/contract-profiles.js",
+      "baseline": true,
+      "startedAt": 1793242959271,
+      "closedEarly": false
+    },
+    {
+      "id": 34,
+      "method": "GET",
+      "path": "/transaction-context.js",
+      "baseline": true,
+      "startedAt": 1793242959271,
+      "closedEarly": false
+    },
+    {
+      "id": 35,
+      "method": "GET",
+      "path": "/batch-selection.js",
+      "baseline": true,
+      "startedAt": 1793242959272,
+      "closedEarly": false
+    },
+    {
+      "id": 36,
+      "method": "GET",
+      "path": "/api/bootstrap",
+      "baseline": true,
+      "startedAt": 1793242959275,
+      "closedEarly": false,
+      "respondedAt": 1793242960076
+    },
+    {
+      "id": 37,
+      "method": "GET",
+      "path": "/api/events/event-b",
+      "baseline": true,
+      "startedAt": 1793242960087,
+      "closedEarly": false,
+      "respondedAt": 1793242960988
+    },
+    {
+      "id": 38,
+      "method": "GET",
+      "path": "/assets/geist-mono-latin.woff2",
+      "baseline": true,
+      "startedAt": 1793242961023,
+      "closedEarly": false
+    }
+  ],
+  "writes": [],
+  "external": [],
+  "errors": [],
+  "walletCalls": [],
+  "screenshots": [
+    "baseline-mobile-loading.png",
+    "baseline-mobile-ready.png"
+  ],
+  "limitations": [
+    "Synthetic historical snapshot adapted for presentation; no financial or authorization assertions.",
+    "Chromium loopback with deterministic delayed GETs; CLS is not a field measurement.",
+    "Doubled computed text tests text enlargement, not browser zoom.",
+    "One transport deliberately ignores abort to test stale-response defense separately from real network cancellation."
+  ],
+  "status": "passed",
+  "assetSha256": {}
+}
