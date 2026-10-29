@@ -1,5 +1,6 @@
 import { productionContextIssue, isVerifiedV9Upgrade } from "./environment.js";
 import { PRODUCTION_CONTRACT_VERSION } from "./contract-profiles.js";
+import { knownAttendanceStandard } from "./luma-launch.js";
 const same = (a, b) =>
   String(a ?? "").toLowerCase() === String(b ?? "").toLowerCase();
 const address = (value) =>
@@ -62,6 +63,8 @@ export function factorySetupIssue(bootstrap, { requireWallet = false } = {}) {
     factory = bootstrap.factory;
   if (setup?.policyStatus !== "verified")
     return "Event creation is unavailable until the event policy is published and verified.";
+  if (!knownAttendanceStandard(setup.attendanceStandard))
+    return "The verified attendance standard is missing or unsupported. Event creation is unavailable.";
   if (
     !text(setup.policyURI) ||
     !sha(setup.policySha256) ||
@@ -185,6 +188,15 @@ export function assertCreationDraft(
       terms.policyURI === bootstrap.organizerSetup.policyURI &&
       same(terms.policySha256, bootstrap.organizerSetup.policySha256),
     "The immutable event terms do not match the verified policy.",
+  );
+  must(
+    knownAttendanceStandard(terms.attendanceStandard) &&
+      ["attendanceMode", "attendanceRule", "evidenceRule"].every(
+        (field) =>
+          terms.attendanceStandard[field] ===
+          bootstrap.organizerSetup.attendanceStandard[field],
+      ),
+    "The event attendance standard differs from the verified policy. Prepare a fresh event review.",
   );
   if (input)
     must(

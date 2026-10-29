@@ -1,6 +1,11 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
-import { lumaReturnUrl, participantDeposit } from "../public/luma-launch.js";
+import {
+  lumaReturnUrl,
+  participantDeposit,
+  knownAttendanceStandard,
+  attendanceStandardText,
+} from "../public/luma-launch.js";
 import {
   lumaEventUrl,
   depositWei,
@@ -25,6 +30,40 @@ const copy = (value) => structuredClone(value);
 const other = `0x${"f".repeat(40)}`;
 const hash = `0x${"7".repeat(64)}`;
 const origin = "https://launch.example.test";
+test("attendance disclosure recognizes only the exact server standard without a physical-only assumption", () => {
+  const standard = {
+    attendanceMode: "event-participation",
+    attendanceRule: "presence-during-immutable-interval-v1",
+    evidenceRule:
+      "balance-of-probabilities-with-case-organizer-confirmation-v1",
+  };
+  const before = JSON.stringify(standard);
+  assert.equal(knownAttendanceStandard(standard), true);
+  const text = attendanceStandardText(standard);
+  assert.match(text, /in person or online/);
+  assert.match(text, /No full-duration minimum/);
+  assert.match(
+    text,
+    /Payment, a Luma RSVP or a personal mark alone is not attendance/,
+  );
+  assert.match(text, /balance of probabilities/);
+  assert.match(text, /actual posted-list challenge deadline/);
+  assert.match(text, /does not imply on-chain enforcement/);
+  for (const value of [
+    null,
+    [],
+    "event-participation",
+    Object.create(standard),
+    { ...standard, attendanceMode: "physical-only" },
+    { ...standard, attendanceRule: true },
+    { ...standard, evidenceRule: "different" },
+    { ...standard, extra: true },
+  ]) {
+    assert.equal(knownAttendanceStandard(value), false);
+    assert.equal(attendanceStandardText(value), null);
+  }
+  assert.equal(JSON.stringify(standard), before);
+});
 function factory() {
   const { bootstrap } = makeLumaSetupFixture();
   const now = Date.now();
@@ -156,6 +195,9 @@ test("unpublished policy, incompatible factory/governance and unsupported EOA ca
   const { bootstrap } = factory();
   const alter = [
     (b) => (b.organizerSetup.policyStatus = "unpublished"),
+    (b) => delete b.organizerSetup.attendanceStandard,
+    (b) =>
+      (b.organizerSetup.attendanceStandard.attendanceRule = "another-standard"),
     (b) => (b.organizerSetup.policySha256 = "not-a-sha"),
     (b) => (b.capabilities.createEvents = false),
     (b) => (b.capabilities.serverSigning = true),
@@ -222,6 +264,14 @@ test("changed input or immutable terms and malformed transaction wrappers requir
     { challengeWindowSeconds: 900 },
     { depositWei: "1" },
     { policyURI: "other-policy" },
+    { attendanceStandard: null },
+    {
+      attendanceStandard: {
+        attendanceMode: "event-participation",
+        attendanceRule: "presence-during-immutable-interval-v1",
+        evidenceRule: "unsupported",
+      },
+    },
   ]) {
     const altered = copy(draft);
     Object.assign(altered.terms, patch);

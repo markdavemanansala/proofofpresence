@@ -1,5 +1,26 @@
 // Presentation only. These helpers never grant financial eligibility or mutate
 // state; the server's scoped draft and fresh validation remain authoritative.
+const attendanceStandard = Object.freeze({
+  attendanceMode: "event-participation",
+  attendanceRule: "presence-during-immutable-interval-v1",
+  evidenceRule: "balance-of-probabilities-with-case-organizer-confirmation-v1",
+});
+export function knownAttendanceStandard(value) {
+  return (
+    !!value &&
+    typeof value === "object" &&
+    !Array.isArray(value) &&
+    Object.keys(value).length === 3 &&
+    Object.entries(attendanceStandard).every(
+      ([key, expected]) => Object.hasOwn(value, key) && value[key] === expected,
+    )
+  );
+}
+export function attendanceStandardText(value) {
+  return knownAttendanceStandard(value)
+    ? "Attendance means verifiable presence or participation, in person or online, at some point during the immutable event interval. No full-duration minimum applies. Payment, a Luma RSVP or a personal mark alone is not attendance. Organizer confirmation, or otherwise a jury assessment on the balance of probabilities, is required. The actual posted-list challenge deadline controls (24 hours after posting); this does not imply on-chain enforcement of the event end."
+    : null;
+}
 export function lumaReturnUrl(value) {
   if (typeof value !== "string" || value.length > 1000) return null;
   try {

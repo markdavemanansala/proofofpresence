@@ -6,7 +6,13 @@ import { assertDemoChainInstance } from "./hosted-wallet.js";
 import { mountContractInbox } from "./contract-inbox.js";
 import { mountBatchActions } from "./batch-actions.js";
 import { createBatchPendingJournal } from "./batch-pending.js";
-import { lumaReturnUrl, launchWei, participantDeposit } from "./luma-launch.js";
+import {
+  lumaReturnUrl,
+  launchWei,
+  participantDeposit,
+  knownAttendanceStandard,
+  attendanceStandardText,
+} from "./luma-launch.js";
 import { mountLumaSetup } from "./luma-setup.js";
 import {
   isProductionMode,
@@ -637,6 +643,10 @@ function assertFinancialEnvironment(action, params = {}) {
     });
     if (issue) throw new Error(issue);
     if (isProduction() && action === "deposit") {
+      if (!knownAttendanceStandard(app.detail?.event.attendanceStandard))
+        throw new Error(
+          "This event's attendance standard is missing or unsupported. New deposit review is unavailable; existing recovery rights remain accessible.",
+        );
       const eligible = launchDepositAction();
       if (
         app.bootstrap?.capabilities?.lumaDepositPortal !== true ||
@@ -1664,6 +1674,7 @@ function renderLaunchParticipant() {
     portal &&
     !!returnUrl &&
     action?.eligible === true &&
+    knownAttendanceStandard(event.attendanceStandard) &&
     phaseName(state.phase) !== "Cancelled" &&
     !pending &&
     receipt.status !== "submitted" &&
@@ -1715,6 +1726,8 @@ function renderLaunchParticipant() {
   } else if (
     issue ||
     !portal ||
+    (action?.eligible === true &&
+      !knownAttendanceStandard(event.attendanceStandard)) ||
     receipt.status === "unavailable" ||
     !action ||
     !returnUrl
@@ -1723,6 +1736,10 @@ function renderLaunchParticipant() {
     heading = "Deposit review is unavailable";
     explanation =
       issue ??
+      (action?.eligible === true &&
+      !knownAttendanceStandard(event.attendanceStandard)
+        ? "The event attendance standard is missing or unsupported. New deposits are unavailable; existing funds and recovery remain accessible."
+        : null) ??
       (!returnUrl
         ? "The organizer has not provided a valid Luma event link. Contact them before depositing."
         : "Refresh the verified event and wallet status before depositing.");
@@ -1749,7 +1766,13 @@ function renderLaunchParticipant() {
 }
 function renderLaunchTerms() {
   const { event, state } = app.detail;
-  return `<dl class="details-list"><div><dt>Connected wallet</dt><dd class="mono">${escape(currentIdentity()?.wallet ?? "Not connected")}</dd></div><div><dt>Event ID</dt><dd class="mono">${escape(event.id)}</dd></div><div><dt>Event contract</dt><dd class="mono">${escape(event.contract)}</dd></div><div><dt>Network</dt><dd>${escape(networkName())} · ${escape(event.chainId)}</dd></div><div><dt>Event commitment</dt><dd>${eth(state.depositWei ?? event.depositWei)} ETH</dd></div><div><dt>Deposit deadline</dt><dd>${escape(formatTime(event.depositDeadline ?? event.startsAt, event.timezone))}</dd></div><div><dt>Policy</dt><dd class="mono">${escape(event.policyURI)}</dd></div></dl><p>Every transaction shows the event, wallet, exact ETH amount, recipient and policy before signing. Host admission and contract registration remain separate from a deposit.</p>${renderProductionDetails()}`;
+  return `<dl class="details-list"><div><dt>Connected wallet</dt><dd class="mono">${escape(currentIdentity()?.wallet ?? "Not connected")}</dd></div><div><dt>Event ID</dt><dd class="mono">${escape(event.id)}</dd></div><div><dt>Event contract</dt><dd class="mono">${escape(event.contract)}</dd></div><div><dt>Network</dt><dd>${escape(networkName())} · ${escape(event.chainId)}</dd></div><div><dt>Event commitment</dt><dd>${eth(state.depositWei ?? event.depositWei)} ETH</dd></div><div><dt>Deposit deadline</dt><dd>${escape(formatTime(event.depositDeadline ?? event.startsAt, event.timezone))}</dd></div><div><dt>Policy</dt><dd class="mono">${escape(event.policyURI)}</dd></div></dl>${renderAttendanceStandard(event)}<p>Every transaction shows the event, wallet, exact ETH amount, recipient and policy before signing. Host admission and contract registration remain separate from a deposit.</p>${renderProductionDetails()}`;
+}
+function renderAttendanceStandard(event) {
+  const text = attendanceStandardText(event?.attendanceStandard);
+  return text
+    ? `<div data-attendance-standard><h3>Attendance standard</h3><p>${escape(text)}</p><p class="small">Immutable event interval: ${escape(formatTime(event.startsAt, event.timezone))} — ${escape(formatTime(event.endsAt, event.timezone))}.</p></div>`
+    : '<p class="notice warning" data-attendance-standard>The attendance standard is unavailable. New deposits are disabled; existing recovery rights remain accessible.</p>';
 }
 function renderLaunchFinancialDetails() {
   if (!currentIdentity()) return "";
@@ -2867,7 +2890,7 @@ async function prepareTransaction(action, params = {}) {
   app.draftParams = { ...params };
   const event = app.detail.event;
   showDialog(
-    `${testProfileNotice(event)}<div class="dialog-eyebrow">Review before signing</div><h2 class="dialog-title" id="dialog-title">${escape(actionNames[action] ?? action)}</h2><p class="dialog-body-text">${escape(typeof draft.summary === "string" ? draft.summary : JSON.stringify(draft.summary))}</p><div class="review-list"><dl class="details-list"><div><dt>Event</dt><dd><strong>${escape(event.title)}</strong><br>${escape(draft.eventId)}</dd></div>${action === "postAttendance" ? `<div><dt>Proposed attendees</dt><dd><strong>${draft.args[0].length} registered wallets</strong></dd></div><div><dt>Initial share</dt><dd><strong>${eth(draft.args[1])} ${escape(currencySymbol())}</strong></dd></div><div><dt>Registered pool</dt><dd>${eth(app.detail.state.poolWei)} ${escape(currencySymbol())}</dd></div>` : ""}${action === "register" || action === "reject" ? `<div><dt>Reviewed wallets</dt><dd><strong>${draft.args[0].length} verified participants</strong></dd></div>` : ""}<div><dt>Network</dt><dd>${escape(networkName())} · ${escape(draft.chainId)}</dd></div><div><dt>Event contract</dt><dd class="mono">${escape(draft.contract)}</dd></div>${!same(draft.contract, draft.transaction.to) ? `<div><dt>Transaction recipient</dt><dd class="mono">${escape(draft.transaction.to)}</dd></div>` : ""}<div><dt>Signing wallet</dt><dd class="mono">${escape(draft.wallet)}</dd></div><div><dt>Value</dt><dd><strong>${eth(draft.valueWei)} ${escape(currencySymbol())}</strong><br><span class="small mono">${escape(draft.valueWei)} wei</span></dd></div><div><dt>Method</dt><dd><code>${escape(draft.method)}</code></dd></div><div><dt>Policy</dt><dd>${escape(event.policyURI ?? event.policyUri ?? "Immutable event policy")}</dd></div><div><dt>Review expires</dt><dd>${escape(formatTime(draft.expiresAt, "UTC"))}</dd></div></dl></div><details class="disclosure"><summary>Inspect calldata and arguments</summary><pre class="review-code">${escape(JSON.stringify({ args: draft.args, transaction: draft.transaction, snapshot: draft.snapshot }, null, 2))}</pre></details>${action === "release" ? releaseBreakdown() : ""}<div class="notice warning">Confirming sends a transaction from the selected wallet on ${escape(networkName())} (${escape(draft.chainId)}). The server checks this state snapshot again and rejects an expired or stale draft. Changing event or wallet clears the review.</div><div id="transaction-status" role="status"></div><div class="dialog-buttons"><button class="button button-secondary" data-close>Cancel</button><button class="button button-primary" id="execute-transaction" data-execute>${isProduction() ? "Confirm Ethereum transaction" : Number(draft.chainId) === 1337 ? "Confirm local transaction" : "Confirm testnet transaction"}</button></div>`,
+    `${testProfileNotice(event)}<div class="dialog-eyebrow">Review before signing</div><h2 class="dialog-title" id="dialog-title">${escape(actionNames[action] ?? action)}</h2><p class="dialog-body-text">${escape(typeof draft.summary === "string" ? draft.summary : JSON.stringify(draft.summary))}</p><div class="review-list"><dl class="details-list"><div><dt>Event</dt><dd><strong>${escape(event.title)}</strong><br>${escape(draft.eventId)}</dd></div>${action === "postAttendance" ? `<div><dt>Proposed attendees</dt><dd><strong>${draft.args[0].length} registered wallets</strong></dd></div><div><dt>Initial share</dt><dd><strong>${eth(draft.args[1])} ${escape(currencySymbol())}</strong></dd></div><div><dt>Registered pool</dt><dd>${eth(app.detail.state.poolWei)} ${escape(currencySymbol())}</dd></div>` : ""}${action === "register" || action === "reject" ? `<div><dt>Reviewed wallets</dt><dd><strong>${draft.args[0].length} verified participants</strong></dd></div>` : ""}<div><dt>Network</dt><dd>${escape(networkName())} · ${escape(draft.chainId)}</dd></div><div><dt>Event contract</dt><dd class="mono">${escape(draft.contract)}</dd></div>${!same(draft.contract, draft.transaction.to) ? `<div><dt>Transaction recipient</dt><dd class="mono">${escape(draft.transaction.to)}</dd></div>` : ""}<div><dt>Signing wallet</dt><dd class="mono">${escape(draft.wallet)}</dd></div><div><dt>Value</dt><dd><strong>${eth(draft.valueWei)} ${escape(currencySymbol())}</strong><br><span class="small mono">${escape(draft.valueWei)} wei</span></dd></div><div><dt>Method</dt><dd><code>${escape(draft.method)}</code></dd></div><div><dt>Policy</dt><dd>${escape(event.policyURI ?? event.policyUri ?? "Immutable event policy")}</dd></div><div><dt>Review expires</dt><dd>${escape(formatTime(draft.expiresAt, "UTC"))}</dd></div></dl></div>${isProduction() && action === "deposit" ? renderAttendanceStandard(event) : ""}<details class="disclosure"><summary>Inspect calldata and arguments</summary><pre class="review-code">${escape(JSON.stringify({ args: draft.args, transaction: draft.transaction, snapshot: draft.snapshot }, null, 2))}</pre></details>${action === "release" ? releaseBreakdown() : ""}<div class="notice warning">Confirming sends a transaction from the selected wallet on ${escape(networkName())} (${escape(draft.chainId)}). The server checks this state snapshot again and rejects an expired or stale draft. Changing event or wallet clears the review.</div><div id="transaction-status" role="status"></div><div class="dialog-buttons"><button class="button button-secondary" data-close>Cancel</button><button class="button button-primary" id="execute-transaction" data-execute>${isProduction() ? "Confirm Ethereum transaction" : Number(draft.chainId) === 1337 ? "Confirm local transaction" : "Confirm testnet transaction"}</button></div>`,
   );
 }
 function releaseBreakdown() {

@@ -7,6 +7,11 @@ import {
 } from "./production-ui-fixture.mjs";
 
 // TEST ONLY. Current production DTO projections; no Luma API, live wallet or chain.
+export const LUMA_ATTENDANCE_STANDARD = Object.freeze({
+  attendanceMode: "event-participation",
+  attendanceRule: "presence-during-immutable-interval-v1",
+  evidenceRule: "balance-of-probabilities-with-case-organizer-confirmation-v1",
+});
 export const LUMA_LAUNCH_EVENT_ID = "luma-launch-synthetic-event";
 export const LUMA_LAUNCH_URL = "https://luma.com/synthetic-committed-spot";
 export const LUMA_LAUNCH_HASH = "0x" + "9".repeat(64);
@@ -33,6 +38,7 @@ export function makeLumaLaunchFixture(
     receiptPatch = null,
     walletAddress = FIXTURE_WALLET,
     instanceId = null,
+    attendanceStandard = LUMA_ATTENDANCE_STANDARD,
   } = {},
 ) {
   if (!LUMA_LAUNCH_SCENARIOS.includes(scenario))
@@ -58,6 +64,11 @@ export function makeLumaLaunchFixture(
     title: "Luma committed spot fixture",
     lumaUrl,
   });
+  bootstrap.organizerSetup = {
+    attendanceStandard: structuredClone(LUMA_ATTENDANCE_STANDARD),
+  };
+  if (attendanceStandard === null) delete detail.event.attendanceStandard;
+  else detail.event.attendanceStandard = structuredClone(attendanceStandard);
   // Faithful wallet-first projection: no participant application, contact, signup or import.
   for (const key of [
     "participants",
@@ -262,7 +273,9 @@ export function makeLumaParticipantDraft(
 
 export const LUMA_FACTORY_ADDRESS = "0x" + "6".repeat(40);
 export const LUMA_CREATED_EVENT_ID = "created-luma-synthetic-event";
-export function makeLumaSetupFixture() {
+export function makeLumaSetupFixture({
+  attendanceStandard = LUMA_ATTENDANCE_STANDARD,
+} = {}) {
   const value = makeLumaLaunchFixture("ready");
   const { bootstrap, detail } = value;
   bootstrap.events = [];
@@ -278,6 +291,9 @@ export function makeLumaSetupFixture() {
     challengeWindowSeconds: 86400,
     matchWindowSeconds: 86400,
     minimumClaimDays: 7,
+    ...(attendanceStandard === null
+      ? {}
+      : { attendanceStandard: structuredClone(attendanceStandard) }),
   };
   bootstrap.factory = {
     address: LUMA_FACTORY_ADDRESS,
@@ -328,6 +344,9 @@ export function makeLumaFactoryDraft(bootstrap, input, now = Date.now()) {
       challengeWindowSeconds: 86400,
       matchWindowSeconds: 86400,
       capacity: 150,
+      attendanceStandard: structuredClone(
+        bootstrap.organizerSetup.attendanceStandard,
+      ),
     },
     transaction: {
       to: LUMA_FACTORY_ADDRESS,

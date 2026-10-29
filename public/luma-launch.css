@@ -1,10 +1,6 @@
 /* Compact Luma launch presentation only; legacy layouts retain their own tokens. */
 body.launch-mode {
-  --launch-accent: #4ccebd;
-  --launch-soft: #4ccebd14;
-  --purple: var(--launch-accent);
-  --purple-soft: var(--launch-soft);
-  --on-accent: #102523;
+  --launch-accent: var(--teal);
 }
 .launch-mode .app-shell {
   grid-template-columns: minmax(0, 1fr);
@@ -158,7 +154,7 @@ body.launch-mode {
 .luma-setup :is(a, button, input, select, textarea, summary):focus-visible,
 .luma-setup-review
   :is(a, button, input, select, textarea, summary):focus-visible {
-  outline: 3px solid var(--launch-accent, var(--purple));
+  outline: 3px solid var(--purple);
   outline-offset: 3px;
 }
 .luma-launch :is(code, .mono),

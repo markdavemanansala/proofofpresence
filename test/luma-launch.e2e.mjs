@@ -15,6 +15,7 @@ import {
   makeLumaFactoryDraft,
   LUMA_FACTORY_ADDRESS,
   LUMA_CREATED_EVENT_ID,
+  LUMA_ATTENDANCE_STANDARD,
 } from "./fixtures/luma-launch-fixture.mjs";
 import { FIXTURE_WALLET as wallet } from "./fixtures/production-ui-fixture.mjs";
 
@@ -38,6 +39,14 @@ function selfTest() {
     ])
       assert.deepEqual(fixture.detail[field], []);
     assert.equal(fixture.detail.personal, null);
+    assert.deepEqual(
+      fixture.detail.event.attendanceStandard,
+      LUMA_ATTENDANCE_STANDARD,
+    );
+    assert.deepEqual(
+      fixture.bootstrap.organizerSetup.attendanceStandard,
+      LUMA_ATTENDANCE_STANDARD,
+    );
     assert(
       fixture.detail.participants.every(
         (person) =>
@@ -63,6 +72,20 @@ function selfTest() {
     }
     cases++;
   }
+  const setupFixture = makeLumaSetupFixture();
+  const creationDraft = makeLumaFactoryDraft(setupFixture.bootstrap, {
+    title: "Synthetic attendance fixture",
+    lumaUrl,
+    startsAt: "2026-11-05T10:00:00.000Z",
+    endsAt: "2026-11-05T12:00:00.000Z",
+    timezone: "UTC",
+    depositEth: "0.01",
+  });
+  assert.deepEqual(
+    creationDraft.terms.attendanceStandard,
+    LUMA_ATTENDANCE_STANDARD,
+  );
+  cases++;
   console.log(
     JSON.stringify(
       {
@@ -100,7 +123,12 @@ async function run() {
       "Fake wallet authentication uses a non-cryptographic signature literal. No real provider, Luma API, RPC, public request or transaction execution is available.",
     ],
   };
-  const factoryMock = { enabled: false, draft: null, wrongCandidate: null };
+  const factoryMock = {
+    enabled: false,
+    draft: null,
+    wrongCandidate: null,
+    standardOverride: undefined,
+  };
   const sender = {
     enabled: false,
     draft: null,
@@ -251,6 +279,12 @@ async function run() {
           ].sort(),
         );
         factoryMock.draft = makeLumaFactoryDraft(selected.bootstrap, body);
+        if (factoryMock.standardOverride === null)
+          delete factoryMock.draft.terms.attendanceStandard;
+        else if (factoryMock.standardOverride !== undefined)
+          factoryMock.draft.terms.attendanceStandard = structuredClone(
+            factoryMock.standardOverride,
+          );
         return send(res, 200, factoryMock.draft);
       }
       const factoryPath =
@@ -643,6 +677,37 @@ async function run() {
       "Canonical owed-credit recovery remains accessible from the compact participant view",
     );
 
+    const unsupportedStandard = {
+      ...LUMA_ATTENDANCE_STANDARD,
+      attendanceRule: "unsupported-attendance-rule",
+    };
+    for (const attendanceStandard of [null, unsupportedStandard]) {
+      await visit("ready", { attendanceStandard });
+      await expect(page.locator('[data-tx="deposit"]')).toHaveCount(0);
+      const beforePolicy = result.walletCalls.length;
+      await page.locator("[data-luma-launch]").evaluate((host) => {
+        const button = document.createElement("button");
+        button.dataset.tx = "deposit";
+        button.id = "synthetic-policy-control";
+        button.textContent = "TEST ONLY stale deposit action";
+        host.append(button);
+      });
+      await page.locator("#synthetic-policy-control").click();
+      await expect(page.locator("#toast")).toContainText(
+        /attendance.*standard/i,
+      );
+      assert.equal(result.walletCalls.length, beforePolicy);
+      assert.deepEqual(result.forbidden, []);
+      await visit("owed", { attendanceStandard });
+      await page.locator(".luma-launch-recovery > summary").click();
+      await page.locator('[data-recovery="claim"]').click();
+      await expect(page.locator("#recovery-to")).toHaveValue(wallet);
+      await page.keyboard.press("Escape");
+    }
+    pass(
+      "Missing or unknown immutable attendance metadata blocks new deposit UI and stale prepare clicks while existing owed-payment recovery remains available",
+    );
+
     await visit("organizer", { view: "organizer" });
     await noSignup();
     await expect(page.locator('[data-admission="minimal-peer"]')).toHaveCount(
@@ -784,6 +849,17 @@ async function run() {
     await expect(page.locator("#review-dialog")).toBeVisible();
     await expect(page.locator("#review-dialog")).toContainText("0.01 ETH");
     await expect(page.locator("#review-dialog")).toContainText(wallet);
+    const policyReview = page.locator(
+      "#review-dialog [data-attendance-standard]",
+    );
+    for (const phrase of [
+      "in person or online",
+      "No full-duration minimum",
+      "Payment, a Luma RSVP or a personal mark alone is not attendance",
+      "balance of probabilities",
+      "24 hours after posting",
+    ])
+      await expect(policyReview).toContainText(phrase);
     await expect(page.locator("#review-dialog")).toContainText(
       selected.detail.event.contract,
     );
@@ -822,8 +898,9 @@ async function run() {
       instance = "production-ui-loopback-only",
       actor = wallet,
       factory = LUMA_FACTORY_ADDRESS,
+      attendanceStandard = LUMA_ATTENDANCE_STANDARD,
     } = {}) => {
-      selected = makeLumaSetupFixture();
+      selected = makeLumaSetupFixture({ attendanceStandard });
       scene = "root";
       selected.bootstrap.instanceId = instance;
       selected.bootstrap.session.wallet = actor;
@@ -847,6 +924,12 @@ async function run() {
     await expect(setupDialog).toContainText("1 day each");
     await expect(setupDialog).toContainText("0.01 ETH");
     await expect(setupDialog).toContainText(LUMA_FACTORY_ADDRESS);
+    await expect(page.locator("[data-luma-attendance-standard]")).toContainText(
+      "in person or online",
+    );
+    await expect(
+      setupDialog.locator("[data-luma-review-attendance-standard]"),
+    ).toContainText("24 hours after posting");
     for (let index = 0; index < 6; index++) {
       await page.keyboard.press(index % 2 ? "Tab" : "Shift+Tab");
       assert(
@@ -874,6 +957,47 @@ async function run() {
     pass(
       "Organizer form reviews canonical policy, capacity, deadlines, amount and factory terms in a keyboard-contained native dialog; cancel has no wallet effect",
     );
+    const canonicalFactoryDraft = structuredClone(factoryMock.draft);
+    const beforePolicySetup = result.requests.filter(
+      (r) => r.method === "POST" && r.path === "/api/organizer/events/drafts",
+    ).length;
+    for (const attendanceStandard of [null, unsupportedStandard]) {
+      await visitSetup({ attendanceStandard });
+      await expect(page.locator('[data-luma-action="review"]')).toBeDisabled();
+    }
+    assert.equal(
+      result.requests.filter(
+        (r) => r.method === "POST" && r.path === "/api/organizer/events/drafts",
+      ).length,
+      beforePolicySetup,
+    );
+    for (const override of [null, unsupportedStandard]) {
+      await visitSetup();
+      factoryMock.standardOverride = override;
+      await form
+        .locator('[name="title"]')
+        .fill("Synthetic organizer Luma event");
+      await form.locator('[name="lumaUrl"]').fill(lumaUrl);
+      await form.locator('[name="startsAt"]').fill("2026-11-05T10:00");
+      await form.locator('[name="endsAt"]').fill("2026-11-05T12:00");
+      await form.locator('[name="depositEth"]').fill("0.01");
+      await form.locator('[data-luma-action="review"]').click();
+      await expect(page.locator("[data-luma-error]")).toContainText(
+        /attendance|standard|policy/i,
+      );
+      await expect(page.locator("dialog[data-luma-dialog]")).toHaveCount(0);
+    }
+    factoryMock.standardOverride = undefined;
+    factoryMock.draft = canonicalFactoryDraft;
+    assert.equal(
+      result.walletCalls.filter((call) => call.method === "eth_sendTransaction")
+        .length,
+      2,
+    );
+    pass(
+      "Missing or unknown setup attendance metadata blocks creation before preparation; a missing or changed draft standard cannot enter review or request the wallet",
+    );
+
     const originalInstance = "production-ui-loopback-only",
       newInstance = originalInstance + "-restarted";
     const markerKey = (instance) =>

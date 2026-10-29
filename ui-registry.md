@@ -26,7 +26,7 @@ Files: `public/app.js`, `public/styles.css` · Updated 28 October 2026
 
 The notice stays visible through event and identity switches and states valueless ETH, mock Court, shared state, reset on server restart and synthetic inputs only. It has no dismissal control and does not move focus. Existing financial action, calldata, authority and journal behavior remains unchanged.
 
-Updated 28 October 2026 using the imprint skill after implementing selected Option B in the isolated UI worktree. This replaces the earlier light workbench patterns. The retained legacy apps keep their own visual systems. Exact selected values come from `KLEROS_REDESIGN_HANDOFF/design-tokens.json`.
+Updated 28 October 2026 using the imprint skill after implementing selected Option B in the isolated UI worktree. This replaces the earlier light workbench patterns. The retained legacy apps keep their own visual systems. The 29 October supplied reference palette supersedes historical handoff colors; see the canonical [palette record](</Users/hashmanansala/Documents/ChatGPT/Kleros projects/docs/UI_COLOR_PALETTE.md>).
 
 ### Shell and typography
 
@@ -34,10 +34,10 @@ Files: `public/styles.css`, `public/index.html` · Last updated: 28 October 2026
 
 | Property                      | Token / selector                                                                            |
 | ----------------------------- | ------------------------------------------------------------------------------------------- |
-| Background / rail             | `--paper: #17131F`, `--deep: #120F19`                                                       |
-| Surface / raised              | `--surface: #201A2B`, `--raised: #2A2336`                                                   |
-| Text / heading / muted        | `--ink: #E6E1EE`, `--heading: #F2EEF7`, `--muted: #A69FB5`                                  |
-| Decorative / control boundary | `--line: #352D44`, `--boundary: #81788F`                                                    |
+| Background / rail             | `--paper: #120E1C`, `--deep: #100C19`                                                       |
+| Surface / raised              | `--surface: #1C1829`, `--raised: #2E1D4C`                                                   |
+| Text / heading / muted        | `--ink: #EEEAF5`, `--heading: #FCFAFF`, `--muted: #CAC5D5`                                  |
+| Decorative / control boundary | `--line: #473C5F`, `--boundary: #84739E`                                                    |
 | Display                       | Instrument Serif, regular 400; h1 up to 60px, h2 32px                                       |
 | Body / controls / metadata    | Geist 16px/1.6; 14px controls; 13px metadata                                                |
 | Identifiers / amounts         | Geist Mono; long values wrap rather than disappear                                          |
@@ -67,7 +67,7 @@ Files: `public/styles.css`, `public/app.js` · Last updated: 28 October 2026
 
 | Property       | Token / selector                                                                   |
 | -------------- | ---------------------------------------------------------------------------------- |
-| Primary        | `.button-primary`: `--purple: #A78BFA`, `--on-accent: #17131F`                     |
+| Primary        | `.button-primary`: `--teal: #5BD4EF`, `--on-accent: #100C19`; hover `#86E2F5`                     |
 | Secondary      | `.button-secondary`: transparent/deep surface, meaningful boundary                 |
 | Danger         | `--red: #FF8FA3` with tinted surface                                               |
 | Geometry       | 8px control radius; buttons at least 44px; fields at least 46px                    |
@@ -272,7 +272,7 @@ public/app.js ·29October2026
 | Property | Pattern |
 | --- | --- |
 | Scope | body.launch-mode only; historical demo/testnet layouts retain their tokens and structure. |
-| Accent | Teal #4CCEBD mapped through existing accent tokens; dark on-accent text and existing deep/surface/line palette. |
+| Accent | Shared cyan --teal #5BD4EF for actions/state borders, lavender --purple #C2B5F2 for links/focus, dark --on-accent #100C19; shared plum surfaces. |
 | Cards |20px radius,24px padding(20px mobile), quiet line boundaries and existing restrained shadow. |
 | Typography | Local Geist controls/body and Instrument Serif headings; exact identifiers wrap. |
 | Controls |44px actions/native summaries,46px form fields, native focus outline and modal dialog. |
