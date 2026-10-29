@@ -1,3 +1,10 @@
+## Lean homepage optimization — 29 October 2026
+
+[LEAN_STARTUP_HANDOFF](docs/LEAN_STARTUP_HANDOFF.md) records the current9cac8df baseline, four-file
+startup change, exact source/graph/payload evidence, ten focused guards and actual v7/v8 compatibility.
+Core owns the separate two safe RPC read reuses and final Netlify/live comparison. Widget829d8c31 is
+preserved. Earlier setup-loader publication dependencies are satisfied by the live9cac8df repair.
+
 ## Setup wallet loading/recovery fix — 29 October 2026
 
 [SETUP_WALLET_FEEDBACK_HANDOFF](docs/SETUP_WALLET_FEEDBACK_HANDOFF.md) records the reproduced blank
