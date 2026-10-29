@@ -1,0 +1,56 @@
+{
+  "kind": "read-only-core-v10-integration-checkpoint",
+  "dateBangkok": "2026-10-30",
+  "inspectionScope": "Saved source-bound Core proofs and three saved screenshots only; no rerun, RPC, wallet, authentication, financial action or live probe.",
+  "localCreation": {
+    "status": "passed",
+    "checks": 13,
+    "proof": "/Users/hashmanansala/Documents/ChatGPT/Kleros projects/artifacts/v10-app-creation/2026-10-29T17-29-48-650Z-20de4a8e-0e19-4dff-a5ef-5ff8dff37c3c/proof.json",
+    "sha256": "a072de7f88ace6ebfbac1460a500776c752c97a31cc543a39303095e006bb24e",
+    "sourceBaseCommit": "f4432c9725802c1d2f3e74e754c62993162b2cfd",
+    "workingTreeHashesAuthoritative": true,
+    "scope": "Actual isolated local EOA CREATE, canonical adoption, receipt/share preservation, owned refresh, fresh home catalog and restart. Public arbitration verification trusted-injected; adjudication mocked. Not mainnet, extension or delegated app support."
+  },
+  "context": {
+    "status": "passed",
+    "checks": 4,
+    "proof": "/Users/hashmanansala/Documents/ChatGPT/Kleros projects/artifacts/v10-app-context/2026-10-29T17-27-20.284Z-298a9830-48d5-4f11-9d25-9128c2eb1409/proof.json",
+    "sha256": "ed62c367535c84411ef0b2beeb0506839292425d97a9c3db75b4609b8b2c7539",
+    "scope": "Synthetic V9 timelock and V10 active/renounced UI contexts; no actual chain or adoption."
+  },
+  "sourceInspected": {
+    "public/app.js": "1a7f6dfede6422aa765200e0d90ee2bb630c76cfa98c2bd857f15eb03042c843"
+  },
+  "screenshotsInspected": [
+    "v10-app-creation/mobile-created-and-owned.png",
+    "v10-app-context/desktop-v10-active.png",
+    "v10-app-context/mobile-v10-renounced.png"
+  ],
+  "materialFinding": {
+    "status": "reported-to-Core-open",
+    "owner": "Core owns app.js",
+    "area": "Actual V10 financial review before confirmation",
+    "finding": "Immediate upgrade/custody control is described in collapsible governance details/help but absent from actual deposit transaction review. Add visible state-aware disclosure before Confirm; verified renounced copy must require exact current event finalization.",
+    "optionalPolishDeferred": true
+  },
+  "mainnetObservation": {
+    "proof": "/Users/hashmanansala/Documents/ChatGPT/Kleros projects/artifacts/v10-release/post-confirmation-observation-2026-10-29T17-53-26.366Z-7446231b-84fd-424e-96c1-cce311289913.json",
+    "sha256": "b8b1c5e6457952259e2bd4fa4000a4827c26ecef78d3d5ef7f86b7189a8afa0c",
+    "blockNumber": 26300020,
+    "nonceLatest": "6",
+    "noncePending": "6",
+    "plannedAddressesWithCode": 0,
+    "plannedAddressCount": 4,
+    "savedHandoffHashes": 0,
+    "signaturesByObserver": 0,
+    "broadcastsByObserver": 0,
+    "deploymentVerified": false
+  },
+  "remainingGates": [
+    "Contract chat is collecting the human wallet transaction hash/clarification; do not duplicate question or resend.",
+    "Current human delegated-wallet app authentication/receipt integration remains OFF; protocol tests do not grant app finance.",
+    "V10 policy publication, canonical deployment proof and final combined source/release approval are not complete.",
+    "Current Netlify release remains V9 source09ac3a9; no V10 live link or event-ready claim."
+  ],
+  "productFilesChangedByThisInspection": []
+}

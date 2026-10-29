@@ -1,3 +1,17 @@
+## Core local V10 integration checked; live rollout still blocked — 30 October2026
+
+Saved Core evidence now proves13local actual-creation/adoption/owned/public/restart checks and4UI
+context cases passed. This chat verified the proof hashes and inspected three saved screenshots;
+[checkpoint](artifacts/v10-ui/core-local-integration-review.json) records exact source and limitations.
+One material UI finding was sent to Core: visible immediate-upgrade/custody disclosure is needed in
+the actual V10 payment review before confirmation. Core owns app.js; no competing edit was made.
+
+Corrected deployment status: the public observation at block26300020 found nonce6, no code at all4
+planned addresses and no saved handoff hashes. No V10 mainnet deployment is verified. The contract
+chat is collecting a transaction hash/clarification; do not resend or ask a duplicate question.
+Delegated-wallet app authentication/receipt support remains off, and V10 policy/release gates remain
+open. Current Netlify source09ac3a9 remains V9. Local success is not a live-event/deposit claim.
+
 ## V10 public/owned display support — 29 October2026
 
 [V10_UI_PROJECTIONS_HANDOFF](docs/V10_UI_PROJECTIONS_HANDOFF.md) contains the new bounded three-helper
