@@ -229,3 +229,36 @@ Files: `public/index.html`, `public/loading.css`, `public/ui-keyboard.js`, `publ
 
 Pending money/actions remain unavailable until fresh detail and existing journal guards are restored.
 Never add simulated percentages, cached eligibility or optimistic payment success to loading UI.
+
+
+### Verified production context and upgrade disclosure
+
+Files: `public/environment.js`, `public/app.js`, `public/contract-profiles.js` · 29 October 2026
+
+| Property | Pattern |
+| --- | --- |
+| Environment status | Existing persistent notice surface, with plain Ethereum/ETH and standard-wallet support metadata. |
+| Unavailable authority | Existing amber warning notice; plain reason, no simulated completion or financial eligibility. |
+| Governance details | Existing native details/summary, context-details and details-list; full wrapping addresses and exact reported delay/pending time. |
+| Financial review | Existing expanded event, network, wallet, contract, recipient, exact ETH/wei and policy facts before signing. |
+| Interaction | Existing native dialogs, 44px targets and scope-bound focus; no new navigation or visual theme. |
+
+Pattern notes: The explicit hosted-production mode hides sandbox utilities even when production
+metadata is incomplete. Verified metadata and transaction readiness are separate from presentation.
+A pending/unavailable appeal reward amount stays unavailable rather than becoming zero.
+An event's UUPS proxy and upgrade authority are event-specific. The timelock gives review notice,
+not guaranteed withdrawal; custody logic can change under the upgrade authority. Factory defaults
+apply to future events. Only verified supplied governance facts are displayed as verified.
+Keep the simple participant, organizer and disputes navigation and the established teal accents.
+
+
+### Submitted hashes during verification failure
+
+File: `public/app.js` ·29October2026
+
+Pattern notes: Use the existing panel, transaction-log, mono wrapping text, warning surface and native
+button. An error never hides a scoped durable transaction reference. Show full event/contract/wallet
+context and exact recorded hash; offer one explicit receipt check. Keep all new financial actions
+absent while event verification is unavailable. Confirmed means the original receipt was verified,
+not that payout delivery or event trust is established. Malformed responses retain the hash; changed
+actor, event, backend instance or mode cannot inherit the panel or signing authority.

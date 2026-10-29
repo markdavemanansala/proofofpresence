@@ -2,6 +2,10 @@
 
 29 October 2026 · ready for primary-session review; not deployed.
 
+Current validated follow-up: [production UI guards and recovery handoff](docs/ui-ux-audit/PRODUCTION_UI_HANDOFF.md).
+The extra D performance publish is paused under the newer production-readiness priority.
+The earlier performance validation below remains historical; no optimized Netlify release is claimed.
+
 The subsequent [actor/session follow-up](docs/ui-ux-audit/SESSION_FIX_REPORT.md) must be integrated
 before enabling selected-event bootstrap. It preserves all original cases and adds projection and
 successful-session-transition checks; the original checkpoint results below remain historical.

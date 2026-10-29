@@ -1002,6 +1002,7 @@ export async function startServer({
           "/app.js",
           "/ui-keyboard.js",
           "/selected-event.js",
+          "/environment.js",
           "/loading.css",
           "/contract-inbox.js",
           "/contract-profiles.js",
