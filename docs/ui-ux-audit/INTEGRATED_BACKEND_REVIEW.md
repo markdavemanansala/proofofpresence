@@ -5,19 +5,23 @@
 Reviewed the backend patch applied in the isolated UI worktree against local HEAD
 `ea9fadaad2191da04ec1a5104ffe1efdcabfcd03`. Root identified its provenance as primary source
 `f7…` and patch SHA256 `ab8ab6d7653b7faf94773f6ab28a8f62a63539f5e1d25418a50863d517350197`.
-That provenance was supplied by root; the file digests below were independently computed for the
-actual applied source inspected.
+That provenance was supplied by root. A final authority-canonicality delta, supplied as SHA256
+`9f67c7a361c9a12d81e15e2225d335ba60fc5dd77fd2e322f7932aeb65030e1f`, was subsequently applied
+only in this isolated worktree. The **final** file digests below were independently computed and
+the changed workbench/test digests match root's supplied expected values.
 
 | Reviewed file | SHA256 |
 | --- | --- |
 | `src/chain.mjs` | `daf91b522bcdc876ddc4abd8bcde4641d94e7eac908e1cf78a4862957ccd643b` |
 | `src/server.mjs` | `f9903eb55ed4234ae7e0cbd8a3db4c4bc4a95daa850b9ac8745b0b65d5f07439` |
-| `src/workbench.mjs` | `cc755e77f10f50d638cfbb0fb4b0a8cd3f030af64f7609d35b0a05967ec144d1` |
-| `test/selected-bootstrap.test.mjs` | `72359705087d024c59b5498a62feb1c104ddf060710f4da985dd75efe44841bf` |
+| `src/workbench.mjs` | `30d7d6f722bb5eb83b3c6a54a5b62d09d93f1530323bea6674ac93188742d609` |
+| `test/selected-bootstrap.test.mjs` | `5b77a05c1ae8e858bfb88d7f0b264246f5861ca9f22c8506cc3dde9c76db0b63` |
 
-## Finding requiring primary feedback
+## Authority-block finding — resolved in final delta
 
-**Final authority-block canonicality is not checked independently of the older selected snapshot.**
+**The initially reported authority-block canonicality gap is closed in the final source above.**
+The following describes the original finding against the first applied patch; the final-delta
+review below records its resolution. Earlier source line references describe that first patch.
 
 `selectedDisclosure()` selects a fresh authority block at `src/workbench.mjs:617`, then reads each
 directory event's owner/pending owner at that block number (`623`–`625`). The parallel canonical
@@ -35,8 +39,35 @@ Suggested resolution: after all authority reads, compare the canonical block has
 block number with the hash chosen for those reads, and fail closed on disagreement before any
 synchronous disclosure checks. Keep it separate from the selected-snapshot hash check. A targeted
 local regression should change only the guard anchor while leaving the selected anchor valid.
-This was reported promptly to root. It is a source-supported race scenario, not a test reproduced
-by this reviewer; approval remains pending primary feedback/resolution and final evidence.
+This was reported promptly to root. It was a source-supported race scenario, not a test reproduced
+by this reviewer. Primary then supplied the narrowly scoped final delta and regression below.
+
+### Final-delta source and regression review
+
+At final `src/workbench.mjs:651`, after all owner/pending-owner and selected-anchor reads finish,
+the provider rereads the exact authority block number. The code requires both number and hash to
+match the originally chosen authority block. This is the **last awaited operation** before the
+synchronous disclosure decisions. Failure enters the existing fail-closed branch: no directory
+summaries, and a previously valid selected detail becomes null with sanitized
+`SELECTED_EVENT_REORG`/409. Existing selected errors remain errors rather than becoming private
+payloads. The older selected financial/payment anchor check remains independently in place.
+
+Provider configuration was also inspected read-only: local `src/chain.mjs:64`–`66` and external
+`src/testnet-runtime.mjs:61`–`63` both construct `ethers.JsonRpcProvider` with `cacheTimeout:-1`.
+The final repeated block request therefore does not rely on ethers' ordinary short request-cache
+reuse. This existing setting was not edited by the reviewer or changed as part of this delta.
+
+The new test named **`a reorg of only the final authority block cannot disclose a private directory title`**
+(`test/selected-bootstrap.test.mjs:698`–`854`) targets the precise gap. Source inspection confirms
+it chooses an older selected anchorM, mines a newer guard blockN, records all six owner/pending-owner
+values for three events from oldN, then uses a local snapshot revert and an actual replacement
+acceptOwnership transaction atN. It asserts thatM's hash stays unchanged, N's hash differs and
+B's successor is now owner, followed by empty directory, null selected detail,409 reorg error and
+absence of B's private title. It does not merely corrupt the older selected anchor or assert a
+generic error. This reviewer inspected the test but did not execute it.
+
+No remaining concrete source blocker was found within this bounded review. This closes the
+reported finding; it does not replace root's final integrated validation or authorize deployment.
 
 ## Improvements confirmed in the applied source
 
@@ -98,9 +129,14 @@ The legacy RPC-count expectation is explicitly4 versus selected1 for the selecte
 `chainState` phase read in the private fixture (`test/selected-bootstrap.test.mjs:242`–`266`).
 This is an expected structural reduction; it is not a deployed latency measurement.
 
-Primary reported combined30/30 plus focused5 and typecheck passes before this review. Those
-results were not independently rerun here. Root's integrated build/validation and resolution of
-the authority-anchor finding must be recorded separately before a release decision.
+Run attribution: primary reported combined30/30 plus focused5/typecheck for the earlier patch;
+root reported a broader292-pass run before the final delta. Primary subsequently reported31
+and typecheck passes with the authority delta. Root's final focused Node/typecheck run was still
+in progress when this source review completed. **None of those commands was independently run
+by this reviewer.** Their final integrated outcomes must be recorded by root before release.
+
+The chosen release boundary remains D-site-only **after** explicit full-financial-completion GO.
+Main/C sites and frozen financial jobs remain unchanged. Source-review closure is not that GO.
 
 This reviewer changed only this report. No candidate/backend edit, tests, browser/network/RPC,
 private-key/journal access, signing, deployment or schedule change was performed. Existing D role

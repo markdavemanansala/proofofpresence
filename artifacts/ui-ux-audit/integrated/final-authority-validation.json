@@ -1,0 +1,27 @@
+{
+  "stage": "final isolated authority-hardened combined candidate; release owned by primary",
+  "recordedAt": "2026-10-29T04:33:05.377973+00:00",
+  "baseBackendPatchSha256": "ab8ab6d7653b7faf94773f6ab28a8f62a63539f5e1d25418a50863d517350197",
+  "authorityDeltaSha256": "9f67c7a361c9a12d81e15e2225d335ba60fc5dd77fd2e322f7932aeb65030e1f",
+  "sourceSha256": {
+    "src/chain.mjs": "daf91b522bcdc876ddc4abd8bcde4641d94e7eac908e1cf78a4862957ccd643b",
+    "src/server.mjs": "f9903eb55ed4234ae7e0cbd8a3db4c4bc4a95daa850b9ac8745b0b65d5f07439",
+    "src/workbench.mjs": "30d7d6f722bb5eb83b3c6a54a5b62d09d93f1530323bea6674ac93188742d609",
+    "test/selected-bootstrap.test.mjs": "5b77a05c1ae8e858bfb88d7f0b264246f5861ca9f22c8506cc3dde9c76db0b63",
+    "public/app.js": "c2b25ee10792e3536fce0fead675ef2fec2b93fd45caf47627067d604ecd9e39",
+    "public/selected-event.js": "e590d4717c47abae18dd7547bff9128781d576c8d7687e8c3a67b1a7b6b6cf18",
+    "public/index.html": "cd6cb90ba9b53bb940794e3a797f572c0d7fe46cf819595ba29e5eef48f3e510",
+    "public/loading.css": "1b36da4a60eabc44a3346788c6af8a9910b2e50f7634faa2c991e98d86fa30c7"
+  },
+  "finalFocusedTests": {
+    "passed": 40,
+    "failed": 0,
+    "durationMs": 53839.479417
+  },
+  "finalTypecheck": "passed",
+  "finalBuildSyntaxPinnedAbiCheck": "passed",
+  "finalJointBrowser": "joint-browser/2026-10-29T04-30-28-935Z/results.json",
+  "precedingBroadValidation": "pre-authority-delta-validation.json",
+  "deployed": false,
+  "releaseBoundary": "D origin/backend only after primary verified full final settlement/payment and complete-baseline GO; main A/B+C source and scheduled jobs unchanged"
+}

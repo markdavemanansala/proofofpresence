@@ -696,6 +696,164 @@ test(
 );
 
 test(
+  "a reorg of only the final authority block cannot disclose a private directory title",
+  { timeout: 120000 },
+  async () => {
+    const fixture = await local("kleros-event-v8"),
+      { app } = fixture;
+    try {
+      const w = app.workbench,
+        cookie = await login(app, "organizer-b"),
+        bRecord = w.events.get("event-b");
+      bRecord.definition.visibility = "private";
+      bRecord.definition.organizers = [];
+      bRecord.definition.staff = [];
+      const b = w.contract("event-b"),
+        successor = await w.chain.signers[6].getAddress();
+      await (
+        await b.connect(w.chain.signers[1]).transferOwnership(successor)
+      ).wait();
+      const now = (await w.provider.getBlock("latest")).timestamp;
+      const c = await w.createEvent(w.session("organizer-a"), {
+        title: "Synthetic authority delay C",
+        slug: "authority-delay-c",
+        description: "Ephemeral authority reorg fixture",
+        startsAt: new Date((now + 10800) * 1000).toISOString(),
+        endsAt: new Date((now + 14400) * 1000).toISOString(),
+        timezone: "UTC",
+        location: "Synthetic local",
+        depositEth: "0.01",
+      });
+      const provider = w.provider,
+        send = provider.send.bind(provider),
+        getBlock = provider.getBlock.bind(provider);
+      const selectedAnchor = await getBlock("latest"),
+        snapshot = await provider.send("evm_snapshot", []);
+      const aAddress = w.events.get("event-a").deployment.contract,
+        bTitle = bRecord.definition.title;
+      const blocked = deferred(),
+        release = deferred(),
+        built = deferred();
+      const phase = ethers.id("phase()").slice(0, 10),
+        owed = ethers.id("owedTotal()").slice(0, 10);
+      const authoritySelectors = [
+        ethers.id("owner()").slice(0, 10),
+        ethers.id("pendingOwner()").slice(0, 10),
+      ];
+      const targets = [aAddress, bRecord.deployment.contract, c.contract];
+      let owedReads = 0,
+        authorityReads = 0,
+        armed = false,
+        authorityBlock,
+        replacement;
+      provider.getBlock = async (tag) => {
+        const block = await getBlock(tag);
+        if (
+          armed &&
+          tag === "latest" &&
+          !authorityBlock &&
+          block.number > selectedAnchor.number
+        )
+          authorityBlock = block;
+        return block;
+      };
+      provider.send = async (method, params) => {
+        if (
+          method === "eth_call" &&
+          same(params[0].to, c.contract) &&
+          params[0].data === phase
+        ) {
+          blocked.resolve();
+          await release.promise;
+        }
+        const result = await send(method, params);
+        if (
+          method === "eth_call" &&
+          same(params[0].to, aAddress) &&
+          params[0].data === owed &&
+          ++owedReads === 2
+        )
+          built.resolve();
+        if (
+          authorityBlock &&
+          method === "eth_call" &&
+          params[1] === ethers.toQuantity(authorityBlock.number) &&
+          authoritySelectors.includes(params[0].data) &&
+          targets.some((target) => same(target, params[0].to))
+        ) {
+          authorityReads++;
+          if (authorityReads === 6) {
+            // All six authority values were read from old N. Replace only N while
+            // withholding the final response; the selected monetary block M stays.
+            assert.equal(await send("evm_revert", [snapshot]), true);
+            replacement = await (
+              await b
+                .connect(w.chain.signers[6])
+                .acceptOwnership({ gasLimit: 500000n })
+            ).wait();
+          }
+        }
+        return result;
+      };
+      let response;
+      try {
+        const pending = request(app, selectedPath("event-a"), { cookie });
+        await Promise.race([
+          Promise.all([blocked.promise, built.promise]),
+          sleep(10000).then(() => {
+            throw new Error("Authority reorg barrier did not arrive");
+          }),
+        ]);
+        await send("evm_mine", []);
+        armed = true;
+        release.resolve();
+        response = (await pending).value;
+      } finally {
+        release.resolve();
+        provider.send = send;
+        provider.getBlock = getBlock;
+      }
+      assert.equal(authorityReads, 6);
+      assert.ok(authorityBlock && replacement);
+      assert.equal(replacement.blockNumber, authorityBlock.number);
+      const [stillSelected, nowAuthority] = await Promise.all([
+        getBlock(selectedAnchor.number),
+        getBlock(authorityBlock.number),
+      ]);
+      assert.equal(
+        stillSelected.hash,
+        selectedAnchor.hash,
+        "The selected financial anchor M remains canonical",
+      );
+      assert.notEqual(
+        nowAuthority.hash,
+        authorityBlock.hash,
+        "Only the newer authority anchor N was reorganized",
+      );
+      assert.equal(await b.owner(), successor);
+      assert.deepEqual(
+        response.events,
+        [],
+        "Untrusted authority data cannot expose any directory summary",
+      );
+      assert.equal(response.selectedEvent.detail, null);
+      assert.equal(response.selectedEvent.error.code, "SELECTED_EVENT_REORG");
+      assert.equal(response.selectedEvent.error.status, 409);
+      assert.equal(
+        JSON.stringify(response).includes(bTitle),
+        false,
+        "B's private title is not disclosed from an orphan authority block",
+      );
+      console.log(
+        `authority-reorg: selected block ${selectedAnchor.number} unchanged; guard block ${authorityBlock.number} replaced`,
+      );
+    } finally {
+      await fixture.close();
+    }
+  },
+);
+
+test(
   "a logout during a delayed selected request redacts both contacts and the old private directory",
   { timeout: 120000 },
   async () => {

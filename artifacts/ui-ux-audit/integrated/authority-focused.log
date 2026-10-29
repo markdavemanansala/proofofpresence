@@ -1,0 +1,61 @@
+bigint: Failed to load bindings, pure JS will be used (try npm run rebuild?)
+This version of µWS is not compatible with your Node.js build:
+
+Error: Cannot find module '../binaries/uws_darwin_arm64_141.node'
+Require stack:
+- /Users/hashmanansala/Documents/ChatGPT/Kleros projects/node_modules/ganache/node_modules/@trufflesuite/uws-js-unofficial/src/uws.js
+- /Users/hashmanansala/Documents/ChatGPT/Kleros projects/node_modules/ganache/dist/node/core.js
+Falling back to a NodeJS implementation; performance may be degraded.
+
+
+selected-bootstrap: private selected chainState calls1; legacy serial calls4
+✔ v7 opt-in selection preserves default API and shares private-state work without leaking between actors (7249.554916ms)
+✔ v8 selected receipt, own credit and payment facts use one canonical block while the next request sees changed money (4921.99525ms)
+✔ a slow directory event cannot expose selected private contacts after ownership changes (7576.368416ms)
+▶ opt-in final disclosure rechecks nonselected directory access after a third event delays the bundle
+  ✔ owner-transfer (4484.923333ms)
+  ✔ pending-revoked (4866.34725ms)
+  ✔ staff-revoked (4560.30575ms)
+  ✔ definition-private (4389.444375ms)
+✔ opt-in final disclosure rechecks nonselected directory access after a third event delays the bundle (18302.089209ms)
+authority-reorg: selected block 7 unchanged; guard block 8 replaced
+✔ a reorg of only the final authority block cannot disclose a private directory title (3460.595875ms)
+✔ a logout during a delayed selected request redacts both contacts and the old private directory (3100.240875ms)
+✔ selected read failures and a changed canonical anchor return safe scoped errors while other events remain usable (1739.939375ms)
+✔ fast-profile HTTPS testnet selection binds actual signed sessions and separate server instances (2641.953917ms)
+✔ accepts exact capability-bound truth-pays-v7 detail without mutation (1.213667ms)
+✔ accepts exact capability-bound kleros-event-v8 detail without mutation (0.057375ms)
+✔ accepts exact capability-bound kleros-event-v8-test15m detail without mutation (0.050333ms)
+✔ old backend and unsupported capability preserve serial GET fallback (0.138458ms)
+✔ instance and selected/detail event mismatches cannot reuse bundled data (0.400458ms)
+✔ response actor, captured actor and explicit anonymous session must agree (0.123917ms)
+✔ unknown first-load session can be established only by one internally bound response (0.0775ms)
+✔ wallet comparison is address-case insensitive without rewriting inputs (0.04225ms)
+✔ malformed response and captured wallets never normalize into anonymity (0.208333ms)
+✔ chain and deployed contract disagreement requires a separate event GET (0.223875ms)
+✔ deploymentBlock mismatch or jointly missing binding never qualifies as bundled detail (0.067083ms)
+✔ contractVersion mismatch or jointly missing binding never qualifies as bundled detail (0.064333ms)
+✔ abiVersion mismatch or jointly missing binding never qualifies as bundled detail (0.049417ms)
+✔ policyURI mismatch or jointly missing binding never qualifies as bundled detail (0.044791ms)
+✔ templateHash mismatch or jointly missing binding never qualifies as bundled detail (0.031791ms)
+✔ malformed event lists and missing detail structure fall back without throwing (0.159708ms)
+✔ a bound 4xx/5xx error needs no public summary or extra private detail read (0.101583ms)
+✔ unbound errors and malformed error statuses cannot replace the event read (0.085333ms)
+✔ detail and error are an exclusive union (0.027625ms)
+✔ deeply frozen response and capture are accepted without mutation (0.052334ms)
+✔ profile-free own-wallet facts must belong to the authenticated response actor (0.107291ms)
+✔ malformed own-wallet projection is rejected even in a correctly bound envelope (0.08775ms)
+✔ anonymous projection accepts only false permissions and empty protected fields (0.067916ms)
+✔ anonymous envelope rejects every protected payload rather than stripping data (0.108875ms)
+✔ malformed optional permission or protected-array shapes cannot bypass redaction (0.468917ms)
+✔ legitimate owner and staff keep their server-authorized guest projections (0.087584ms)
+✔ legitimate participants and first-load cookies retain only their own contact rows (0.062375ms)
+✔ unprivileged participant projections reject another wallet or malformed contact row (0.098042ms)
+ℹ tests 40
+ℹ suites 0
+ℹ pass 40
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 53839.479417

@@ -646,6 +646,16 @@ export async function createWorkbench({
         ),
         st ? chain.provider.getBlock(st.blockNumber) : Promise.resolve(null),
       ]);
+      // Owner/pending-owner results are valid only while their newer authority
+      // block remains canonical; the older selected payment block is separate.
+      const authorityBlock = await chain.provider.getBlock(current.number);
+      requireThat(
+        authorityBlock?.number === current.number &&
+          authorityBlock.hash === current.hash,
+        "Current event authority snapshot changed",
+        "SELECTED_EVENT_REORG",
+        409,
+      );
     } catch (error) {
       return {
         directory: [],

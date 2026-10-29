@@ -54,3 +54,32 @@ checks separately. No live deployment was performed by this UI chat.
 The primary owns final integration, approved origin, exact source-bound financial continuation
 compatibility and Netlify/backend rollout. D remains pinned through its financial proof stages;
 A/B/C schedules and their original journals/locks/source guards must remain active and valid.
+
+## Final authority-hardened isolated candidate
+
+The primary-owned minimal deltaSHA9f67c7a361c9a12d81e15e2225d335ba60fc5dd77fd2e322f7932aeb65030e1f
+was verified and applied after the broad run. Final workbenchSHA30d7d6f722bb5eb83b3c6a54a5b62d09d93f1530323bea6674ac93188742d609
+and selected-testSHA5b77a05c1ae8e858bfb88d7f0b264246f5861ca9f22c8506cc3dde9c76db0b63
+match the primary-reviewed files. Source review closes the authority-anchor finding: uncached
+current block number/hash is rechecked as the last await before synchronous disclosure; failure
+redacts the directory and selected detail. Its regression changes only the authority anchor while
+preserving the older selected financial block.
+
+Actual final checks: focused selected-bootstrap+client-validator40/40,0failures in53.84s;
+`npm run typecheck` PASS; final `node scripts/build.mjs` PASS. The real joint v7/v8 browser test
+passed again on final hashes:12 groups,18 selected loads,one API GET/no fallback per load,
+no browser financial/RPC/wallet/off-origin action. Fresh proof is
+`joint-browser/2026-10-29T04-30-28-935Z/results.json`. Logs/provenance:
+`authority-focused.log`, `authority-typecheck.log`, `authority-build.log`,
+`final-authority-validation.json`, all under the integrated artifact directory.
+
+The earlier broad292 and six compatibility suites remain clearly attributed to the preceding
+candidate; they are not relabeled as reruns of this later two-file delta. The final fix changes
+only opt-in disclosure canonicality, keeping financial writes and default API behavior intact.
+
+Primary selected the existing isolated D origin/backend for the optimized preview AFTER its full
+financial completion and same-Bob canonical payment/collateral proofs pass. A/B main remainsf4643f8
+(with hosting HUD cleanup only), C stays unchanged and both original financial jobs retain their
+frozen source/journals/schedules. No publish, financial transaction, schedule mutation or primary
+source edit was made by this validation chat. Actual deployment/source-bound public checks remain
+pending primary GO. No public D baseline request is allowed while its role audits continue.
