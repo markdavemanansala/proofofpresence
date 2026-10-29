@@ -1,0 +1,13 @@
+✔ Public search excludes owner-private, draft, missing flags and malformed deployment identities (28.831458ms)
+✔ Projection drops authorized-owner and contact data while retaining two same-title stable identities (5.990625ms)
+✔ Title search is case insensitive and never searches private metadata or unrelated fields (4.144ms)
+✔ Empty inputs stay empty without fabricated entries and filtering leaves the supplied catalog unchanged (1.549167ms)
+✔ Conflicting duplicate stable IDs are excluded rather than choosing a deployment by title or array order (0.553708ms)
+ℹ tests 5
+ℹ suites 0
+ℹ pass 5
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 120.790291
