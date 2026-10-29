@@ -172,3 +172,33 @@ wallet/event/backend isolation remains a required Core acceptance boundary.
    stays disabled until Core supplies a verified, approved policy URI/hash and matching provenance.
 3. Primary alone owns a concrete reviewed wallet deployment and hosting decision. No primary
    source, old site, operator, signing file or schedule was modified by this UI implementation.
+
+## Primary integration closure — 29 October, after frozen UI613c79a
+
+The primary contract chat ran the real local browser flow and independently rehashed77 source and25
+served asset pins. Its proof reports PASS for12 UI financial operations, each with exactly one wallet
+request and successful receipt. Evidence remains in the primary workspace at
+artifacts/luma-launch-flow/2026-10-29T08-50-45-508Z-8ffa8d0b/proof.json. This UI chat read the proof;
+it did not rerun or broadcast those operations.
+
+The test used local HTTPS and in-process Ganache chain1, with controlled Court adjudication. It
+verified two separate organizers/events, backend-restart hash recovery, wallet deposits, approval and
+registration, attendance, omission challenge/match, ordinary Alice payment with Bob's unresolved
+share held, then final ruling1 and settlement to the same Bob wallet. Bob received1e12wei attendance
+plus16200000000000000wei collateral; final case Resolved, all balances/reserves zero. Public
+requests/signatures/broadcasts and private signing-file reads were zero. Ten screenshots cover the
+actual desktop/mobile states. A first stopped navigation attempt is preserved separately and is not
+counted as a passed run.
+
+The settled case action already has a disabled predicate for canonical Resolved/string or numeric3;
+its bright disabled color was not evidence of an enabled control. No speculative product patch was
+made. The contract runner is adding an explicit disabled-DOM assertion independently.
+
+This closes the actual local-proxy flow dependency for the frozen source. Public policy/case-file
+availability, the current full backend release checks, concrete deployment approval and hosting
+remain separate Core-owned gates. The UI chat did not publish or sign any mainnet transaction.
+Both existing financial schedules were read-only verified ACTIVE with unchanged bytes.
+
+The separate preview verifier checkpoint9aae26eecc6f989edd0fb10a189195979e672eca requires all four
+Luma assets when present in the selected Git source. Its offline92 guards passed with zero network
+or browser calls. Public UI source remains frozen at613c79a7474ca366eb0694f7d89d392ccfb72e32.
