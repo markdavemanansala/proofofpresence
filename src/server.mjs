@@ -1008,6 +1008,7 @@ export async function startServer({
           "/luma-setup.js",
           "/luma-factory.js",
           "/case-publication.js",
+          "/event-search.js",
           "/loading.css",
           "/contract-inbox.js",
           "/contract-profiles.js",

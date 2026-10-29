@@ -1,6 +1,8 @@
 # Loading, mobile stability and keyboard handoff
 
-Latest homepage correction: [remove manual deposit-link entry](docs/REMOVE_MANUAL_LINK_HANDOFF.md).
+Latest homepage feature: [search public events](docs/PUBLIC_EVENT_SEARCH_UI_HANDOFF.md).
+
+Prior homepage correction: [remove manual deposit-link entry](docs/REMOVE_MANUAL_LINK_HANDOFF.md).
 
 Prior bounded follow-up: [explicit case publication UI](docs/CASE_PUBLICATION_UI_HANDOFF.md).
 

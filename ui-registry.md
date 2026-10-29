@@ -307,3 +307,17 @@ deposit URL shared through Luma, alongside the existing organizer setup action. 
 paste-link dialog. Organizers receive the canonical generated URL after confirmed creation; Copy
 deposit link and Open deposit page remain the share controls. Direct participant deep links are the
 guest entry point. Keep the shared plum/lavender/cyan tokens and responsive card geometry unchanged.
+
+
+### Searchable public event list —29October2026
+
+Files: public/app.js,public/event-search.js,public/luma-launch.css. The new human request supersedes
+the earlier link-guidance-only homepage. Use a labeled native search input, live result count, clear
+action and compact event rows with title/date/exact deposit/status and one Open event link. Reuse
+shared plum surfaces, lavender focus and cyan palette tokens;44px controls and a single-column mobile
+row layout. Preserve input focus while replacing results only. No new network request while typing.
+
+Only explicitly public/published supported summaries enter the display projection. Keep empty and
+no-match states distinct and never use production fixtures. Direct guest URLs, canonical organizer
+Copy/Open links and setup remain. Financial status text describes current phase without promising
+eligibility or complete payout.

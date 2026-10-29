@@ -17,6 +17,12 @@ import {
   LUMA_CREATED_EVENT_ID,
   LUMA_ATTENDANCE_STANDARD,
 } from "./fixtures/luma-launch-fixture.mjs";
+import {
+  makePublicEventSearchFixture,
+  PUBLIC_SEARCH_A,
+  PUBLIC_SEARCH_B,
+  PRIVATE_SEARCH_TITLES,
+} from "./fixtures/public-event-search-fixture.mjs";
 import { FIXTURE_WALLET as wallet } from "./fixtures/production-ui-fixture.mjs";
 
 // TEST ONLY. No public URL accepted; no production runtime, RPC, keys or Luma API.
@@ -147,7 +153,8 @@ async function run() {
   };
   let selected = makeLumaLaunchFixture("root"),
     scene = "root",
-    visitId = 0;
+    visitId = 0,
+    catalogFixture = null;
   const assets = new Map(),
     apiBase = `/api/events/${eventId}`;
   const send = (res, status, value) => {
@@ -174,10 +181,30 @@ async function run() {
         url.pathname === "/api/bootstrap" &&
         ((scene === "root" && !url.search) ||
           (url.searchParams.size === 1 &&
-            url.searchParams.get("selectedEventId") ===
-              selected.detail.event.id))
-      )
+            (url.searchParams.get("selectedEventId") ===
+              selected.detail.event.id ||
+              (catalogFixture &&
+                Object.hasOwn(
+                  catalogFixture.publicDetails,
+                  url.searchParams.get("selectedEventId"),
+                )))))
+      ) {
+        const selectedId = url.searchParams.get("selectedEventId");
+        if (catalogFixture && selectedId) {
+          selected.detail = catalogFixture.publicDetails[selectedId];
+          return send(res, 200, {
+            ...catalogFixture.bootstrap,
+            selectedEvent: {
+              eventId: selectedId,
+              instanceId: catalogFixture.bootstrap.instanceId,
+              wallet: catalogFixture.bootstrap.session?.wallet ?? null,
+              detail: selected.detail,
+              error: null,
+            },
+          });
+        }
         return send(res, 200, selected.bootstrap);
+      }
       if (
         req.method === "GET" &&
         url.pathname === `/api/events/${selected.detail.event.id}` &&
@@ -484,6 +511,7 @@ async function run() {
     page.on("pageerror", (error) => result.errors.push(error.message));
     const visit = async (scenario, options = {}) => {
       scene = scenario;
+      catalogFixture = null;
       selected = makeLumaLaunchFixture(scenario, options);
       await page.goto(
         origin +
@@ -513,7 +541,7 @@ async function run() {
     const noSignup = async () => {
       await expect(
         page.locator(
-          'input[name="name"],input[name="email"],input[type="email"],.sidebar-events a,.sidebar-events button,[data-form="participate"],[data-form="signup"],.event-card,[data-personal],[data-fund-wallet],[data-advance],[data-ruling],[data-open-appeal]',
+          'input[name="name"],input[name="email"],input[type="email"],.sidebar-events a,.sidebar-events button,[data-form="participate"],[data-form="signup"],[data-personal],[data-fund-wallet],[data-advance],[data-ruling],[data-open-appeal]',
         ),
       ).toHaveCount(0);
       await expect(page.locator("#content")).not.toContainText(
@@ -524,17 +552,17 @@ async function run() {
     await visit("root");
     await expect(page.locator("[data-launch-root]")).toBeVisible();
     await noSignup();
-    await expect(page.locator("#content")).toContainText(
-      "Deposit for your event",
-    );
+    await expect(page.locator("#content")).toContainText("Find your event");
     await expect(page.locator("#content")).toContainText("Set up kickback");
     await expect(
       page.locator(
         '[data-launch-open-link],form[data-form="launch-link"],#launch-event-link,input[name="link"]',
       ),
     ).toHaveCount(0);
-    await expect(page.locator("#content")).toContainText(
-      /Luma|organizer|event.*link/i,
+    await expect(page.locator("[data-public-event-search]")).toBeVisible();
+    await expect(page.locator("[data-public-event-row]")).toHaveCount(0);
+    await expect(page.locator("[data-public-event-status]")).toContainText(
+      "No public events yet",
     );
     await capture("root");
     const setupEntry = page.getByRole("link", {
@@ -556,16 +584,166 @@ async function run() {
       ),
     ).toHaveCount(0);
     await noSignup();
-    await expect(page.locator("#content")).toContainText(
-      /Luma|organizer|event.*link/i,
+    await expect(page.locator("[data-public-event-search]")).toBeVisible();
+    await expect(page.locator("[data-public-event-row]")).toHaveCount(0);
+    await expect(page.locator("[data-public-event-status]")).toContainText(
+      "No public events yet",
     );
     await capture("root-mobile");
     await setupEntry.click();
     await expect(page.locator("#luma-setup")).toBeVisible();
     await page.setViewportSize({ width: 1440, height: 900 });
     pass(
-      "Desktop and390px root retain guest guidance and setup navigation with no manual deposit-link button, popup or link input",
+      "Desktop and390px root show an honest empty public search and setup navigation with no manual deposit-link opener",
     );
+    const apiReads = () =>
+      result.requests.filter((request) => request.path.startsWith("/api/"))
+        .length;
+    const visitCatalog = async (options = {}) => {
+      catalogFixture = makePublicEventSearchFixture(options);
+      selected = catalogFixture;
+      scene = "root";
+      await page.goto(origin + "/?synthetic=" + ++visitId);
+      await expect(page.locator("#loading")).toBeHidden();
+      await expect(page.locator("[data-public-event-search]")).toBeVisible();
+    };
+    await visitCatalog();
+    const search = page.locator("[data-public-event-search]"),
+      rows = page.locator("[data-public-event-row]"),
+      searchStatus = page.locator("[data-public-event-status]");
+    await expect(rows).toHaveCount(2);
+    await expect(searchStatus).toHaveAttribute("role", "status");
+    await expect(searchStatus).toHaveAttribute("aria-live", "polite");
+    await expect(page.locator("#public-event-search-xss")).toHaveCount(0);
+    const publicLinks = page.locator("[data-public-event-open]");
+    assert.deepEqual(
+      (
+        await publicLinks.evaluateAll((nodes) =>
+          nodes.map((node) => node.getAttribute("href")),
+        )
+      ).sort(),
+      [PUBLIC_SEARCH_A, PUBLIC_SEARCH_B]
+        .map(
+          (id) => "#" + new URLSearchParams({ event: id, view: "participant" }),
+        )
+        .sort(),
+    );
+    await expect(rows.nth(0)).toContainText("15 Jan 2027");
+    await expect(rows.nth(1)).toContainText("16 Jan 2027");
+    const beforeTyping = apiReads(),
+      originalInput = await search.elementHandle();
+    await search.focus();
+    await search.pressSequentially("aLpHa");
+    await expect(search).toBeFocused();
+    await expect(rows).toHaveCount(2);
+    await search.fill("not a matching public title");
+    await expect(search).toBeFocused();
+    await expect(rows).toHaveCount(0);
+    await expect(page.locator("[data-public-event-results]")).toContainText(
+      /No events match/i,
+    );
+    await page.locator("[data-public-event-clear]").click();
+    await expect(search).toHaveValue("");
+    await expect(search).toBeFocused();
+    await expect(rows).toHaveCount(2);
+    assert(await originalInput.evaluate((element) => element.isConnected));
+    await page.waitForTimeout(350);
+    assert.equal(
+      apiReads(),
+      beforeTyping,
+      "Search typing or clearing fetched an API",
+    );
+    await capture("public-search-desktop");
+    pass(
+      "Two public published same-title events keep distinct dates and stable links; escaped titles, case-insensitive local typing, clear/status announcements and input focus work without API reads",
+    );
+    await visitCatalog({ signedOwner: true });
+    for (const title of PRIVATE_SEARCH_TITLES)
+      assert(!(await page.locator("body").textContent()).includes(title));
+    assert(
+      !(await page.locator("body").textContent()).includes(
+        "SHOULD_NOT_PROJECT",
+      ),
+    );
+    const ownerReads = apiReads();
+    await search.fill("PRIVATE OWNER");
+    await expect(rows).toHaveCount(0);
+    await expect(searchStatus).toContainText("0 matching public events");
+    await page.locator("[data-public-event-clear]").click();
+    await expect(rows).toHaveCount(2);
+    await page.waitForTimeout(350);
+    assert.equal(apiReads(), ownerReads);
+    pass(
+      "Even an authenticated owner cannot render or search private/draft/missing-flag/malformed-profile summaries or their contact metadata",
+    );
+    await page.setViewportSize({ width: 390, height: 844 });
+    await expect(rows).toHaveCount(2);
+    assert(
+      await page.evaluate(
+        () =>
+          document.documentElement.scrollWidth <= innerWidth &&
+          document.body.scrollWidth <= innerWidth,
+      ),
+    );
+    await capture("public-search-mobile");
+    const searchTargets = await page
+      .locator("[data-public-event-search],[data-public-event-open]")
+      .evaluateAll((nodes) =>
+        nodes.map((node) => ({
+          width: node.getBoundingClientRect().width,
+          height: node.getBoundingClientRect().height,
+        })),
+      );
+    assert(
+      searchTargets.every(
+        (bounds) => bounds.width >= 44 && bounds.height >= 44,
+      ),
+      JSON.stringify(searchTargets),
+    );
+    await page.evaluate(() => {
+      const sizes = [...document.querySelectorAll("body,body *")].map(
+        (element) => [element, parseFloat(getComputedStyle(element).fontSize)],
+      );
+      for (const [element, size] of sizes)
+        if (element instanceof HTMLElement && Number.isFinite(size))
+          element.style.setProperty("font-size", size * 2 + "px", "important");
+    });
+    assert(
+      await page.evaluate(
+        () =>
+          document.documentElement.scrollWidth <= innerWidth &&
+          document.body.scrollWidth <= innerWidth,
+      ),
+    );
+    await search.scrollIntoViewIfNeeded();
+    await page.waitForTimeout(150);
+    await capture("public-search-mobile-200-text");
+    await page.locator(".public-event-search").screenshot({
+      path: path.join(out, "public-search-mobile-200-component.png"),
+    });
+    result.screenshots.push("public-search-mobile-200-component.png");
+    await page.setViewportSize({ width: 1440, height: 900 });
+    await visitCatalog({ signedOwner: true });
+    await page
+      .locator(
+        '[data-public-event-open][href="#' +
+          new URLSearchParams({ event: PUBLIC_SEARCH_B, view: "participant" }) +
+          '"]',
+      )
+      .click();
+    await expect(page.locator("#loading")).toBeHidden();
+    await expect(page.locator("[data-luma-launch]")).toBeVisible();
+    assert.equal(
+      new URLSearchParams(
+        await page.evaluate(() => location.hash.slice(1)),
+      ).get("event"),
+      PUBLIC_SEARCH_B,
+    );
+    await expect(page.locator('[data-tx="deposit"]')).toHaveCount(0);
+    pass(
+      "The public list reflows on390px and doubled text with44px controls; Open event navigates by the selected stable ID to its actual participant page",
+    );
+
     await visit("anonymous");
     await expect(page.locator("[data-luma-launch]")).toBeVisible();
     await noSignup();

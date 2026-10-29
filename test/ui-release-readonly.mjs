@@ -141,6 +141,7 @@ function requiredFrontendAssets(publicFiles, { baseline = false } = {}) {
       "luma-factory.js",
       "luma-launch.css",
       "case-publication.js",
+      "event-search.js",
     ].filter((name) => publicFiles.has(name)),
   ];
 }
@@ -541,6 +542,7 @@ async function selfTest() {
     ["luma-factory.js"],
     ["luma-launch.css"],
     ["case-publication.js"],
+    ["event-search.js"],
     ["luma-launch.js", "luma-setup.js", "luma-factory.js", "luma-launch.css"],
     [
       "environment.js",
@@ -558,6 +560,16 @@ async function selfTest() {
       "luma-factory.js",
       "luma-launch.css",
       "case-publication.js",
+    ],
+    [
+      "environment.js",
+      "contract-profiles.js",
+      "luma-launch.js",
+      "luma-setup.js",
+      "luma-factory.js",
+      "luma-launch.css",
+      "case-publication.js",
+      "event-search.js",
     ],
   ])
     ok(
@@ -577,6 +589,7 @@ async function selfTest() {
           "luma-factory.js",
           "luma-launch.css",
           "case-publication.js",
+          "event-search.js",
         ]),
         { baseline: true },
       ),
