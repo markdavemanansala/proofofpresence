@@ -22,7 +22,13 @@ import { FIXTURE_WALLET as wallet } from "./fixtures/production-ui-fixture.mjs";
 // TEST ONLY. No public URL accepted; no production runtime, RPC, keys or Luma API.
 // Only the reviewed synthetic rejection/submission cases can enable a fake wallet send.
 const root = fileURLToPath(new URL("../", import.meta.url));
-const out = path.join(root, "artifacts/luma-launch");
+const out = process.env.LUMA_LAUNCH_ARTIFACT_DIR
+  ? path.resolve(root, process.env.LUMA_LAUNCH_ARTIFACT_DIR)
+  : path.join(root, "artifacts/luma-launch");
+if (!out.startsWith(path.join(root, "artifacts") + path.sep))
+  throw Error(
+    "Luma test artifacts must remain inside this workspace's artifacts directory.",
+  );
 const sha = (value) => createHash("sha256").update(value).digest("hex");
 function selfTest() {
   let cases = 0;
@@ -522,9 +528,43 @@ async function run() {
       "Deposit for your event",
     );
     await expect(page.locator("#content")).toContainText("Set up kickback");
+    await expect(
+      page.locator(
+        '[data-launch-open-link],form[data-form="launch-link"],#launch-event-link,input[name="link"]',
+      ),
+    ).toHaveCount(0);
+    await expect(page.locator("#content")).toContainText(
+      /Luma|organizer|event.*link/i,
+    );
     await capture("root");
+    const setupEntry = page.getByRole("link", {
+      name: "Set up kickback",
+      exact: true,
+    });
+    await expect(setupEntry).toHaveAttribute("href", "#setup=kickback");
+    await setupEntry.click();
+    await expect(page.locator("#luma-setup")).toBeVisible();
+    assert.equal(await page.evaluate(() => location.hash), "#setup=kickback");
+    await expect(
+      page.locator('form[data-form="launch-link"],#launch-event-link'),
+    ).toHaveCount(0);
+    await page.setViewportSize({ width: 390, height: 844 });
+    await visit("root");
+    await expect(
+      page.locator(
+        '[data-launch-open-link],form[data-form="launch-link"],#launch-event-link,input[name="link"]',
+      ),
+    ).toHaveCount(0);
+    await noSignup();
+    await expect(page.locator("#content")).toContainText(
+      /Luma|organizer|event.*link/i,
+    );
+    await capture("root-mobile");
+    await setupEntry.click();
+    await expect(page.locator("#luma-setup")).toBeVisible();
+    await page.setViewportSize({ width: 1440, height: 900 });
     pass(
-      "Root offers only the event-deposit and organizer-setup entry points without a directory or signup/contact flow",
+      "Desktop and390px root retain guest guidance and setup navigation with no manual deposit-link button, popup or link input",
     );
     await visit("anonymous");
     await expect(page.locator("[data-luma-launch]")).toBeVisible();
@@ -1073,6 +1113,22 @@ async function run() {
             view: "participant",
           }),
       );
+      const generatedLink =
+        origin +
+        "/#" +
+        new URLSearchParams({
+          event: LUMA_CREATED_EVENT_ID,
+          view: "participant",
+        });
+      await expect(
+        page.getByRole("link", { name: "Open deposit page", exact: true }),
+      ).toHaveAttribute("href", generatedLink);
+      await page.locator('[data-luma-action="copy-link"]').click();
+      assert.equal(
+        await page.evaluate(() => window.__launchCopied),
+        generatedLink,
+      );
+      assert.equal(new URL(generatedLink).search, "");
       assert.equal((await journalRows())[0].hash, hash);
       assert.equal(
         result.walletCalls.filter(

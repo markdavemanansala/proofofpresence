@@ -298,3 +298,12 @@ publication needs explicit exact-file/permanent-public consent; gateway availabi
 button/status. Text distinguishes exported, upload acknowledged, uncertain, verified, unavailable and
 integrity-failed states. Only authoritative readiness flags allow upload. Status errors leave financial
 rights active. A keyboard-focus annotation is a separately scoped follow-up after the source freeze.
+
+
+### Event-link entry —29October2026 correction
+
+public/app.js: the production homepage provides plain guidance for guests to follow the unique event
+deposit URL shared through Luma, alongside the existing organizer setup action. Do not add a generic
+paste-link dialog. Organizers receive the canonical generated URL after confirmed creation; Copy
+deposit link and Open deposit page remain the share controls. Direct participant deep links are the
+guest entry point. Keep the shared plum/lavender/cyan tokens and responsive card geometry unchanged.

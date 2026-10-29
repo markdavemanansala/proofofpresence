@@ -1,6 +1,8 @@
 # Loading, mobile stability and keyboard handoff
 
-Latest bounded follow-up: [explicit case publication UI](docs/CASE_PUBLICATION_UI_HANDOFF.md).
+Latest homepage correction: [remove manual deposit-link entry](docs/REMOVE_MANUAL_LINK_HANDOFF.md).
+
+Prior bounded follow-up: [explicit case publication UI](docs/CASE_PUBLICATION_UI_HANDOFF.md).
 
 Production launch scope and locally validated source: [compact Luma UI handoff](docs/LM_UI_HANDOFF.md).
 Older sections below retain their original validation scope.
