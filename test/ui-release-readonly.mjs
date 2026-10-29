@@ -1064,10 +1064,9 @@ async function run(plan) {
       const loading = page.locator("#loading");
       data.loadingCapture = {
         visible: await loading.isVisible(),
-        text: await page
-          .locator("#loading-status")
-          .textContent()
-          .catch(() => null),
+        text: await page.evaluate(
+          () => document.querySelector("#loading-status")?.textContent ?? null,
+        ),
       };
       await page.screenshot({
         path: path.join(output, device + "-loading.png"),
