@@ -133,9 +133,14 @@ function requiredFrontendAssets(publicFiles, { baseline = false } = {}) {
     "loading.css",
     "ui-keyboard.js",
     "selected-event.js",
-    ...["environment.js", "contract-profiles.js"].filter((name) =>
-      publicFiles.has(name),
-    ),
+    ...[
+      "environment.js",
+      "contract-profiles.js",
+      "luma-launch.js",
+      "luma-setup.js",
+      "luma-factory.js",
+      "luma-launch.css",
+    ].filter((name) => publicFiles.has(name)),
   ];
 }
 function assetName(url) {
@@ -530,6 +535,19 @@ async function selfTest() {
     ["environment.js"],
     ["contract-profiles.js"],
     ["environment.js", "contract-profiles.js"],
+    ["luma-launch.js"],
+    ["luma-setup.js"],
+    ["luma-factory.js"],
+    ["luma-launch.css"],
+    ["luma-launch.js", "luma-setup.js", "luma-factory.js", "luma-launch.css"],
+    [
+      "environment.js",
+      "contract-profiles.js",
+      "luma-launch.js",
+      "luma-setup.js",
+      "luma-factory.js",
+      "luma-launch.css",
+    ],
   ])
     ok(
       JSON.stringify(requiredFrontendAssets(new Set(added))) ===
@@ -540,7 +558,14 @@ async function selfTest() {
   ok(
     JSON.stringify(
       requiredFrontendAssets(
-        new Set(["environment.js", "contract-profiles.js"]),
+        new Set([
+          "environment.js",
+          "contract-profiles.js",
+          "luma-launch.js",
+          "luma-setup.js",
+          "luma-factory.js",
+          "luma-launch.css",
+        ]),
         { baseline: true },
       ),
     ) === JSON.stringify(["index.html", "app.js", "styles.css"]),
