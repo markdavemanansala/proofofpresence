@@ -1,0 +1,678 @@
+{
+  "status": "failed",
+  "origin": "https://kleros-fast15m-d-20261029-9fe71683.netlify.app",
+  "eventId": "chiado-ui-70688861-87e2-4936-9e2e-bdc9a7c7a5fd-d",
+  "expectedSource": "7bdd40a3478e487f84b0c00aa0d58e25d13e0d5e",
+  "checkerSha256": "5b49b41f724a650e6b2bbad22e3773c3726bd28acbe8e86764d1060baf8b739f",
+  "conditions": {
+    "contexts": "fresh anonymous",
+    "network": "unthrottled",
+    "cpuThrottleRate": 1,
+    "httpCache": "disabled by Playwright routing",
+    "serviceWorkers": "blocked"
+  },
+  "mode": "explicit-baseline",
+  "startedAt": "2026-10-29T05:02:01.069Z",
+  "validatorSha256": "e590d4717c47abae18dd7547bff9128781d576c8d7687e8c3a67b1a7b6b6cf18",
+  "validatorBinding": {
+    "mode": "baseline-serial-context-compatibility",
+    "localSha256": "e590d4717c47abae18dd7547bff9128781d576c8d7687e8c3a67b1a7b6b6cf18",
+    "expectedSha256": null,
+    "releaseSourceCompared": false,
+    "note": "Actual serial HTTP responses use a synthetic bundle wrapper for local compatibility validation; the old release need not contain this helper."
+  },
+  "assetComparisonPolicy": {
+    "default": "Exact bytes",
+    "reviewedMainComment": {
+      "origin": "https://kleros-event-workbench-preview.netlify.app",
+      "asset": "index.html",
+      "offset": 71,
+      "bytes": 326,
+      "sha256": "ac299873ec628300bc3817310defbb2209405f1609debc641b9cdf759c4ff3e8",
+      "commentSha256": "92069763abfc97148ccff5f46fb5b80a9c7249b83b5e0b5c4fe1cc1ddac6f6c5"
+    },
+    "reviewedDComment": {
+      "origin": "https://kleros-fast15m-d-20261029-9fe71683.netlify.app",
+      "asset": "index.html",
+      "anchor": "<meta charset=\"utf-8\" />\n",
+      "anchorOffset": 46,
+      "offset": 71,
+      "bytes": 326,
+      "sha256": "b3371ba22e9850e2b33ce0718c03e1526b7167ed930360d4803449910e3abee0",
+      "commentSha256": "8a2a8b9875a56c0adb41e560eddebfa48daa161f12c49b0bcc153877df6f1e5e",
+      "anchorReferenceCommit": "7bdd40a3478e487f84b0c00aa0d58e25d13e0d5e",
+      "anchorReferenceHtmlSha256": "dbd0f2cd8a070df519b8928bea1ba82adaf56ec906f7cc6ff6fef60fb957f8aa"
+    },
+    "deliveredResponse": "Never modified by this checker"
+  },
+  "passScope": {
+    "functional": "Anonymous selected-event rendering only; no post-fix interaction claim.",
+    "binding": "Actual serial HTTP responses checked with a synthetic bundle wrapper and local compatibility validator; no release-validator source claim.",
+    "source": "Observed required frontend assets match the explicit Git source commit; only the fixed reviewed MAIN or D index comment may be removed for its exact corresponding origin and position.",
+    "requestCount": "Legacy arrival API requests are observed, without an optimized request-count gate.",
+    "safety": "Only authorized same-origin GET/HEAD reads; no wallet, RPC, writes, WebSocket or service worker access."
+  },
+  "devices": [
+    {
+      "device": "desktop",
+      "viewport": "1440x900",
+      "requests": [
+        {
+          "phase": "arrival",
+          "method": "GET",
+          "url": "https://kleros-fast15m-d-20261029-9fe71683.netlify.app/",
+          "resourceType": "document",
+          "startedAt": 1793250121915
+        },
+        {
+          "phase": "arrival",
+          "method": "GET",
+          "url": "https://kleros-fast15m-d-20261029-9fe71683.netlify.app/assets/geist-latin.woff2",
+          "resourceType": "font",
+          "startedAt": 1793250122167
+        },
+        {
+          "phase": "arrival",
+          "method": "GET",
+          "url": "https://kleros-fast15m-d-20261029-9fe71683.netlify.app/assets/instrument-serif-regular.woff2",
+          "resourceType": "font",
+          "startedAt": 1793250122168
+        },
+        {
+          "phase": "arrival",
+          "method": "GET",
+          "url": "https://kleros-fast15m-d-20261029-9fe71683.netlify.app/styles.css",
+          "resourceType": "stylesheet",
+          "startedAt": 1793250122168
+        },
+        {
+          "phase": "arrival",
+          "method": "GET",
+          "url": "https://kleros-fast15m-d-20261029-9fe71683.netlify.app/contract-inbox.css",
+          "resourceType": "stylesheet",
+          "startedAt": 1793250122168
+        },
+        {
+          "phase": "arrival",
+          "method": "GET",
+          "url": "https://kleros-fast15m-d-20261029-9fe71683.netlify.app/batch-actions.css",
+          "resourceType": "stylesheet",
+          "startedAt": 1793250122168
+        },
+        {
+          "phase": "arrival",
+          "method": "GET",
+          "url": "https://kleros-fast15m-d-20261029-9fe71683.netlify.app/app.js",
+          "resourceType": "script",
+          "startedAt": 1793250122168
+        },
+        {
+          "phase": "arrival",
+          "method": "GET",
+          "url": "https://kleros-fast15m-d-20261029-9fe71683.netlify.app/assets/kleros-logo.svg",
+          "resourceType": "image",
+          "startedAt": 1793250122169
+        },
+        {
+          "phase": "arrival",
+          "method": "GET",
+          "url": "https://kleros-fast15m-d-20261029-9fe71683.netlify.app/reconciliation.js",
+          "resourceType": "script",
+          "startedAt": 1793250122343
+        },
+        {
+          "phase": "arrival",
+          "method": "GET",
+          "url": "https://kleros-fast15m-d-20261029-9fe71683.netlify.app/hosted-wallet.js",
+          "resourceType": "script",
+          "startedAt": 1793250122351
+        },
+        {
+          "phase": "arrival",
+          "method": "GET",
+          "url": "https://kleros-fast15m-d-20261029-9fe71683.netlify.app/contract-inbox.js",
+          "resourceType": "script",
+          "startedAt": 1793250122351
+        },
+        {
+          "phase": "arrival",
+          "method": "GET",
+          "url": "https://kleros-fast15m-d-20261029-9fe71683.netlify.app/batch-actions.js",
+          "resourceType": "script",
+          "startedAt": 1793250122351
+        },
+        {
+          "phase": "arrival",
+          "method": "GET",
+          "url": "https://kleros-fast15m-d-20261029-9fe71683.netlify.app/batch-pending.js",
+          "resourceType": "script",
+          "startedAt": 1793250122351
+        },
+        {
+          "phase": "arrival",
+          "method": "GET",
+          "url": "https://kleros-fast15m-d-20261029-9fe71683.netlify.app/contract-profiles.js",
+          "resourceType": "script",
+          "startedAt": 1793250122351
+        },
+        {
+          "phase": "arrival",
+          "method": "GET",
+          "url": "https://kleros-fast15m-d-20261029-9fe71683.netlify.app/transaction-context.js",
+          "resourceType": "script",
+          "startedAt": 1793250122352
+        },
+        {
+          "phase": "arrival",
+          "method": "GET",
+          "url": "https://kleros-fast15m-d-20261029-9fe71683.netlify.app/batch-selection.js",
+          "resourceType": "script",
+          "startedAt": 1793250122421
+        },
+        {
+          "phase": "arrival",
+          "method": "GET",
+          "url": "https://kleros-fast15m-d-20261029-9fe71683.netlify.app/api/bootstrap",
+          "resourceType": "fetch",
+          "startedAt": 1793250122477
+        }
+      ],
+      "blocked": [],
+      "responses": [
+        {
+          "phase": "arrival",
+          "url": "https://kleros-fast15m-d-20261029-9fe71683.netlify.app/",
+          "status": 200,
+          "responseObservedAt": 1793250122158,
+          "timing": {
+            "startTime": 1793250121916.7632,
+            "domainLookupStart": 2.551,
+            "domainLookupEnd": 72.882,
+            "connectStart": 77.02,
+            "secureConnectionStart": 125.308,
+            "connectEnd": 187.457,
+            "requestStart": 188.075,
+            "responseStart": 239.561,
+            "responseEnd": 245.731
+          },
+          "completedAt": 1793250122182
+        },
+        {
+          "phase": "arrival",
+          "url": "https://kleros-fast15m-d-20261029-9fe71683.netlify.app/styles.css",
+          "status": 200,
+          "responseObservedAt": 1793250122219,
+          "timing": {
+            "startTime": 1793250122169.365,
+            "domainLookupStart": -1,
+            "domainLookupEnd": -1,
+            "connectStart": -1,
+            "secureConnectionStart": -1,
+            "connectEnd": -1,
+            "requestStart": 0.222,
+            "responseStart": 49.745,
+            "responseEnd": 56.091
+          },
+          "completedAt": 1793250122233
+        },
+        {
+          "phase": "arrival",
+          "url": "https://kleros-fast15m-d-20261029-9fe71683.netlify.app/contract-inbox.css",
+          "status": 200,
+          "responseObservedAt": 1793250122223,
+          "timing": {
+            "startTime": 1793250122169.307,
+            "domainLookupStart": -1,
+            "domainLookupEnd": -1,
+            "connectStart": -1,
+            "secureConnectionStart": -1,
+            "connectEnd": -1,
+            "requestStart": 0.243,
+            "responseStart": 52.149,
+            "responseEnd": 100.69
+          },
+          "completedAt": 1793250122277
+        },
+        {
+          "phase": "arrival",
+          "url": "https://kleros-fast15m-d-20261029-9fe71683.netlify.app/assets/kleros-logo.svg",
+          "status": 200,
+          "responseObservedAt": 1793250122315,
+          "timing": {
+            "startTime": 1793250122170.17,
+            "domainLookupStart": -1,
+            "domainLookupEnd": -1,
+            "connectStart": -1,
+            "secureConnectionStart": -1,
+            "connectEnd": -1,
+            "requestStart": 0.081,
+            "responseStart": 144.062,
+            "responseEnd": 151.893
+          },
+          "completedAt": 1793250122333
+        },
+        {
+          "phase": "arrival",
+          "url": "https://kleros-fast15m-d-20261029-9fe71683.netlify.app/assets/geist-latin.woff2",
+          "status": 200,
+          "responseObservedAt": 1793250122322,
+          "timing": {
+            "startTime": 1793250122169.2312,
+            "domainLookupStart": -1,
+            "domainLookupEnd": -1,
+            "connectStart": -1,
+            "secureConnectionStart": -1,
+            "connectEnd": -1,
+            "requestStart": 0.283,
+            "responseStart": 97.15,
+            "responseEnd": 149.526
+          },
+          "completedAt": 1793250122342
+        },
+        {
+          "phase": "arrival",
+          "url": "https://kleros-fast15m-d-20261029-9fe71683.netlify.app/batch-actions.css",
+          "status": 200,
+          "responseObservedAt": 1793250122322,
+          "timing": {
+            "startTime": 1793250122169.451,
+            "domainLookupStart": -1,
+            "domainLookupEnd": -1,
+            "connectStart": -1,
+            "secureConnectionStart": -1,
+            "connectEnd": -1,
+            "requestStart": 0.2,
+            "responseStart": 151.737,
+            "responseEnd": 155.947
+          },
+          "completedAt": 1793250122351
+        },
+        {
+          "phase": "arrival",
+          "url": "https://kleros-fast15m-d-20261029-9fe71683.netlify.app/app.js",
+          "status": 200,
+          "responseObservedAt": 1793250122334,
+          "timing": {
+            "startTime": 1793250122169.538,
+            "domainLookupStart": -1,
+            "domainLookupEnd": -1,
+            "connectStart": -1,
+            "secureConnectionStart": -1,
+            "connectEnd": -1,
+            "requestStart": 0.233,
+            "responseStart": 144.657,
+            "responseEnd": 155.633
+          },
+          "completedAt": 1793250122362
+        },
+        {
+          "phase": "arrival",
+          "url": "https://kleros-fast15m-d-20261029-9fe71683.netlify.app/assets/instrument-serif-regular.woff2",
+          "status": 200,
+          "responseObservedAt": 1793250122363,
+          "timing": {
+            "startTime": 1793250122169.152,
+            "domainLookupStart": -1,
+            "domainLookupEnd": -1,
+            "connectStart": -1,
+            "secureConnectionStart": -1,
+            "connectEnd": -1,
+            "requestStart": 0.523,
+            "responseStart": 152.079,
+            "responseEnd": 195.375
+          },
+          "completedAt": 1793250122387
+        },
+        {
+          "phase": "arrival",
+          "url": "https://kleros-fast15m-d-20261029-9fe71683.netlify.app/reconciliation.js",
+          "status": 200,
+          "responseObservedAt": 1793250122402,
+          "timing": {
+            "startTime": 1793250122352.077,
+            "domainLookupStart": -1,
+            "domainLookupEnd": -1,
+            "connectStart": -1,
+            "secureConnectionStart": -1,
+            "connectEnd": -1,
+            "requestStart": 0.238,
+            "responseStart": 49.769,
+            "responseEnd": 78.89
+          },
+          "completedAt": 1793250122412
+        },
+        {
+          "phase": "arrival",
+          "url": "https://kleros-fast15m-d-20261029-9fe71683.netlify.app/hosted-wallet.js",
+          "status": 200,
+          "responseObservedAt": 1793250122403,
+          "timing": {
+            "startTime": 1793250122352.122,
+            "domainLookupStart": -1,
+            "domainLookupEnd": -1,
+            "connectStart": -1,
+            "secureConnectionStart": -1,
+            "connectEnd": -1,
+            "requestStart": 0.268,
+            "responseStart": 49.995,
+            "responseEnd": 79.13
+          },
+          "completedAt": 1793250122420
+        },
+        {
+          "phase": "arrival",
+          "url": "https://kleros-fast15m-d-20261029-9fe71683.netlify.app/batch-actions.js",
+          "status": 200,
+          "responseObservedAt": 1793250122421,
+          "timing": {
+            "startTime": 1793250122352.256,
+            "domainLookupStart": -1,
+            "domainLookupEnd": -1,
+            "connectStart": -1,
+            "secureConnectionStart": -1,
+            "connectEnd": -1,
+            "requestStart": 0.246,
+            "responseStart": 49.99,
+            "responseEnd": 81.95
+          },
+          "completedAt": 1793250122429
+        },
+        {
+          "phase": "arrival",
+          "url": "https://kleros-fast15m-d-20261029-9fe71683.netlify.app/batch-pending.js",
+          "status": 200,
+          "responseObservedAt": 1793250122421,
+          "timing": {
+            "startTime": 1793250122352.3362,
+            "domainLookupStart": -1,
+            "domainLookupEnd": -1,
+            "connectStart": -1,
+            "secureConnectionStart": -1,
+            "connectEnd": -1,
+            "requestStart": 0.176,
+            "responseStart": 52.932,
+            "responseEnd": 82.248
+          },
+          "completedAt": 1793250122437
+        },
+        {
+          "phase": "arrival",
+          "url": "https://kleros-fast15m-d-20261029-9fe71683.netlify.app/transaction-context.js",
+          "status": 200,
+          "responseObservedAt": 1793250122421,
+          "timing": {
+            "startTime": 1793250122352.683,
+            "domainLookupStart": -1,
+            "domainLookupEnd": -1,
+            "connectStart": -1,
+            "secureConnectionStart": -1,
+            "connectEnd": -1,
+            "requestStart": 0.08,
+            "responseStart": 52.61,
+            "responseEnd": 82.353
+          },
+          "completedAt": 1793250122444
+        },
+        {
+          "phase": "arrival",
+          "url": "https://kleros-fast15m-d-20261029-9fe71683.netlify.app/contract-inbox.js",
+          "status": 200,
+          "responseObservedAt": 1793250122422,
+          "timing": {
+            "startTime": 1793250122352.145,
+            "domainLookupStart": -1,
+            "domainLookupEnd": -1,
+            "connectStart": -1,
+            "secureConnectionStart": -1,
+            "connectEnd": -1,
+            "requestStart": 0.282,
+            "responseStart": 59.773,
+            "responseEnd": 90.874
+          },
+          "completedAt": 1793250122451
+        },
+        {
+          "phase": "arrival",
+          "url": "https://kleros-fast15m-d-20261029-9fe71683.netlify.app/contract-profiles.js",
+          "status": 200,
+          "responseObservedAt": 1793250122422,
+          "timing": {
+            "startTime": 1793250122352.358,
+            "domainLookupStart": -1,
+            "domainLookupEnd": -1,
+            "connectStart": -1,
+            "secureConnectionStart": -1,
+            "connectEnd": -1,
+            "requestStart": 0.167,
+            "responseStart": 61.828,
+            "responseEnd": 91.026
+          },
+          "completedAt": 1793250122457
+        },
+        {
+          "phase": "arrival",
+          "url": "https://kleros-fast15m-d-20261029-9fe71683.netlify.app/batch-selection.js",
+          "status": 200,
+          "responseObservedAt": 1793250122472,
+          "timing": {
+            "startTime": 1793250122421.979,
+            "domainLookupStart": -1,
+            "domainLookupEnd": -1,
+            "connectStart": -1,
+            "secureConnectionStart": -1,
+            "connectEnd": -1,
+            "requestStart": 0.137,
+            "responseStart": 49.572,
+            "responseEnd": 66.022
+          },
+          "completedAt": 1793250122487
+        }
+      ],
+      "assets": [
+        {
+          "path": "index.html",
+          "sha256": "8479058ee73f637d52f068cd93e21e98694c4856dfb24e78d2d85bb5bb84852d",
+          "matches": true,
+          "servedSha256": "8479058ee73f637d52f068cd93e21e98694c4856dfb24e78d2d85bb5bb84852d",
+          "normalizedSha256": "dbd0f2cd8a070df519b8928bea1ba82adaf56ec906f7cc6ff6fef60fb957f8aa",
+          "expectedSha256": "dbd0f2cd8a070df519b8928bea1ba82adaf56ec906f7cc6ff6fef60fb957f8aa",
+          "transform": "remove-exact-reviewed-d-netlify-comment-for-comparison",
+          "removedBytes": 326,
+          "removedOffset": 71,
+          "removedSha256": "b3371ba22e9850e2b33ce0718c03e1526b7167ed930360d4803449910e3abee0",
+          "anchorOffset": 46,
+          "anchorSha256": "6543187246eab47f88a13602e33ae6b2a70117a3fed8348d714496706470f9ea",
+          "responseDelivered": "Unchanged; normalization applies only to byte comparison",
+          "bytes": 4104
+        },
+        {
+          "path": "styles.css",
+          "sha256": "1bcadbd96a26303ac52d338e1c02093635ded311f7d46ee9879788b4e612cca5",
+          "matches": true,
+          "servedSha256": "1bcadbd96a26303ac52d338e1c02093635ded311f7d46ee9879788b4e612cca5",
+          "normalizedSha256": "1bcadbd96a26303ac52d338e1c02093635ded311f7d46ee9879788b4e612cca5",
+          "expectedSha256": "1bcadbd96a26303ac52d338e1c02093635ded311f7d46ee9879788b4e612cca5",
+          "transform": "exact-bytes",
+          "removedBytes": 0,
+          "bytes": 46364
+        },
+        {
+          "path": "contract-inbox.css",
+          "sha256": "61ed167ebee724c929a3bddbd3c0f8035dabed7b8e121725536a72683c931efe",
+          "matches": true,
+          "servedSha256": "61ed167ebee724c929a3bddbd3c0f8035dabed7b8e121725536a72683c931efe",
+          "normalizedSha256": "61ed167ebee724c929a3bddbd3c0f8035dabed7b8e121725536a72683c931efe",
+          "expectedSha256": "61ed167ebee724c929a3bddbd3c0f8035dabed7b8e121725536a72683c931efe",
+          "transform": "exact-bytes",
+          "removedBytes": 0,
+          "bytes": 11506
+        },
+        {
+          "path": "assets/kleros-logo.svg",
+          "sha256": "1631ffb840c9503fb930751a28d36f0ff737361e0719965dcb9fb1945f89464a",
+          "matches": true,
+          "servedSha256": "1631ffb840c9503fb930751a28d36f0ff737361e0719965dcb9fb1945f89464a",
+          "normalizedSha256": "1631ffb840c9503fb930751a28d36f0ff737361e0719965dcb9fb1945f89464a",
+          "expectedSha256": "1631ffb840c9503fb930751a28d36f0ff737361e0719965dcb9fb1945f89464a",
+          "transform": "exact-bytes",
+          "removedBytes": 0,
+          "bytes": 4891
+        },
+        {
+          "path": "assets/geist-latin.woff2",
+          "sha256": "9b6f5ff45b278c744b5f379a2c4ecbaf858a842b8eaf82ac8d21b699ca16c608",
+          "matches": true,
+          "servedSha256": "9b6f5ff45b278c744b5f379a2c4ecbaf858a842b8eaf82ac8d21b699ca16c608",
+          "normalizedSha256": "9b6f5ff45b278c744b5f379a2c4ecbaf858a842b8eaf82ac8d21b699ca16c608",
+          "expectedSha256": "9b6f5ff45b278c744b5f379a2c4ecbaf858a842b8eaf82ac8d21b699ca16c608",
+          "transform": "exact-bytes",
+          "removedBytes": 0,
+          "bytes": 29288
+        },
+        {
+          "path": "batch-actions.css",
+          "sha256": "cdbf18baa8b7b9ba35c5259b16516e0b502687e4c931f3df929c8d84969aa1bc",
+          "matches": true,
+          "servedSha256": "cdbf18baa8b7b9ba35c5259b16516e0b502687e4c931f3df929c8d84969aa1bc",
+          "normalizedSha256": "cdbf18baa8b7b9ba35c5259b16516e0b502687e4c931f3df929c8d84969aa1bc",
+          "expectedSha256": "cdbf18baa8b7b9ba35c5259b16516e0b502687e4c931f3df929c8d84969aa1bc",
+          "transform": "exact-bytes",
+          "removedBytes": 0,
+          "bytes": 8893
+        },
+        {
+          "path": "app.js",
+          "sha256": "883017cddc320f8f4ca1d16cff3e1b718703ba281def7c8d731f9fb1d04c0f2a",
+          "matches": true,
+          "servedSha256": "883017cddc320f8f4ca1d16cff3e1b718703ba281def7c8d731f9fb1d04c0f2a",
+          "normalizedSha256": "883017cddc320f8f4ca1d16cff3e1b718703ba281def7c8d731f9fb1d04c0f2a",
+          "expectedSha256": "883017cddc320f8f4ca1d16cff3e1b718703ba281def7c8d731f9fb1d04c0f2a",
+          "transform": "exact-bytes",
+          "removedBytes": 0,
+          "bytes": 151981
+        },
+        {
+          "path": "assets/instrument-serif-regular.woff2",
+          "sha256": "60c06664b5a95c7de6cc3e00d1f9034d78bd1e40b564016b241674449a067d4d",
+          "matches": true,
+          "servedSha256": "60c06664b5a95c7de6cc3e00d1f9034d78bd1e40b564016b241674449a067d4d",
+          "normalizedSha256": "60c06664b5a95c7de6cc3e00d1f9034d78bd1e40b564016b241674449a067d4d",
+          "expectedSha256": "60c06664b5a95c7de6cc3e00d1f9034d78bd1e40b564016b241674449a067d4d",
+          "transform": "exact-bytes",
+          "removedBytes": 0,
+          "bytes": 15040
+        },
+        {
+          "path": "reconciliation.js",
+          "sha256": "fb071de09ade412dba1aa8c1183a677c10da4143f63b46615a077bf10433d402",
+          "matches": true,
+          "servedSha256": "fb071de09ade412dba1aa8c1183a677c10da4143f63b46615a077bf10433d402",
+          "normalizedSha256": "fb071de09ade412dba1aa8c1183a677c10da4143f63b46615a077bf10433d402",
+          "expectedSha256": "fb071de09ade412dba1aa8c1183a677c10da4143f63b46615a077bf10433d402",
+          "transform": "exact-bytes",
+          "removedBytes": 0,
+          "bytes": 11027
+        },
+        {
+          "path": "hosted-wallet.js",
+          "sha256": "6ec533ed08d0a8f57e75ee25971e94d958e2e02319dbab4804e20794defd7015",
+          "matches": true,
+          "servedSha256": "6ec533ed08d0a8f57e75ee25971e94d958e2e02319dbab4804e20794defd7015",
+          "normalizedSha256": "6ec533ed08d0a8f57e75ee25971e94d958e2e02319dbab4804e20794defd7015",
+          "expectedSha256": "6ec533ed08d0a8f57e75ee25971e94d958e2e02319dbab4804e20794defd7015",
+          "transform": "exact-bytes",
+          "removedBytes": 0,
+          "bytes": 856
+        },
+        {
+          "path": "batch-actions.js",
+          "sha256": "72e51459e3e7a96311b3d5f799e931c6a55626ab82f005d9f81427d3cf4d76e2",
+          "matches": true,
+          "servedSha256": "72e51459e3e7a96311b3d5f799e931c6a55626ab82f005d9f81427d3cf4d76e2",
+          "normalizedSha256": "72e51459e3e7a96311b3d5f799e931c6a55626ab82f005d9f81427d3cf4d76e2",
+          "expectedSha256": "72e51459e3e7a96311b3d5f799e931c6a55626ab82f005d9f81427d3cf4d76e2",
+          "transform": "exact-bytes",
+          "removedBytes": 0,
+          "bytes": 48810
+        },
+        {
+          "path": "batch-pending.js",
+          "sha256": "8b9461b9afe8f221ceed1a0a5ccdeabf00b934da0cd2d6c4853a2d574298ba10",
+          "matches": true,
+          "servedSha256": "8b9461b9afe8f221ceed1a0a5ccdeabf00b934da0cd2d6c4853a2d574298ba10",
+          "normalizedSha256": "8b9461b9afe8f221ceed1a0a5ccdeabf00b934da0cd2d6c4853a2d574298ba10",
+          "expectedSha256": "8b9461b9afe8f221ceed1a0a5ccdeabf00b934da0cd2d6c4853a2d574298ba10",
+          "transform": "exact-bytes",
+          "removedBytes": 0,
+          "bytes": 4819
+        },
+        {
+          "path": "transaction-context.js",
+          "sha256": "e7c5568fa3dddfb5983ededa48a90db3b13c33c00d59bcd9393e7f02470f07af",
+          "matches": true,
+          "servedSha256": "e7c5568fa3dddfb5983ededa48a90db3b13c33c00d59bcd9393e7f02470f07af",
+          "normalizedSha256": "e7c5568fa3dddfb5983ededa48a90db3b13c33c00d59bcd9393e7f02470f07af",
+          "expectedSha256": "e7c5568fa3dddfb5983ededa48a90db3b13c33c00d59bcd9393e7f02470f07af",
+          "transform": "exact-bytes",
+          "removedBytes": 0,
+          "bytes": 16447
+        },
+        {
+          "path": "contract-inbox.js",
+          "sha256": "28de29dac08d5793c33bf33ded925b4b43cebc7b02d376f47efd3fa6042e949a",
+          "matches": true,
+          "servedSha256": "28de29dac08d5793c33bf33ded925b4b43cebc7b02d376f47efd3fa6042e949a",
+          "normalizedSha256": "28de29dac08d5793c33bf33ded925b4b43cebc7b02d376f47efd3fa6042e949a",
+          "expectedSha256": "28de29dac08d5793c33bf33ded925b4b43cebc7b02d376f47efd3fa6042e949a",
+          "transform": "exact-bytes",
+          "removedBytes": 0,
+          "bytes": 28916
+        },
+        {
+          "path": "contract-profiles.js",
+          "sha256": "aeb3355ff9b161de5d0b1a6b6ce76a4dc4c3030026cc38a58cb42a534370d749",
+          "matches": true,
+          "servedSha256": "aeb3355ff9b161de5d0b1a6b6ce76a4dc4c3030026cc38a58cb42a534370d749",
+          "normalizedSha256": "aeb3355ff9b161de5d0b1a6b6ce76a4dc4c3030026cc38a58cb42a534370d749",
+          "expectedSha256": "aeb3355ff9b161de5d0b1a6b6ce76a4dc4c3030026cc38a58cb42a534370d749",
+          "transform": "exact-bytes",
+          "removedBytes": 0,
+          "bytes": 1891
+        },
+        {
+          "path": "batch-selection.js",
+          "sha256": "08c6c157cf99a72a182300c4021230395c4d03df344e09d46f5394bfd91616b6",
+          "matches": true,
+          "servedSha256": "08c6c157cf99a72a182300c4021230395c4d03df344e09d46f5394bfd91616b6",
+          "normalizedSha256": "08c6c157cf99a72a182300c4021230395c4d03df344e09d46f5394bfd91616b6",
+          "expectedSha256": "08c6c157cf99a72a182300c4021230395c4d03df344e09d46f5394bfd91616b6",
+          "transform": "exact-bytes",
+          "removedBytes": 0,
+          "bytes": 8665
+        }
+      ],
+      "pageErrors": [],
+      "captureErrors": [],
+      "screenshots": [
+        "desktop-loading.png"
+      ],
+      "checks": [],
+      "loadingCapture": {
+        "visible": true,
+        "text": null
+      }
+    }
+  ],
+  "checks": [],
+  "limitations": [
+    "Anonymous presentation only; no authenticated owner/participant, wallet extension or financial operation.",
+    "Lab cold-load observations, not field Core Web Vitals or WCAG conformance.",
+    "No speed, latency, LCP or CLS acceptance gate is applied. A pass does not prove before/after performance improvement; report the measured observations separately.",
+    "Summary/detail shared-snapshot reuse is proven here only to the extent actual returned pin metadata permits.",
+    "A failed or missing capability/bundle is not reported as optimization success."
+  ],
+  "failure": {
+    "message": "expect(locator).toBeVisible() failed\n\nLocator:  locator('#content')\nExpected: visible\nReceived: hidden\nTimeout:  5000ms\n\nCall log:\n  - Expect \"to.be.visible\" with timeout 5000ms\n  - waiting for locator('#content')\n    9 × locator resolved to <div hidden=\"\" id=\"content\"></div>\n      - unexpected value \"hidden\"\n",
+    "stack": "Error: expect(locator).toBeVisible() failed\n\nLocator:  locator('#content')\nExpected: visible\nReceived: hidden\nTimeout:  5000ms\n\nCall log:\n  - Expect \"to.be.visible\" with timeout 5000ms\n  - waiting for locator('#content')\n    9 × locator resolved to <div hidden=\"\" id=\"content\"></div>\n      - unexpected value \"hidden\"\n\n    at Proxy.<anonymous> (/Users/hashmanansala/Documents/ChatGPT/Kleros projects/node_modules/playwright/lib/matchers/expect.js:213:24)\n    at run (file:///Users/hashmanansala/.codex/worktrees/kleros-ui-ux-speed-audit/Kleros%20projects/test/ui-release-readonly.mjs:1299:46)\n    at async file:///Users/hashmanansala/.codex/worktrees/kleros-ui-ux-speed-audit/Kleros%20projects/test/ui-release-readonly.mjs:1554:8"
+  }
+}

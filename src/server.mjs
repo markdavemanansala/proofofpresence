@@ -1000,6 +1000,8 @@ export async function startServer({
           "/",
           "/index.html",
           "/app.js",
+          "/entry.js",
+          "/public-home.js",
           "/ui-keyboard.js",
           "/selected-event.js",
           "/environment.js",

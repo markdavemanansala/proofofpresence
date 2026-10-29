@@ -54,7 +54,7 @@
       "shifts": [
         {
           "value": 0.09634182464454977,
-          "time": 964.0999999940395,
+          "time": 1004.2000000178814,
           "sources": [
             {
               "tag": "DIV",
@@ -85,7 +85,7 @@
         },
         {
           "value": 0.2755386134042765,
-          "time": 1898,
+          "time": 1927.300000011921,
           "sources": [
             {
               "tag": "DIV",
@@ -214,7 +214,7 @@
       "shifts": [
         {
           "value": 0.09634182464454977,
-          "time": 833,
+          "time": 821.8000000119209,
           "sources": [
             {
               "tag": "DIV",
@@ -245,7 +245,7 @@
         },
         {
           "value": 0.2755386134042765,
-          "time": 1765.800000011921,
+          "time": 1735.800000011921,
           "sources": [
             {
               "tag": "DIV",
@@ -374,7 +374,7 @@
       "shifts": [
         {
           "value": 0.09634182464454977,
-          "time": 833.3000000119209,
+          "time": 838.5999999940395,
           "sources": [
             {
               "tag": "DIV",
@@ -428,7 +428,7 @@
       "shifts": [
         {
           "value": 0.09634182464454977,
-          "time": 837.3000000119209,
+          "time": 834,
           "sources": [
             {
               "tag": "DIV",
@@ -466,7 +466,7 @@
       "method": "GET",
       "path": "/",
       "baseline": true,
-      "startedAt": 1793245885952,
+      "startedAt": 1793254356100,
       "closedEarly": false
     },
     {
@@ -474,31 +474,31 @@
       "method": "GET",
       "path": "/assets/geist-latin.woff2",
       "baseline": true,
-      "startedAt": 1793245885969,
+      "startedAt": 1793254356121,
       "closedEarly": false
     },
     {
       "id": 3,
       "method": "GET",
-      "path": "/assets/kleros-logo.svg",
+      "path": "/assets/instrument-serif-regular.woff2",
       "baseline": true,
-      "startedAt": 1793245885979,
+      "startedAt": 1793254356132,
       "closedEarly": false
     },
     {
       "id": 4,
       "method": "GET",
-      "path": "/styles.css",
+      "path": "/assets/kleros-logo.svg",
       "baseline": true,
-      "startedAt": 1793245885987,
+      "startedAt": 1793254356143,
       "closedEarly": false
     },
     {
       "id": 5,
       "method": "GET",
-      "path": "/assets/instrument-serif-regular.woff2",
+      "path": "/styles.css",
       "baseline": true,
-      "startedAt": 1793245885996,
+      "startedAt": 1793254356153,
       "closedEarly": false
     },
     {
@@ -506,7 +506,7 @@
       "method": "GET",
       "path": "/contract-inbox.css",
       "baseline": true,
-      "startedAt": 1793245886005,
+      "startedAt": 1793254356165,
       "closedEarly": false
     },
     {
@@ -514,7 +514,7 @@
       "method": "GET",
       "path": "/batch-actions.css",
       "baseline": true,
-      "startedAt": 1793245886013,
+      "startedAt": 1793254356175,
       "closedEarly": false
     },
     {
@@ -522,7 +522,7 @@
       "method": "GET",
       "path": "/app.js",
       "baseline": true,
-      "startedAt": 1793245886021,
+      "startedAt": 1793254356185,
       "closedEarly": false
     },
     {
@@ -530,7 +530,7 @@
       "method": "GET",
       "path": "/reconciliation.js",
       "baseline": true,
-      "startedAt": 1793245886034,
+      "startedAt": 1793254356205,
       "closedEarly": false
     },
     {
@@ -538,7 +538,7 @@
       "method": "GET",
       "path": "/hosted-wallet.js",
       "baseline": true,
-      "startedAt": 1793245886043,
+      "startedAt": 1793254356215,
       "closedEarly": false
     },
     {
@@ -546,7 +546,7 @@
       "method": "GET",
       "path": "/contract-inbox.js",
       "baseline": true,
-      "startedAt": 1793245886052,
+      "startedAt": 1793254356224,
       "closedEarly": false
     },
     {
@@ -554,15 +554,15 @@
       "method": "GET",
       "path": "/batch-actions.js",
       "baseline": true,
-      "startedAt": 1793245886060,
+      "startedAt": 1793254356234,
       "closedEarly": false
     },
     {
       "id": 13,
       "method": "GET",
-      "path": "/transaction-context.js",
+      "path": "/batch-pending.js",
       "baseline": true,
-      "startedAt": 1793245886069,
+      "startedAt": 1793254356243,
       "closedEarly": false
     },
     {
@@ -570,15 +570,15 @@
       "method": "GET",
       "path": "/contract-profiles.js",
       "baseline": true,
-      "startedAt": 1793245886076,
+      "startedAt": 1793254356254,
       "closedEarly": false
     },
     {
       "id": 15,
       "method": "GET",
-      "path": "/batch-pending.js",
+      "path": "/transaction-context.js",
       "baseline": true,
-      "startedAt": 1793245886084,
+      "startedAt": 1793254356263,
       "closedEarly": false
     },
     {
@@ -586,7 +586,7 @@
       "method": "GET",
       "path": "/batch-selection.js",
       "baseline": true,
-      "startedAt": 1793245886093,
+      "startedAt": 1793254356275,
       "closedEarly": false
     },
     {
@@ -594,25 +594,25 @@
       "method": "GET",
       "path": "/api/bootstrap",
       "baseline": true,
-      "startedAt": 1793245886104,
+      "startedAt": 1793254356292,
       "closedEarly": false,
-      "respondedAt": 1793245886905
+      "respondedAt": 1793254357094
     },
     {
       "id": 18,
       "method": "GET",
       "path": "/api/events/event-b",
       "baseline": true,
-      "startedAt": 1793245886915,
+      "startedAt": 1793254357100,
       "closedEarly": false,
-      "respondedAt": 1793245887816
+      "respondedAt": 1793254358001
     },
     {
       "id": 19,
       "method": "GET",
       "path": "/assets/geist-mono-latin.woff2",
       "baseline": true,
-      "startedAt": 1793245887851,
+      "startedAt": 1793254358025,
       "closedEarly": false
     },
     {
@@ -620,7 +620,7 @@
       "method": "GET",
       "path": "/",
       "baseline": true,
-      "startedAt": 1793245888697,
+      "startedAt": 1793254358837,
       "closedEarly": false
     },
     {
@@ -628,7 +628,7 @@
       "method": "GET",
       "path": "/assets/geist-latin.woff2",
       "baseline": true,
-      "startedAt": 1793245888701,
+      "startedAt": 1793254358841,
       "closedEarly": false
     },
     {
@@ -636,7 +636,7 @@
       "method": "GET",
       "path": "/assets/instrument-serif-regular.woff2",
       "baseline": true,
-      "startedAt": 1793245888701,
+      "startedAt": 1793254358842,
       "closedEarly": false
     },
     {
@@ -644,15 +644,15 @@
       "method": "GET",
       "path": "/styles.css",
       "baseline": true,
-      "startedAt": 1793245888701,
+      "startedAt": 1793254358843,
       "closedEarly": false
     },
     {
       "id": 24,
       "method": "GET",
-      "path": "/assets/kleros-logo.svg",
+      "path": "/app.js",
       "baseline": true,
-      "startedAt": 1793245888702,
+      "startedAt": 1793254358844,
       "closedEarly": false
     },
     {
@@ -660,7 +660,7 @@
       "method": "GET",
       "path": "/contract-inbox.css",
       "baseline": true,
-      "startedAt": 1793245888702,
+      "startedAt": 1793254358844,
       "closedEarly": false
     },
     {
@@ -668,15 +668,15 @@
       "method": "GET",
       "path": "/batch-actions.css",
       "baseline": true,
-      "startedAt": 1793245888702,
+      "startedAt": 1793254358844,
       "closedEarly": false
     },
     {
       "id": 27,
       "method": "GET",
-      "path": "/app.js",
+      "path": "/assets/kleros-logo.svg",
       "baseline": true,
-      "startedAt": 1793245888702,
+      "startedAt": 1793254358845,
       "closedEarly": false
     },
     {
@@ -684,7 +684,7 @@
       "method": "GET",
       "path": "/reconciliation.js",
       "baseline": true,
-      "startedAt": 1793245888706,
+      "startedAt": 1793254358847,
       "closedEarly": false
     },
     {
@@ -692,7 +692,7 @@
       "method": "GET",
       "path": "/hosted-wallet.js",
       "baseline": true,
-      "startedAt": 1793245888706,
+      "startedAt": 1793254358848,
       "closedEarly": false
     },
     {
@@ -700,7 +700,7 @@
       "method": "GET",
       "path": "/contract-inbox.js",
       "baseline": true,
-      "startedAt": 1793245888707,
+      "startedAt": 1793254358848,
       "closedEarly": false
     },
     {
@@ -708,7 +708,7 @@
       "method": "GET",
       "path": "/batch-actions.js",
       "baseline": true,
-      "startedAt": 1793245888707,
+      "startedAt": 1793254358848,
       "closedEarly": false
     },
     {
@@ -716,7 +716,7 @@
       "method": "GET",
       "path": "/batch-pending.js",
       "baseline": true,
-      "startedAt": 1793245888707,
+      "startedAt": 1793254358849,
       "closedEarly": false
     },
     {
@@ -724,7 +724,7 @@
       "method": "GET",
       "path": "/contract-profiles.js",
       "baseline": true,
-      "startedAt": 1793245888707,
+      "startedAt": 1793254358849,
       "closedEarly": false
     },
     {
@@ -732,7 +732,7 @@
       "method": "GET",
       "path": "/transaction-context.js",
       "baseline": true,
-      "startedAt": 1793245888707,
+      "startedAt": 1793254358850,
       "closedEarly": false
     },
     {
@@ -740,7 +740,7 @@
       "method": "GET",
       "path": "/batch-selection.js",
       "baseline": true,
-      "startedAt": 1793245888715,
+      "startedAt": 1793254358851,
       "closedEarly": false
     },
     {
@@ -748,25 +748,25 @@
       "method": "GET",
       "path": "/api/bootstrap",
       "baseline": true,
-      "startedAt": 1793245888718,
+      "startedAt": 1793254358854,
       "closedEarly": false,
-      "respondedAt": 1793245889520
+      "respondedAt": 1793254359654
     },
     {
       "id": 37,
       "method": "GET",
       "path": "/api/events/event-b",
       "baseline": true,
-      "startedAt": 1793245889529,
+      "startedAt": 1793254359658,
       "closedEarly": false,
-      "respondedAt": 1793245890430
+      "respondedAt": 1793254360559
     },
     {
       "id": 38,
       "method": "GET",
       "path": "/assets/geist-mono-latin.woff2",
       "baseline": true,
-      "startedAt": 1793245890465,
+      "startedAt": 1793254360574,
       "closedEarly": false
     },
     {
@@ -774,7 +774,7 @@
       "method": "GET",
       "path": "/",
       "baseline": false,
-      "startedAt": 1793245891255,
+      "startedAt": 1793254361366,
       "closedEarly": false
     },
     {
@@ -782,55 +782,55 @@
       "method": "GET",
       "path": "/assets/geist-latin.woff2",
       "baseline": false,
-      "startedAt": 1793245891260,
+      "startedAt": 1793254361373,
       "closedEarly": false
     },
     {
       "id": 41,
       "method": "GET",
-      "path": "/styles.css",
+      "path": "/assets/instrument-serif-regular.woff2",
       "baseline": false,
-      "startedAt": 1793245891260,
+      "startedAt": 1793254361374,
       "closedEarly": false
     },
     {
       "id": 42,
       "method": "GET",
-      "path": "/contract-inbox.css",
+      "path": "/styles.css",
       "baseline": false,
-      "startedAt": 1793245891261,
+      "startedAt": 1793254361374,
       "closedEarly": false
     },
     {
       "id": 43,
       "method": "GET",
-      "path": "/batch-actions.css",
+      "path": "/contract-inbox.css",
       "baseline": false,
-      "startedAt": 1793245891261,
+      "startedAt": 1793254361374,
       "closedEarly": false
     },
     {
       "id": 44,
       "method": "GET",
-      "path": "/loading.css",
+      "path": "/batch-actions.css",
       "baseline": false,
-      "startedAt": 1793245891261,
+      "startedAt": 1793254361374,
       "closedEarly": false
     },
     {
       "id": 45,
       "method": "GET",
-      "path": "/app.js",
+      "path": "/loading.css",
       "baseline": false,
-      "startedAt": 1793245891261,
+      "startedAt": 1793254361374,
       "closedEarly": false
     },
     {
       "id": 46,
       "method": "GET",
-      "path": "/assets/instrument-serif-regular.woff2",
+      "path": "/app.js",
       "baseline": false,
-      "startedAt": 1793245891261,
+      "startedAt": 1793254361374,
       "closedEarly": false
     },
     {
@@ -838,7 +838,7 @@
       "method": "GET",
       "path": "/assets/kleros-logo.svg",
       "baseline": false,
-      "startedAt": 1793245891262,
+      "startedAt": 1793254361375,
       "closedEarly": false
     },
     {
@@ -846,7 +846,7 @@
       "method": "GET",
       "path": "/ui-keyboard.js",
       "baseline": false,
-      "startedAt": 1793245891276,
+      "startedAt": 1793254361389,
       "closedEarly": false
     },
     {
@@ -854,7 +854,7 @@
       "method": "GET",
       "path": "/selected-event.js",
       "baseline": false,
-      "startedAt": 1793245891276,
+      "startedAt": 1793254361390,
       "closedEarly": false
     },
     {
@@ -862,7 +862,7 @@
       "method": "GET",
       "path": "/reconciliation.js",
       "baseline": false,
-      "startedAt": 1793245891277,
+      "startedAt": 1793254361390,
       "closedEarly": false
     },
     {
@@ -870,7 +870,7 @@
       "method": "GET",
       "path": "/hosted-wallet.js",
       "baseline": false,
-      "startedAt": 1793245891277,
+      "startedAt": 1793254361390,
       "closedEarly": false
     },
     {
@@ -878,7 +878,7 @@
       "method": "GET",
       "path": "/contract-inbox.js",
       "baseline": false,
-      "startedAt": 1793245891277,
+      "startedAt": 1793254361390,
       "closedEarly": false
     },
     {
@@ -886,7 +886,7 @@
       "method": "GET",
       "path": "/batch-actions.js",
       "baseline": false,
-      "startedAt": 1793245891277,
+      "startedAt": 1793254361390,
       "closedEarly": false
     },
     {
@@ -894,81 +894,81 @@
       "method": "GET",
       "path": "/batch-pending.js",
       "baseline": false,
-      "startedAt": 1793245891277,
+      "startedAt": 1793254361391,
       "closedEarly": false
     },
     {
       "id": 55,
       "method": "GET",
-      "path": "/contract-profiles.js",
+      "path": "/environment.js",
       "baseline": false,
-      "startedAt": 1793245891278,
+      "startedAt": 1793254361391,
       "closedEarly": false
     },
     {
       "id": 56,
       "method": "GET",
-      "path": "/transaction-context.js",
+      "path": "/contract-profiles.js",
       "baseline": false,
-      "startedAt": 1793245891278,
+      "startedAt": 1793254361391,
       "closedEarly": false
     },
     {
       "id": 57,
       "method": "GET",
-      "path": "/batch-selection.js",
+      "path": "/transaction-context.js",
       "baseline": false,
-      "startedAt": 1793245891280,
+      "startedAt": 1793254361392,
       "closedEarly": false
     },
     {
       "id": 58,
       "method": "GET",
-      "path": "/api/bootstrap",
+      "path": "/batch-selection.js",
       "baseline": false,
-      "startedAt": 1793245891283,
-      "closedEarly": false,
-      "respondedAt": 1793245892084
+      "startedAt": 1793254361394,
+      "closedEarly": false
     },
     {
       "id": 59,
       "method": "GET",
-      "path": "/api/events/event-b",
+      "path": "/api/bootstrap",
       "baseline": false,
-      "startedAt": 1793245892092,
+      "startedAt": 1793254361398,
       "closedEarly": false,
-      "respondedAt": 1793245892992
+      "respondedAt": 1793254362199
     },
     {
       "id": 60,
       "method": "GET",
-      "path": "/assets/geist-mono-latin.woff2",
+      "path": "/api/events/event-b",
       "baseline": false,
-      "startedAt": 1793245893024,
-      "closedEarly": false
+      "startedAt": 1793254362203,
+      "closedEarly": false,
+      "respondedAt": 1793254363104
     },
     {
       "id": 61,
       "method": "GET",
-      "path": "/",
+      "path": "/assets/geist-mono-latin.woff2",
       "baseline": false,
-      "startedAt": 1793245893727,
+      "startedAt": 1793254363118,
       "closedEarly": false
     },
     {
       "id": 62,
       "method": "GET",
-      "path": "/assets/geist-latin.woff2",
+      "path": "/",
       "baseline": false,
-      "startedAt": 1793245893731,
+      "startedAt": 1793254363795,
       "closedEarly": false
     },
     {
       "id": 63,
       "method": "GET",
-      "path": "/styles.css",
+      "path": "/assets/geist-latin.woff2",
       "baseline": false,
-      "startedAt": 1793245893732,
+      "startedAt": 1793254363799,
       "closedEarly": false
     },
     {
@@ -976,39 +976,39 @@
       "method": "GET",
       "path": "/assets/instrument-serif-regular.woff2",
       "baseline": false,
-      "startedAt": 1793245893732,
+      "startedAt": 1793254363800,
       "closedEarly": false
     },
     {
       "id": 65,
       "method": "GET",
-      "path": "/contract-inbox.css",
+      "path": "/styles.css",
       "baseline": false,
-      "startedAt": 1793245893733,
+      "startedAt": 1793254363801,
       "closedEarly": false
     },
     {
       "id": 66,
       "method": "GET",
-      "path": "/assets/kleros-logo.svg",
+      "path": "/loading.css",
       "baseline": false,
-      "startedAt": 1793245893733,
+      "startedAt": 1793254363801,
       "closedEarly": false
     },
     {
       "id": 67,
       "method": "GET",
-      "path": "/batch-actions.css",
+      "path": "/contract-inbox.css",
       "baseline": false,
-      "startedAt": 1793245893733,
+      "startedAt": 1793254363801,
       "closedEarly": false
     },
     {
       "id": 68,
       "method": "GET",
-      "path": "/loading.css",
+      "path": "/batch-actions.css",
       "baseline": false,
-      "startedAt": 1793245893734,
+      "startedAt": 1793254363801,
       "closedEarly": false
     },
     {
@@ -1016,47 +1016,47 @@
       "method": "GET",
       "path": "/app.js",
       "baseline": false,
-      "startedAt": 1793245893734,
+      "startedAt": 1793254363802,
       "closedEarly": false
     },
     {
       "id": 70,
       "method": "GET",
-      "path": "/ui-keyboard.js",
+      "path": "/assets/kleros-logo.svg",
       "baseline": false,
-      "startedAt": 1793245893746,
+      "startedAt": 1793254363802,
       "closedEarly": false
     },
     {
       "id": 71,
       "method": "GET",
-      "path": "/selected-event.js",
+      "path": "/ui-keyboard.js",
       "baseline": false,
-      "startedAt": 1793245893746,
+      "startedAt": 1793254363816,
       "closedEarly": false
     },
     {
       "id": 72,
       "method": "GET",
-      "path": "/reconciliation.js",
+      "path": "/selected-event.js",
       "baseline": false,
-      "startedAt": 1793245893747,
+      "startedAt": 1793254363817,
       "closedEarly": false
     },
     {
       "id": 73,
       "method": "GET",
-      "path": "/hosted-wallet.js",
+      "path": "/reconciliation.js",
       "baseline": false,
-      "startedAt": 1793245893747,
+      "startedAt": 1793254363817,
       "closedEarly": false
     },
     {
       "id": 74,
       "method": "GET",
-      "path": "/transaction-context.js",
+      "path": "/hosted-wallet.js",
       "baseline": false,
-      "startedAt": 1793245893748,
+      "startedAt": 1793254363817,
       "closedEarly": false
     },
     {
@@ -1064,7 +1064,7 @@
       "method": "GET",
       "path": "/contract-inbox.js",
       "baseline": false,
-      "startedAt": 1793245893748,
+      "startedAt": 1793254363817,
       "closedEarly": false
     },
     {
@@ -1072,7 +1072,7 @@
       "method": "GET",
       "path": "/batch-actions.js",
       "baseline": false,
-      "startedAt": 1793245893748,
+      "startedAt": 1793254363817,
       "closedEarly": false
     },
     {
@@ -1080,7 +1080,7 @@
       "method": "GET",
       "path": "/batch-pending.js",
       "baseline": false,
-      "startedAt": 1793245893748,
+      "startedAt": 1793254363817,
       "closedEarly": false
     },
     {
@@ -1088,219 +1088,217 @@
       "method": "GET",
       "path": "/contract-profiles.js",
       "baseline": false,
-      "startedAt": 1793245893748,
+      "startedAt": 1793254363818,
       "closedEarly": false
     },
     {
       "id": 79,
       "method": "GET",
-      "path": "/batch-selection.js",
+      "path": "/transaction-context.js",
       "baseline": false,
-      "startedAt": 1793245893750,
+      "startedAt": 1793254363818,
       "closedEarly": false
     },
     {
       "id": 80,
       "method": "GET",
-      "path": "/api/bootstrap",
+      "path": "/environment.js",
       "baseline": false,
-      "startedAt": 1793245893752,
-      "closedEarly": false,
-      "respondedAt": 1793245894553
+      "startedAt": 1793254363818,
+      "closedEarly": false
     },
     {
       "id": 81,
       "method": "GET",
-      "path": "/api/events/event-b",
+      "path": "/batch-selection.js",
       "baseline": false,
-      "startedAt": 1793245894563,
-      "closedEarly": false,
-      "respondedAt": 1793245895463
+      "startedAt": 1793254363820,
+      "closedEarly": false
     },
     {
       "id": 82,
       "method": "GET",
-      "path": "/assets/geist-mono-latin.woff2",
+      "path": "/api/bootstrap",
       "baseline": false,
-      "startedAt": 1793245895490,
-      "closedEarly": false
+      "startedAt": 1793254363824,
+      "closedEarly": false,
+      "respondedAt": 1793254364625
     },
     {
       "id": 83,
       "method": "GET",
-      "path": "/",
+      "path": "/api/events/event-b",
       "baseline": false,
-      "startedAt": 1793245896173,
-      "closedEarly": false
+      "startedAt": 1793254364628,
+      "closedEarly": false,
+      "respondedAt": 1793254365529
     },
     {
       "id": 84,
       "method": "GET",
-      "path": "/assets/geist-latin.woff2",
+      "path": "/assets/geist-mono-latin.woff2",
       "baseline": false,
-      "startedAt": 1793245896177,
+      "startedAt": 1793254365546,
       "closedEarly": false
     },
     {
       "id": 85,
       "method": "GET",
-      "path": "/assets/instrument-serif-regular.woff2",
+      "path": "/",
       "baseline": false,
-      "startedAt": 1793245896178,
+      "startedAt": 1793254366195,
       "closedEarly": false
     },
     {
       "id": 86,
       "method": "GET",
-      "path": "/styles.css",
+      "path": "/assets/geist-latin.woff2",
       "baseline": false,
-      "startedAt": 1793245896178,
+      "startedAt": 1793254366199,
       "closedEarly": false
     },
     {
       "id": 87,
       "method": "GET",
-      "path": "/contract-inbox.css",
+      "path": "/styles.css",
       "baseline": false,
-      "startedAt": 1793245896178,
+      "startedAt": 1793254366200,
       "closedEarly": false
     },
     {
       "id": 88,
       "method": "GET",
-      "path": "/batch-actions.css",
+      "path": "/assets/instrument-serif-regular.woff2",
       "baseline": false,
-      "startedAt": 1793245896179,
+      "startedAt": 1793254366200,
       "closedEarly": false
     },
     {
       "id": 89,
       "method": "GET",
-      "path": "/assets/kleros-logo.svg",
+      "path": "/contract-inbox.css",
       "baseline": false,
-      "startedAt": 1793245896179,
+      "startedAt": 1793254366201,
       "closedEarly": false
     },
     {
       "id": 90,
       "method": "GET",
-      "path": "/loading.css",
+      "path": "/assets/kleros-logo.svg",
       "baseline": false,
-      "startedAt": 1793245896179,
+      "startedAt": 1793254366202,
       "closedEarly": false
     },
     {
       "id": 91,
       "method": "GET",
-      "path": "/app.js",
+      "path": "/batch-actions.css",
       "baseline": false,
-      "startedAt": 1793245896179,
+      "startedAt": 1793254366202,
       "closedEarly": false
     },
     {
       "id": 92,
       "method": "GET",
-      "path": "/ui-keyboard.js",
+      "path": "/loading.css",
       "baseline": false,
-      "startedAt": 1793245896183,
+      "startedAt": 1793254366202,
       "closedEarly": false
     },
     {
       "id": 93,
       "method": "GET",
-      "path": "/selected-event.js",
+      "path": "/app.js",
       "baseline": false,
-      "startedAt": 1793245896184,
+      "startedAt": 1793254366203,
       "closedEarly": false
     },
     {
       "id": 94,
       "method": "GET",
-      "path": "/reconciliation.js",
+      "path": "/ui-keyboard.js",
       "baseline": false,
-      "startedAt": 1793245896184,
+      "startedAt": 1793254366206,
       "closedEarly": false
     },
     {
       "id": 95,
       "method": "GET",
-      "path": "/hosted-wallet.js",
+      "path": "/selected-event.js",
       "baseline": false,
-      "startedAt": 1793245896184,
+      "startedAt": 1793254366207,
       "closedEarly": false
     },
     {
       "id": 96,
       "method": "GET",
-      "path": "/contract-inbox.js",
+      "path": "/reconciliation.js",
       "baseline": false,
-      "startedAt": 1793245896184,
+      "startedAt": 1793254366207,
       "closedEarly": false
     },
     {
       "id": 97,
       "method": "GET",
-      "path": "/transaction-context.js",
+      "path": "/hosted-wallet.js",
       "baseline": false,
-      "startedAt": 1793245896185,
+      "startedAt": 1793254366207,
       "closedEarly": false
     },
     {
       "id": 98,
       "method": "GET",
-      "path": "/batch-actions.js",
+      "path": "/contract-inbox.js",
       "baseline": false,
-      "startedAt": 1793245896185,
+      "startedAt": 1793254366208,
       "closedEarly": false
     },
     {
       "id": 99,
       "method": "GET",
-      "path": "/batch-pending.js",
+      "path": "/batch-actions.js",
       "baseline": false,
-      "startedAt": 1793245896185,
+      "startedAt": 1793254366208,
       "closedEarly": false
     },
     {
       "id": 100,
       "method": "GET",
-      "path": "/contract-profiles.js",
+      "path": "/batch-pending.js",
       "baseline": false,
-      "startedAt": 1793245896185,
+      "startedAt": 1793254366208,
       "closedEarly": false
     },
     {
       "id": 101,
       "method": "GET",
-      "path": "/batch-selection.js",
+      "path": "/environment.js",
       "baseline": false,
-      "startedAt": 1793245896186,
+      "startedAt": 1793254366209,
       "closedEarly": false
     },
     {
       "id": 102,
       "method": "GET",
-      "path": "/api/bootstrap",
+      "path": "/contract-profiles.js",
       "baseline": false,
-      "startedAt": 1793245896190,
-      "closedEarly": false,
-      "respondedAt": 1793245896190
+      "startedAt": 1793254366209,
+      "closedEarly": false
     },
     {
       "id": 103,
       "method": "GET",
-      "path": "/api/events/event-b",
+      "path": "/transaction-context.js",
       "baseline": false,
-      "startedAt": 1793245896204,
-      "closedEarly": false,
-      "respondedAt": 1793245896204
+      "startedAt": 1793254366210,
+      "closedEarly": false
     },
     {
       "id": 104,
       "method": "GET",
-      "path": "/assets/geist-mono-latin.woff2",
+      "path": "/batch-selection.js",
       "baseline": false,
-      "startedAt": 1793245896219,
+      "startedAt": 1793254366211,
       "closedEarly": false
     },
     {
@@ -1308,258 +1306,257 @@
       "method": "GET",
       "path": "/api/bootstrap",
       "baseline": false,
-      "startedAt": 1793245896683,
+      "startedAt": 1793254366226,
       "closedEarly": false,
-      "respondedAt": 1793245896683
+      "respondedAt": 1793254366226
     },
     {
       "id": 106,
       "method": "GET",
       "path": "/api/events/event-b",
       "baseline": false,
-      "startedAt": 1793245896685,
+      "startedAt": 1793254366232,
       "closedEarly": false,
-      "respondedAt": 1793245896685
+      "respondedAt": 1793254366232
     },
     {
       "id": 107,
       "method": "GET",
-      "path": "/api/bootstrap",
+      "path": "/assets/geist-mono-latin.woff2",
       "baseline": false,
-      "startedAt": 1793245896788,
-      "closedEarly": false,
-      "respondedAt": 1793245896788
+      "startedAt": 1793254366246,
+      "closedEarly": false
     },
     {
       "id": 108,
       "method": "GET",
-      "path": "/api/events/event-b",
+      "path": "/api/bootstrap",
       "baseline": false,
-      "startedAt": 1793245896791,
+      "startedAt": 1793254366630,
       "closedEarly": false,
-      "respondedAt": 1793245896791
+      "respondedAt": 1793254366630
     },
     {
       "id": 109,
       "method": "GET",
-      "path": "/api/bootstrap",
+      "path": "/api/events/event-b",
       "baseline": false,
-      "startedAt": 1793245896895,
+      "startedAt": 1793254366631,
       "closedEarly": false,
-      "respondedAt": 1793245896895
+      "respondedAt": 1793254366631
     },
     {
       "id": 110,
       "method": "GET",
-      "path": "/api/events/event-b",
+      "path": "/api/bootstrap",
       "baseline": false,
-      "startedAt": 1793245896899,
+      "startedAt": 1793254366735,
       "closedEarly": false,
-      "respondedAt": 1793245896899
+      "respondedAt": 1793254366735
     },
     {
       "id": 111,
       "method": "GET",
-      "path": "/api/bootstrap",
+      "path": "/api/events/event-b",
       "baseline": false,
-      "startedAt": 1793245897009,
+      "startedAt": 1793254366738,
       "closedEarly": false,
-      "respondedAt": 1793245897009
+      "respondedAt": 1793254366738
     },
     {
       "id": 112,
       "method": "GET",
-      "path": "/api/events/event-a",
+      "path": "/api/bootstrap",
       "baseline": false,
-      "startedAt": 1793245897011,
+      "startedAt": 1793254366840,
       "closedEarly": false,
-      "respondedAt": 1793245897011
+      "respondedAt": 1793254366840
     },
     {
       "id": 113,
       "method": "GET",
-      "path": "/",
+      "path": "/api/events/event-b",
       "baseline": false,
-      "startedAt": 1793245897121,
-      "closedEarly": false
+      "startedAt": 1793254366846,
+      "closedEarly": false,
+      "respondedAt": 1793254366846
     },
     {
       "id": 114,
       "method": "GET",
-      "path": "/assets/geist-latin.woff2",
+      "path": "/api/bootstrap",
       "baseline": false,
-      "startedAt": 1793245897128,
-      "closedEarly": false
+      "startedAt": 1793254366948,
+      "closedEarly": false,
+      "respondedAt": 1793254366948
     },
     {
       "id": 115,
       "method": "GET",
-      "path": "/styles.css",
+      "path": "/api/events/event-a",
       "baseline": false,
-      "startedAt": 1793245897128,
-      "closedEarly": false
+      "startedAt": 1793254366949,
+      "closedEarly": false,
+      "respondedAt": 1793254366950
     },
     {
       "id": 116,
       "method": "GET",
-      "path": "/assets/instrument-serif-regular.woff2",
+      "path": "/",
       "baseline": false,
-      "startedAt": 1793245897128,
+      "startedAt": 1793254367057,
       "closedEarly": false
     },
     {
       "id": 117,
       "method": "GET",
-      "path": "/contract-inbox.css",
+      "path": "/assets/geist-latin.woff2",
       "baseline": false,
-      "startedAt": 1793245897128,
+      "startedAt": 1793254367062,
       "closedEarly": false
     },
     {
       "id": 118,
       "method": "GET",
-      "path": "/batch-actions.css",
+      "path": "/assets/instrument-serif-regular.woff2",
       "baseline": false,
-      "startedAt": 1793245897128,
+      "startedAt": 1793254367062,
       "closedEarly": false
     },
     {
       "id": 119,
       "method": "GET",
-      "path": "/loading.css",
+      "path": "/styles.css",
       "baseline": false,
-      "startedAt": 1793245897129,
+      "startedAt": 1793254367062,
       "closedEarly": false
     },
     {
       "id": 120,
       "method": "GET",
-      "path": "/app.js",
+      "path": "/contract-inbox.css",
       "baseline": false,
-      "startedAt": 1793245897129,
+      "startedAt": 1793254367063,
       "closedEarly": false
     },
     {
       "id": 121,
       "method": "GET",
-      "path": "/assets/kleros-logo.svg",
+      "path": "/batch-actions.css",
       "baseline": false,
-      "startedAt": 1793245897129,
+      "startedAt": 1793254367063,
       "closedEarly": false
     },
     {
       "id": 122,
       "method": "GET",
-      "path": "/ui-keyboard.js",
+      "path": "/loading.css",
       "baseline": false,
-      "startedAt": 1793245897134,
+      "startedAt": 1793254367063,
       "closedEarly": false
     },
     {
       "id": 123,
       "method": "GET",
-      "path": "/selected-event.js",
+      "path": "/app.js",
       "baseline": false,
-      "startedAt": 1793245897135,
+      "startedAt": 1793254367063,
       "closedEarly": false
     },
     {
       "id": 124,
       "method": "GET",
-      "path": "/reconciliation.js",
+      "path": "/assets/kleros-logo.svg",
       "baseline": false,
-      "startedAt": 1793245897136,
+      "startedAt": 1793254367063,
       "closedEarly": false
     },
     {
       "id": 125,
       "method": "GET",
-      "path": "/hosted-wallet.js",
+      "path": "/ui-keyboard.js",
       "baseline": false,
-      "startedAt": 1793245897136,
+      "startedAt": 1793254367067,
       "closedEarly": false
     },
     {
       "id": 126,
       "method": "GET",
-      "path": "/contract-inbox.js",
+      "path": "/selected-event.js",
       "baseline": false,
-      "startedAt": 1793245897136,
+      "startedAt": 1793254367067,
       "closedEarly": false
     },
     {
       "id": 127,
       "method": "GET",
-      "path": "/batch-actions.js",
+      "path": "/reconciliation.js",
       "baseline": false,
-      "startedAt": 1793245897136,
+      "startedAt": 1793254367068,
       "closedEarly": false
     },
     {
       "id": 128,
       "method": "GET",
-      "path": "/batch-pending.js",
+      "path": "/contract-profiles.js",
       "baseline": false,
-      "startedAt": 1793245897137,
+      "startedAt": 1793254367069,
       "closedEarly": false
     },
     {
       "id": 129,
       "method": "GET",
-      "path": "/contract-profiles.js",
+      "path": "/hosted-wallet.js",
       "baseline": false,
-      "startedAt": 1793245897137,
+      "startedAt": 1793254367069,
       "closedEarly": false
     },
     {
       "id": 130,
       "method": "GET",
-      "path": "/transaction-context.js",
+      "path": "/contract-inbox.js",
       "baseline": false,
-      "startedAt": 1793245897137,
+      "startedAt": 1793254367069,
       "closedEarly": false
     },
     {
       "id": 131,
       "method": "GET",
-      "path": "/batch-selection.js",
+      "path": "/batch-actions.js",
       "baseline": false,
-      "startedAt": 1793245897139,
+      "startedAt": 1793254367069,
       "closedEarly": false
     },
     {
       "id": 132,
       "method": "GET",
-      "path": "/api/bootstrap",
+      "path": "/batch-pending.js",
       "baseline": false,
-      "startedAt": 1793245897145,
-      "closedEarly": false,
-      "respondedAt": 1793245897145
+      "startedAt": 1793254367069,
+      "closedEarly": false
     },
     {
       "id": 133,
       "method": "GET",
-      "path": "/api/bootstrap",
+      "path": "/environment.js",
       "baseline": false,
-      "startedAt": 1793245897149,
-      "closedEarly": false,
-      "respondedAt": 1793245897149
+      "startedAt": 1793254367069,
+      "closedEarly": false
     },
     {
       "id": 134,
       "method": "GET",
-      "path": "/api/events/event-b",
+      "path": "/transaction-context.js",
       "baseline": false,
-      "startedAt": 1793245897152,
-      "closedEarly": false,
-      "respondedAt": 1793245897152
+      "startedAt": 1793254367069,
+      "closedEarly": false
     },
     {
       "id": 135,
       "method": "GET",
-      "path": "/assets/geist-mono-latin.woff2",
+      "path": "/batch-selection.js",
       "baseline": false,
-      "startedAt": 1793245897161,
+      "startedAt": 1793254367074,
       "closedEarly": false
     },
     {
@@ -1567,527 +1564,578 @@
       "method": "GET",
       "path": "/api/bootstrap",
       "baseline": false,
-      "startedAt": 1793245897285,
+      "startedAt": 1793254367075,
       "closedEarly": false,
-      "respondedAt": 1793245897285
+      "respondedAt": 1793254367075
     },
     {
       "id": 137,
       "method": "GET",
-      "path": "/api/events/event-b",
+      "path": "/api/bootstrap",
       "baseline": false,
-      "startedAt": 1793245897286,
+      "startedAt": 1793254367079,
       "closedEarly": false,
-      "respondedAt": 1793245897286
+      "respondedAt": 1793254367079
     },
     {
       "id": 138,
       "method": "GET",
-      "path": "/api/bootstrap",
+      "path": "/api/events/event-b",
       "baseline": false,
-      "startedAt": 1793245897392,
+      "startedAt": 1793254367082,
       "closedEarly": false,
-      "respondedAt": 1793245897643
+      "respondedAt": 1793254367082
     },
     {
       "id": 139,
       "method": "GET",
-      "path": "/api/events/event-b",
+      "path": "/assets/geist-mono-latin.woff2",
       "baseline": false,
-      "startedAt": 1793245897647,
-      "closedEarly": false,
-      "respondedAt": 1793245897948
+      "startedAt": 1793254367090,
+      "closedEarly": false
     },
     {
       "id": 140,
       "method": "GET",
       "path": "/api/bootstrap",
       "baseline": false,
-      "startedAt": 1793245898538,
+      "startedAt": 1793254367219,
       "closedEarly": false,
-      "respondedAt": 1793245898688
+      "respondedAt": 1793254367219
     },
     {
       "id": 141,
       "method": "GET",
       "path": "/api/events/event-b",
       "baseline": false,
-      "startedAt": 1793245898692,
+      "startedAt": 1793254367221,
       "closedEarly": false,
-      "respondedAt": 1793245898893
+      "respondedAt": 1793254367221
     },
     {
       "id": 142,
       "method": "GET",
       "path": "/api/bootstrap",
       "baseline": false,
-      "startedAt": 1793245899408,
+      "startedAt": 1793254367328,
       "closedEarly": false,
-      "respondedAt": 1793245899559
+      "respondedAt": 1793254367579
     },
     {
       "id": 143,
       "method": "GET",
       "path": "/api/events/event-b",
       "baseline": false,
-      "startedAt": 1793245899561,
+      "startedAt": 1793254367582,
       "closedEarly": false,
-      "respondedAt": 1793245899761
+      "respondedAt": 1793254367882
     },
     {
       "id": 144,
       "method": "GET",
       "path": "/api/bootstrap",
       "baseline": false,
-      "startedAt": 1793245900267,
+      "startedAt": 1793254368464,
       "closedEarly": false,
-      "respondedAt": 1793245900267
+      "respondedAt": 1793254368615
     },
     {
       "id": 145,
       "method": "GET",
-      "path": "/api/events/event-a",
+      "path": "/api/events/event-b",
       "baseline": false,
-      "startedAt": 1793245900268,
-      "closedEarly": true,
-      "respondedAt": 1793245901169
+      "startedAt": 1793254368617,
+      "closedEarly": false,
+      "respondedAt": 1793254368817
     },
     {
       "id": 146,
       "method": "GET",
       "path": "/api/bootstrap",
       "baseline": false,
-      "startedAt": 1793245900370,
+      "startedAt": 1793254369384,
       "closedEarly": false,
-      "respondedAt": 1793245900370
+      "respondedAt": 1793254369534
     },
     {
       "id": 147,
       "method": "GET",
       "path": "/api/events/event-b",
       "baseline": false,
-      "startedAt": 1793245900371,
+      "startedAt": 1793254369536,
       "closedEarly": false,
-      "respondedAt": 1793245900371
+      "respondedAt": 1793254369737
     },
     {
       "id": 148,
       "method": "GET",
       "path": "/api/bootstrap",
       "baseline": false,
-      "startedAt": 1793245901529,
+      "startedAt": 1793254369746,
       "closedEarly": false,
-      "respondedAt": 1793245901529
+      "respondedAt": 1793254369746
     },
     {
       "id": 149,
       "method": "GET",
       "path": "/api/events/event-a",
       "baseline": false,
-      "startedAt": 1793245901530,
-      "closedEarly": false,
-      "respondedAt": 1793245902432
+      "startedAt": 1793254369747,
+      "closedEarly": true,
+      "respondedAt": 1793254370649
     },
     {
       "id": 150,
       "method": "GET",
       "path": "/api/bootstrap",
       "baseline": false,
-      "startedAt": 1793245901632,
+      "startedAt": 1793254369850,
       "closedEarly": false,
-      "respondedAt": 1793245901632
+      "respondedAt": 1793254369850
     },
     {
       "id": 151,
       "method": "GET",
       "path": "/api/events/event-b",
       "baseline": false,
-      "startedAt": 1793245901633,
+      "startedAt": 1793254369853,
       "closedEarly": false,
-      "respondedAt": 1793245901633
+      "respondedAt": 1793254369853
     },
     {
       "id": 152,
       "method": "GET",
       "path": "/api/bootstrap",
       "baseline": false,
-      "startedAt": 1793245902812,
+      "startedAt": 1793254371011,
       "closedEarly": false,
-      "respondedAt": 1793245902812
+      "respondedAt": 1793254371011
     },
     {
       "id": 153,
       "method": "GET",
-      "path": "/api/events/event-b",
+      "path": "/api/events/event-a",
       "baseline": false,
-      "startedAt": 1793245902818,
+      "startedAt": 1793254371012,
       "closedEarly": false,
-      "respondedAt": 1793245902818
+      "respondedAt": 1793254371913
     },
     {
       "id": 154,
       "method": "GET",
       "path": "/api/bootstrap",
       "baseline": false,
-      "startedAt": 1793245902935,
+      "startedAt": 1793254371114,
       "closedEarly": false,
-      "respondedAt": 1793245902935
+      "respondedAt": 1793254371114
     },
     {
       "id": 155,
       "method": "GET",
       "path": "/api/events/event-b",
       "baseline": false,
-      "startedAt": 1793245902941,
+      "startedAt": 1793254371115,
       "closedEarly": false,
-      "respondedAt": 1793245902941
+      "respondedAt": 1793254371115
     },
     {
       "id": 156,
       "method": "GET",
-      "path": "/",
+      "path": "/api/bootstrap",
       "baseline": false,
-      "startedAt": 1793245903049,
-      "closedEarly": false
+      "startedAt": 1793254372289,
+      "closedEarly": false,
+      "respondedAt": 1793254372289
     },
     {
       "id": 157,
       "method": "GET",
-      "path": "/assets/geist-latin.woff2",
+      "path": "/api/events/event-b",
       "baseline": false,
-      "startedAt": 1793245903058,
-      "closedEarly": false
+      "startedAt": 1793254372297,
+      "closedEarly": false,
+      "respondedAt": 1793254372297
     },
     {
       "id": 158,
       "method": "GET",
-      "path": "/assets/instrument-serif-regular.woff2",
+      "path": "/api/bootstrap",
       "baseline": false,
-      "startedAt": 1793245903058,
-      "closedEarly": false
+      "startedAt": 1793254372407,
+      "closedEarly": false,
+      "respondedAt": 1793254372407
     },
     {
       "id": 159,
       "method": "GET",
-      "path": "/styles.css",
+      "path": "/api/events/event-b",
       "baseline": false,
-      "startedAt": 1793245903059,
-      "closedEarly": false
+      "startedAt": 1793254372413,
+      "closedEarly": false,
+      "respondedAt": 1793254372413
     },
     {
       "id": 160,
       "method": "GET",
-      "path": "/contract-inbox.css",
+      "path": "/",
       "baseline": false,
-      "startedAt": 1793245903059,
+      "startedAt": 1793254372515,
       "closedEarly": false
     },
     {
       "id": 161,
       "method": "GET",
-      "path": "/batch-actions.css",
+      "path": "/assets/geist-latin.woff2",
       "baseline": false,
-      "startedAt": 1793245903059,
+      "startedAt": 1793254372521,
       "closedEarly": false
     },
     {
       "id": 162,
       "method": "GET",
-      "path": "/app.js",
+      "path": "/styles.css",
       "baseline": false,
-      "startedAt": 1793245903059,
+      "startedAt": 1793254372521,
       "closedEarly": false
     },
     {
       "id": 163,
       "method": "GET",
-      "path": "/loading.css",
+      "path": "/contract-inbox.css",
       "baseline": false,
-      "startedAt": 1793245903060,
+      "startedAt": 1793254372521,
       "closedEarly": false
     },
     {
       "id": 164,
       "method": "GET",
-      "path": "/assets/kleros-logo.svg",
+      "path": "/batch-actions.css",
       "baseline": false,
-      "startedAt": 1793245903060,
+      "startedAt": 1793254372521,
       "closedEarly": false
     },
     {
       "id": 165,
       "method": "GET",
-      "path": "/ui-keyboard.js",
+      "path": "/assets/instrument-serif-regular.woff2",
       "baseline": false,
-      "startedAt": 1793245903071,
+      "startedAt": 1793254372522,
       "closedEarly": false
     },
     {
       "id": 166,
       "method": "GET",
-      "path": "/selected-event.js",
+      "path": "/loading.css",
       "baseline": false,
-      "startedAt": 1793245903073,
+      "startedAt": 1793254372522,
       "closedEarly": false
     },
     {
       "id": 167,
       "method": "GET",
-      "path": "/reconciliation.js",
+      "path": "/app.js",
       "baseline": false,
-      "startedAt": 1793245903074,
+      "startedAt": 1793254372523,
       "closedEarly": false
     },
     {
       "id": 168,
       "method": "GET",
-      "path": "/hosted-wallet.js",
+      "path": "/assets/kleros-logo.svg",
       "baseline": false,
-      "startedAt": 1793245903074,
+      "startedAt": 1793254372526,
       "closedEarly": false
     },
     {
       "id": 169,
       "method": "GET",
-      "path": "/contract-inbox.js",
+      "path": "/ui-keyboard.js",
       "baseline": false,
-      "startedAt": 1793245903074,
+      "startedAt": 1793254372532,
       "closedEarly": false
     },
     {
       "id": 170,
       "method": "GET",
-      "path": "/batch-actions.js",
+      "path": "/selected-event.js",
       "baseline": false,
-      "startedAt": 1793245903075,
+      "startedAt": 1793254372533,
       "closedEarly": false
     },
     {
       "id": 171,
       "method": "GET",
-      "path": "/batch-pending.js",
+      "path": "/reconciliation.js",
       "baseline": false,
-      "startedAt": 1793245903075,
+      "startedAt": 1793254372533,
       "closedEarly": false
     },
     {
       "id": 172,
       "method": "GET",
-      "path": "/contract-profiles.js",
+      "path": "/hosted-wallet.js",
       "baseline": false,
-      "startedAt": 1793245903075,
+      "startedAt": 1793254372534,
       "closedEarly": false
     },
     {
       "id": 173,
       "method": "GET",
-      "path": "/transaction-context.js",
+      "path": "/contract-inbox.js",
       "baseline": false,
-      "startedAt": 1793245903075,
+      "startedAt": 1793254372535,
       "closedEarly": false
     },
     {
       "id": 174,
       "method": "GET",
-      "path": "/batch-selection.js",
+      "path": "/batch-actions.js",
       "baseline": false,
-      "startedAt": 1793245903077,
+      "startedAt": 1793254372535,
       "closedEarly": false
     },
     {
       "id": 175,
       "method": "GET",
-      "path": "/api/bootstrap",
+      "path": "/batch-pending.js",
       "baseline": false,
-      "startedAt": 1793245903079,
-      "closedEarly": false,
-      "bundledEventId": "event-b",
-      "respondedAt": 1793245903129
+      "startedAt": 1793254372535,
+      "closedEarly": false
     },
     {
       "id": 176,
       "method": "GET",
-      "path": "/assets/geist-mono-latin.woff2",
+      "path": "/environment.js",
       "baseline": false,
-      "startedAt": 1793245903141,
+      "startedAt": 1793254372535,
       "closedEarly": false
     },
     {
       "id": 177,
       "method": "GET",
-      "path": "/",
+      "path": "/contract-profiles.js",
       "baseline": false,
-      "startedAt": 1793245903196,
+      "startedAt": 1793254372535,
       "closedEarly": false
     },
     {
       "id": 178,
       "method": "GET",
-      "path": "/assets/geist-latin.woff2",
+      "path": "/transaction-context.js",
       "baseline": false,
-      "startedAt": 1793245903201,
+      "startedAt": 1793254372535,
       "closedEarly": false
     },
     {
       "id": 179,
       "method": "GET",
-      "path": "/assets/instrument-serif-regular.woff2",
+      "path": "/batch-selection.js",
       "baseline": false,
-      "startedAt": 1793245903201,
+      "startedAt": 1793254372539,
       "closedEarly": false
     },
     {
       "id": 180,
       "method": "GET",
-      "path": "/styles.css",
+      "path": "/api/bootstrap",
       "baseline": false,
-      "startedAt": 1793245903201,
-      "closedEarly": false
+      "startedAt": 1793254372543,
+      "closedEarly": false,
+      "bundledEventId": "event-b",
+      "respondedAt": 1793254372594
     },
     {
       "id": 181,
       "method": "GET",
-      "path": "/contract-inbox.css",
+      "path": "/assets/geist-mono-latin.woff2",
       "baseline": false,
-      "startedAt": 1793245903201,
+      "startedAt": 1793254372603,
       "closedEarly": false
     },
     {
       "id": 182,
       "method": "GET",
-      "path": "/batch-actions.css",
+      "path": "/",
       "baseline": false,
-      "startedAt": 1793245903201,
+      "startedAt": 1793254372656,
       "closedEarly": false
     },
     {
       "id": 183,
       "method": "GET",
-      "path": "/loading.css",
+      "path": "/assets/geist-latin.woff2",
       "baseline": false,
-      "startedAt": 1793245903201,
+      "startedAt": 1793254372661,
       "closedEarly": false
     },
     {
       "id": 184,
       "method": "GET",
-      "path": "/app.js",
+      "path": "/assets/instrument-serif-regular.woff2",
       "baseline": false,
-      "startedAt": 1793245903202,
+      "startedAt": 1793254372661,
       "closedEarly": false
     },
     {
       "id": 185,
       "method": "GET",
-      "path": "/assets/kleros-logo.svg",
+      "path": "/styles.css",
       "baseline": false,
-      "startedAt": 1793245903203,
+      "startedAt": 1793254372661,
       "closedEarly": false
     },
     {
       "id": 186,
       "method": "GET",
-      "path": "/ui-keyboard.js",
+      "path": "/app.js",
       "baseline": false,
-      "startedAt": 1793245903205,
+      "startedAt": 1793254372662,
       "closedEarly": false
     },
     {
       "id": 187,
       "method": "GET",
-      "path": "/selected-event.js",
+      "path": "/contract-inbox.css",
       "baseline": false,
-      "startedAt": 1793245903206,
+      "startedAt": 1793254372662,
       "closedEarly": false
     },
     {
       "id": 188,
       "method": "GET",
-      "path": "/reconciliation.js",
+      "path": "/batch-actions.css",
       "baseline": false,
-      "startedAt": 1793245903207,
+      "startedAt": 1793254372662,
       "closedEarly": false
     },
     {
       "id": 189,
       "method": "GET",
-      "path": "/hosted-wallet.js",
+      "path": "/loading.css",
       "baseline": false,
-      "startedAt": 1793245903207,
+      "startedAt": 1793254372662,
       "closedEarly": false
     },
     {
       "id": 190,
       "method": "GET",
-      "path": "/transaction-context.js",
+      "path": "/assets/kleros-logo.svg",
       "baseline": false,
-      "startedAt": 1793245903207,
+      "startedAt": 1793254372663,
       "closedEarly": false
     },
     {
       "id": 191,
       "method": "GET",
-      "path": "/contract-inbox.js",
+      "path": "/ui-keyboard.js",
       "baseline": false,
-      "startedAt": 1793245903207,
+      "startedAt": 1793254372669,
       "closedEarly": false
     },
     {
       "id": 192,
       "method": "GET",
-      "path": "/batch-actions.js",
+      "path": "/selected-event.js",
       "baseline": false,
-      "startedAt": 1793245903207,
+      "startedAt": 1793254372671,
       "closedEarly": false
     },
     {
       "id": 193,
       "method": "GET",
-      "path": "/batch-pending.js",
+      "path": "/reconciliation.js",
       "baseline": false,
-      "startedAt": 1793245903208,
+      "startedAt": 1793254372671,
       "closedEarly": false
     },
     {
       "id": 194,
       "method": "GET",
-      "path": "/contract-profiles.js",
+      "path": "/hosted-wallet.js",
       "baseline": false,
-      "startedAt": 1793245903208,
+      "startedAt": 1793254372672,
       "closedEarly": false
     },
     {
       "id": 195,
       "method": "GET",
-      "path": "/batch-selection.js",
+      "path": "/contract-inbox.js",
       "baseline": false,
-      "startedAt": 1793245903210,
+      "startedAt": 1793254372672,
       "closedEarly": false
     },
     {
       "id": 196,
       "method": "GET",
-      "path": "/api/bootstrap",
+      "path": "/batch-actions.js",
       "baseline": false,
-      "startedAt": 1793245903211,
-      "closedEarly": false,
-      "respondedAt": 1793245903211
+      "startedAt": 1793254372672,
+      "closedEarly": false
     },
     {
       "id": 197,
       "method": "GET",
-      "path": "/api/events/event-b",
+      "path": "/batch-pending.js",
       "baseline": false,
-      "startedAt": 1793245903215,
-      "closedEarly": false,
-      "respondedAt": 1793245903215
+      "startedAt": 1793254372672,
+      "closedEarly": false
     },
     {
       "id": 198,
       "method": "GET",
+      "path": "/environment.js",
+      "baseline": false,
+      "startedAt": 1793254372672,
+      "closedEarly": false
+    },
+    {
+      "id": 199,
+      "method": "GET",
+      "path": "/contract-profiles.js",
+      "baseline": false,
+      "startedAt": 1793254372673,
+      "closedEarly": false
+    },
+    {
+      "id": 200,
+      "method": "GET",
+      "path": "/transaction-context.js",
+      "baseline": false,
+      "startedAt": 1793254372673,
+      "closedEarly": false
+    },
+    {
+      "id": 201,
+      "method": "GET",
+      "path": "/batch-selection.js",
+      "baseline": false,
+      "startedAt": 1793254372675,
+      "closedEarly": false
+    },
+    {
+      "id": 202,
+      "method": "GET",
+      "path": "/api/bootstrap",
+      "baseline": false,
+      "startedAt": 1793254372678,
+      "closedEarly": false,
+      "respondedAt": 1793254372678
+    },
+    {
+      "id": 203,
+      "method": "GET",
+      "path": "/api/events/event-b",
+      "baseline": false,
+      "startedAt": 1793254372680,
+      "closedEarly": false,
+      "respondedAt": 1793254372681
+    },
+    {
+      "id": 204,
+      "method": "GET",
       "path": "/assets/geist-mono-latin.woff2",
       "baseline": false,
-      "startedAt": 1793245903221,
+      "startedAt": 1793254372688,
       "closedEarly": false
     }
   ],
@@ -2112,20 +2160,21 @@
   ],
   "status": "passed",
   "assetSha256": {
-    "index.html": "cd6cb90ba9b53bb940794e3a797f572c0d7fe46cf819595ba29e5eef48f3e510",
+    "index.html": "175904510f9a36bab8fab33302516d2c851679023d11c294b37b447c542353b7",
     "styles.css": "1bcadbd96a26303ac52d338e1c02093635ded311f7d46ee9879788b4e612cca5",
     "contract-inbox.css": "61ed167ebee724c929a3bddbd3c0f8035dabed7b8e121725536a72683c931efe",
     "batch-actions.css": "cdbf18baa8b7b9ba35c5259b16516e0b502687e4c931f3df929c8d84969aa1bc",
     "loading.css": "1b36da4a60eabc44a3346788c6af8a9910b2e50f7634faa2c991e98d86fa30c7",
-    "app.js": "c2b25ee10792e3536fce0fead675ef2fec2b93fd45caf47627067d604ecd9e39",
+    "app.js": "0b898ebd5b1b47a230e1ac6b8039553614a671df82c7176b39224a89a9aa4a8e",
     "ui-keyboard.js": "a2d0cba51373c50c26f203fcca029a11c85cc71c1edda0d5a449ee8b25cdd0c8",
     "selected-event.js": "e590d4717c47abae18dd7547bff9128781d576c8d7687e8c3a67b1a7b6b6cf18",
-    "reconciliation.js": "fb071de09ade412dba1aa8c1183a677c10da4143f63b46615a077bf10433d402",
     "hosted-wallet.js": "6ec533ed08d0a8f57e75ee25971e94d958e2e02319dbab4804e20794defd7015",
-    "contract-inbox.js": "28de29dac08d5793c33bf33ded925b4b43cebc7b02d376f47efd3fa6042e949a",
+    "reconciliation.js": "fb071de09ade412dba1aa8c1183a677c10da4143f63b46615a077bf10433d402",
     "batch-actions.js": "72e51459e3e7a96311b3d5f799e931c6a55626ab82f005d9f81427d3cf4d76e2",
-    "batch-pending.js": "8b9461b9afe8f221ceed1a0a5ccdeabf00b934da0cd2d6c4853a2d574298ba10",
-    "contract-profiles.js": "aeb3355ff9b161de5d0b1a6b6ce76a4dc4c3030026cc38a58cb42a534370d749",
+    "contract-inbox.js": "28de29dac08d5793c33bf33ded925b4b43cebc7b02d376f47efd3fa6042e949a",
+    "batch-pending.js": "73e7b7c1afa0833ba8484c233024b4e2078eb4260a98c7eac4cb666da805f572",
+    "contract-profiles.js": "5db2791a83d10434ecc5aacb96eee1c97888613d6686e86d747654892ef0abe9",
+    "environment.js": "9cd70c87c1bbc071fd1fc48cf2aae6632968f1f27d3319949b5166aaa3928102",
     "transaction-context.js": "e7c5568fa3dddfb5983ededa48a90db3b13c33c00d59bcd9393e7f02470f07af",
     "batch-selection.js": "08c6c157cf99a72a182300c4021230395c4d03df344e09d46f5394bfd91616b6"
   }

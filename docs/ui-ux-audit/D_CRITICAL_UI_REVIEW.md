@@ -213,3 +213,86 @@ reported canonical ruling operation at block23741046 and its stopped final opera
 primary evidence, not a screenshot-audit PASS. Settlement and same-Bob delivered payment have
 not been reviewed or inferred. Await an explicit settled-stage availability notice; no new ruling,
 settlement, source, hosting, journal, key or schedule operation was performed here.
+
+## Settled: three-role presentation review
+
+**PASS for settled-role UI presentation only. This does not close the whole financial flow or
+authorize a release.** Root explicitly supplied settled captures after the contract message.
+The original settlement wrapper remains STOPPED after its passed operation sidecar; primary's
+read-only final verification and ABC-interval closure are separate work, not reclassified here.
+
+### Exact proof and captures
+
+Pointer: primary `artifacts/ui-d-status-settled.json` reports passed/settled,86HTTP/auth reads,
+3nonce signatures,0financial signatures,0broadcasts and no failures. The referenced immutable file:
+
+`artifacts/ui-d/status-settled-2026-10-29T04-45-26-924Z-973b436d/proof.json`
+
+Independently computed SHA256 **matches root's supplied expected digest**:
+`8f74f78ae82cc084917ca7bd5dd9ada1451949eff464e375d8b983080993fd2c`.
+Phase/status/counts agree between pointer and proof. All six referenced captures were opened
+with `view_image` and inspected.
+
+Common primary-relative capture directory:
+`artifacts/ui-d/status-settled-2026-10-29T04-45-26-924Z-973b436d/`.
+
+| Actual capture | Independently computed SHA256 |
+| --- | --- |
+| `alice-spot.png` | `503d7c3f67483d047adb5b88aa713e89de1b382e22b290a05fea3fd37f30da1a` |
+| `alice-cases.png` | `78c8a4dab522327944bd810c27a60eaa406d0fd05f46b4fb9dd511ff27e17492` |
+| `bob-spot.png` | `897a8f7604bf84016a3a0d3110cbc298abe5b2d54b341ef2ab8d575ae814d942` |
+| `bob-cases.png` | `38a60b6911c8c83cc121f1d95d9c3fdf2b8a68eaa55f66118e6e5f096ec2a0bb` |
+| `owner-manage.png` | `ffdc71b9772b926e377e509c9f676d4e3bd04d6070b7205854215ff0164bd8c0` |
+| `owner-cases.png` | `93b05862e6d168f28f429edee100fbbce646472e569324d619034eea481f9e1b` |
+
+### Findings from the actual images
+
+- **Same Bob's spot:** wallet `0x8f9cA…2b501` remains selected. The next action and dispute fact
+  say **“Challenge settled.”** Financial attendance is included, the payout fact says
+  **`0.000001XDAI directly paid` (D)**, and unused credit remains0. Its note identifies direct
+  attendanceD, principal refunds0 and claims0. Bob's absent staff check-in stays independently
+  labelled; it has not been fabricated from his successful financial challenge.
+- **Bob cases:** the same case is labelled **“Challenge settled,”** with final ruling1Attended,
+  resolver localID2, arbitrator disputeID1002 and reserved share0. The case copy distinguishes
+  event settlement from checking owed credits and delivery records. Event Sent is2D; that remains
+  an aggregate, not Bob's personal2D payment.
+- **Alice spot/cases:** her personal direct attendance payment remainsD, not a secondD or the
+  combined event total. Her own dispute fact remains “No attendance challenge” and unused credit0.
+  The event view shows two established attendees and Bob's settled case.
+- **Owner manage:** both historical deposit receipts remainD. The informational inbox now shows
+  unused credit0 for both wallets, without a held-share badge for Bob. Confirmed financial
+  attendance is2 while trusted staff observations remain1; those independent facts were not merged.
+- **Owner cases:** Sent is **`0.000002XDAI` (2D)**. Reserved case shares, still owed, challenge
+  escrow, unused credit, contract balance and total protected reserves are all independently0.
+  Bob's settled/final1 case and IDs2/1002 persist. The activity list has one visible confirmed
+  “Settle final ruling” at block23741297 plus the earlier ordinary kickback at23740796.
+
+The captures retain D event identity, Chiado10200, `kleros-event-v8-test15m`, VERSION80015 and
+the controlled-test/no-independent-jury disclosure. No value disagreement or premature global
+payment-completion claim was found. The settled/normal-payout controls appear visually subdued;
+an image cannot prove their DOM `disabled` property or server rejection. No action was clicked or
+attempted in this review. The audit proof records no financial signatures/broadcasts, so this
+role-audit pass itself performed no repeat financial action.
+
+### Attendance payment versus collateral
+
+The hashed settled proof corroborates the UI with two distinct successful `attendance-payout`
+records: AliceD through the original ordinary release, and **the same BobD** through
+`resolveChallenge`, transaction
+`0xc27fb4878a820914c134be76e693057c6a700948f1d56350aabdf62f04063a0e`, block23741297/log2.
+Attendance Sent totals exactly2D; pending-credit withdrawals, principal refunds, claims and
+unclassified payouts remain0 in that projection. Its scope explicitly excludes successful
+challenge reimbursements/remainders, so the30,000,000,000wei collateral is not counted as Bob's
+attendance payment or included in the displayed2D attendance total.
+
+Cross-document arithmetic also agrees: Bob's balance in the reviewed ruled proof is
+8,944,044,783,262wei and in the settled proof9,974,044,783,262wei, a difference of
+1,030,000,000,000wei = D +30,000,000,000wei. This is corroborating document arithmetic, not an
+independent RPC/receipt verification or a claim that the role UI exposes every native transfer.
+Primary's separately reported exact-balance/collateral canonical proofs and settled161 checks
+were not rerun by this reviewer.
+
+This completes the three requested **role-presentation** reviews: ordinary, delivered/unsettled
+and settled. It does not close the stopped wrappers, remaining receipt/ABC supplements or whole-flow
+acceptance. No source, hosting, financial, journal, private-key, schedule or primary-file operation
+was performed; only this isolated review document changed.

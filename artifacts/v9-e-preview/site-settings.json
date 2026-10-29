@@ -1,0 +1,18 @@
+{
+  "siteId": "5570abe9-77ee-4f9d-8d7e-7c06f33a1ab4",
+  "publicOrigin": "https://kleros-v9-chiado-preview.netlify.app",
+  "changedOnly": [
+    "hud_enabled",
+    "built_with_badge_enabled"
+  ],
+  "before": {
+    "hud_enabled": false,
+    "built_with_badge_enabled": true
+  },
+  "after": {
+    "hud_enabled": false,
+    "built_with_badge_enabled": false
+  },
+  "checkedAt": "2026-10-29T07:36:51.458698+00:00",
+  "oldSitesChanged": false
+}
