@@ -321,3 +321,17 @@ Only explicitly public/published supported summaries enter the display projectio
 no-match states distinct and never use production fixtures. Direct guest URLs, canonical organizer
 Copy/Open links and setup remain. Financial status text describes current phase without promising
 eligibility or complete payout.
+
+### Fast public directory and neutral initial shell
+
+Updated29October2026. Files: `public/app.js`, `public/event-search.js`, `public/index.html`,
+`public/loading.css`. Before environment discovery, `.initial-shell` uses a compact900px single-column
+loading geometry and neutral Connecting label. It claims no network/session. Once metadata loads,
+Event Directory chrome hides the wallet identity button; explicit event/setup navigation restores the
+existing verified environment and wallet controls only after its guarded bootstrap.
+
+Public directory rows use existing teal/plum cards,44px controls, wrapped titles/amounts and native
+Open event links. The recorded metadata projection says **Check status on open** and explains that
+current status and wallet actions are checked there. Never borrow financial-ready styling or current
+Open/Paid states from the fast catalog. Search/clear are local, counts exclude private/draft/missing
+flags before indexing, errors require explicit retry, and same-scope refresh keeps the search caret.

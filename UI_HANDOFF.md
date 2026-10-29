@@ -1,3 +1,10 @@
+## Current addition — faster public portal (29 October 2026)
+
+Read [PORTAL_LOADING_UI_HANDOFF](docs/PORTAL_LOADING_UI_HANDOFF.md) for the four-file metadata-only
+home path, exact source pins, local timing/layout evidence and Core integration requirements. This
+addition starts at04bf04ba; it does not replace newer primary memory/backend or the separately reviewed
+date widget. Local checks passed; live speed/publication evidence remains Core's responsibility.
+
 # Loading, mobile stability and keyboard handoff
 
 Latest homepage feature: [search public events](docs/PUBLIC_EVENT_SEARCH_UI_HANDOFF.md).
