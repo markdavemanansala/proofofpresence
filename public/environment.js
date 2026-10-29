@@ -244,3 +244,6 @@ export const productionContextIssue = (
 ) => v9ContextIssue(bootstrap, detail, options, production);
 export const v9TestnetContextIssue = (bootstrap, detail = null, options = {}) =>
   v9ContextIssue(bootstrap, detail, options, v9Testnet);
+
+// Shared structural check for the independently verified factory context.
+export { verifiedUpgrade as isVerifiedV9Upgrade };

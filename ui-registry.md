@@ -262,3 +262,24 @@ context and exact recorded hash; offer one explicit receipt check. Keep all new 
 absent while event verification is unavailable. Confirmed means the original receipt was verified,
 not that payout delivery or event trust is established. Malformed responses retain the hash; changed
 actor, event, backend instance or mode cannot inherit the panel or signing authority.
+
+
+### Compact Luma launch shell and factory setup
+
+Files: public/luma-launch.css, public/luma-launch.js, public/luma-setup.js, public/luma-factory.js,
+public/app.js ·29October2026
+
+| Property | Pattern |
+| --- | --- |
+| Scope | body.launch-mode only; historical demo/testnet layouts retain their tokens and structure. |
+| Accent | Teal #4CCEBD mapped through existing accent tokens; dark on-accent text and existing deep/surface/line palette. |
+| Cards |20px radius,24px padding(20px mobile), quiet line boundaries and existing restrained shadow. |
+| Typography | Local Geist controls/body and Instrument Serif headings; exact identifiers wrap. |
+| Controls |44px actions/native summaries,46px form fields, native focus outline and modal dialog. |
+| Facts | dt/dd immutable review facts, ETH+wei, full wallet/factory/hash/policy, clear pending/recovery/share states. |
+
+Pattern notes: Root has deposit-link entry and organizer setup only. A selected event has one main
+action; no duplicate Luma signup, directory, content/history or marketing surfaces. Material policy,
+upgrade, gas and recovery rights remain contextually reachable. Confirmation does not mean admission.
+Return to Luma is a validated selected-event association without appended wallet or transaction data.
+Factory uncertainty survives reload and backend-instance changes without regaining signing authority.

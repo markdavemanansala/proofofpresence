@@ -1,5 +1,8 @@
 # Loading, mobile stability and keyboard handoff
 
+Latest production launch scope and locally validated source: [compact Luma UI handoff](docs/LM_UI_HANDOFF.md).
+Older sections below retain their original validation scope.
+
 29 October 2026 · ready for primary-session review; not deployed.
 
 Current validated follow-up: [production UI guards and recovery handoff](docs/ui-ux-audit/PRODUCTION_UI_HANDOFF.md).

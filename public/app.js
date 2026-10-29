@@ -6,6 +6,8 @@ import { assertDemoChainInstance } from "./hosted-wallet.js";
 import { mountContractInbox } from "./contract-inbox.js";
 import { mountBatchActions } from "./batch-actions.js";
 import { createBatchPendingJournal } from "./batch-pending.js";
+import { lumaReturnUrl, launchWei, participantDeposit } from "./luma-launch.js";
+import { mountLumaSetup } from "./luma-setup.js";
 import {
   isProductionMode,
   isSandboxMode,
@@ -270,7 +272,7 @@ function mountOrganizerBatchActions() {
           id &&
           person.id === id &&
           person.eventId === scope.eventId &&
-          person.identityVerified === true &&
+          participantWalletVerified(person) &&
           same(person.wallet, wallet),
       );
     };
@@ -415,7 +417,7 @@ async function prepareBatchRegistration() {
         ? "Registration is closed in the current contract phase."
         : !person ||
             person.eventId !== selected.scope.eventId ||
-            person.identityVerified !== true ||
+            !participantWalletVerified(person, fresh.event) ||
             !same(person.wallet, item.wallet)
           ? "The verified participant and wallet link changed."
           : person.admission !== "approved"
@@ -438,7 +440,10 @@ async function prepareBatchRegistration() {
   });
 }
 let contractInboxController = null;
+let lumaSetupController = null;
 function disposeContractInbox() {
+  lumaSetupController?.dispose();
+  lumaSetupController = null;
   app.batchRegistrationSelection = null;
   disposeBatchActions();
   contractInboxController?.dispose();
@@ -631,6 +636,19 @@ function assertFinancialEnvironment(action, params = {}) {
       requireWallet: true,
     });
     if (issue) throw new Error(issue);
+    if (isProduction() && action === "deposit") {
+      const eligible = launchDepositAction();
+      if (
+        app.bootstrap?.capabilities?.lumaDepositPortal !== true ||
+        app.bootstrap?.capabilities?.walletFirstDeposits !== true ||
+        !eligible?.eligible ||
+        ownWalletFacts()?.deposit?.status === "submitted"
+      )
+        throw new Error(
+          eligible?.reason ??
+            "This wallet is not eligible for a new event deposit. Refresh its verified status.",
+        );
+    }
     if (action === "appealRewards") {
       const item = app.detail?.state?.cases?.find((item) =>
         same(item.wallet, params.wallet),
@@ -673,6 +691,13 @@ function assertProductionDraft(draft) {
     throw new Error(
       "The transaction review does not match the verified event, wallet or environment. Refresh and prepare it again.",
     );
+  if (isProduction() && draft.action === "deposit") {
+    const action = launchDepositAction();
+    if (!action?.eligible || draft.valueWei !== action.amountWei)
+      throw new Error(
+        "The deposit amount changed. Refresh and review the authoritative amount again.",
+      );
+  }
 }
 const isV8 = (event = app.detail?.event) => hasV8FinancialInterface(event);
 const versionLabel = (event = app.detail?.event) =>
@@ -764,6 +789,7 @@ function updateHostedDemoNotice() {
     "hosted-shared-demo",
     production || hosted || testnet || test15m,
   );
+  document.body.classList.toggle("launch-mode", production);
   const activeId = production
     ? "production-banner"
     : v9Testnet
@@ -924,8 +950,10 @@ function navigate(eventId, view = "participant", focusSelector = null) {
 }
 function readRoute() {
   const params = new URLSearchParams(location.hash.slice(1));
+  const eventId = params.get("event");
   return {
-    eventId: params.get("event"),
+    eventId,
+    setup: !eventId && params.get("setup") === "kickback",
     view: ["participant", "organizer", "cases"].includes(params.get("view"))
       ? params.get("view")
       : "participant",
@@ -936,6 +964,16 @@ function currentIdentity() {
 }
 function isOwner() {
   return same(currentIdentity()?.wallet, app.detail?.state?.owner);
+}
+function participantWalletVerified(person, event = app.detail?.event) {
+  return (
+    person?.identityVerified === true ||
+    (isProduction() &&
+      event?.chainId === 1 &&
+      event.contractVersion === "kleros-event-v9-uups" &&
+      event.abiVersion === "kleros-event-v9-uups" &&
+      person?.walletVerified === true)
+  );
 }
 function isStaff() {
   return (
@@ -995,18 +1033,22 @@ function identityOptions() {
   return `<option value="">${isHostedDemo() ? "Select a synthetic demo identity" : "Select a local demo identity"}</option>${session?.mode === "wallet" ? `<option value="connected-wallet" selected>Connected wallet · ${escape(short(session.wallet))}</option>` : ""}${(app.bootstrap?.identities ?? []).map((identity) => `<option value="${escape(identity.id)}" ${same(identity.wallet, session?.wallet) ? "selected" : ""}>${escape(identity.label)} · ${escape(short(identity.wallet))}</option>`).join("")}`;
 }
 function sidebar() {
-  const events = app.bootstrap?.events ?? [];
+  const events = isProduction() ? [] : (app.bootstrap?.events ?? []);
   $("#event-count").textContent = events.length;
   $("#all-events-link").classList.toggle("active", !app.route.eventId);
-  $("#sidebar-events").innerHTML = events
-    .map(
-      (event) =>
-        `<a class="sidebar-event ${event.id === app.route.eventId ? "selected" : ""}" href="#${new URLSearchParams({ event: event.id, view: "participant" })}">${escape(event.title)}</a>`,
-    )
-    .join("");
-  $("#breadcrumb").innerHTML = app.route.eventId
-    ? `Workspace <span>/</span> <a href="#">Events</a> <span>/</span> <strong>${escape(app.detail?.event.title ?? "Loading")}</strong>`
-    : "Workspace <span>/</span> <strong>All events</strong>";
+  if (isProduction()) $("#sidebar-events").replaceChildren();
+  else
+    $("#sidebar-events").innerHTML = events
+      .map(
+        (event) =>
+          `<a class="sidebar-event ${event.id === app.route.eventId ? "selected" : ""}" href="#${new URLSearchParams({ event: event.id, view: "participant" })}">${escape(event.title)}</a>`,
+      )
+      .join("");
+  $("#breadcrumb").innerHTML = isProduction()
+    ? `<a href="#">Kickback</a>${app.route.eventId ? ` <span>/</span> ${app.route.view === "organizer" ? "Manage event" : "Event deposit"}` : app.route.setup ? " <span>/</span> Set up kickback" : ""}`
+    : app.route.eventId
+      ? `Workspace <span>/</span> <a href="#">Events</a> <span>/</span> <strong>${escape(app.detail?.event.title ?? "Loading")}</strong>`
+      : "Workspace <span>/</span> <strong>All events</strong>";
   let identity = $("#top-identity");
   if (!identity) {
     identity = document.createElement("button");
@@ -1016,13 +1058,16 @@ function sidebar() {
     $(".topbar-actions").insertBefore(identity, $("#refresh"));
   }
   identity.disabled = false;
-  identity.textContent =
-    currentIdentity()?.label ??
-    (isWalletEnvironment()
-      ? "Connect wallet"
-      : isSandbox()
-        ? "Choose identity"
-        : "Account unavailable");
+  identity.textContent = isProduction()
+    ? currentIdentity()?.wallet
+      ? `Wallet ${short(currentIdentity().wallet)}`
+      : "Connect wallet"
+    : (currentIdentity()?.label ??
+      (isWalletEnvironment()
+        ? "Connect wallet"
+        : isSandbox()
+          ? "Choose identity"
+          : "Account unavailable"));
   identity.onclick = showIdentityDialog;
 }
 function showIdentityDialog() {
@@ -1489,6 +1534,7 @@ async function loadView(record, silent) {
     annotateHostedForms();
     mountOwnerContractInbox();
     mountOrganizerBatchActions();
+    mountLaunchSetup();
     if (restoreNavigation && record.focusIntent)
       $(record.focusIntent.selector)?.focus();
     else if (silent && latestFocus && !$("#review-dialog").open)
@@ -1506,12 +1552,13 @@ async function loadView(record, silent) {
     app.submittedRecovery = submittedRecoveryFromManifest(record, error);
     if (app.submittedRecovery) sidebar();
     $("#content").innerHTML =
-      `<div class="page-header"><div><div class="eyebrow">Event workbench</div><h1>We couldn’t load this view.</h1></div></div><div class="error-panel" role="alert">${escape(error.message)}</div>${renderSubmittedRecovery()}<div class="button-row"><button class="button button-primary" data-reload>Try again</button><a href="#" class="button button-secondary">All events</a></div>`;
+      `<div class="page-header"><div><div class="eyebrow">Event workbench</div><h1>We couldn’t load this view.</h1></div></div><div class="error-panel" role="alert">${escape(error.message)}</div>${renderSubmittedRecovery()}<div class="button-row"><button class="button button-primary" data-reload>Try again</button><a href="#" class="button button-secondary">${isProduction() ? "Deposit or setup" : "All events"}</a></div>`;
     if (restoreError) $("[data-reload]")?.focus();
   }
 }
 
 function renderHome() {
+  if (isProduction()) return renderLaunchHome();
   const events = app.bootstrap.events;
   return `<div class="page-header"><div><div class="eyebrow">GOOD EVENTS. KEPT PROMISES.</div><h1>Events, with commitment.</h1><p class="intro">Find your event. Reserve a place. Show up.<br>Follow your kickback from attendance to payout.</p></div>${isSandbox() ? '<div class="header-actions"><button class="button button-primary" data-create-event><span aria-hidden="true">＋</span> Create local event</button></div>' : ""}</div>
     <ol class="quick-start" aria-label="How event commitments work"><li><span class="step-number">1</span><div><strong>Choose an event</strong><p>Each event keeps its own guest list and money.</p></div></li><li><span class="step-number">2</span><div><strong>Reserve your place</strong><p>Choose free entry or review a deposit. The host approves admission.</p></div></li><li><span class="step-number">3</span><div><strong>Attend & get a kickback</strong><p>Check in, review the attendance list and challenge a mistake if needed.</p></div></li></ol>
@@ -1519,6 +1566,222 @@ function renderHome() {
     <div class="event-grid">${events.map((event, index) => `<article class="event-card"><div class="event-visual theme-${index % 4}"><span class="visual-kicker">KLEROS / COMMUNITY</span><div class="visual-title">${escape(event.title)}</div><span class="event-sequence">${String(index + 1).padStart(2, "0")} / ${String(events.length).padStart(2, "0")}</span></div><div class="card-body"><div class="card-meta">${badge(phaseName(event.financialPhase), phaseStyle(event.financialPhase))}<span class="tiny-label">${escape(event.visibility ?? "public").toUpperCase()} · ${escape(event.editorialStatus ?? "published").toUpperCase()}</span></div><h3>${escape(event.title)}</h3><p>${escape(event.description ?? "")}</p><div class="event-facts"><span><i class="fact-icon" aria-hidden="true">◷</i>${escape(formatTime(event.startsAt, event.timezone))}</span><span><i class="fact-icon" aria-hidden="true">⌖</i>${escape(event.location ?? "Location to be announced")}</span><span><i class="fact-icon" aria-hidden="true">◇</i>Independent ${versionLabel(event)} contract · ${escape(short(event.contract))}</span></div><div class="card-footer"><div class="price">${eth(event.depositWei)} ${escape(currencySymbol())}<small>Optional commitment · free entry available</small></div><a href="#${new URLSearchParams({ event: event.id, view: "participant" })}" class="button button-secondary">Open event <span class="icon-arrow" aria-hidden="true">↗</span></a></div></div></article>`).join("")}</div>
     <div class="trust-strip"><div class="trust-icon" aria-hidden="true">◇</div><div>${isProduction() ? "<strong>Your wallet. Your Ethereum transactions.</strong><p>Review each event’s verified contract, ETH amount, policy and arbitration provider before depositing. Host approval, attendance and payment remain separate.</p>" : isTestnet() || isV9Testnet() ? "<strong>Your wallet. One clear next step.</strong><p>Open an event and connect a wallet with test tokens. Review the contract, policy and arbitration provider before a deposit. A verified payment is separate from host approval.</p>" : "<strong>New here? Try a demo identity.</strong><p>Open an event, then choose Alice to try a deposit or its organizer to manage guests. This sandbox uses valueless ETH and mock Court rulings. A verified payment is separate from host approval.</p>"}</div></div>
     ${renderDemoControls()}`;
+}
+
+function renderLaunchHome() {
+  if (app.route.setup)
+    return '<section class="luma-launch" data-launch-root><a class="back-link" href="#">← Deposit or setup</a><div id="luma-setup"></div></section>';
+  return `<section class="luma-launch" data-launch-root><div class="luma-launch-heading"><div class="eyebrow">KLEROS KICKBACK</div><h1>A deposit for your Luma event.</h1><p>Keep registration on Luma. Use this page for the event deposit and kickback.</p></div><div class="luma-launch-choices"><section class="luma-launch-card"><h2>Deposit for your event</h2><p>Open the deposit link provided with your Luma registration.</p><button class="button button-primary" data-launch-open-link>Open an event deposit link</button></section><section class="luma-launch-card"><h2>Set up kickback</h2><p>Organizers can connect a Luma event to its own reviewed contract.</p><a class="button button-secondary" href="#setup=kickback">Set up kickback</a></section></div></section>`;
+}
+function mountLaunchSetup() {
+  const host = $("#luma-setup");
+  if (!host || !isProduction() || !app.route.setup || app.route.eventId) return;
+  const scope = {
+    generation: app.generation,
+    instanceId: app.bootstrap?.instanceId,
+    wallet: currentIdentity()?.wallet ?? null,
+  };
+  const current = () =>
+    host.isConnected &&
+    $("#luma-setup") === host &&
+    isProduction() &&
+    app.generation === scope.generation &&
+    app.bootstrap?.instanceId === scope.instanceId &&
+    !readRoute().eventId &&
+    readRoute().setup &&
+    (scope.wallet === null
+      ? currentIdentity()?.wallet == null
+      : same(currentIdentity()?.wallet, scope.wallet));
+  lumaSetupController = mountLumaSetup(host, {
+    bootstrap: app.bootstrap,
+    isCurrent: current,
+    request: api,
+    provider: () => walletProvider(),
+    beforeOpen: () => invalidateDraft(),
+    onComplete: () => {
+      if (current())
+        toast("Event creation confirmed. Share the deposit link below.");
+    },
+  });
+}
+function launchPendingDeposit() {
+  return app.pending
+    .slice()
+    .reverse()
+    .find(
+      (entry) =>
+        entry.eventId === app.route.eventId &&
+        entry.instanceId === app.bootstrap?.instanceId &&
+        same(entry.wallet, currentIdentity()?.wallet) &&
+        entry.action === "deposit" &&
+        !["confirmed", "failed"].includes(entry.status),
+    );
+}
+function launchDepositAction() {
+  const action = ownWalletFacts()?.depositAction;
+  const amountWei = launchWei(action?.amountWei);
+  return action &&
+    typeof action.eligible === "boolean" &&
+    (!action.eligible || (amountWei !== null && BigInt(amountWei) > 0n))
+    ? {
+        eligible: action.eligible,
+        amountWei,
+        reasonCode:
+          typeof action.reasonCode === "string" ? action.reasonCode : "",
+        reason:
+          typeof action.reason === "string"
+            ? action.reason
+            : "Refresh this event for deposit eligibility.",
+      }
+    : null;
+}
+function renderLaunchEvent() {
+  const event = app.detail.event;
+  if (event?.id !== app.route.eventId)
+    return '<section class="luma-launch" data-luma-launch><div class="luma-launch-card" data-launch-state="unavailable"><h1>Verify the event link</h1><p>The returned event does not match this deposit link. No deposit or Luma return action is available.</p><button class="button button-secondary" data-reload>Refresh verified event</button></div></section>';
+  return `<section class="luma-launch" data-luma-launch><a class="back-link" href="#">← Deposit or setup</a><header class="luma-launch-event"><div class="eyebrow">${app.route.view === "organizer" ? "ORGANIZER KICKBACK" : "EVENT DEPOSIT"}</div><h1>${escape(event.title)}</h1><p>${escape(formatTime(event.startsAt, event.timezone))} · ${escape(networkName())}</p></header>${app.route.view === "organizer" ? renderLaunchOrganizer() : renderLaunchParticipant()}</section>`;
+}
+function renderLaunchParticipant() {
+  const { event, state } = app.detail;
+  const identity = currentIdentity(),
+    receipt = participantDeposit(app.detail, identity?.wallet),
+    action = launchDepositAction();
+  const pending = launchPendingDeposit(),
+    returnUrl = lumaReturnUrl(event.lumaUrl);
+  const issue = productionContextIssue(app.bootstrap, app.detail, {
+    requireTransactions: true,
+  });
+  const snapshotIssue = productionContextIssue(app.bootstrap, app.detail, {
+    requireWallet: true,
+  });
+  const portal =
+    app.bootstrap?.capabilities?.lumaDepositPortal === true &&
+    app.bootstrap?.capabilities?.walletFirstDeposits === true;
+  const canonical = receipt.status === "confirmed" && !snapshotIssue;
+  const canReview =
+    !!identity &&
+    !issue &&
+    portal &&
+    !!returnUrl &&
+    action?.eligible === true &&
+    phaseName(state.phase) !== "Cancelled" &&
+    !pending &&
+    receipt.status !== "submitted" &&
+    receipt.status !== "unavailable";
+  let status = "ready",
+    heading = "Review your event deposit",
+    explanation =
+      "Your wallet will show the exact amount and contract before you confirm.";
+  if (!identity) {
+    status = "connect";
+    heading = "Connect your wallet";
+    explanation =
+      "Use your own standard Ethereum account. No name, email or registration form is needed here.";
+  } else if (phaseName(state.phase) === "Cancelled") {
+    status = "cancelled";
+    heading = "This event is cancelled";
+    explanation =
+      "Review your current credit, confirmed returns and any still-owed payment below. A historical receipt does not establish a current commitment.";
+  } else if (
+    ownParticipant()?.admission === "declined" ||
+    (action?.eligible !== true &&
+      /REFUND|RETURNED|REJECT|DECLIN/i.test(action?.reasonCode ?? ""))
+  ) {
+    status = "not-eligible";
+    heading = "Review your event and funds status";
+    explanation =
+      action?.reason ??
+      "Do not submit a historical receipt as proof of a current commitment. Review the funds status below.";
+  } else if (pending && !pending.hash) {
+    status = "awaiting-wallet";
+    heading = "Confirm in your wallet";
+    explanation =
+      "No transaction ID has been returned yet. Check the open wallet request before trying again.";
+  } else if (pending || receipt.status === "submitted") {
+    status = "pending";
+    heading = "Your deposit is pending";
+    explanation =
+      "Keep the transaction ID. Check its receipt before trying another deposit.";
+  } else if (canonical && action?.eligible !== true) {
+    status = "confirmed";
+    heading = "Deposit transaction confirmed";
+    explanation =
+      "Copy your transaction ID, then return to Luma to finish its registration steps. Host approval remains separate.";
+  } else if (receipt.status === "failed") {
+    status = "failed";
+    heading = "The deposit did not succeed";
+    explanation =
+      "Check the reverted transaction and your wallet activity. Any new attempt needs a fresh review.";
+  } else if (
+    issue ||
+    !portal ||
+    receipt.status === "unavailable" ||
+    !action ||
+    !returnUrl
+  ) {
+    status = "unavailable";
+    heading = "Deposit review is unavailable";
+    explanation =
+      issue ??
+      (!returnUrl
+        ? "The organizer has not provided a valid Luma event link. Contact them before depositing."
+        : "Refresh the verified event and wallet status before depositing.");
+  } else if (!action.eligible) {
+    status =
+      phaseName(state.phase) === "Cancelled" ? "cancelled" : "not-eligible";
+    heading = "No new deposit is needed";
+    explanation = action.reason;
+  }
+  const hash =
+    pending && !pending.hash
+      ? null
+      : canonical
+        ? receipt.hash
+        : (pending?.hash ?? receipt.hash);
+  const showReturn =
+    status === "confirmed" &&
+    canonical &&
+    !snapshotIssue &&
+    portal &&
+    action?.eligible === false &&
+    !!returnUrl;
+  return `<ol class="luma-launch-steps" aria-label="Deposit steps"><li>Connect wallet</li><li>Review deposit</li><li>Return to Luma</li></ol><section class="luma-launch-card luma-launch-state" data-launch-state="${status}" aria-labelledby="launch-state-title"><div class="luma-launch-terms"><span>Event commitment</span><strong>${eth(state.depositWei ?? event.depositWei)} ETH</strong></div><h2 id="launch-state-title">${escape(heading)}</h2><p>${escape(explanation)}</p>${action?.eligible && identity ? `<p>Amount to review now: <strong>${eth(action.amountWei)} ETH</strong></p>` : ""}<div class="luma-launch-actions">${!identity ? `<button class="button button-primary" data-connect-wallet ${productionConnectionIssue() ? "disabled" : ""}>Connect wallet</button>` : showReturn ? `<a class="button button-primary" data-launch-return href="${escape(returnUrl)}" target="_blank" rel="noopener noreferrer">Return to Luma ↗</a>` : canReview ? '<button class="button button-primary" data-tx="deposit">Review deposit</button>' : '<button class="button button-secondary" data-reload>Check status</button>'}</div>${identity ? `<p class="small mono">Wallet ${escape(short(identity.wallet))}</p>` : ""}${hash ? `<div class="luma-launch-receipt"><label for="launch-txhash">${canonical ? "Confirmed transaction ID" : "Transaction ID"}</label><input id="launch-txhash" data-launch-hash readonly value="${escape(hash)}"><button class="button button-secondary button-small" data-launch-copy>Copy transaction ID</button>${canonical ? `<p class="small">${eth(receipt.amountWei)} ETH · canonical receipt at block ${escape(receipt.blockNumber)}. A receipt does not establish admission or prove funds are still held.</p>` : '<p class="small">Wait for confirmation before submitting this reference on Luma.</p>'}</div>` : ""}<p class="field-help">Registration and admission stay on Luma. This page does not approve your place.</p></section>${renderLaunchFinancialDetails()}<details class="luma-launch-card disclosure"><summary>Contract, terms & safeguards</summary>${renderLaunchTerms()}</details>${isOwner() || isStaff() ? `<a class="text-link" href="#${new URLSearchParams({ event: event.id, view: "organizer" })}">Manage this event’s kickback</a>` : ""}`;
+}
+function renderLaunchTerms() {
+  const { event, state } = app.detail;
+  return `<dl class="details-list"><div><dt>Connected wallet</dt><dd class="mono">${escape(currentIdentity()?.wallet ?? "Not connected")}</dd></div><div><dt>Event ID</dt><dd class="mono">${escape(event.id)}</dd></div><div><dt>Event contract</dt><dd class="mono">${escape(event.contract)}</dd></div><div><dt>Network</dt><dd>${escape(networkName())} · ${escape(event.chainId)}</dd></div><div><dt>Event commitment</dt><dd>${eth(state.depositWei ?? event.depositWei)} ETH</dd></div><div><dt>Deposit deadline</dt><dd>${escape(formatTime(event.depositDeadline ?? event.startsAt, event.timezone))}</dd></div><div><dt>Policy</dt><dd class="mono">${escape(event.policyURI)}</dd></div></dl><p>Every transaction shows the event, wallet, exact ETH amount, recipient and policy before signing. Host admission and contract registration remain separate from a deposit.</p>${renderProductionDetails()}`;
+}
+function renderLaunchFinancialDetails() {
+  if (!currentIdentity()) return "";
+  const { event, state } = app.detail,
+    wallet = currentIdentity().wallet;
+  const facts = ownWalletFacts(),
+    person = ownParticipant(),
+    phase = phaseName(state.phase);
+  const credit = launchWei(facts?.pendingCreditWei),
+    owed = launchWei(facts?.owedWei);
+  const registered = !!person?.registered || isIn(state.stakers, wallet);
+  const attended = !!person?.attended || isIn(state.attendees, wallet);
+  const ownCase = state.cases?.find((item) => same(item.wallet, wallet));
+  const noList =
+    phase === "Open" &&
+    isIn(state.activeStakers, wallet) &&
+    Number(app.detail.now) > Number(event.claimDeadline);
+  const challengeOpen =
+    registered &&
+    !attended &&
+    !ownCase &&
+    phase === "Listed" &&
+    Number(app.detail.now) <= Number(state.challengeEndsAt);
+  const delivery = participantPayments(wallet);
+  return `<details class="luma-launch-card disclosure luma-launch-recovery"><summary>Your funds, refunds & attendance</summary><dl class="details-list"><div><dt>Unused payer credit</dt><dd>${credit === null ? "Unavailable" : `${eth(credit)} ETH`}</dd></div><div><dt>Still owed</dt><dd>${owed === null ? "Unavailable" : `${eth(owed)} ETH`}</dd></div><div><dt>Contract registration</dt><dd>${registered ? "Registered in this event" : "Not registered in the reward pool"}</dd></div><div><dt>Financial attendance</dt><dd>${attended ? "Included in contract attendance" : "Not established"}</dd></div><div><dt>Successful direct attendance payments</dt><dd>${delivery ? `${eth(delivery.attendance)} ETH` : "Verified history unavailable"}</dd></div><div><dt>Principal returns</dt><dd>${delivery ? `${eth(delivery.refunds)} ETH` : "Verified history unavailable"}</dd></div></dl><p>Unused credit, admitted commitments, held shares, owed transfers and successful payments are separate. A historical deposit receipt does not prove your current funding.</p>${phase === "Cancelled" ? "<p>This event is cancelled. Review confirmed returns, unused credit and any still-owed payment below.</p>" : ""}<div class="button-row">${credit !== null && BigInt(credit) > 0n ? '<button class="button button-secondary" data-recovery="withdrawPending">Review credit withdrawal</button>' : ""}${owed !== null && BigInt(owed) > 0n ? '<button class="button button-secondary" data-recovery="claim">Review owed payment</button>' : ""}${noList ? '<button class="button button-secondary" data-tx="emergencyWithdraw">Review no-list recovery</button>' : ""}${challengeOpen ? '<button class="button button-secondary" data-tx="challenge">Challenge missing attendance</button>' : ""}</div>${challengeOpen ? `<p>Challenge deadline: ${escape(contractDeadline(state.challengeEndsAt, event.timezone, event))}.</p>` : ""}${ownCase ? renderCase(ownCase) : ""}${renderPending()}</details>`;
+}
+function renderLaunchOrganizer() {
+  if (!currentIdentity() || (!isOwner() && !isStaff()))
+    return `<section class="luma-launch-card"><h2>Organizer access</h2><p>Connect the event financial owner or its authorized attendance staff wallet.</p><button class="button button-primary" data-connect-wallet>Connect organizer wallet</button></section>`;
+  const { event, state, participants = [], attendance = [] } = app.detail;
+  const owner = isOwner();
+  return `<section class="luma-launch-card"><h2>Manage this kickback</h2><p>Admission and registration remain separate from trusted check-in and financial attendance.</p><a class="button button-secondary" href="#${new URLSearchParams({ event: event.id, view: "participant" })}">Open the participant deposit page</a></section><details class="luma-launch-card disclosure"><summary>Deposits & host approvals</summary>${renderDepositReview()}</details><details class="luma-launch-card disclosure"><summary>Admission, registration & attendance</summary><section id="people-review">${renderBatchHost("check-in")}<div id="people-batch-selection"><div class="table-scroll"><table><thead><tr><th>Wallet</th><th>Host approval</th><th>Registration</th><th>Check-in</th></tr></thead><tbody>${participants.map((person) => `<tr data-batch-person="${escape(person.id)}" data-batch-wallet="${escape(person.wallet)}"><td class="person-cell"><strong class="mono">${escape(person.wallet)}</strong></td><td>${owner ? `<select data-admission="${escape(person.id)}" aria-label="Host approval for ${escape(person.wallet)}">${["pending", "approved", "declined", "free"].map((value) => `<option value="${value}" ${person.admission === value ? "selected" : ""}>${value}</option>`).join("")}</select>` : escape(person.admission)}</td><td>${person.registered ? "Registered" : owner ? `<button class="button button-secondary button-small" data-launch-register="${escape(person.wallet)}" data-launch-participant="${escape(person.id)}" ${person.admission !== "approved" || !person.deposit?.verified ? "disabled" : ""}>Review registration</button>` : "Owner review required"}</td><td>${attendance.some((record) => record.participantId === person.id || same(record.wallet, person.wallet)) ? "Check-in recorded" : `<button class="button button-secondary button-small" data-checkin="${escape(person.id)}">Review check-in</button>`}</td></tr>`).join("")}</tbody></table></div></div></section>${owner ? '<div id="attendance-review"><p>Only eligible registered wallets with trusted observations are proposed. Review the exact list before signing.</p><button class="button button-primary" data-tx="postAttendance">Review attendance proposal</button><button class="button button-secondary" data-correction>Review an attendance correction</button></div>' : ""}</details><details class="luma-launch-card disclosure"><summary>Payouts & attendance disputes</summary>${renderCases()}</details>${owner ? '<details class="luma-launch-card disclosure"><summary>Cancellation & recovery</summary><p>Existing contract deadlines, reserves and unresolved-case protections apply to every review.</p><div class="button-row"><button class="button button-secondary" data-tx="cancel">Review cancellation</button><button class="button button-secondary" data-recovery="sweep">Review spare-funds return</button><button class="button button-secondary" data-recovery="transferOwnership">Review event financial ownership transfer</button><button class="button button-secondary" data-tx="acceptOwnership">Review event financial ownership acceptance</button></div></details>' : ""}<details class="luma-launch-card disclosure"><summary>Contract & upgrade safeguards</summary>${renderLaunchTerms()}</details>`;
 }
 
 function renderEventContext() {
@@ -1535,6 +1798,7 @@ function renderEventContext() {
   return `<section class="event-context" aria-label="Selected event and verified deployment"><div class="context-main"><div class="event-switch"><label for="event-switch">Your event</label><select id="event-switch">${app.bootstrap.events.map((item) => `<option value="${escape(item.id)}" ${item.id === event.id ? "selected" : ""}>${escape(item.title)}</option>`).join("")}</select></div><div class="context-status">${badge(phaseName(state.phase), phaseStyle(state.phase))} ${badge(`${networkName()} ${event.chainId}`, "purple")}</div></div>${testProfileNotice(event)}${renderProductionDetails()}<details class="disclosure context-verification" id="deployment-details"><summary>Contract, policy & verified details · ${versionLabel(event)}</summary><dl class="context-details"><div><dt>${isGuardedV9() && app.detail?.deploymentTrust?.status !== "verified" ? "Deployment verification unavailable" : "Deployment"} · ${escape(event.contractVersion)}</dt><dd class="mono">${escape(event.contract)}</dd></div><div><dt>${deadlineLabel}</dt><dd>${escape(contractDeadline(deadline, event.timezone, event))}</dd></div><div><dt>Last verified · block ${escape(state.blockNumber)}</dt><dd>${escape(formatTime(now, event.timezone))}</dd></div></dl><p>Event ID: <span class="mono">${escape(event.id)}</span><br>Policy: <span class="mono">${escape(event.policyURI)}</span></p><p>Native ${escape(currencySymbol())} · ${escape(isGuardedV9() ? arbitrationLabel() : "Kleros V1")} · ${escape(event.abiVersion)}. The attendance-list deadline governs posting and no-list recovery, not every later claim. Full transaction details are always shown before signing.</p>${isV8(event) ? "<p>This financial interface tracks each payer’s unused deposit credit. Credit can be withdrawn independently; an admitted commitment follows event recovery rules.</p>" : ""}</details></section>`;
 }
 function renderEvent() {
+  if (isProduction()) return renderLaunchEvent();
   const { event, state } = app.detail;
   const phase = phaseName(state.phase);
   return `<a class="back-link" href="#">← All events</a>${renderEventContext()}<div class="event-heading"><div><div class="eyebrow">EVENT DETAILS</div><h1>${escape(event.title)}</h1><div class="event-subtitle"><span>◷ ${escape(formatTime(event.startsAt, event.timezone))}</span><span>⌖ ${escape(event.location ?? "")}</span></div></div></div>
@@ -2992,6 +3256,47 @@ document.addEventListener("click", async (event) => {
   if (!button || button.disabled) return;
   const data = button.dataset;
   try {
+    if ("launchRegister" in data) {
+      const person = app.detail?.participants?.find(
+        (person) =>
+          person.id === data.launchParticipant &&
+          person.eventId === app.route.eventId &&
+          same(person.wallet, data.launchRegister),
+      );
+      if (
+        !isProduction() ||
+        !isOwner() ||
+        !person ||
+        person.admission !== "approved" ||
+        !person.deposit?.verified ||
+        person.registered
+      )
+        throw new Error(
+          "Review this wallet's current host approval and canonical deposit before registration.",
+        );
+      await prepareTransaction("register", { wallets: [person.wallet] });
+      return;
+    }
+    if ("launchOpenLink" in data) {
+      showDialog(
+        '<div class="dialog-eyebrow">EVENT DEPOSIT LINK</div><h2 class="dialog-title" id="dialog-title">Open your event deposit</h2><p>Use the deposit link provided with your Luma registration.</p><form data-form="launch-link"><label for="launch-event-link">Deposit link</label><input id="launch-event-link" name="link" required type="url" placeholder="https://this-site/#event=…&view=participant"><div class="dialog-buttons"><button class="button button-secondary" type="button" data-close>Cancel</button><button class="button button-primary" type="submit">Open deposit page</button></div></form>',
+      );
+      return;
+    }
+    if ("launchCopy" in data) {
+      const field = $("[data-launch-hash]");
+      if (!field || !/^0x[0-9a-f]{64}$/i.test(field.value))
+        throw new Error("A verified transaction reference is unavailable.");
+      try {
+        await navigator.clipboard.writeText(field.value);
+        toast("Transaction ID copied. Paste it into your Luma registration.");
+      } catch {
+        field.focus();
+        field.select();
+        toast("Select and copy the transaction ID shown here.");
+      }
+      return;
+    }
     if ("reconcileSubmission" in data) {
       await reconcileSubmittedRecovery(data.reconcileSubmission, button);
       return;
@@ -3086,6 +3391,10 @@ document.addEventListener("click", async (event) => {
       return;
     }
     if ("personal" in data) {
+      if (isProduction())
+        throw new Error(
+          "Event registration and personal history stay outside this deposit page.",
+        );
       button.disabled = true;
       await post(eventPath("/personal"), { attended: true });
       await load({ silent: true });
@@ -3169,7 +3478,26 @@ document.addEventListener("submit", async (event) => {
   if (submit) submit.disabled = true;
   try {
     switch (form.dataset.form) {
+      case "launch-link": {
+        const url = new URL(String(values.link));
+        const eventId = new URLSearchParams(url.hash.slice(1)).get("event");
+        if (
+          url.origin !== location.origin ||
+          !eventId ||
+          !/^[a-zA-Z0-9_-]{1,200}$/.test(eventId)
+        )
+          throw new Error(
+            "Use a deposit link for a specific event on this site.",
+          );
+        invalidateDraft();
+        navigate(eventId, "participant");
+        break;
+      }
       case "registration":
+        if (isProduction())
+          throw new Error(
+            "Complete registration on Luma. This page does not collect registration details.",
+          );
         await post(eventPath("/participants"), values);
         await load({ silent: true });
         toast(
@@ -3334,11 +3662,36 @@ document.addEventListener("submit", async (event) => {
 
 $("#review-dialog").addEventListener("close", () => {
   app.draft = null;
+  app.draftParams = null;
   app.importReview = null;
   const restore = dialogReturnFocus;
   dialogReturnFocus = null;
+  if (
+    isProduction() &&
+    app.detail?.event.id === app.route.eventId &&
+    readRoute().eventId === app.route.eventId &&
+    app.route.view !== "organizer" &&
+    !$("#review-dialog").open
+  ) {
+    const card = $("[data-luma-launch] [data-launch-state]");
+    if (card) {
+      const template = document.createElement("template");
+      template.innerHTML = renderLaunchParticipant();
+      const refreshed = template.content.querySelector("[data-launch-state]");
+      if (refreshed) card.replaceWith(refreshed);
+      disableUnreadyProductionActions();
+    }
+  }
   if (restore?.element?.isConnected) restore.element.focus();
   else if (restore?.selector) $(restore.selector)?.focus();
+  if (
+    isProduction() &&
+    document.activeElement === document.body &&
+    $("#launch-state-title")
+  ) {
+    $("#launch-state-title").tabIndex = -1;
+    $("#launch-state-title").focus();
+  }
 });
 document.addEventListener("keydown", (event) => {
   const dialog = $("#review-dialog");
