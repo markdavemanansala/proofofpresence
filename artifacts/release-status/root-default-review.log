@@ -1,0 +1,15 @@
+{
+  "status": "review-only",
+  "phases": [
+    "admitted",
+    "matched",
+    "ordinary",
+    "ruled",
+    "settled"
+  ],
+  "networkRequests": 0,
+  "signingFilesRead": 0,
+  "signatures": 0,
+  "broadcasts": 0,
+  "instruction": "After primary D-complete/new-deploy GO only: UI_D_RELEASE_STATUS_EXECUTE=1 UI_D_APP_URL=exact-D-origin node test/testnet-ui-d-release-status.e2e.mjs --phase settled --source FULL_GIT_SHA. Auth+GET only."
+}

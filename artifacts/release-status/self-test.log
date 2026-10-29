@@ -1,0 +1,11 @@
+{
+  "status": "passed",
+  "accepted": 30,
+  "rejected": 160,
+  "networkRequests": 0,
+  "signingFilesRead": 0,
+  "signatures": 0,
+  "broadcasts": 0,
+  "copiedHistoricalSourceSha256": "85588a44bc3445779ff35fd3eaae946564b85b70f62b9467d052415a70e39468"
+}
+

@@ -1,0 +1,34 @@
+{
+  "copiedSourceSha256": "85588a44bc3445779ff35fd3eaae946564b85b70f62b9467d052415a70e39468",
+  "newSourceSha256": "b420bcf567d104b7afc5bd4cda0ac94c55ecefd61711fac09869d0ac87cc15eb",
+  "regions": {
+    "phase-and-canonical-api-assertions": {
+      "semanticTextUnchanged": true,
+      "originalRegionSha256": "c8ba7e7ba49003b74c9297df5ed04e9ff6070a475b971fb30b8df8486c2c2802",
+      "newRegionSha256": "c8ba7e7ba49003b74c9297df5ed04e9ff6070a475b971fb30b8df8486c2c2802"
+    },
+    "nonce-wallet-signing-guard": {
+      "semanticTextUnchanged": true,
+      "originalRegionSha256": "cf84015ef17c76ad6be80ccbd52fa18abc5b5a644be8b0ecd20a82ea8a7e2df1",
+      "newRegionSha256": "cf84015ef17c76ad6be80ccbd52fa18abc5b5a644be8b0ecd20a82ea8a7e2df1"
+    },
+    "participant-status-and-personal-payment-ui": {
+      "semanticTextUnchanged": true,
+      "originalRegionSha256": "e4bb97447970d63dc656f12ddf6aac3edbc930e6b79f4ac440e9fe25ecc88542",
+      "newRegionSha256": "e4bb97447970d63dc656f12ddf6aac3edbc930e6b79f4ac440e9fe25ecc88542"
+    },
+    "cases-payment-and-finality-ui": {
+      "semanticTextUnchanged": true,
+      "originalRegionSha256": "eab017f75dd5d549e80b9f40295e2695665be3a5c4540b883736fe3375dedcfd",
+      "newRegionSha256": "eab017f75dd5d549e80b9f40295e2695665be3a5c4540b883736fe3375dedcfd"
+    },
+    "chain-unchanged-and-canonical-anchor": {
+      "semanticTextUnchanged": true,
+      "originalRegionSha256": "1b7f45f411ea253c7c944aaf26858f1bda613fd7cfe1f377b8fbad9b8181e075",
+      "newRegionSha256": "1b7f45f411ea253c7c944aaf26858f1bda613fd7cfe1f377b8fbad9b8181e075"
+    }
+  },
+  "networkRequests": 0,
+  "runtimeFilesRead": 0,
+  "signingFilesRead": 0
+}
