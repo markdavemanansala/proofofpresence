@@ -1,3 +1,12 @@
+## Urgent setup progress and owned-event components — 29 October 2026
+
+[SETUP_PROGRESS_OWNED_EVENTS_HANDOFF](docs/SETUP_PROGRESS_OWNED_EVENTS_HANDOFF.md) contains the bounded
+pure component API, validation, privacy requirements and Core integration dependencies. Six progress
+browser groups and four pure owned-event tests pass. These new components are **not wired or
+published**; Core retains the complete setup widget, canonical recovery, wallet/auth and route wiring.
+Do not describe the actual event or MetaMask alert as resolved. [Final source-bound evidence](artifacts/setup-progress/2026-10-29T15-05-47.346Z/final-provenance.json)
+records the latest mobile label correction and retained owned-unit proof.
+
 ## Lean homepage optimization — 29 October 2026
 
 [LEAN_STARTUP_HANDOFF](docs/LEAN_STARTUP_HANDOFF.md) records the current9cac8df baseline, four-file
