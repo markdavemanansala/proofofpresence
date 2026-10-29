@@ -1,0 +1,47 @@
+{
+  "status": "live-and-verified",
+  "origin": "https://kleros-luma-ethereum.netlify.app",
+  "uiCommit": "354e045",
+  "integratedSource": "fec62112aca1bb36cab08a02d823044646a73a6e",
+  "backendSource": "73fb2ff",
+  "backendDeployment": "3ca7a15d-c52f-447f-a40c-f8b4f8979384",
+  "primarySoleDeploymentOperator": true,
+  "uiPublicRequests": 0,
+  "before": {
+    "proof": "/Users/hashmanansala/Documents/ChatGPT/Kleros projects/artifacts/portal-performance-readonly/2026-10-29T13-05-55-843Z-baseline-2f1997f6-e33a-4616-97d7-58be1eb367ef/proof.json",
+    "sha256": "cdeceaa99455fa51db0b328716a2d1c6e1d712eab1a459c1ca02bbb664c4d6a5",
+    "homeUsableMs": 23556.799999952316,
+    "fcpMs": 1860
+  },
+  "after": {
+    "proof": "/Users/hashmanansala/Documents/ChatGPT/Kleros projects/artifacts/portal-performance-readonly/2026-10-29T13-13-43-310Z-catalog-a44a438d-fa3e-4b1a-8e72-d02544fcc150/proof.json",
+    "sha256": "fbfe0dad4927f55b8c14414df8ca2bfe0e36c0a0245a8ba52c2f9e4b981527a1",
+    "homeUsableMs": 3358.900000035763,
+    "fcpMs": 1284,
+    "catalogRequestMs": 871.6000000238419,
+    "counts": {
+      "requests": 27,
+      "documents": 1,
+      "apiRequests": 1,
+      "apiResponses": 1,
+      "blocked": 0,
+      "pageErrors": 0,
+      "responseErrors": 0,
+      "workers": 0,
+      "downloads": 0
+    }
+  },
+  "waitReductionPercent": 85.74127215902601,
+  "visualReview": "UI root inspected both saved hosted desktop/mobile screenshots: readable, no clipping/overflow; honest empty public directory at observation.",
+  "limits": [
+    "One fresh anonymous browser context and one root navigation; no warm-cache claim.",
+    "route.continue delivers original responses; asynchronous body/source inspection adds no extra fetch or fulfillment.",
+    "Exactly one phase-specific API GET; every other API, origin, mutation, RPC, WebSocket and worker is blocked.",
+    "Desktop and mobile captures use the same page. Search and clear must add zero requests.",
+    "No event titles, user payloads, provider URLs, cookies, raw API bodies or authentication material are saved in this JSON.",
+    "Routing disables HTTP cache; browser performance timestamps include the controlled routing overhead.",
+    "One controlled before/after sample each; not field averages or a load-time guarantee. Backend already running; no startup or browser warm-cache claim.",
+    "Only home/directory bypass financial verification. Full selected-event/setup/authentication/financial verification remains and may take longer.",
+    "No new UI public requests, wallet/signature/financial action, deployment, hosting mutation or schedule change by this chat."
+  ]
+}

@@ -1,3 +1,10 @@
+## Live speed improvement verified — 29 October 2026
+
+The source354e045 UI is integrated/published by primary asfec6211. Its controlled live comparison
+measured homepage/search23.5568s →3.3589s. See [final handoff](docs/PORTAL_LOADING_UI_HANDOFF.md)
+and `artifacts/portal-loading/hosted-release/comparison.json` for actual proofs, source pins and limits.
+Only home/directory loading uses the fast metadata route; financial verification stays fresh.
+
 ## Current addition — faster public portal (29 October 2026)
 
 Read [PORTAL_LOADING_UI_HANDOFF](docs/PORTAL_LOADING_UI_HANDOFF.md) for the four-file metadata-only

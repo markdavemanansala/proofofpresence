@@ -1,3 +1,18 @@
+# Verified live integration — 29 October 2026
+
+Primary integrated the reviewed UI at `fec62112aca1bb36cab08a02d823044646a73a6e` and confirmed
+its matching backend/frontend live at https://kleros-luma-ethereum.netlify.app. Saved source-bound
+public checks PASS: homepage/search usable **23.5568s → 3.3589s**, first content1.860s →1.284s,
+one catalog GET, zero errors or financial actions. This is one controlled before/after sample each,
+not a field average or cache/startup guarantee. All26 observed assets matched, including final UI
+and the existing date widget. This UI chat read the proofs and inspected both saved hosted screenshots;
+it made no redundant public request. Full event/setup and financial verification remains unchanged.
+
+Self-contained primary proof copies and exact hashes are in
+`artifacts/portal-loading/hosted-release/comparison.json`. The implementation handoff below preserves
+the earlier prepublication checkpoint; its pending deployment statements are now satisfied by this
+live integration. No integration dependency remains for this scoped home-loading improvement.
+
 # Faster public portal — isolated UI handoff
 
 The public home now reads a lightweight, display-only directory before any financial bootstrap.
