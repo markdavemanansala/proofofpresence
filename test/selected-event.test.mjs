@@ -381,3 +381,216 @@ test("deeply frozen response and capture are accepted without mutation", () => {
     detail: bootstrap.selectedEvent.detail,
   });
 });
+
+function projectedFixture(role = "participant", actor = alice) {
+  const bootstrap = fixture(undefined, actor);
+  const detail = bootstrap.selectedEvent.detail;
+  detail.permissions = {
+    authenticated: actor !== null,
+    owner: actor !== null && role === "owner",
+    staff: actor !== null && (role === "owner" || role === "staff"),
+  };
+  detail.ownWallet =
+    actor === null
+      ? null
+      : {
+          wallet: actor,
+          pendingCreditWei: "12",
+          owedWei: "3",
+        };
+  detail.deposits = [];
+  detail.unmatched = [];
+  detail.imports = [];
+  detail.attendance = [];
+  detail.personal = null;
+  return bootstrap;
+}
+
+const unknownSession = () => ({
+  eventId,
+  capturedWallet: null,
+  hasCapturedSession: false,
+});
+
+test("profile-free own-wallet facts must belong to the authenticated response actor", () => {
+  for (const version of [
+    "truth-pays-v7",
+    "kleros-event-v8",
+    "kleros-event-v8-test15m",
+  ]) {
+    const bootstrap = projectedFixture();
+    bootstrap.events[0].contractVersion = version;
+    bootstrap.events[0].abiVersion = version;
+    bootstrap.selectedEvent.detail.event.contractVersion = version;
+    bootstrap.selectedEvent.detail.event.abiVersion = version;
+    if (version === "truth-pays-v7")
+      delete bootstrap.selectedEvent.detail.ownWallet.pendingCreditWei;
+    bootstrap.selectedEvent.detail.ownWallet.wallet = `0x${"A".repeat(40)}`;
+    assert.deepEqual(resultWithoutMutation(bootstrap), {
+      detail: bootstrap.selectedEvent.detail,
+    });
+    bootstrap.selectedEvent.detail.ownWallet.wallet = bob;
+    assert.equal(resultWithoutMutation(bootstrap), null);
+  }
+});
+
+test("malformed own-wallet projection is rejected even in a correctly bound envelope", () => {
+  for (const bad of [
+    true,
+    false,
+    "wallet",
+    [],
+    {},
+    { wallet: null },
+    { wallet: "0x123" },
+  ]) {
+    const bootstrap = projectedFixture();
+    bootstrap.selectedEvent.detail.ownWallet = bad;
+    assert.equal(resultWithoutMutation(bootstrap), null);
+  }
+});
+
+test("anonymous projection accepts only false permissions and empty protected fields", () => {
+  const bootstrap = projectedFixture("participant", null);
+  for (const capture of [
+    unknownSession(),
+    {
+      eventId,
+      capturedWallet: null,
+      hasCapturedSession: true,
+    },
+  ]) {
+    assert.deepEqual(resultWithoutMutation(bootstrap, capture), {
+      detail: bootstrap.selectedEvent.detail,
+    });
+  }
+  for (const flag of ["authenticated", "owner", "staff"]) {
+    const privileged = projectedFixture("participant", null);
+    privileged.selectedEvent.detail.permissions[flag] = true;
+    assert.equal(resultWithoutMutation(privileged, unknownSession()), null);
+  }
+});
+
+test("anonymous envelope rejects every protected payload rather than stripping data", () => {
+  const leaked = {
+    wallet: bob,
+    name: "Synthetic Bob",
+    email: "bob@example.test",
+  };
+  for (const field of [
+    "participants",
+    "deposits",
+    "unmatched",
+    "imports",
+    "attendance",
+    "transactions",
+  ]) {
+    const bootstrap = projectedFixture("participant", null);
+    bootstrap.selectedEvent.detail[field] = [copy(leaked)];
+    assert.equal(
+      resultWithoutMutation(bootstrap, unknownSession()),
+      null,
+      field,
+    );
+  }
+  for (const field of ["personal", "ownWallet"]) {
+    const bootstrap = projectedFixture("participant", null);
+    bootstrap.selectedEvent.detail[field] = copy(leaked);
+    assert.equal(
+      resultWithoutMutation(bootstrap, unknownSession()),
+      null,
+      field,
+    );
+  }
+});
+
+test("malformed optional permission or protected-array shapes cannot bypass redaction", () => {
+  for (const bad of [[], true, "anonymous"]) {
+    const bootstrap = projectedFixture("participant", null);
+    bootstrap.selectedEvent.detail.permissions = bad;
+    assert.equal(resultWithoutMutation(bootstrap, unknownSession()), null);
+  }
+  for (const flag of ["authenticated", "owner", "staff"]) {
+    for (const bad of ["false", "true", 0, 1, null]) {
+      const bootstrap = projectedFixture("participant", null);
+      bootstrap.selectedEvent.detail.permissions[flag] = bad;
+      assert.equal(resultWithoutMutation(bootstrap, unknownSession()), null);
+    }
+  }
+  for (const field of ["deposits", "unmatched", "imports", "attendance"]) {
+    for (const bad of [null, {}, "", false]) {
+      const bootstrap = projectedFixture("participant", null);
+      bootstrap.selectedEvent.detail[field] = bad;
+      assert.equal(resultWithoutMutation(bootstrap, unknownSession()), null);
+    }
+  }
+});
+
+test("legitimate owner and staff keep their server-authorized guest projections", () => {
+  for (const role of ["owner", "staff"]) {
+    const bootstrap = projectedFixture(role);
+    const detail = bootstrap.selectedEvent.detail;
+    detail.participants = [
+      {
+        id: "synthetic-bob",
+        eventId,
+        wallet: bob,
+        name: "Synthetic Bob",
+        email: "bob@example.test",
+      },
+    ];
+    detail.deposits = [{ wallet: bob, receivedWei: "50" }];
+    detail.unmatched = [{ wallet: bob, unallocatedWei: "10" }];
+    detail.imports = [{ id: "synthetic-import" }];
+    detail.attendance = [{ participantId: "synthetic-bob" }];
+    detail.transactions = [{ wallet: bob, action: "deposit" }];
+    for (const capture of [context(), unknownSession()])
+      assert.deepEqual(resultWithoutMutation(bootstrap, capture), { detail });
+  }
+});
+
+test("legitimate participants and first-load cookies retain only their own contact rows", () => {
+  const bootstrap = projectedFixture();
+  const detail = bootstrap.selectedEvent.detail;
+  detail.participants = [
+    {
+      id: "synthetic-alice",
+      eventId,
+      wallet: `0x${"A".repeat(40)}`,
+      name: "Synthetic Alice",
+      email: "alice@example.test",
+    },
+  ];
+  detail.attendance = [{ participantId: "synthetic-alice" }];
+  detail.transactions = [{ wallet: alice, action: "deposit" }];
+  detail.personal = { attended: true };
+  for (const capture of [context(), unknownSession()])
+    assert.deepEqual(resultWithoutMutation(bootstrap, capture), { detail });
+  // Missing optional permissions never implicitly grants owner/staff projection.
+  delete detail.permissions;
+  assert.deepEqual(resultWithoutMutation(bootstrap), { detail });
+});
+
+test("unprivileged participant projections reject another wallet or malformed contact row", () => {
+  for (const row of [
+    null,
+    {},
+    { wallet: "0x123" },
+    {
+      wallet: bob,
+      name: "Synthetic Bob",
+      email: "bob@example.test",
+    },
+  ]) {
+    for (const explicitPermissions of [true, false]) {
+      const bootstrap = projectedFixture();
+      bootstrap.selectedEvent.detail.participants = [row];
+      if (!explicitPermissions)
+        delete bootstrap.selectedEvent.detail.permissions;
+      assert.equal(resultWithoutMutation(bootstrap), null);
+    }
+  }
+  const bootstrap = projectedFixture();
+  bootstrap.selectedEvent.detail.permissions.authenticated = false;
+  assert.equal(resultWithoutMutation(bootstrap), null);
+});

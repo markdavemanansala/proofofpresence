@@ -1,0 +1,1200 @@
+{
+  "status": "passed",
+  "checks": [
+    "Anonymous initial projection is private-data-empty and uses one bound selected bootstrap",
+    "Anonymous to demo Alice consumes one post-ack bootstrap without falling back to detail",
+    "Alice to Bob consumes one post-ack bootstrap bound to Bob, not stale Alice",
+    "Acknowledged logout binds explicit null actor and needs no fallback detail read",
+    "A rejected session acknowledgement does not fetch or render the requested new actor",
+    "Malformed successful acknowledgement cannot establish an actor or begin a bundle read",
+    "Wrong selected-wallet bundle is never rendered; one fallback reads the actual acknowledged Bob projection",
+    "Logout requires an affirmative server acknowledgement before using null actor",
+    "Anonymous mock-wallet authentication uses one acknowledged-actor bootstrap and no detail fallback",
+    "Wallet stub permits account/chain/personal_sign only, with no real signature or transaction method",
+    "A mock wallet-account change signs out through one null-actor acknowledged bootstrap without another signature",
+    "Wallet acknowledgement for a different signed account is rejected before another bootstrap",
+    "A late session acknowledgement reloads the latest event route with the acknowledged actor exactly once",
+    "Every mutation is an explicitly local synthetic session/auth exchange; no finance/RPC/external/error occurs"
+  ],
+  "requests": [
+    {
+      "id": 1,
+      "client": "synthetic-client-1",
+      "method": "GET",
+      "path": "/",
+      "eventId": null,
+      "epoch": 0,
+      "actor": null
+    },
+    {
+      "id": 2,
+      "client": "synthetic-client-1",
+      "method": "GET",
+      "path": "/assets/geist-latin.woff2",
+      "eventId": null,
+      "epoch": 0,
+      "actor": null
+    },
+    {
+      "id": 3,
+      "client": "synthetic-client-1",
+      "method": "GET",
+      "path": "/styles.css",
+      "eventId": null,
+      "epoch": 0,
+      "actor": null
+    },
+    {
+      "id": 4,
+      "client": "synthetic-client-1",
+      "method": "GET",
+      "path": "/assets/instrument-serif-regular.woff2",
+      "eventId": null,
+      "epoch": 0,
+      "actor": null
+    },
+    {
+      "id": 5,
+      "client": "synthetic-client-1",
+      "method": "GET",
+      "path": "/contract-inbox.css",
+      "eventId": null,
+      "epoch": 0,
+      "actor": null
+    },
+    {
+      "id": 6,
+      "client": "synthetic-client-1",
+      "method": "GET",
+      "path": "/batch-actions.css",
+      "eventId": null,
+      "epoch": 0,
+      "actor": null
+    },
+    {
+      "id": 7,
+      "client": "synthetic-client-1",
+      "method": "GET",
+      "path": "/loading.css",
+      "eventId": null,
+      "epoch": 0,
+      "actor": null
+    },
+    {
+      "id": 8,
+      "client": "synthetic-client-1",
+      "method": "GET",
+      "path": "/app.js",
+      "eventId": null,
+      "epoch": 0,
+      "actor": null
+    },
+    {
+      "id": 9,
+      "client": "synthetic-client-1",
+      "method": "GET",
+      "path": "/assets/kleros-logo.svg",
+      "eventId": null,
+      "epoch": 0,
+      "actor": null
+    },
+    {
+      "id": 10,
+      "client": "synthetic-client-1",
+      "method": "GET",
+      "path": "/ui-keyboard.js",
+      "eventId": null,
+      "epoch": 0,
+      "actor": null
+    },
+    {
+      "id": 11,
+      "client": "synthetic-client-1",
+      "method": "GET",
+      "path": "/selected-event.js",
+      "eventId": null,
+      "epoch": 0,
+      "actor": null
+    },
+    {
+      "id": 12,
+      "client": "synthetic-client-1",
+      "method": "GET",
+      "path": "/reconciliation.js",
+      "eventId": null,
+      "epoch": 0,
+      "actor": null
+    },
+    {
+      "id": 13,
+      "client": "synthetic-client-1",
+      "method": "GET",
+      "path": "/hosted-wallet.js",
+      "eventId": null,
+      "epoch": 0,
+      "actor": null
+    },
+    {
+      "id": 14,
+      "client": "synthetic-client-1",
+      "method": "GET",
+      "path": "/contract-inbox.js",
+      "eventId": null,
+      "epoch": 0,
+      "actor": null
+    },
+    {
+      "id": 15,
+      "client": "synthetic-client-1",
+      "method": "GET",
+      "path": "/batch-actions.js",
+      "eventId": null,
+      "epoch": 0,
+      "actor": null
+    },
+    {
+      "id": 16,
+      "client": "synthetic-client-1",
+      "method": "GET",
+      "path": "/batch-pending.js",
+      "eventId": null,
+      "epoch": 0,
+      "actor": null
+    },
+    {
+      "id": 17,
+      "client": "synthetic-client-1",
+      "method": "GET",
+      "path": "/contract-profiles.js",
+      "eventId": null,
+      "epoch": 0,
+      "actor": null
+    },
+    {
+      "id": 18,
+      "client": "synthetic-client-1",
+      "method": "GET",
+      "path": "/transaction-context.js",
+      "eventId": null,
+      "epoch": 0,
+      "actor": null
+    },
+    {
+      "id": 19,
+      "client": "synthetic-client-1",
+      "method": "GET",
+      "path": "/batch-selection.js",
+      "eventId": null,
+      "epoch": 0,
+      "actor": null
+    },
+    {
+      "id": 20,
+      "client": "synthetic-client-1",
+      "method": "GET",
+      "path": "/api/bootstrap",
+      "eventId": "event-b",
+      "epoch": 0,
+      "actor": null,
+      "responseActor": null,
+      "responseSelectedWallet": null
+    },
+    {
+      "id": 21,
+      "client": "synthetic-client-1",
+      "method": "GET",
+      "path": "/assets/geist-mono-latin.woff2",
+      "eventId": null,
+      "epoch": 0,
+      "actor": null
+    },
+    {
+      "id": 22,
+      "client": "synthetic-client-1",
+      "method": "POST",
+      "path": "/api/session",
+      "eventId": null,
+      "epoch": 0,
+      "actor": null,
+      "body": {
+        "identity": "alice"
+      },
+      "acknowledgedEpoch": 1,
+      "acknowledgedAt": 1793246152542
+    },
+    {
+      "id": 23,
+      "client": "synthetic-client-1",
+      "method": "GET",
+      "path": "/api/bootstrap",
+      "eventId": "event-b",
+      "epoch": 1,
+      "actor": "0x736A2AeE4430A4beE3fb1a48b63a81E1F57A29f2",
+      "responseActor": "0x736A2AeE4430A4beE3fb1a48b63a81E1F57A29f2",
+      "responseSelectedWallet": "0x736A2AeE4430A4beE3fb1a48b63a81E1F57A29f2"
+    },
+    {
+      "id": 24,
+      "client": "synthetic-client-1",
+      "method": "POST",
+      "path": "/api/session",
+      "eventId": null,
+      "epoch": 1,
+      "actor": "0x736A2AeE4430A4beE3fb1a48b63a81E1F57A29f2",
+      "body": {
+        "identity": "bob"
+      },
+      "acknowledgedEpoch": 2,
+      "acknowledgedAt": 1793246152737
+    },
+    {
+      "id": 25,
+      "client": "synthetic-client-1",
+      "method": "GET",
+      "path": "/api/bootstrap",
+      "eventId": "event-b",
+      "epoch": 2,
+      "actor": "0xd1985d9729344eAF3248335153FED457b0963cf6",
+      "responseActor": "0xd1985d9729344eAF3248335153FED457b0963cf6",
+      "responseSelectedWallet": "0xd1985d9729344eAF3248335153FED457b0963cf6"
+    },
+    {
+      "id": 26,
+      "client": "synthetic-client-1",
+      "method": "DELETE",
+      "path": "/api/session",
+      "eventId": null,
+      "epoch": 2,
+      "actor": "0xd1985d9729344eAF3248335153FED457b0963cf6",
+      "body": {},
+      "acknowledgedEpoch": 3,
+      "acknowledgedAt": 1793246152998
+    },
+    {
+      "id": 27,
+      "client": "synthetic-client-1",
+      "method": "GET",
+      "path": "/api/bootstrap",
+      "eventId": "event-b",
+      "epoch": 3,
+      "actor": null,
+      "responseActor": null,
+      "responseSelectedWallet": null
+    },
+    {
+      "id": 28,
+      "client": "synthetic-client-1",
+      "method": "POST",
+      "path": "/api/session",
+      "eventId": null,
+      "epoch": 3,
+      "actor": null,
+      "body": {
+        "identity": "alice"
+      },
+      "acknowledgedEpoch": 4,
+      "acknowledgedAt": 1793246153110
+    },
+    {
+      "id": 29,
+      "client": "synthetic-client-1",
+      "method": "GET",
+      "path": "/api/bootstrap",
+      "eventId": "event-b",
+      "epoch": 4,
+      "actor": "0x736A2AeE4430A4beE3fb1a48b63a81E1F57A29f2",
+      "responseActor": "0x736A2AeE4430A4beE3fb1a48b63a81E1F57A29f2",
+      "responseSelectedWallet": "0x736A2AeE4430A4beE3fb1a48b63a81E1F57A29f2"
+    },
+    {
+      "id": 30,
+      "client": "synthetic-client-1",
+      "method": "POST",
+      "path": "/api/session",
+      "eventId": null,
+      "epoch": 4,
+      "actor": "0x736A2AeE4430A4beE3fb1a48b63a81E1F57A29f2",
+      "body": {
+        "identity": "bob"
+      },
+      "failedAck": true
+    },
+    {
+      "id": 31,
+      "client": "synthetic-client-1",
+      "method": "POST",
+      "path": "/api/session",
+      "eventId": null,
+      "epoch": 4,
+      "actor": "0x736A2AeE4430A4beE3fb1a48b63a81E1F57A29f2",
+      "body": {
+        "identity": "bob"
+      },
+      "failedAck": true
+    },
+    {
+      "id": 32,
+      "client": "synthetic-client-1",
+      "method": "POST",
+      "path": "/api/session",
+      "eventId": null,
+      "epoch": 4,
+      "actor": "0x736A2AeE4430A4beE3fb1a48b63a81E1F57A29f2",
+      "body": {
+        "identity": "bob"
+      },
+      "acknowledgedEpoch": 5,
+      "acknowledgedAt": 1793246153523
+    },
+    {
+      "id": 33,
+      "client": "synthetic-client-1",
+      "method": "GET",
+      "path": "/api/bootstrap",
+      "eventId": "event-b",
+      "epoch": 5,
+      "actor": "0xd1985d9729344eAF3248335153FED457b0963cf6",
+      "responseActor": "0xd1985d9729344eAF3248335153FED457b0963cf6",
+      "responseSelectedWallet": "0x736A2AeE4430A4beE3fb1a48b63a81E1F57A29f2"
+    },
+    {
+      "id": 34,
+      "client": "synthetic-client-1",
+      "method": "GET",
+      "path": "/api/events/event-b",
+      "eventId": null,
+      "epoch": 5,
+      "actor": "0xd1985d9729344eAF3248335153FED457b0963cf6",
+      "responseActor": "0xd1985d9729344eAF3248335153FED457b0963cf6"
+    },
+    {
+      "id": 35,
+      "client": "synthetic-client-1",
+      "method": "DELETE",
+      "path": "/api/session",
+      "eventId": null,
+      "epoch": 5,
+      "actor": "0xd1985d9729344eAF3248335153FED457b0963cf6",
+      "body": {},
+      "failedAck": true
+    },
+    {
+      "id": 36,
+      "client": "synthetic-client-2",
+      "method": "GET",
+      "path": "/",
+      "eventId": null,
+      "epoch": 0,
+      "actor": null
+    },
+    {
+      "id": 37,
+      "client": "synthetic-client-2",
+      "method": "GET",
+      "path": "/assets/geist-latin.woff2",
+      "eventId": null,
+      "epoch": 0,
+      "actor": null
+    },
+    {
+      "id": 38,
+      "client": "synthetic-client-2",
+      "method": "GET",
+      "path": "/styles.css",
+      "eventId": null,
+      "epoch": 0,
+      "actor": null
+    },
+    {
+      "id": 39,
+      "client": "synthetic-client-2",
+      "method": "GET",
+      "path": "/app.js",
+      "eventId": null,
+      "epoch": 0,
+      "actor": null
+    },
+    {
+      "id": 40,
+      "client": "synthetic-client-2",
+      "method": "GET",
+      "path": "/contract-inbox.css",
+      "eventId": null,
+      "epoch": 0,
+      "actor": null
+    },
+    {
+      "id": 41,
+      "client": "synthetic-client-2",
+      "method": "GET",
+      "path": "/assets/kleros-logo.svg",
+      "eventId": null,
+      "epoch": 0,
+      "actor": null
+    },
+    {
+      "id": 42,
+      "client": "synthetic-client-2",
+      "method": "GET",
+      "path": "/batch-actions.css",
+      "eventId": null,
+      "epoch": 0,
+      "actor": null
+    },
+    {
+      "id": 43,
+      "client": "synthetic-client-2",
+      "method": "GET",
+      "path": "/assets/instrument-serif-regular.woff2",
+      "eventId": null,
+      "epoch": 0,
+      "actor": null
+    },
+    {
+      "id": 44,
+      "client": "synthetic-client-2",
+      "method": "GET",
+      "path": "/loading.css",
+      "eventId": null,
+      "epoch": 0,
+      "actor": null
+    },
+    {
+      "id": 45,
+      "client": "synthetic-client-2",
+      "method": "GET",
+      "path": "/ui-keyboard.js",
+      "eventId": null,
+      "epoch": 0,
+      "actor": null
+    },
+    {
+      "id": 46,
+      "client": "synthetic-client-2",
+      "method": "GET",
+      "path": "/selected-event.js",
+      "eventId": null,
+      "epoch": 0,
+      "actor": null
+    },
+    {
+      "id": 47,
+      "client": "synthetic-client-2",
+      "method": "GET",
+      "path": "/reconciliation.js",
+      "eventId": null,
+      "epoch": 0,
+      "actor": null
+    },
+    {
+      "id": 48,
+      "client": "synthetic-client-2",
+      "method": "GET",
+      "path": "/hosted-wallet.js",
+      "eventId": null,
+      "epoch": 0,
+      "actor": null
+    },
+    {
+      "id": 49,
+      "client": "synthetic-client-2",
+      "method": "GET",
+      "path": "/batch-pending.js",
+      "eventId": null,
+      "epoch": 0,
+      "actor": null
+    },
+    {
+      "id": 50,
+      "client": "synthetic-client-2",
+      "method": "GET",
+      "path": "/contract-profiles.js",
+      "eventId": null,
+      "epoch": 0,
+      "actor": null
+    },
+    {
+      "id": 51,
+      "client": "synthetic-client-2",
+      "method": "GET",
+      "path": "/contract-inbox.js",
+      "eventId": null,
+      "epoch": 0,
+      "actor": null
+    },
+    {
+      "id": 52,
+      "client": "synthetic-client-2",
+      "method": "GET",
+      "path": "/batch-actions.js",
+      "eventId": null,
+      "epoch": 0,
+      "actor": null
+    },
+    {
+      "id": 53,
+      "client": "synthetic-client-2",
+      "method": "GET",
+      "path": "/transaction-context.js",
+      "eventId": null,
+      "epoch": 0,
+      "actor": null
+    },
+    {
+      "id": 54,
+      "client": "synthetic-client-2",
+      "method": "GET",
+      "path": "/batch-selection.js",
+      "eventId": null,
+      "epoch": 0,
+      "actor": null
+    },
+    {
+      "id": 55,
+      "client": "synthetic-client-2",
+      "method": "GET",
+      "path": "/api/bootstrap",
+      "eventId": "event-b",
+      "epoch": 0,
+      "actor": null,
+      "responseActor": null,
+      "responseSelectedWallet": null
+    },
+    {
+      "id": 56,
+      "client": "synthetic-client-2",
+      "method": "GET",
+      "path": "/assets/geist-mono-latin.woff2",
+      "eventId": null,
+      "epoch": 0,
+      "actor": null
+    },
+    {
+      "id": 57,
+      "client": "synthetic-client-2",
+      "method": "POST",
+      "path": "/api/auth/challenge",
+      "eventId": null,
+      "epoch": 0,
+      "actor": null,
+      "body": {
+        "wallet": "0x736A2AeE4430A4beE3fb1a48b63a81E1F57A29f2"
+      }
+    },
+    {
+      "id": 58,
+      "client": "synthetic-client-2",
+      "method": "POST",
+      "path": "/api/auth/verify",
+      "eventId": null,
+      "epoch": 0,
+      "actor": null,
+      "body": {
+        "nonce": "synthetic-auth-nonce-57",
+        "signature": "SYNTHETIC_NOT_A_CRYPTOGRAPHIC_SIGNATURE"
+      },
+      "acknowledgedEpoch": 1,
+      "acknowledgedAt": 1793246153928
+    },
+    {
+      "id": 59,
+      "client": "synthetic-client-2",
+      "method": "GET",
+      "path": "/api/bootstrap",
+      "eventId": "event-b",
+      "epoch": 1,
+      "actor": "0x736A2AeE4430A4beE3fb1a48b63a81E1F57A29f2",
+      "responseActor": "0x736A2AeE4430A4beE3fb1a48b63a81E1F57A29f2",
+      "responseSelectedWallet": "0x736A2AeE4430A4beE3fb1a48b63a81E1F57A29f2"
+    },
+    {
+      "id": 60,
+      "client": "synthetic-client-2",
+      "method": "DELETE",
+      "path": "/api/session",
+      "eventId": null,
+      "epoch": 1,
+      "actor": "0x736A2AeE4430A4beE3fb1a48b63a81E1F57A29f2",
+      "body": {},
+      "acknowledgedEpoch": 2,
+      "acknowledgedAt": 1793246154063
+    },
+    {
+      "id": 61,
+      "client": "synthetic-client-2",
+      "method": "GET",
+      "path": "/api/bootstrap",
+      "eventId": "event-b",
+      "epoch": 2,
+      "actor": null,
+      "responseActor": null,
+      "responseSelectedWallet": null
+    },
+    {
+      "id": 62,
+      "client": "synthetic-client-3",
+      "method": "GET",
+      "path": "/",
+      "eventId": null,
+      "epoch": 0,
+      "actor": null
+    },
+    {
+      "id": 63,
+      "client": "synthetic-client-3",
+      "method": "GET",
+      "path": "/assets/geist-latin.woff2",
+      "eventId": null,
+      "epoch": 0,
+      "actor": null
+    },
+    {
+      "id": 64,
+      "client": "synthetic-client-3",
+      "method": "GET",
+      "path": "/styles.css",
+      "eventId": null,
+      "epoch": 0,
+      "actor": null
+    },
+    {
+      "id": 65,
+      "client": "synthetic-client-3",
+      "method": "GET",
+      "path": "/assets/instrument-serif-regular.woff2",
+      "eventId": null,
+      "epoch": 0,
+      "actor": null
+    },
+    {
+      "id": 66,
+      "client": "synthetic-client-3",
+      "method": "GET",
+      "path": "/contract-inbox.css",
+      "eventId": null,
+      "epoch": 0,
+      "actor": null
+    },
+    {
+      "id": 67,
+      "client": "synthetic-client-3",
+      "method": "GET",
+      "path": "/assets/kleros-logo.svg",
+      "eventId": null,
+      "epoch": 0,
+      "actor": null
+    },
+    {
+      "id": 68,
+      "client": "synthetic-client-3",
+      "method": "GET",
+      "path": "/batch-actions.css",
+      "eventId": null,
+      "epoch": 0,
+      "actor": null
+    },
+    {
+      "id": 69,
+      "client": "synthetic-client-3",
+      "method": "GET",
+      "path": "/loading.css",
+      "eventId": null,
+      "epoch": 0,
+      "actor": null
+    },
+    {
+      "id": 70,
+      "client": "synthetic-client-3",
+      "method": "GET",
+      "path": "/app.js",
+      "eventId": null,
+      "epoch": 0,
+      "actor": null
+    },
+    {
+      "id": 71,
+      "client": "synthetic-client-3",
+      "method": "GET",
+      "path": "/ui-keyboard.js",
+      "eventId": null,
+      "epoch": 0,
+      "actor": null
+    },
+    {
+      "id": 72,
+      "client": "synthetic-client-3",
+      "method": "GET",
+      "path": "/selected-event.js",
+      "eventId": null,
+      "epoch": 0,
+      "actor": null
+    },
+    {
+      "id": 73,
+      "client": "synthetic-client-3",
+      "method": "GET",
+      "path": "/reconciliation.js",
+      "eventId": null,
+      "epoch": 0,
+      "actor": null
+    },
+    {
+      "id": 74,
+      "client": "synthetic-client-3",
+      "method": "GET",
+      "path": "/contract-profiles.js",
+      "eventId": null,
+      "epoch": 0,
+      "actor": null
+    },
+    {
+      "id": 75,
+      "client": "synthetic-client-3",
+      "method": "GET",
+      "path": "/transaction-context.js",
+      "eventId": null,
+      "epoch": 0,
+      "actor": null
+    },
+    {
+      "id": 76,
+      "client": "synthetic-client-3",
+      "method": "GET",
+      "path": "/hosted-wallet.js",
+      "eventId": null,
+      "epoch": 0,
+      "actor": null
+    },
+    {
+      "id": 77,
+      "client": "synthetic-client-3",
+      "method": "GET",
+      "path": "/contract-inbox.js",
+      "eventId": null,
+      "epoch": 0,
+      "actor": null
+    },
+    {
+      "id": 78,
+      "client": "synthetic-client-3",
+      "method": "GET",
+      "path": "/batch-actions.js",
+      "eventId": null,
+      "epoch": 0,
+      "actor": null
+    },
+    {
+      "id": 79,
+      "client": "synthetic-client-3",
+      "method": "GET",
+      "path": "/batch-pending.js",
+      "eventId": null,
+      "epoch": 0,
+      "actor": null
+    },
+    {
+      "id": 80,
+      "client": "synthetic-client-3",
+      "method": "GET",
+      "path": "/batch-selection.js",
+      "eventId": null,
+      "epoch": 0,
+      "actor": null
+    },
+    {
+      "id": 81,
+      "client": "synthetic-client-3",
+      "method": "GET",
+      "path": "/api/bootstrap",
+      "eventId": "event-b",
+      "epoch": 0,
+      "actor": null,
+      "responseActor": null,
+      "responseSelectedWallet": null
+    },
+    {
+      "id": 82,
+      "client": "synthetic-client-3",
+      "method": "GET",
+      "path": "/assets/geist-mono-latin.woff2",
+      "eventId": null,
+      "epoch": 0,
+      "actor": null
+    },
+    {
+      "id": 83,
+      "client": "synthetic-client-3",
+      "method": "POST",
+      "path": "/api/auth/challenge",
+      "eventId": null,
+      "epoch": 0,
+      "actor": null,
+      "body": {
+        "wallet": "0x736A2AeE4430A4beE3fb1a48b63a81E1F57A29f2"
+      }
+    },
+    {
+      "id": 84,
+      "client": "synthetic-client-3",
+      "method": "POST",
+      "path": "/api/auth/verify",
+      "eventId": null,
+      "epoch": 0,
+      "actor": null,
+      "body": {
+        "nonce": "synthetic-auth-nonce-83",
+        "signature": "SYNTHETIC_NOT_A_CRYPTOGRAPHIC_SIGNATURE"
+      },
+      "failedAck": true
+    },
+    {
+      "id": 85,
+      "client": "synthetic-client-4",
+      "method": "GET",
+      "path": "/",
+      "eventId": null,
+      "epoch": 0,
+      "actor": null
+    },
+    {
+      "id": 86,
+      "client": "synthetic-client-4",
+      "method": "GET",
+      "path": "/assets/geist-latin.woff2",
+      "eventId": null,
+      "epoch": 0,
+      "actor": null
+    },
+    {
+      "id": 87,
+      "client": "synthetic-client-4",
+      "method": "GET",
+      "path": "/styles.css",
+      "eventId": null,
+      "epoch": 0,
+      "actor": null
+    },
+    {
+      "id": 88,
+      "client": "synthetic-client-4",
+      "method": "GET",
+      "path": "/assets/instrument-serif-regular.woff2",
+      "eventId": null,
+      "epoch": 0,
+      "actor": null
+    },
+    {
+      "id": 89,
+      "client": "synthetic-client-4",
+      "method": "GET",
+      "path": "/app.js",
+      "eventId": null,
+      "epoch": 0,
+      "actor": null
+    },
+    {
+      "id": 90,
+      "client": "synthetic-client-4",
+      "method": "GET",
+      "path": "/contract-inbox.css",
+      "eventId": null,
+      "epoch": 0,
+      "actor": null
+    },
+    {
+      "id": 91,
+      "client": "synthetic-client-4",
+      "method": "GET",
+      "path": "/assets/kleros-logo.svg",
+      "eventId": null,
+      "epoch": 0,
+      "actor": null
+    },
+    {
+      "id": 92,
+      "client": "synthetic-client-4",
+      "method": "GET",
+      "path": "/batch-actions.css",
+      "eventId": null,
+      "epoch": 0,
+      "actor": null
+    },
+    {
+      "id": 93,
+      "client": "synthetic-client-4",
+      "method": "GET",
+      "path": "/loading.css",
+      "eventId": null,
+      "epoch": 0,
+      "actor": null
+    },
+    {
+      "id": 94,
+      "client": "synthetic-client-4",
+      "method": "GET",
+      "path": "/ui-keyboard.js",
+      "eventId": null,
+      "epoch": 0,
+      "actor": null
+    },
+    {
+      "id": 95,
+      "client": "synthetic-client-4",
+      "method": "GET",
+      "path": "/selected-event.js",
+      "eventId": null,
+      "epoch": 0,
+      "actor": null
+    },
+    {
+      "id": 96,
+      "client": "synthetic-client-4",
+      "method": "GET",
+      "path": "/reconciliation.js",
+      "eventId": null,
+      "epoch": 0,
+      "actor": null
+    },
+    {
+      "id": 97,
+      "client": "synthetic-client-4",
+      "method": "GET",
+      "path": "/hosted-wallet.js",
+      "eventId": null,
+      "epoch": 0,
+      "actor": null
+    },
+    {
+      "id": 98,
+      "client": "synthetic-client-4",
+      "method": "GET",
+      "path": "/contract-inbox.js",
+      "eventId": null,
+      "epoch": 0,
+      "actor": null
+    },
+    {
+      "id": 99,
+      "client": "synthetic-client-4",
+      "method": "GET",
+      "path": "/transaction-context.js",
+      "eventId": null,
+      "epoch": 0,
+      "actor": null
+    },
+    {
+      "id": 100,
+      "client": "synthetic-client-4",
+      "method": "GET",
+      "path": "/batch-actions.js",
+      "eventId": null,
+      "epoch": 0,
+      "actor": null
+    },
+    {
+      "id": 101,
+      "client": "synthetic-client-4",
+      "method": "GET",
+      "path": "/batch-pending.js",
+      "eventId": null,
+      "epoch": 0,
+      "actor": null
+    },
+    {
+      "id": 102,
+      "client": "synthetic-client-4",
+      "method": "GET",
+      "path": "/contract-profiles.js",
+      "eventId": null,
+      "epoch": 0,
+      "actor": null
+    },
+    {
+      "id": 103,
+      "client": "synthetic-client-4",
+      "method": "GET",
+      "path": "/batch-selection.js",
+      "eventId": null,
+      "epoch": 0,
+      "actor": null
+    },
+    {
+      "id": 104,
+      "client": "synthetic-client-4",
+      "method": "GET",
+      "path": "/api/bootstrap",
+      "eventId": "event-a",
+      "epoch": 0,
+      "actor": null,
+      "responseActor": null,
+      "responseSelectedWallet": null
+    },
+    {
+      "id": 105,
+      "client": "synthetic-client-4",
+      "method": "GET",
+      "path": "/assets/geist-mono-latin.woff2",
+      "eventId": null,
+      "epoch": 0,
+      "actor": null
+    },
+    {
+      "id": 106,
+      "client": "synthetic-client-4",
+      "method": "POST",
+      "path": "/api/session",
+      "eventId": null,
+      "epoch": 0,
+      "actor": null,
+      "body": {
+        "identity": "alice"
+      },
+      "acknowledgedEpoch": 1,
+      "acknowledgedAt": 1793246154788
+    },
+    {
+      "id": 107,
+      "client": "synthetic-client-4",
+      "method": "GET",
+      "path": "/api/bootstrap",
+      "eventId": "event-b",
+      "epoch": 0,
+      "actor": null,
+      "responseActor": null,
+      "responseSelectedWallet": null
+    },
+    {
+      "id": 108,
+      "client": "synthetic-client-4",
+      "method": "GET",
+      "path": "/api/bootstrap",
+      "eventId": "event-b",
+      "epoch": 1,
+      "actor": "0x736A2AeE4430A4beE3fb1a48b63a81E1F57A29f2",
+      "responseActor": "0x736A2AeE4430A4beE3fb1a48b63a81E1F57A29f2",
+      "responseSelectedWallet": "0x736A2AeE4430A4beE3fb1a48b63a81E1F57A29f2"
+    }
+  ],
+  "acknowledgments": [
+    {
+      "requestId": 22,
+      "client": "synthetic-client-1",
+      "kind": "demo",
+      "epoch": 1,
+      "wallet": "0x736A2AeE4430A4beE3fb1a48b63a81E1F57A29f2"
+    },
+    {
+      "requestId": 24,
+      "client": "synthetic-client-1",
+      "kind": "demo",
+      "epoch": 2,
+      "wallet": "0xd1985d9729344eAF3248335153FED457b0963cf6"
+    },
+    {
+      "requestId": 26,
+      "client": "synthetic-client-1",
+      "kind": "logout",
+      "epoch": 3,
+      "wallet": null
+    },
+    {
+      "requestId": 28,
+      "client": "synthetic-client-1",
+      "kind": "demo",
+      "epoch": 4,
+      "wallet": "0x736A2AeE4430A4beE3fb1a48b63a81E1F57A29f2"
+    },
+    {
+      "requestId": 32,
+      "client": "synthetic-client-1",
+      "kind": "demo",
+      "epoch": 5,
+      "wallet": "0xd1985d9729344eAF3248335153FED457b0963cf6"
+    },
+    {
+      "requestId": 58,
+      "client": "synthetic-client-2",
+      "kind": "wallet",
+      "epoch": 1,
+      "wallet": "0x736A2AeE4430A4beE3fb1a48b63a81E1F57A29f2"
+    },
+    {
+      "requestId": 60,
+      "client": "synthetic-client-2",
+      "kind": "logout",
+      "epoch": 2,
+      "wallet": null
+    },
+    {
+      "requestId": 106,
+      "client": "synthetic-client-4",
+      "kind": "demo",
+      "epoch": 1,
+      "wallet": "0x736A2AeE4430A4beE3fb1a48b63a81E1F57A29f2"
+    }
+  ],
+  "forbidden": [],
+  "external": [],
+  "pageErrors": [],
+  "walletCalls": [
+    {
+      "method": "eth_requestAccounts"
+    },
+    {
+      "method": "eth_chainId"
+    },
+    {
+      "method": "eth_chainId"
+    },
+    {
+      "method": "personal_sign",
+      "params": [
+        "0x53594e54484554494320415554482055492054455354204f4e4c593b204e4f205245414c205349474e4154555245",
+        "0x736A2AeE4430A4beE3fb1a48b63a81E1F57A29f2"
+      ]
+    },
+    {
+      "method": "eth_requestAccounts"
+    },
+    {
+      "method": "eth_chainId"
+    },
+    {
+      "method": "eth_chainId"
+    },
+    {
+      "method": "personal_sign",
+      "params": [
+        "0x53594e54484554494320415554482055492054455354204f4e4c593b204e4f205245414c205349474e4154555245",
+        "0x736A2AeE4430A4beE3fb1a48b63a81E1F57A29f2"
+      ]
+    }
+  ],
+  "screenshots": [
+    "demo-bob.png",
+    "mock-wallet-alice.png"
+  ],
+  "limitations": [
+    "Synthetic session/auth transport validates UI actor handoff, not authentication cryptography or server policy.",
+    "personal_sign returns a non-cryptographic literal; no private keys are read or generated.",
+    "Historical public fixture is redacted per current actor; no real guest or financial mutation exists."
+  ],
+  "assetSha256": {
+    "index.html": "cd6cb90ba9b53bb940794e3a797f572c0d7fe46cf819595ba29e5eef48f3e510",
+    "styles.css": "1bcadbd96a26303ac52d338e1c02093635ded311f7d46ee9879788b4e612cca5",
+    "contract-inbox.css": "61ed167ebee724c929a3bddbd3c0f8035dabed7b8e121725536a72683c931efe",
+    "batch-actions.css": "cdbf18baa8b7b9ba35c5259b16516e0b502687e4c931f3df929c8d84969aa1bc",
+    "loading.css": "1b36da4a60eabc44a3346788c6af8a9910b2e50f7634faa2c991e98d86fa30c7",
+    "app.js": "c2b25ee10792e3536fce0fead675ef2fec2b93fd45caf47627067d604ecd9e39",
+    "selected-event.js": "e590d4717c47abae18dd7547bff9128781d576c8d7687e8c3a67b1a7b6b6cf18",
+    "ui-keyboard.js": "a2d0cba51373c50c26f203fcca029a11c85cc71c1edda0d5a449ee8b25cdd0c8",
+    "reconciliation.js": "fb071de09ade412dba1aa8c1183a677c10da4143f63b46615a077bf10433d402",
+    "hosted-wallet.js": "6ec533ed08d0a8f57e75ee25971e94d958e2e02319dbab4804e20794defd7015",
+    "contract-inbox.js": "28de29dac08d5793c33bf33ded925b4b43cebc7b02d376f47efd3fa6042e949a",
+    "batch-actions.js": "72e51459e3e7a96311b3d5f799e931c6a55626ab82f005d9f81427d3cf4d76e2",
+    "batch-pending.js": "8b9461b9afe8f221ceed1a0a5ccdeabf00b934da0cd2d6c4853a2d574298ba10",
+    "transaction-context.js": "e7c5568fa3dddfb5983ededa48a90db3b13c33c00d59bcd9393e7f02470f07af",
+    "contract-profiles.js": "aeb3355ff9b161de5d0b1a6b6ce76a4dc4c3030026cc38a58cb42a534370d749",
+    "batch-selection.js": "08c6c157cf99a72a182300c4021230395c4d03df344e09d46f5394bfd91616b6"
+  }
+}

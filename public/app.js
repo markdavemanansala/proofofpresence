@@ -840,14 +840,36 @@ function showIdentityDialog() {
     `<div class="dialog-eyebrow">${isHostedDemo() ? "Shared online demonstration" : "Local demonstration"}</div><h2 class="dialog-title" id="dialog-title">Choose a demo identity</h2><p class="dialog-body-text">${explanation}</p><label for="dialog-identity">Act as</label><select id="dialog-identity" data-identity>${identityOptions()}</select><div class="notice">Organizers A and B have separate authority. Alice, Bob and Carol can participate in both events. Staff A can check in only Event A.</div><div class="button-row"><button class="button button-secondary" data-connect-wallet>${isHostedDemo() ? "Connect browser wallet to demo" : "Connect browser wallet to local chain"}</button>${currentIdentity()?.mode === "wallet" ? '<button class="button button-secondary" data-fund-wallet>Receive 1 local ETH</button>' : ""}</div><p class="field-help">Browser wallets must use sandbox chain 1337. Funding and all transactions use ETH with no monetary value.${isHostedDemo() ? " Shared state resets on server restart; use synthetic inputs only." : ""}</p><div class="dialog-buttons"><button class="button button-secondary" data-close>Close</button>${currentIdentity() ? '<button class="button button-quiet" data-logout>Sign out</button>' : ""}</div>`,
   );
 }
+function sessionWalletFromAck(result, expectedWallet = null) {
+  if (
+    typeof result?.wallet !== "string" ||
+    !/^0x[0-9a-f]{40}$/i.test(result.wallet) ||
+    (expectedWallet !== null && !same(result.wallet, expectedWallet))
+  )
+    throw new Error(
+      "The sign-in response did not confirm the selected wallet. Refresh and authenticate again.",
+    );
+  return result.wallet;
+}
+async function signOutSession() {
+  const result = await api("/api/session", { method: "DELETE", body: "{}" });
+  if (result?.ok !== true)
+    throw new Error(
+      "Sign-out could not be confirmed. Refresh your authentication state before continuing.",
+    );
+}
 async function switchIdentity(id) {
   if (id === "connected-wallet") return;
   cancelRead();
   disposeContractInbox();
   invalidateDraft();
-  if (!id) await api("/api/session", { method: "DELETE", body: "{}" });
-  else await post("/api/session", { identity: id });
-  await load();
+  let acknowledgedWallet = null;
+  if (!id) await signOutSession();
+  else
+    acknowledgedWallet = sessionWalletFromAck(
+      await post("/api/session", { identity: id }),
+    );
+  await load({ acknowledgedWallet });
   toast(
     id
       ? "Demo identity changed. Previous transaction drafts were cleared."
@@ -873,8 +895,8 @@ function installWalletSessionListeners(provider) {
     cancelRead();
     disposeContractInbox();
     invalidateDraft();
-    await api("/api/session", { method: "DELETE", body: "{}" });
-    await load({ silent: true });
+    await signOutSession();
+    await load({ silent: true, acknowledgedWallet: null });
     toast(
       "Wallet account or network changed. Authenticate again before signing.",
       true,
@@ -949,8 +971,11 @@ async function connectWallet() {
     params: [messageHex, accounts[0]],
   });
   cancelRead();
-  await post("/api/auth/verify", { nonce, signature });
-  await load({ silent: true });
+  const acknowledgedWallet = sessionWalletFromAck(
+    await post("/api/auth/verify", { nonce, signature }),
+    accounts[0],
+  );
+  await load({ silent: true, acknowledgedWallet });
   installWalletSessionListeners(provider);
   toast(
     isTestnet()
@@ -1002,7 +1027,11 @@ async function readForLoad(path, record) {
     record.controller.signal.removeEventListener("abort", abort);
   }
 }
-function load({ silent = false, coalesce = false } = {}) {
+function load({
+  silent = false,
+  coalesce = false,
+  acknowledgedWallet = undefined,
+} = {}) {
   const route = readRoute();
   const key = JSON.stringify(route);
   if (coalesce && activeLoad?.key === key) return activeLoad.promise;
@@ -1012,8 +1041,14 @@ function load({ silent = false, coalesce = false } = {}) {
     route,
     controller: new AbortController(),
     generation: ++app.generation,
-    capturedWallet: currentIdentity()?.wallet ?? null,
-    hasCapturedSession: app.bootstrap !== null,
+    // Only a successful session mutation supplies this explicit actor. Do not
+    // replace app.bootstrap or infer authority before the fresh read agrees.
+    capturedWallet:
+      acknowledgedWallet === undefined
+        ? (currentIdentity()?.wallet ?? null)
+        : acknowledgedWallet,
+    hasCapturedSession:
+      acknowledgedWallet !== undefined || app.bootstrap !== null,
     focusIntent:
       navigationFocus?.hash === location.hash ? navigationFocus : null,
     focusedElement: document.activeElement,

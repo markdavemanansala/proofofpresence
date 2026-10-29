@@ -2,6 +2,10 @@
 
 29 October 2026 · ready for primary-session review; not deployed.
 
+The subsequent [actor/session follow-up](docs/ui-ux-audit/SESSION_FIX_REPORT.md) must be integrated
+before enabling selected-event bootstrap. It preserves all original cases and adds projection and
+successful-session-transition checks; the original checkpoint results below remain historical.
+
 ## Branch and source
 
 - Branch: `codex/kleros-ui-ux-speed-audit`.

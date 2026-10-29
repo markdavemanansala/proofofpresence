@@ -1,0 +1,36 @@
+✔ accepts exact capability-bound truth-pays-v7 detail without mutation (1.231833ms)
+✔ accepts exact capability-bound kleros-event-v8 detail without mutation (0.056625ms)
+✔ accepts exact capability-bound kleros-event-v8-test15m detail without mutation (0.04725ms)
+✔ old backend and unsupported capability preserve serial GET fallback (0.13275ms)
+✔ instance and selected/detail event mismatches cannot reuse bundled data (0.402334ms)
+✔ response actor, captured actor and explicit anonymous session must agree (0.102125ms)
+✔ unknown first-load session can be established only by one internally bound response (0.077416ms)
+✔ wallet comparison is address-case insensitive without rewriting inputs (0.040042ms)
+✔ malformed response and captured wallets never normalize into anonymity (0.198583ms)
+✔ chain and deployed contract disagreement requires a separate event GET (0.245083ms)
+✔ deploymentBlock mismatch or jointly missing binding never qualifies as bundled detail (0.06725ms)
+✔ contractVersion mismatch or jointly missing binding never qualifies as bundled detail (0.050666ms)
+✔ abiVersion mismatch or jointly missing binding never qualifies as bundled detail (0.046709ms)
+✔ policyURI mismatch or jointly missing binding never qualifies as bundled detail (0.041375ms)
+✔ templateHash mismatch or jointly missing binding never qualifies as bundled detail (0.031667ms)
+✔ malformed event lists and missing detail structure fall back without throwing (0.1555ms)
+✔ a bound 4xx/5xx error needs no public summary or extra private detail read (0.089333ms)
+✔ unbound errors and malformed error statuses cannot replace the event read (0.085958ms)
+✔ detail and error are an exclusive union (0.027167ms)
+✔ deeply frozen response and capture are accepted without mutation (0.051542ms)
+✔ profile-free own-wallet facts must belong to the authenticated response actor (0.107583ms)
+✔ malformed own-wallet projection is rejected even in a correctly bound envelope (0.083875ms)
+✔ anonymous projection accepts only false permissions and empty protected fields (0.065625ms)
+✔ anonymous envelope rejects every protected payload rather than stripping data (0.093ms)
+✔ malformed optional permission or protected-array shapes cannot bypass redaction (0.44325ms)
+✔ legitimate owner and staff keep their server-authorized guest projections (0.077125ms)
+✔ legitimate participants and first-load cookies retain only their own contact rows (0.065375ms)
+✔ unprivileged participant projections reject another wallet or malformed contact row (0.101792ms)
+ℹ tests 28
+ℹ suites 0
+ℹ pass 28
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 67.930666

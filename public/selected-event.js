@@ -5,6 +5,63 @@ const address = (value) =>
     ? value.toLowerCase()
     : null;
 const wallet = (value) => (value == null ? null : address(value));
+const protectedArrays = [
+  "participants",
+  "deposits",
+  "unmatched",
+  "imports",
+  "attendance",
+  "transactions",
+];
+
+// Validate the server's projection, without deriving roles or granting authority.
+// A rejected optional bundle falls back to the existing authorized detail endpoint.
+function projectionMatchesActor(detail, serverWallet) {
+  const actor = wallet(serverWallet);
+  const permissions = detail.permissions;
+  if (
+    permissions != null &&
+    (typeof permissions !== "object" || Array.isArray(permissions))
+  )
+    return false;
+  for (const key of ["authenticated", "owner", "staff"])
+    if (
+      permissions &&
+      Object.hasOwn(permissions, key) &&
+      typeof permissions[key] !== "boolean"
+    )
+      return false;
+  if (
+    permissions &&
+    Object.hasOwn(permissions, "authenticated") &&
+    permissions.authenticated !== (actor !== null)
+  )
+    return false;
+  for (const key of protectedArrays)
+    if (Object.hasOwn(detail, key) && !Array.isArray(detail[key])) return false;
+  if (
+    detail.ownWallet != null &&
+    (typeof detail.ownWallet !== "object" ||
+      Array.isArray(detail.ownWallet) ||
+      !actor ||
+      address(detail.ownWallet.wallet) !== actor)
+  )
+    return false;
+  if (!actor)
+    return (
+      permissions?.owner !== true &&
+      permissions?.staff !== true &&
+      protectedArrays.every((key) => !detail[key]?.length) &&
+      detail.personal == null &&
+      detail.ownWallet == null
+    );
+  const privileged = permissions?.owner === true || permissions?.staff === true;
+  return (
+    privileged ||
+    detail.participants.every((person) => address(person?.wallet) === actor)
+  );
+}
+
 export function selectedEventResult(
   bootstrap,
   { eventId, capturedWallet = null, hasCapturedSession = false },
@@ -84,5 +141,6 @@ export function selectedEventResult(
     !Array.isArray(detail.participants)
   )
     return null;
+  if (!projectionMatchesActor(detail, serverWallet)) return null;
   return { detail };
 }

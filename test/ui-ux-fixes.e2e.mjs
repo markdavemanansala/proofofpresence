@@ -86,6 +86,20 @@ const syntheticDetail = (id) => {
     pendingCreditWei: "2000000000000",
     owedWei: "0",
   };
+  if (!d.permissions.owner && !d.permissions.staff) {
+    d.participants = d.participants.filter(
+      (person) => person.wallet.toLowerCase() === identity.wallet.toLowerCase(),
+    );
+    d.deposits = [];
+    d.unmatched = [];
+    d.imports = [];
+    d.attendance = d.attendance.filter((observation) =>
+      d.participants.some((person) => person.id === observation.participantId),
+    );
+    d.transactions = d.transactions.filter(
+      (tx) => tx.wallet?.toLowerCase() === identity.wallet.toLowerCase(),
+    );
+  }
   d.state.pendingCreditTotalWei = "2000000000000";
   return d;
 };
