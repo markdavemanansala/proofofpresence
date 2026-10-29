@@ -1,5 +1,9 @@
 # UI/UX and loading audit
 
+Subsequent fixes are recorded in [UI_HANDOFF](UI_HANDOFF.md) and
+[FIX_TEST_REPORT](docs/ui-ux-audit/FIX_TEST_REPORT.md), implementation commitab979223.
+The audit measurements and findings below remain the frozen before-fix evidence.
+
 29 October 2026 · audit only
 
 The largest measured problem is waiting for event data: the live participant panel appeared after

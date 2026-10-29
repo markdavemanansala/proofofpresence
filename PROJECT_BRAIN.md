@@ -3,12 +3,24 @@
 This root document is the **canonical project brain**. The current checkpoint and linked release
 records supersede historical implementation/deployment statements retained below.
 
-## Isolated UI/UX audit — 29October2026
+## Isolated UI audit and fixes — 29 October 2026
 
-This branch is the parallel **audit-only** workspace `codex/kleros-ui-ux-speed-audit`, based on
-3332f67abd1e8364891feba7b250c1ec87e257bc. Read [UI_UX_AUDIT](UI_UX_AUDIT.md) and
-[handoff](docs/ui-ux-audit/HANDOFF.md) for measured loading, reproduced keyboard issues and the
-next-screen priorities. No application source, financial behavior, deployment or schedule changed.
+This branch is the parallel UI workspace `codex/kleros-ui-ux-speed-audit`, based on
+3332f67abd1e8364891feba7b250c1ec87e257bc. The audit checkpoint is99ffe139; the subsequent
+reviewable implementation is **ab979223912b699da2cc9f3f1744adc2284e43d2**.
+Read [UI_HANDOFF](UI_HANDOFF.md) for integration, [FIX_TEST_REPORT](docs/ui-ux-audit/FIX_TEST_REPORT.md)
+for actual commands and limits, and [UI_UX_AUDIT](UI_UX_AUDIT.md) for frozen before-fix findings.
+
+Implemented stable mobile shell/loading, refresh coalescing and GET-only cancellation/timeout,
+optional bound-bootstrap adapter, and Skip/dialog/navigation/retry focus fixes. Measured local mobile
+CLS0.372→0.096 (~74% less); existing Node253/253, new validator20/20 separately, UX browser27,
+simple UI v7 13/v8 18, redesign49 and context4 passed. Build/typecheck passed. Financial rules,
+contracts, signing files and the primary checkout were untouched; existing A/B and C schedules were
+read-only checked ACTIVE. No push, merge or deployment occurred. Real backend latency still needs
+core's optional pinned-snapshot interface; keep the ongoing Chiado rehearsal's assets frozen.
+
+This memory update is separate from the implementation commit. The primary session should review
+and integrate the implementation only; never overwrite its newer canonical memory with this snapshot.
 
 The financial checkpoint below is a frozen source snapshot. For live A/B/C/D execution and actual
 deadlines, first read the primary operator’s current canonical brain at

@@ -1,5 +1,11 @@
 # Verification report
 
+The isolated UI follow-through is documented in
+[FIX_TEST_REPORT](ui-ux-audit/FIX_TEST_REPORT.md): implementationab979223, existing Node253/253,
+new validator20/20 separately and UX browser27. These local checks do not claim a deployed speed
+improvement or completion of any public payout. The historical financial checkpoint below remains
+frozen; use the primary session's canonical memory for actual on-chain progress.
+
 ## Separate test15m profile and D tooling — 29October2026
 
 New profile VERSION80015/chain10200/900-second challenge and matching periods is explicitly dispatched;
