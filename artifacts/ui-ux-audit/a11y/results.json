@@ -1,0 +1,3824 @@
+{
+  "sourceCommit": "3332f67abd1e8364891feba7b250c1ec87e257bc",
+  "fixture": "/Users/hashmanansala/.codex/worktrees/kleros-ui-ux-speed-audit/Kleros projects/test/fixtures/ui-audit-synthetic.js",
+  "fixtureSha256": "db658da25ea88395d677f308170d12712b29e54a9c3c8eddabcf846b7e95c2a4",
+  "checks": [
+    "Current frozen main app assets render from a synthetic GET-only fixture",
+    "Skip-to-content link initially moves keyboard focus to main",
+    "End activates and focuses the last event tab",
+    "Home activates and focuses the first event tab",
+    "Recovery dialog receives title focus and contains Tab/Shift+Tab",
+    "Escape dismisses the non-submitting recovery form"
+  ],
+  "observations": [
+    {
+      "name": "first-tab",
+      "active": {
+        "id": "",
+        "text": "Skip to content"
+      }
+    },
+    {
+      "name": "skip-after-render",
+      "hash": "#main",
+      "eventSwitchCount": 0,
+      "title": "Events, with commitment."
+    },
+    {
+      "name": "click-tab-focus",
+      "active": {
+        "tag": "BODY",
+        "id": "",
+        "view": null
+      }
+    },
+    {
+      "name": "keyboard-event-switch-focus",
+      "active": {
+        "tag": "BODY",
+        "id": ""
+      },
+      "hash": "#event=event-a&view=participant"
+    },
+    {
+      "name": "dialog-return-focus",
+      "active": {
+        "tag": "BUTTON",
+        "text": "Withdraw credit",
+        "action": "withdrawPending"
+      }
+    },
+    {
+      "name": "desktop-participant",
+      "bounds": {
+        "viewport": 1440,
+        "document": 1440,
+        "body": 1440
+      },
+      "controls": [
+        {
+          "tag": "A",
+          "id": "",
+          "text": "Skip to content",
+          "width": 151.78125,
+          "height": 49.59375,
+          "disabled": false,
+          "type": null,
+          "role": null,
+          "html": null
+        },
+        {
+          "tag": "A",
+          "id": "",
+          "text": "Kleros events home",
+          "width": 145.5625,
+          "height": 72,
+          "disabled": false,
+          "type": null,
+          "role": null,
+          "html": null
+        },
+        {
+          "tag": "A",
+          "id": "all-events-link",
+          "text": "◫\nAll events\n2",
+          "width": 187,
+          "height": 55.1875,
+          "disabled": false,
+          "type": null,
+          "role": null,
+          "html": null
+        },
+        {
+          "tag": "A",
+          "id": "",
+          "text": "Proof of Presence",
+          "width": 187,
+          "height": 46,
+          "disabled": false,
+          "type": null,
+          "role": null,
+          "html": null
+        },
+        {
+          "tag": "A",
+          "id": "",
+          "text": "Open Justice Workshop",
+          "width": 187,
+          "height": 46,
+          "disabled": false,
+          "type": null,
+          "role": null,
+          "html": null
+        },
+        {
+          "tag": "BUTTON",
+          "id": "demo-help",
+          "text": "How testnet works ↗",
+          "width": 125.453125,
+          "height": 44,
+          "disabled": false,
+          "type": "button",
+          "role": null,
+          "html": null
+        },
+        {
+          "tag": "A",
+          "id": "",
+          "text": "Events",
+          "width": 40.0625,
+          "height": 17,
+          "disabled": false,
+          "type": null,
+          "role": null,
+          "html": null
+        },
+        {
+          "tag": "BUTTON",
+          "id": "top-identity",
+          "text": "Synthetic audit role",
+          "width": 145.578125,
+          "height": 44,
+          "disabled": false,
+          "type": "button",
+          "role": null,
+          "html": null
+        },
+        {
+          "tag": "BUTTON",
+          "id": "refresh",
+          "text": "↻\nRefresh",
+          "width": 92.578125,
+          "height": 44,
+          "disabled": false,
+          "type": "button",
+          "role": null,
+          "html": null
+        },
+        {
+          "tag": "A",
+          "id": "",
+          "text": "← All events",
+          "width": 72.890625,
+          "height": 44,
+          "disabled": false,
+          "type": null,
+          "role": null,
+          "html": null
+        },
+        {
+          "tag": "SELECT",
+          "id": "event-switch",
+          "text": "Your event",
+          "width": 210,
+          "height": 46,
+          "disabled": false,
+          "type": null,
+          "role": null,
+          "html": null
+        },
+        {
+          "tag": "SUMMARY",
+          "id": "",
+          "text": "Contract, policy & verified details · v8",
+          "width": 1074,
+          "height": 44,
+          "disabled": false,
+          "type": null,
+          "role": null,
+          "html": null
+        },
+        {
+          "tag": "BUTTON",
+          "id": "tab-participant",
+          "text": "Your spot",
+          "width": 61.875,
+          "height": 48.390625,
+          "disabled": false,
+          "type": null,
+          "role": "tab",
+          "html": null
+        },
+        {
+          "tag": "BUTTON",
+          "id": "tab-organizer",
+          "text": "Manage event",
+          "width": 92.5,
+          "height": 48.390625,
+          "disabled": false,
+          "type": null,
+          "role": "tab",
+          "html": null
+        },
+        {
+          "tag": "BUTTON",
+          "id": "tab-cases",
+          "text": "Disputes & kickbacks",
+          "width": 140.015625,
+          "height": 48.390625,
+          "disabled": false,
+          "type": null,
+          "role": "tab",
+          "html": null
+        },
+        {
+          "tag": "BUTTON",
+          "id": "",
+          "text": "Refresh status",
+          "width": 130.8125,
+          "height": 44,
+          "disabled": false,
+          "type": null,
+          "role": null,
+          "html": null
+        },
+        {
+          "tag": "SUMMARY",
+          "id": "",
+          "text": "All status details · 7 independent checks",
+          "width": 692,
+          "height": 44,
+          "disabled": false,
+          "type": null,
+          "role": null,
+          "html": null
+        },
+        {
+          "tag": "BUTTON",
+          "id": "",
+          "text": "Withdraw credit",
+          "width": 123.703125,
+          "height": 44,
+          "disabled": false,
+          "type": null,
+          "role": null,
+          "html": null
+        },
+        {
+          "tag": "SUMMARY",
+          "id": "",
+          "text": "Verify an existing deposit receipt",
+          "width": 692,
+          "height": 44,
+          "disabled": false,
+          "type": null,
+          "role": null,
+          "html": null
+        },
+        {
+          "tag": "SUMMARY",
+          "id": "",
+          "text": "About the event & materials",
+          "width": 692,
+          "height": 25.59375,
+          "disabled": false,
+          "type": null,
+          "role": null,
+          "html": null
+        },
+        {
+          "tag": "BUTTON",
+          "id": "",
+          "text": "I was there",
+          "width": 93.453125,
+          "height": 44,
+          "disabled": false,
+          "type": null,
+          "role": null,
+          "html": null
+        },
+        {
+          "tag": "BUTTON",
+          "id": "",
+          "text": "Reconnect wallet",
+          "width": 149.265625,
+          "height": 44,
+          "disabled": false,
+          "type": null,
+          "role": null,
+          "html": null
+        },
+        {
+          "tag": "SUMMARY",
+          "id": "",
+          "text": "More event information",
+          "width": 300,
+          "height": 44,
+          "disabled": false,
+          "type": null,
+          "role": null,
+          "html": null
+        },
+        {
+          "tag": "SUMMARY",
+          "id": "",
+          "text": "Help & advanced tools",
+          "width": 300,
+          "height": 44,
+          "disabled": false,
+          "type": null,
+          "role": null,
+          "html": null
+        }
+      ]
+    },
+    {
+      "name": "desktop-organizer",
+      "bounds": {
+        "viewport": 1440,
+        "document": 1440,
+        "body": 1440
+      },
+      "controls": [
+        {
+          "tag": "A",
+          "id": "",
+          "text": "Skip to content",
+          "width": 151.78125,
+          "height": 49.59375,
+          "disabled": false,
+          "type": null,
+          "role": null,
+          "html": null
+        },
+        {
+          "tag": "A",
+          "id": "",
+          "text": "Kleros events home",
+          "width": 145.5625,
+          "height": 72,
+          "disabled": false,
+          "type": null,
+          "role": null,
+          "html": null
+        },
+        {
+          "tag": "A",
+          "id": "all-events-link",
+          "text": "◫\nAll events\n2",
+          "width": 187,
+          "height": 55.1875,
+          "disabled": false,
+          "type": null,
+          "role": null,
+          "html": null
+        },
+        {
+          "tag": "A",
+          "id": "",
+          "text": "Proof of Presence",
+          "width": 187,
+          "height": 46,
+          "disabled": false,
+          "type": null,
+          "role": null,
+          "html": null
+        },
+        {
+          "tag": "A",
+          "id": "",
+          "text": "Open Justice Workshop",
+          "width": 187,
+          "height": 46,
+          "disabled": false,
+          "type": null,
+          "role": null,
+          "html": null
+        },
+        {
+          "tag": "BUTTON",
+          "id": "demo-help",
+          "text": "How testnet works ↗",
+          "width": 125.453125,
+          "height": 44,
+          "disabled": false,
+          "type": "button",
+          "role": null,
+          "html": null
+        },
+        {
+          "tag": "A",
+          "id": "",
+          "text": "Events",
+          "width": 40.0625,
+          "height": 17,
+          "disabled": false,
+          "type": null,
+          "role": null,
+          "html": null
+        },
+        {
+          "tag": "BUTTON",
+          "id": "top-identity",
+          "text": "Synthetic audit role",
+          "width": 145.578125,
+          "height": 44,
+          "disabled": false,
+          "type": "button",
+          "role": null,
+          "html": null
+        },
+        {
+          "tag": "BUTTON",
+          "id": "refresh",
+          "text": "↻\nRefresh",
+          "width": 92.578125,
+          "height": 44,
+          "disabled": false,
+          "type": "button",
+          "role": null,
+          "html": null
+        },
+        {
+          "tag": "A",
+          "id": "",
+          "text": "← All events",
+          "width": 72.890625,
+          "height": 44,
+          "disabled": false,
+          "type": null,
+          "role": null,
+          "html": null
+        },
+        {
+          "tag": "SELECT",
+          "id": "event-switch",
+          "text": "Your event",
+          "width": 210,
+          "height": 46,
+          "disabled": false,
+          "type": null,
+          "role": null,
+          "html": null
+        },
+        {
+          "tag": "SUMMARY",
+          "id": "",
+          "text": "Contract, policy & verified details · v8",
+          "width": 1074,
+          "height": 44,
+          "disabled": false,
+          "type": null,
+          "role": null,
+          "html": null
+        },
+        {
+          "tag": "BUTTON",
+          "id": "tab-participant",
+          "text": "Your spot",
+          "width": 61.875,
+          "height": 48.390625,
+          "disabled": false,
+          "type": null,
+          "role": "tab",
+          "html": null
+        },
+        {
+          "tag": "BUTTON",
+          "id": "tab-organizer",
+          "text": "Manage event",
+          "width": 92.5,
+          "height": 48.390625,
+          "disabled": false,
+          "type": null,
+          "role": "tab",
+          "html": null
+        },
+        {
+          "tag": "BUTTON",
+          "id": "tab-cases",
+          "text": "Disputes & kickbacks",
+          "width": 140.015625,
+          "height": 48.390625,
+          "disabled": false,
+          "type": null,
+          "role": "tab",
+          "html": null
+        },
+        {
+          "tag": "A",
+          "id": "",
+          "text": "1 · Select source",
+          "width": 179.5,
+          "height": 46.796875,
+          "disabled": false,
+          "type": null,
+          "role": null,
+          "html": null
+        },
+        {
+          "tag": "A",
+          "id": "",
+          "text": "2 · Reconcile people",
+          "width": 179.5,
+          "height": 46.796875,
+          "disabled": false,
+          "type": null,
+          "role": null,
+          "html": null
+        },
+        {
+          "tag": "A",
+          "id": "",
+          "text": "3 · Review receipts",
+          "width": 179.5,
+          "height": 46.796875,
+          "disabled": false,
+          "type": null,
+          "role": null,
+          "html": null
+        },
+        {
+          "tag": "A",
+          "id": "",
+          "text": "4 · Review transaction",
+          "width": 179.5,
+          "height": 46.796875,
+          "disabled": false,
+          "type": null,
+          "role": null,
+          "html": null
+        },
+        {
+          "tag": "SELECT",
+          "id": "import-kind",
+          "text": "Import type",
+          "width": 338,
+          "height": 46,
+          "disabled": false,
+          "type": null,
+          "role": null,
+          "html": null
+        },
+        {
+          "tag": "INPUT",
+          "id": "import-event",
+          "text": "Source event identity",
+          "width": 338,
+          "height": 46.390625,
+          "disabled": false,
+          "type": null,
+          "role": null,
+          "html": "<input id=\"import-event\" name=\"sourceEventId\" value=\"event-b\" placeholder=\"Stable source event ID\">"
+        },
+        {
+          "tag": "INPUT",
+          "id": "import-file",
+          "text": "Choose a CSV (optional)",
+          "width": 692,
+          "height": 46.390625,
+          "disabled": false,
+          "type": "file",
+          "role": null,
+          "html": "<input id=\"import-file\" type=\"file\" accept=\".csv,text/csv\" data-csv-file=\"\">"
+        },
+        {
+          "tag": "A",
+          "id": "",
+          "text": "Download this event’s synthetic attendance CSV",
+          "width": 286.78125,
+          "height": 17,
+          "disabled": false,
+          "type": null,
+          "role": null,
+          "html": null
+        },
+        {
+          "tag": "A",
+          "id": "",
+          "text": "Guest fixture",
+          "width": 76.578125,
+          "height": 17,
+          "disabled": false,
+          "type": null,
+          "role": null,
+          "html": null
+        },
+        {
+          "tag": "TEXTAREA",
+          "id": "import-csv",
+          "text": "CSV contents",
+          "width": 692,
+          "height": 116,
+          "disabled": false,
+          "type": null,
+          "role": null,
+          "html": "<textarea id=\"import-csv\" name=\"csv\" required=\"\" spellcheck=\"false\" placeholder=\"event_id,chain_id,contract,participant_id,email,wallet,checked_in_at,tx_hash,admission\"></textarea>"
+        },
+        {
+          "tag": "INPUT",
+          "id": "",
+          "text": "I have reviewed the source event and export. If its origin cannot be verified automatically, record my provenance review",
+          "width": 20,
+          "height": 20,
+          "disabled": false,
+          "type": "checkbox",
+          "role": null,
+          "html": "<input type=\"checkbox\" name=\"reviewConfirmed\">"
+        },
+        {
+          "tag": "INPUT",
+          "id": "review-note",
+          "text": "Provenance review note",
+          "width": 692,
+          "height": 46.390625,
+          "disabled": false,
+          "type": null,
+          "role": null,
+          "html": "<input id=\"review-note\" name=\"reviewNote\" minlength=\"8\" placeholder=\"Where this export came from and how you verified it\" maxlength=\"1000\">"
+        },
+        {
+          "tag": "BUTTON",
+          "id": "",
+          "text": "Validate & review import",
+          "width": 194.625,
+          "height": 44,
+          "disabled": false,
+          "type": "submit",
+          "role": null,
+          "html": null
+        },
+        {
+          "tag": "SELECT",
+          "id": "",
+          "text": "Admission for Alice",
+          "width": 183.234375,
+          "height": 46,
+          "disabled": false,
+          "type": null,
+          "role": null,
+          "html": null
+        },
+        {
+          "tag": "BUTTON",
+          "id": "",
+          "text": "Check in",
+          "width": 80.015625,
+          "height": 44,
+          "disabled": false,
+          "type": null,
+          "role": null,
+          "html": null
+        },
+        {
+          "tag": "SELECT",
+          "id": "",
+          "text": "Admission for Bob",
+          "width": 183.234375,
+          "height": 46,
+          "disabled": false,
+          "type": null,
+          "role": null,
+          "html": null
+        },
+        {
+          "tag": "BUTTON",
+          "id": "",
+          "text": "Check in",
+          "width": 80.015625,
+          "height": 44,
+          "disabled": false,
+          "type": null,
+          "role": null,
+          "html": null
+        },
+        {
+          "tag": "SELECT",
+          "id": "",
+          "text": "Admission for Carol",
+          "width": 183.234375,
+          "height": 46,
+          "disabled": false,
+          "type": null,
+          "role": null,
+          "html": null
+        },
+        {
+          "tag": "BUTTON",
+          "id": "",
+          "text": "Check in",
+          "width": 80.015625,
+          "height": 44,
+          "disabled": false,
+          "type": null,
+          "role": null,
+          "html": null
+        },
+        {
+          "tag": "BUTTON",
+          "id": "",
+          "text": "Review staker registration",
+          "width": 207.5,
+          "height": 44,
+          "disabled": false,
+          "type": null,
+          "role": null,
+          "html": null
+        },
+        {
+          "tag": "BUTTON",
+          "id": "",
+          "text": "Review rejection / refunds",
+          "width": 208.640625,
+          "height": 44,
+          "disabled": false,
+          "type": null,
+          "role": null,
+          "html": null
+        },
+        {
+          "tag": "BUTTON",
+          "id": "",
+          "text": "Review a spare-funds return",
+          "width": 200.53125,
+          "height": 44,
+          "disabled": false,
+          "type": null,
+          "role": null,
+          "html": null
+        },
+        {
+          "tag": "BUTTON",
+          "id": "",
+          "text": "Review attendance & share",
+          "width": 212.765625,
+          "height": 44,
+          "disabled": false,
+          "type": null,
+          "role": null,
+          "html": null
+        },
+        {
+          "tag": "BUTTON",
+          "id": "",
+          "text": "Correct an omission",
+          "width": 166.015625,
+          "height": 44,
+          "disabled": false,
+          "type": null,
+          "role": null,
+          "html": null
+        },
+        {
+          "tag": "BUTTON",
+          "id": "",
+          "text": "Edit event settings",
+          "width": 140.375,
+          "height": 44,
+          "disabled": false,
+          "type": null,
+          "role": null,
+          "html": null
+        },
+        {
+          "tag": "BUTTON",
+          "id": "",
+          "text": "Review cancellation",
+          "width": 149.09375,
+          "height": 44,
+          "disabled": false,
+          "type": null,
+          "role": null,
+          "html": null
+        },
+        {
+          "tag": "BUTTON",
+          "id": "",
+          "text": "Return spare funds",
+          "width": 144.078125,
+          "height": 44,
+          "disabled": false,
+          "type": null,
+          "role": null,
+          "html": null
+        },
+        {
+          "tag": "BUTTON",
+          "id": "",
+          "text": "Return spare funds",
+          "width": 144.078125,
+          "height": 44,
+          "disabled": false,
+          "type": null,
+          "role": null,
+          "html": null
+        },
+        {
+          "tag": "BUTTON",
+          "id": "",
+          "text": "Transfer ownership",
+          "width": 143.8125,
+          "height": 44,
+          "disabled": false,
+          "type": null,
+          "role": null,
+          "html": null
+        },
+        {
+          "tag": "BUTTON",
+          "id": "",
+          "text": "Accept ownership",
+          "width": 136.8125,
+          "height": 44,
+          "disabled": false,
+          "type": null,
+          "role": null,
+          "html": null
+        },
+        {
+          "tag": "BUTTON",
+          "id": "",
+          "text": "Reconnect wallet",
+          "width": 149.265625,
+          "height": 44,
+          "disabled": false,
+          "type": null,
+          "role": null,
+          "html": null
+        },
+        {
+          "tag": "SUMMARY",
+          "id": "",
+          "text": "More event information",
+          "width": 300,
+          "height": 44,
+          "disabled": false,
+          "type": null,
+          "role": null,
+          "html": null
+        },
+        {
+          "tag": "SUMMARY",
+          "id": "",
+          "text": "Help & advanced tools",
+          "width": 300,
+          "height": 44,
+          "disabled": false,
+          "type": null,
+          "role": null,
+          "html": null
+        }
+      ]
+    },
+    {
+      "name": "desktop-cases",
+      "bounds": {
+        "viewport": 1440,
+        "document": 1440,
+        "body": 1440
+      },
+      "controls": [
+        {
+          "tag": "A",
+          "id": "",
+          "text": "Skip to content",
+          "width": 151.78125,
+          "height": 49.59375,
+          "disabled": false,
+          "type": null,
+          "role": null,
+          "html": null
+        },
+        {
+          "tag": "A",
+          "id": "",
+          "text": "Kleros events home",
+          "width": 145.5625,
+          "height": 72,
+          "disabled": false,
+          "type": null,
+          "role": null,
+          "html": null
+        },
+        {
+          "tag": "A",
+          "id": "all-events-link",
+          "text": "◫\nAll events\n2",
+          "width": 187,
+          "height": 55.1875,
+          "disabled": false,
+          "type": null,
+          "role": null,
+          "html": null
+        },
+        {
+          "tag": "A",
+          "id": "",
+          "text": "Proof of Presence",
+          "width": 187,
+          "height": 46,
+          "disabled": false,
+          "type": null,
+          "role": null,
+          "html": null
+        },
+        {
+          "tag": "A",
+          "id": "",
+          "text": "Open Justice Workshop",
+          "width": 187,
+          "height": 46,
+          "disabled": false,
+          "type": null,
+          "role": null,
+          "html": null
+        },
+        {
+          "tag": "BUTTON",
+          "id": "demo-help",
+          "text": "How testnet works ↗",
+          "width": 125.453125,
+          "height": 44,
+          "disabled": false,
+          "type": "button",
+          "role": null,
+          "html": null
+        },
+        {
+          "tag": "A",
+          "id": "",
+          "text": "Events",
+          "width": 40.0625,
+          "height": 17,
+          "disabled": false,
+          "type": null,
+          "role": null,
+          "html": null
+        },
+        {
+          "tag": "BUTTON",
+          "id": "top-identity",
+          "text": "Synthetic audit role",
+          "width": 145.578125,
+          "height": 44,
+          "disabled": false,
+          "type": "button",
+          "role": null,
+          "html": null
+        },
+        {
+          "tag": "BUTTON",
+          "id": "refresh",
+          "text": "↻\nRefresh",
+          "width": 92.578125,
+          "height": 44,
+          "disabled": false,
+          "type": "button",
+          "role": null,
+          "html": null
+        },
+        {
+          "tag": "A",
+          "id": "",
+          "text": "← All events",
+          "width": 72.890625,
+          "height": 44,
+          "disabled": false,
+          "type": null,
+          "role": null,
+          "html": null
+        },
+        {
+          "tag": "SELECT",
+          "id": "event-switch",
+          "text": "Your event",
+          "width": 210,
+          "height": 46,
+          "disabled": false,
+          "type": null,
+          "role": null,
+          "html": null
+        },
+        {
+          "tag": "SUMMARY",
+          "id": "",
+          "text": "Contract, policy & verified details · v8",
+          "width": 1074,
+          "height": 44,
+          "disabled": false,
+          "type": null,
+          "role": null,
+          "html": null
+        },
+        {
+          "tag": "BUTTON",
+          "id": "tab-participant",
+          "text": "Your spot",
+          "width": 61.875,
+          "height": 48.390625,
+          "disabled": false,
+          "type": null,
+          "role": "tab",
+          "html": null
+        },
+        {
+          "tag": "BUTTON",
+          "id": "tab-organizer",
+          "text": "Manage event",
+          "width": 92.5,
+          "height": 48.390625,
+          "disabled": false,
+          "type": null,
+          "role": "tab",
+          "html": null
+        },
+        {
+          "tag": "BUTTON",
+          "id": "tab-cases",
+          "text": "Disputes & kickbacks",
+          "width": 140.015625,
+          "height": 48.390625,
+          "disabled": false,
+          "type": null,
+          "role": "tab",
+          "html": null
+        },
+        {
+          "tag": "BUTTON",
+          "id": "",
+          "text": "Review normal payouts",
+          "width": 187.5625,
+          "height": 44,
+          "disabled": true,
+          "type": null,
+          "role": null,
+          "html": null
+        },
+        {
+          "tag": "BUTTON",
+          "id": "",
+          "text": "Claim failed transfer",
+          "width": 169.640625,
+          "height": 44,
+          "disabled": true,
+          "type": null,
+          "role": null,
+          "html": null
+        },
+        {
+          "tag": "BUTTON",
+          "id": "",
+          "text": "Reconnect wallet",
+          "width": 149.265625,
+          "height": 44,
+          "disabled": false,
+          "type": null,
+          "role": null,
+          "html": null
+        },
+        {
+          "tag": "SUMMARY",
+          "id": "",
+          "text": "More event information",
+          "width": 300,
+          "height": 44,
+          "disabled": false,
+          "type": null,
+          "role": null,
+          "html": null
+        },
+        {
+          "tag": "SUMMARY",
+          "id": "",
+          "text": "Help & advanced tools",
+          "width": 300,
+          "height": 44,
+          "disabled": false,
+          "type": null,
+          "role": null,
+          "html": null
+        }
+      ]
+    },
+    {
+      "name": "closed-settings-details-tab",
+      "trace": [
+        {
+          "tag": "SUMMARY",
+          "id": "",
+          "text": "Optional content & Luma associations",
+          "detailsOpen": false
+        },
+        {
+          "tag": "SUMMARY",
+          "id": "",
+          "text": "Optional content & Luma associations",
+          "detailsOpen": false
+        },
+        {
+          "tag": "SUMMARY",
+          "id": "",
+          "text": "Optional content & Luma associations",
+          "detailsOpen": false
+        }
+      ]
+    },
+    {
+      "name": "mobile-participant",
+      "bounds": {
+        "viewport": 400,
+        "document": 400,
+        "body": 400
+      },
+      "controls": [
+        {
+          "tag": "A",
+          "id": "",
+          "text": "Skip to content",
+          "width": 151.78125,
+          "height": 49.59375,
+          "disabled": false,
+          "type": null,
+          "role": null,
+          "html": null
+        },
+        {
+          "tag": "A",
+          "id": "",
+          "text": "Kleros events home",
+          "width": 80,
+          "height": 30,
+          "disabled": false,
+          "type": null,
+          "role": null,
+          "html": null
+        },
+        {
+          "tag": "A",
+          "id": "all-events-link",
+          "text": "◫\nAll events\n2",
+          "width": 122.625,
+          "height": 51.1875,
+          "disabled": false,
+          "type": null,
+          "role": null,
+          "html": null
+        },
+        {
+          "tag": "BUTTON",
+          "id": "demo-help",
+          "text": "How testnet works ↗",
+          "width": 115.875,
+          "height": 44,
+          "disabled": false,
+          "type": "button",
+          "role": null,
+          "html": null
+        },
+        {
+          "tag": "BUTTON",
+          "id": "top-identity",
+          "text": "Synthetic audit role",
+          "width": 145.578125,
+          "height": 44,
+          "disabled": false,
+          "type": "button",
+          "role": null,
+          "html": null
+        },
+        {
+          "tag": "BUTTON",
+          "id": "refresh",
+          "text": "↻\nRefresh",
+          "width": 92.578125,
+          "height": 44,
+          "disabled": false,
+          "type": "button",
+          "role": null,
+          "html": null
+        },
+        {
+          "tag": "A",
+          "id": "",
+          "text": "← All events",
+          "width": 72.890625,
+          "height": 44,
+          "disabled": false,
+          "type": null,
+          "role": null,
+          "html": null
+        },
+        {
+          "tag": "SELECT",
+          "id": "event-switch",
+          "text": "Your event",
+          "width": 215,
+          "height": 46,
+          "disabled": false,
+          "type": null,
+          "role": null,
+          "html": null
+        },
+        {
+          "tag": "SUMMARY",
+          "id": "",
+          "text": "Contract, policy & verified details · v8",
+          "width": 334,
+          "height": 44,
+          "disabled": false,
+          "type": null,
+          "role": null,
+          "html": null
+        },
+        {
+          "tag": "BUTTON",
+          "id": "tab-participant",
+          "text": "Your spot",
+          "width": 117.328125,
+          "height": 57.1875,
+          "disabled": false,
+          "type": null,
+          "role": "tab",
+          "html": null
+        },
+        {
+          "tag": "BUTTON",
+          "id": "tab-organizer",
+          "text": "Manage event",
+          "width": 117.328125,
+          "height": 57.1875,
+          "disabled": false,
+          "type": null,
+          "role": "tab",
+          "html": null
+        },
+        {
+          "tag": "BUTTON",
+          "id": "tab-cases",
+          "text": "Disputes & kickbacks",
+          "width": 117.34375,
+          "height": 57.1875,
+          "disabled": false,
+          "type": null,
+          "role": "tab",
+          "html": null
+        },
+        {
+          "tag": "BUTTON",
+          "id": "",
+          "text": "Refresh status",
+          "width": 130.8125,
+          "height": 44,
+          "disabled": false,
+          "type": null,
+          "role": null,
+          "html": null
+        },
+        {
+          "tag": "SUMMARY",
+          "id": "",
+          "text": "All status details · 7 independent checks",
+          "width": 326,
+          "height": 44,
+          "disabled": false,
+          "type": null,
+          "role": null,
+          "html": null
+        },
+        {
+          "tag": "BUTTON",
+          "id": "",
+          "text": "Withdraw credit",
+          "width": 123.703125,
+          "height": 44,
+          "disabled": false,
+          "type": null,
+          "role": null,
+          "html": null
+        },
+        {
+          "tag": "SUMMARY",
+          "id": "",
+          "text": "Verify an existing deposit receipt",
+          "width": 326,
+          "height": 44,
+          "disabled": false,
+          "type": null,
+          "role": null,
+          "html": null
+        },
+        {
+          "tag": "SUMMARY",
+          "id": "",
+          "text": "About the event & materials",
+          "width": 326,
+          "height": 25.59375,
+          "disabled": false,
+          "type": null,
+          "role": null,
+          "html": null
+        },
+        {
+          "tag": "BUTTON",
+          "id": "",
+          "text": "I was there",
+          "width": 93.453125,
+          "height": 44,
+          "disabled": false,
+          "type": null,
+          "role": null,
+          "html": null
+        },
+        {
+          "tag": "BUTTON",
+          "id": "",
+          "text": "Reconnect wallet",
+          "width": 149.265625,
+          "height": 44,
+          "disabled": false,
+          "type": null,
+          "role": null,
+          "html": null
+        },
+        {
+          "tag": "SUMMARY",
+          "id": "",
+          "text": "More event information",
+          "width": 326,
+          "height": 44,
+          "disabled": false,
+          "type": null,
+          "role": null,
+          "html": null
+        },
+        {
+          "tag": "SUMMARY",
+          "id": "",
+          "text": "Help & advanced tools",
+          "width": 326,
+          "height": 44,
+          "disabled": false,
+          "type": null,
+          "role": null,
+          "html": null
+        }
+      ]
+    },
+    {
+      "name": "mobile-organizer",
+      "bounds": {
+        "viewport": 400,
+        "document": 400,
+        "body": 400
+      },
+      "controls": [
+        {
+          "tag": "A",
+          "id": "",
+          "text": "Skip to content",
+          "width": 151.78125,
+          "height": 49.59375,
+          "disabled": false,
+          "type": null,
+          "role": null,
+          "html": null
+        },
+        {
+          "tag": "A",
+          "id": "",
+          "text": "Kleros events home",
+          "width": 80,
+          "height": 30,
+          "disabled": false,
+          "type": null,
+          "role": null,
+          "html": null
+        },
+        {
+          "tag": "A",
+          "id": "all-events-link",
+          "text": "◫\nAll events\n2",
+          "width": 122.625,
+          "height": 51.1875,
+          "disabled": false,
+          "type": null,
+          "role": null,
+          "html": null
+        },
+        {
+          "tag": "BUTTON",
+          "id": "demo-help",
+          "text": "How testnet works ↗",
+          "width": 115.875,
+          "height": 44,
+          "disabled": false,
+          "type": "button",
+          "role": null,
+          "html": null
+        },
+        {
+          "tag": "BUTTON",
+          "id": "top-identity",
+          "text": "Synthetic audit role",
+          "width": 145.578125,
+          "height": 44,
+          "disabled": false,
+          "type": "button",
+          "role": null,
+          "html": null
+        },
+        {
+          "tag": "BUTTON",
+          "id": "refresh",
+          "text": "↻\nRefresh",
+          "width": 92.578125,
+          "height": 44,
+          "disabled": false,
+          "type": "button",
+          "role": null,
+          "html": null
+        },
+        {
+          "tag": "A",
+          "id": "",
+          "text": "← All events",
+          "width": 72.890625,
+          "height": 44,
+          "disabled": false,
+          "type": null,
+          "role": null,
+          "html": null
+        },
+        {
+          "tag": "SELECT",
+          "id": "event-switch",
+          "text": "Your event",
+          "width": 215,
+          "height": 46,
+          "disabled": false,
+          "type": null,
+          "role": null,
+          "html": null
+        },
+        {
+          "tag": "SUMMARY",
+          "id": "",
+          "text": "Contract, policy & verified details · v8",
+          "width": 334,
+          "height": 44,
+          "disabled": false,
+          "type": null,
+          "role": null,
+          "html": null
+        },
+        {
+          "tag": "BUTTON",
+          "id": "tab-participant",
+          "text": "Your spot",
+          "width": 117.328125,
+          "height": 57.1875,
+          "disabled": false,
+          "type": null,
+          "role": "tab",
+          "html": null
+        },
+        {
+          "tag": "BUTTON",
+          "id": "tab-organizer",
+          "text": "Manage event",
+          "width": 117.328125,
+          "height": 57.1875,
+          "disabled": false,
+          "type": null,
+          "role": "tab",
+          "html": null
+        },
+        {
+          "tag": "BUTTON",
+          "id": "tab-cases",
+          "text": "Disputes & kickbacks",
+          "width": 117.34375,
+          "height": 57.1875,
+          "disabled": false,
+          "type": null,
+          "role": "tab",
+          "html": null
+        },
+        {
+          "tag": "A",
+          "id": "",
+          "text": "1 · Select source",
+          "width": 180,
+          "height": 45.1875,
+          "disabled": false,
+          "type": null,
+          "role": null,
+          "html": null
+        },
+        {
+          "tag": "A",
+          "id": "",
+          "text": "2 · Reconcile people",
+          "width": 180,
+          "height": 45.1875,
+          "disabled": false,
+          "type": null,
+          "role": null,
+          "html": null
+        },
+        {
+          "tag": "A",
+          "id": "",
+          "text": "3 · Review receipts",
+          "width": 180,
+          "height": 45.1875,
+          "disabled": false,
+          "type": null,
+          "role": null,
+          "html": null
+        },
+        {
+          "tag": "A",
+          "id": "",
+          "text": "4 · Review transaction",
+          "width": 180,
+          "height": 45.1875,
+          "disabled": false,
+          "type": null,
+          "role": null,
+          "html": null
+        },
+        {
+          "tag": "SELECT",
+          "id": "import-kind",
+          "text": "Import type",
+          "width": 326,
+          "height": 46,
+          "disabled": false,
+          "type": null,
+          "role": null,
+          "html": null
+        },
+        {
+          "tag": "INPUT",
+          "id": "import-event",
+          "text": "Source event identity",
+          "width": 326,
+          "height": 46.390625,
+          "disabled": false,
+          "type": null,
+          "role": null,
+          "html": "<input id=\"import-event\" name=\"sourceEventId\" value=\"event-b\" placeholder=\"Stable source event ID\">"
+        },
+        {
+          "tag": "INPUT",
+          "id": "import-file",
+          "text": "Choose a CSV (optional)",
+          "width": 326,
+          "height": 46.390625,
+          "disabled": false,
+          "type": "file",
+          "role": null,
+          "html": "<input id=\"import-file\" type=\"file\" accept=\".csv,text/csv\" data-csv-file=\"\">"
+        },
+        {
+          "tag": "A",
+          "id": "",
+          "text": "Download this event’s synthetic attendance CSV",
+          "width": 286.78125,
+          "height": 17,
+          "disabled": false,
+          "type": null,
+          "role": null,
+          "html": null
+        },
+        {
+          "tag": "A",
+          "id": "",
+          "text": "Guest fixture",
+          "width": 76.578125,
+          "height": 17,
+          "disabled": false,
+          "type": null,
+          "role": null,
+          "html": null
+        },
+        {
+          "tag": "TEXTAREA",
+          "id": "import-csv",
+          "text": "CSV contents",
+          "width": 326,
+          "height": 116,
+          "disabled": false,
+          "type": null,
+          "role": null,
+          "html": "<textarea id=\"import-csv\" name=\"csv\" required=\"\" spellcheck=\"false\" placeholder=\"event_id,chain_id,contract,participant_id,email,wallet,checked_in_at,tx_hash,admission\"></textarea>"
+        },
+        {
+          "tag": "INPUT",
+          "id": "",
+          "text": "I have reviewed the source event and export. If its origin cannot be verified automatically, record my provenance review",
+          "width": 20,
+          "height": 20,
+          "disabled": false,
+          "type": "checkbox",
+          "role": null,
+          "html": "<input type=\"checkbox\" name=\"reviewConfirmed\">"
+        },
+        {
+          "tag": "INPUT",
+          "id": "review-note",
+          "text": "Provenance review note",
+          "width": 326,
+          "height": 46.390625,
+          "disabled": false,
+          "type": null,
+          "role": null,
+          "html": "<input id=\"review-note\" name=\"reviewNote\" minlength=\"8\" placeholder=\"Where this export came from and how you verified it\" maxlength=\"1000\">"
+        },
+        {
+          "tag": "BUTTON",
+          "id": "",
+          "text": "Validate & review import",
+          "width": 194.625,
+          "height": 44,
+          "disabled": false,
+          "type": "submit",
+          "role": null,
+          "html": null
+        },
+        {
+          "tag": "SELECT",
+          "id": "",
+          "text": "Admission for Alice",
+          "width": 292,
+          "height": 46,
+          "disabled": false,
+          "type": null,
+          "role": null,
+          "html": null
+        },
+        {
+          "tag": "BUTTON",
+          "id": "",
+          "text": "Check in",
+          "width": 80.015625,
+          "height": 44,
+          "disabled": false,
+          "type": null,
+          "role": null,
+          "html": null
+        },
+        {
+          "tag": "SELECT",
+          "id": "",
+          "text": "Admission for Bob",
+          "width": 292,
+          "height": 46,
+          "disabled": false,
+          "type": null,
+          "role": null,
+          "html": null
+        },
+        {
+          "tag": "BUTTON",
+          "id": "",
+          "text": "Check in",
+          "width": 80.015625,
+          "height": 44,
+          "disabled": false,
+          "type": null,
+          "role": null,
+          "html": null
+        },
+        {
+          "tag": "SELECT",
+          "id": "",
+          "text": "Admission for Carol",
+          "width": 292,
+          "height": 46,
+          "disabled": false,
+          "type": null,
+          "role": null,
+          "html": null
+        },
+        {
+          "tag": "BUTTON",
+          "id": "",
+          "text": "Check in",
+          "width": 80.015625,
+          "height": 44,
+          "disabled": false,
+          "type": null,
+          "role": null,
+          "html": null
+        },
+        {
+          "tag": "BUTTON",
+          "id": "",
+          "text": "Review staker registration",
+          "width": 207.5,
+          "height": 44,
+          "disabled": false,
+          "type": null,
+          "role": null,
+          "html": null
+        },
+        {
+          "tag": "BUTTON",
+          "id": "",
+          "text": "Review rejection / refunds",
+          "width": 208.640625,
+          "height": 44,
+          "disabled": false,
+          "type": null,
+          "role": null,
+          "html": null
+        },
+        {
+          "tag": "BUTTON",
+          "id": "",
+          "text": "Review a spare-funds return",
+          "width": 200.53125,
+          "height": 44,
+          "disabled": false,
+          "type": null,
+          "role": null,
+          "html": null
+        },
+        {
+          "tag": "BUTTON",
+          "id": "",
+          "text": "Review attendance & share",
+          "width": 212.765625,
+          "height": 44,
+          "disabled": false,
+          "type": null,
+          "role": null,
+          "html": null
+        },
+        {
+          "tag": "BUTTON",
+          "id": "",
+          "text": "Correct an omission",
+          "width": 166.015625,
+          "height": 44,
+          "disabled": false,
+          "type": null,
+          "role": null,
+          "html": null
+        },
+        {
+          "tag": "BUTTON",
+          "id": "",
+          "text": "Edit event settings",
+          "width": 140.375,
+          "height": 44,
+          "disabled": false,
+          "type": null,
+          "role": null,
+          "html": null
+        },
+        {
+          "tag": "BUTTON",
+          "id": "",
+          "text": "Review cancellation",
+          "width": 149.09375,
+          "height": 44,
+          "disabled": false,
+          "type": null,
+          "role": null,
+          "html": null
+        },
+        {
+          "tag": "BUTTON",
+          "id": "",
+          "text": "Return spare funds",
+          "width": 144.078125,
+          "height": 44,
+          "disabled": false,
+          "type": null,
+          "role": null,
+          "html": null
+        },
+        {
+          "tag": "BUTTON",
+          "id": "",
+          "text": "Return spare funds",
+          "width": 144.078125,
+          "height": 44,
+          "disabled": false,
+          "type": null,
+          "role": null,
+          "html": null
+        },
+        {
+          "tag": "BUTTON",
+          "id": "",
+          "text": "Transfer ownership",
+          "width": 143.8125,
+          "height": 44,
+          "disabled": false,
+          "type": null,
+          "role": null,
+          "html": null
+        },
+        {
+          "tag": "BUTTON",
+          "id": "",
+          "text": "Accept ownership",
+          "width": 136.8125,
+          "height": 44,
+          "disabled": false,
+          "type": null,
+          "role": null,
+          "html": null
+        },
+        {
+          "tag": "BUTTON",
+          "id": "",
+          "text": "Reconnect wallet",
+          "width": 149.265625,
+          "height": 44,
+          "disabled": false,
+          "type": null,
+          "role": null,
+          "html": null
+        },
+        {
+          "tag": "SUMMARY",
+          "id": "",
+          "text": "More event information",
+          "width": 326,
+          "height": 44,
+          "disabled": false,
+          "type": null,
+          "role": null,
+          "html": null
+        },
+        {
+          "tag": "SUMMARY",
+          "id": "",
+          "text": "Help & advanced tools",
+          "width": 326,
+          "height": 44,
+          "disabled": false,
+          "type": null,
+          "role": null,
+          "html": null
+        }
+      ]
+    },
+    {
+      "name": "mobile-cases",
+      "bounds": {
+        "viewport": 400,
+        "document": 400,
+        "body": 400
+      },
+      "controls": [
+        {
+          "tag": "A",
+          "id": "",
+          "text": "Skip to content",
+          "width": 151.78125,
+          "height": 49.59375,
+          "disabled": false,
+          "type": null,
+          "role": null,
+          "html": null
+        },
+        {
+          "tag": "A",
+          "id": "",
+          "text": "Kleros events home",
+          "width": 80,
+          "height": 30,
+          "disabled": false,
+          "type": null,
+          "role": null,
+          "html": null
+        },
+        {
+          "tag": "A",
+          "id": "all-events-link",
+          "text": "◫\nAll events\n2",
+          "width": 122.625,
+          "height": 51.1875,
+          "disabled": false,
+          "type": null,
+          "role": null,
+          "html": null
+        },
+        {
+          "tag": "BUTTON",
+          "id": "demo-help",
+          "text": "How testnet works ↗",
+          "width": 115.875,
+          "height": 44,
+          "disabled": false,
+          "type": "button",
+          "role": null,
+          "html": null
+        },
+        {
+          "tag": "BUTTON",
+          "id": "top-identity",
+          "text": "Synthetic audit role",
+          "width": 145.578125,
+          "height": 44,
+          "disabled": false,
+          "type": "button",
+          "role": null,
+          "html": null
+        },
+        {
+          "tag": "BUTTON",
+          "id": "refresh",
+          "text": "↻\nRefresh",
+          "width": 92.578125,
+          "height": 44,
+          "disabled": false,
+          "type": "button",
+          "role": null,
+          "html": null
+        },
+        {
+          "tag": "A",
+          "id": "",
+          "text": "← All events",
+          "width": 72.890625,
+          "height": 44,
+          "disabled": false,
+          "type": null,
+          "role": null,
+          "html": null
+        },
+        {
+          "tag": "SELECT",
+          "id": "event-switch",
+          "text": "Your event",
+          "width": 215,
+          "height": 46,
+          "disabled": false,
+          "type": null,
+          "role": null,
+          "html": null
+        },
+        {
+          "tag": "SUMMARY",
+          "id": "",
+          "text": "Contract, policy & verified details · v8",
+          "width": 334,
+          "height": 44,
+          "disabled": false,
+          "type": null,
+          "role": null,
+          "html": null
+        },
+        {
+          "tag": "BUTTON",
+          "id": "tab-participant",
+          "text": "Your spot",
+          "width": 117.328125,
+          "height": 57.1875,
+          "disabled": false,
+          "type": null,
+          "role": "tab",
+          "html": null
+        },
+        {
+          "tag": "BUTTON",
+          "id": "tab-organizer",
+          "text": "Manage event",
+          "width": 117.328125,
+          "height": 57.1875,
+          "disabled": false,
+          "type": null,
+          "role": "tab",
+          "html": null
+        },
+        {
+          "tag": "BUTTON",
+          "id": "tab-cases",
+          "text": "Disputes & kickbacks",
+          "width": 117.34375,
+          "height": 57.1875,
+          "disabled": false,
+          "type": null,
+          "role": "tab",
+          "html": null
+        },
+        {
+          "tag": "BUTTON",
+          "id": "",
+          "text": "Review normal payouts",
+          "width": 187.5625,
+          "height": 44,
+          "disabled": true,
+          "type": null,
+          "role": null,
+          "html": null
+        },
+        {
+          "tag": "BUTTON",
+          "id": "",
+          "text": "Claim failed transfer",
+          "width": 169.640625,
+          "height": 44,
+          "disabled": true,
+          "type": null,
+          "role": null,
+          "html": null
+        },
+        {
+          "tag": "BUTTON",
+          "id": "",
+          "text": "Reconnect wallet",
+          "width": 149.265625,
+          "height": 44,
+          "disabled": false,
+          "type": null,
+          "role": null,
+          "html": null
+        },
+        {
+          "tag": "SUMMARY",
+          "id": "",
+          "text": "More event information",
+          "width": 326,
+          "height": 44,
+          "disabled": false,
+          "type": null,
+          "role": null,
+          "html": null
+        },
+        {
+          "tag": "SUMMARY",
+          "id": "",
+          "text": "Help & advanced tools",
+          "width": 326,
+          "height": 44,
+          "disabled": false,
+          "type": null,
+          "role": null,
+          "html": null
+        }
+      ]
+    },
+    {
+      "name": "mobile-recovery",
+      "controls": [
+        {
+          "tag": "A",
+          "id": "",
+          "text": "Skip to content",
+          "width": 151.78125,
+          "height": 49.59375,
+          "disabled": false,
+          "type": null,
+          "role": null,
+          "html": null
+        },
+        {
+          "tag": "A",
+          "id": "",
+          "text": "Kleros events home",
+          "width": 80,
+          "height": 30,
+          "disabled": false,
+          "type": null,
+          "role": null,
+          "html": null
+        },
+        {
+          "tag": "A",
+          "id": "all-events-link",
+          "text": "◫\nAll events\n2",
+          "width": 122.625,
+          "height": 51.1875,
+          "disabled": false,
+          "type": null,
+          "role": null,
+          "html": null
+        },
+        {
+          "tag": "BUTTON",
+          "id": "demo-help",
+          "text": "How testnet works ↗",
+          "width": 115.875,
+          "height": 44,
+          "disabled": false,
+          "type": "button",
+          "role": null,
+          "html": null
+        },
+        {
+          "tag": "BUTTON",
+          "id": "top-identity",
+          "text": "Synthetic audit role",
+          "width": 145.578125,
+          "height": 44,
+          "disabled": false,
+          "type": "button",
+          "role": null,
+          "html": null
+        },
+        {
+          "tag": "BUTTON",
+          "id": "refresh",
+          "text": "↻\nRefresh",
+          "width": 92.578125,
+          "height": 44,
+          "disabled": false,
+          "type": "button",
+          "role": null,
+          "html": null
+        },
+        {
+          "tag": "A",
+          "id": "",
+          "text": "← All events",
+          "width": 72.890625,
+          "height": 44,
+          "disabled": false,
+          "type": null,
+          "role": null,
+          "html": null
+        },
+        {
+          "tag": "SELECT",
+          "id": "event-switch",
+          "text": "Your event",
+          "width": 215,
+          "height": 46,
+          "disabled": false,
+          "type": null,
+          "role": null,
+          "html": null
+        },
+        {
+          "tag": "SUMMARY",
+          "id": "",
+          "text": "Contract, policy & verified details · v8",
+          "width": 334,
+          "height": 44,
+          "disabled": false,
+          "type": null,
+          "role": null,
+          "html": null
+        },
+        {
+          "tag": "BUTTON",
+          "id": "tab-participant",
+          "text": "Your spot",
+          "width": 117.328125,
+          "height": 57.1875,
+          "disabled": false,
+          "type": null,
+          "role": "tab",
+          "html": null
+        },
+        {
+          "tag": "BUTTON",
+          "id": "tab-organizer",
+          "text": "Manage event",
+          "width": 117.328125,
+          "height": 57.1875,
+          "disabled": false,
+          "type": null,
+          "role": "tab",
+          "html": null
+        },
+        {
+          "tag": "BUTTON",
+          "id": "tab-cases",
+          "text": "Disputes & kickbacks",
+          "width": 117.34375,
+          "height": 57.1875,
+          "disabled": false,
+          "type": null,
+          "role": "tab",
+          "html": null
+        },
+        {
+          "tag": "BUTTON",
+          "id": "",
+          "text": "Refresh status",
+          "width": 130.8125,
+          "height": 44,
+          "disabled": false,
+          "type": null,
+          "role": null,
+          "html": null
+        },
+        {
+          "tag": "SUMMARY",
+          "id": "",
+          "text": "All status details · 7 independent checks",
+          "width": 326,
+          "height": 44,
+          "disabled": false,
+          "type": null,
+          "role": null,
+          "html": null
+        },
+        {
+          "tag": "BUTTON",
+          "id": "",
+          "text": "Withdraw credit",
+          "width": 123.703125,
+          "height": 44,
+          "disabled": false,
+          "type": null,
+          "role": null,
+          "html": null
+        },
+        {
+          "tag": "SUMMARY",
+          "id": "",
+          "text": "Verify an existing deposit receipt",
+          "width": 326,
+          "height": 44,
+          "disabled": false,
+          "type": null,
+          "role": null,
+          "html": null
+        },
+        {
+          "tag": "SUMMARY",
+          "id": "",
+          "text": "About the event & materials",
+          "width": 326,
+          "height": 25.59375,
+          "disabled": false,
+          "type": null,
+          "role": null,
+          "html": null
+        },
+        {
+          "tag": "BUTTON",
+          "id": "",
+          "text": "I was there",
+          "width": 93.453125,
+          "height": 44,
+          "disabled": false,
+          "type": null,
+          "role": null,
+          "html": null
+        },
+        {
+          "tag": "BUTTON",
+          "id": "",
+          "text": "Reconnect wallet",
+          "width": 149.265625,
+          "height": 44,
+          "disabled": false,
+          "type": null,
+          "role": null,
+          "html": null
+        },
+        {
+          "tag": "SUMMARY",
+          "id": "",
+          "text": "More event information",
+          "width": 326,
+          "height": 44,
+          "disabled": false,
+          "type": null,
+          "role": null,
+          "html": null
+        },
+        {
+          "tag": "SUMMARY",
+          "id": "",
+          "text": "Help & advanced tools",
+          "width": 326,
+          "height": 44,
+          "disabled": false,
+          "type": null,
+          "role": null,
+          "html": null
+        },
+        {
+          "tag": "BUTTON",
+          "id": "",
+          "text": "Close review",
+          "width": 44,
+          "height": 44,
+          "disabled": false,
+          "type": null,
+          "role": null,
+          "html": null
+        },
+        {
+          "tag": "INPUT",
+          "id": "recovery-to",
+          "text": "Destination wallet",
+          "width": 320,
+          "height": 46.390625,
+          "disabled": false,
+          "type": null,
+          "role": null,
+          "html": "<input id=\"recovery-to\" name=\"to\" required=\"\" pattern=\"0x[a-fA-F0-9]{40}\" value=\"0x736A2AeE4430A4beE3fb1a48b63a81E1F57A29f2\" placeholder=\"0x…\" style=\"\">"
+        },
+        {
+          "tag": "INPUT",
+          "id": "recovery-amount",
+          "text": "Amount (XDAI)",
+          "width": 320,
+          "height": 46.390625,
+          "disabled": false,
+          "type": null,
+          "role": null,
+          "html": "<input id=\"recovery-amount\" name=\"amount\" required=\"\" inputmode=\"decimal\" value=\"0.000002\" style=\"\">"
+        },
+        {
+          "tag": "BUTTON",
+          "id": "",
+          "text": "Cancel",
+          "width": 320,
+          "height": 44,
+          "disabled": false,
+          "type": "button",
+          "role": null,
+          "html": null
+        },
+        {
+          "tag": "BUTTON",
+          "id": "",
+          "text": "Prepare review",
+          "width": 320,
+          "height": 44,
+          "disabled": false,
+          "type": null,
+          "role": null,
+          "html": null
+        }
+      ],
+      "bounds": {
+        "viewport": 400,
+        "document": 400,
+        "body": 400
+      }
+    },
+    {
+      "name": "mobile-cases-200-text",
+      "bounds": {
+        "viewport": 400,
+        "document": 400,
+        "body": 400
+      },
+      "controls": [
+        {
+          "tag": "A",
+          "id": "",
+          "text": "Skip to content",
+          "width": 263.5625,
+          "height": 75.1875,
+          "disabled": false,
+          "type": null,
+          "role": null,
+          "html": null
+        },
+        {
+          "tag": "A",
+          "id": "",
+          "text": "Kleros events home",
+          "width": 80,
+          "height": 30,
+          "disabled": false,
+          "type": null,
+          "role": null,
+          "html": null
+        },
+        {
+          "tag": "A",
+          "id": "all-events-link",
+          "text": "◫\nAll events\n2",
+          "width": 201.21875,
+          "height": 86.390625,
+          "disabled": false,
+          "type": null,
+          "role": null,
+          "html": null
+        },
+        {
+          "tag": "BUTTON",
+          "id": "demo-help",
+          "text": "How testnet works ↗",
+          "width": 231.8125,
+          "height": 54.390625,
+          "disabled": false,
+          "type": "button",
+          "role": null,
+          "html": null
+        },
+        {
+          "tag": "BUTTON",
+          "id": "top-identity",
+          "text": "Synthetic audit role",
+          "width": 165.59375,
+          "height": 94.78125,
+          "disabled": false,
+          "type": "button",
+          "role": null,
+          "html": null
+        },
+        {
+          "tag": "BUTTON",
+          "id": "refresh",
+          "text": "↻\nRefresh",
+          "width": 151.5,
+          "height": 58.390625,
+          "disabled": false,
+          "type": "button",
+          "role": null,
+          "html": null
+        },
+        {
+          "tag": "A",
+          "id": "",
+          "text": "← All events",
+          "width": 146.125,
+          "height": 44,
+          "disabled": false,
+          "type": null,
+          "role": null,
+          "html": null
+        },
+        {
+          "tag": "SELECT",
+          "id": "event-switch",
+          "text": "Your event",
+          "width": 136.015625,
+          "height": 57,
+          "disabled": false,
+          "type": null,
+          "role": null,
+          "html": null
+        },
+        {
+          "tag": "SUMMARY",
+          "id": "",
+          "text": "Contract, policy & verified details · v8",
+          "width": 334,
+          "height": 96.78125,
+          "disabled": false,
+          "type": null,
+          "role": null,
+          "html": null
+        },
+        {
+          "tag": "BUTTON",
+          "id": "tab-participant",
+          "text": "Your spot",
+          "width": 368,
+          "height": 57.1875,
+          "disabled": false,
+          "type": null,
+          "role": "tab",
+          "html": null
+        },
+        {
+          "tag": "BUTTON",
+          "id": "tab-organizer",
+          "text": "Manage event",
+          "width": 368,
+          "height": 57.1875,
+          "disabled": false,
+          "type": null,
+          "role": "tab",
+          "html": null
+        },
+        {
+          "tag": "BUTTON",
+          "id": "tab-cases",
+          "text": "Disputes & kickbacks",
+          "width": 368,
+          "height": 57.1875,
+          "disabled": false,
+          "type": null,
+          "role": "tab",
+          "html": null
+        },
+        {
+          "tag": "BUTTON",
+          "id": "",
+          "text": "Review normal payouts",
+          "width": 326,
+          "height": 102.375,
+          "disabled": true,
+          "type": null,
+          "role": null,
+          "html": null
+        },
+        {
+          "tag": "BUTTON",
+          "id": "",
+          "text": "Claim failed transfer",
+          "width": 305.265625,
+          "height": 63.1875,
+          "disabled": true,
+          "type": null,
+          "role": null,
+          "html": null
+        },
+        {
+          "tag": "BUTTON",
+          "id": "",
+          "text": "Reconnect wallet",
+          "width": 264.53125,
+          "height": 63.1875,
+          "disabled": false,
+          "type": null,
+          "role": null,
+          "html": null
+        },
+        {
+          "tag": "SUMMARY",
+          "id": "",
+          "text": "More event information",
+          "width": 326,
+          "height": 109.59375,
+          "disabled": false,
+          "type": null,
+          "role": null,
+          "html": null
+        },
+        {
+          "tag": "SUMMARY",
+          "id": "",
+          "text": "Help & advanced tools",
+          "width": 326,
+          "height": 64.796875,
+          "disabled": false,
+          "type": null,
+          "role": null,
+          "html": null
+        }
+      ],
+      "banner": {
+        "height": 207.453125,
+        "position": "sticky"
+      }
+    },
+    {
+      "name": "loading",
+      "text": "\n            \n            Loading your events…\n          ",
+      "role": "status",
+      "live": "polite"
+    },
+    {
+      "name": "load-error",
+      "active": {
+        "id": "refresh",
+        "tag": "BUTTON"
+      },
+      "panelRole": null,
+      "contentLive": null,
+      "text": "SYNTHETIC GET failure: source unavailable"
+    }
+  ],
+  "requests": [
+    {
+      "method": "GET",
+      "path": "/"
+    },
+    {
+      "method": "GET",
+      "path": "/assets/geist-latin.woff2"
+    },
+    {
+      "method": "GET",
+      "path": "/assets/instrument-serif-regular.woff2"
+    },
+    {
+      "method": "GET",
+      "path": "/styles.css"
+    },
+    {
+      "method": "GET",
+      "path": "/contract-inbox.css"
+    },
+    {
+      "method": "GET",
+      "path": "/batch-actions.css"
+    },
+    {
+      "method": "GET",
+      "path": "/app.js"
+    },
+    {
+      "method": "GET",
+      "path": "/assets/kleros-logo.svg"
+    },
+    {
+      "method": "GET",
+      "path": "/reconciliation.js"
+    },
+    {
+      "method": "GET",
+      "path": "/hosted-wallet.js"
+    },
+    {
+      "method": "GET",
+      "path": "/contract-inbox.js"
+    },
+    {
+      "method": "GET",
+      "path": "/batch-actions.js"
+    },
+    {
+      "method": "GET",
+      "path": "/batch-pending.js"
+    },
+    {
+      "method": "GET",
+      "path": "/contract-profiles.js"
+    },
+    {
+      "method": "GET",
+      "path": "/transaction-context.js"
+    },
+    {
+      "method": "GET",
+      "path": "/batch-selection.js"
+    },
+    {
+      "method": "GET",
+      "path": "/api/bootstrap"
+    },
+    {
+      "method": "GET",
+      "path": "/"
+    },
+    {
+      "method": "GET",
+      "path": "/assets/geist-latin.woff2"
+    },
+    {
+      "method": "GET",
+      "path": "/assets/instrument-serif-regular.woff2"
+    },
+    {
+      "method": "GET",
+      "path": "/styles.css"
+    },
+    {
+      "method": "GET",
+      "path": "/contract-inbox.css"
+    },
+    {
+      "method": "GET",
+      "path": "/batch-actions.css"
+    },
+    {
+      "method": "GET",
+      "path": "/app.js"
+    },
+    {
+      "method": "GET",
+      "path": "/assets/kleros-logo.svg"
+    },
+    {
+      "method": "GET",
+      "path": "/reconciliation.js"
+    },
+    {
+      "method": "GET",
+      "path": "/hosted-wallet.js"
+    },
+    {
+      "method": "GET",
+      "path": "/contract-inbox.js"
+    },
+    {
+      "method": "GET",
+      "path": "/batch-actions.js"
+    },
+    {
+      "method": "GET",
+      "path": "/batch-pending.js"
+    },
+    {
+      "method": "GET",
+      "path": "/contract-profiles.js"
+    },
+    {
+      "method": "GET",
+      "path": "/transaction-context.js"
+    },
+    {
+      "method": "GET",
+      "path": "/batch-selection.js"
+    },
+    {
+      "method": "GET",
+      "path": "/api/bootstrap"
+    },
+    {
+      "method": "GET",
+      "path": "/api/events/event-b"
+    },
+    {
+      "method": "GET",
+      "path": "/assets/geist-mono-latin.woff2"
+    },
+    {
+      "method": "GET",
+      "path": "/api/bootstrap"
+    },
+    {
+      "method": "GET",
+      "path": "/api/bootstrap"
+    },
+    {
+      "method": "GET",
+      "path": "/"
+    },
+    {
+      "method": "GET",
+      "path": "/assets/geist-latin.woff2"
+    },
+    {
+      "method": "GET",
+      "path": "/styles.css"
+    },
+    {
+      "method": "GET",
+      "path": "/assets/instrument-serif-regular.woff2"
+    },
+    {
+      "method": "GET",
+      "path": "/contract-inbox.css"
+    },
+    {
+      "method": "GET",
+      "path": "/batch-actions.css"
+    },
+    {
+      "method": "GET",
+      "path": "/app.js"
+    },
+    {
+      "method": "GET",
+      "path": "/assets/kleros-logo.svg"
+    },
+    {
+      "method": "GET",
+      "path": "/reconciliation.js"
+    },
+    {
+      "method": "GET",
+      "path": "/hosted-wallet.js"
+    },
+    {
+      "method": "GET",
+      "path": "/contract-inbox.js"
+    },
+    {
+      "method": "GET",
+      "path": "/batch-actions.js"
+    },
+    {
+      "method": "GET",
+      "path": "/batch-pending.js"
+    },
+    {
+      "method": "GET",
+      "path": "/contract-profiles.js"
+    },
+    {
+      "method": "GET",
+      "path": "/transaction-context.js"
+    },
+    {
+      "method": "GET",
+      "path": "/batch-selection.js"
+    },
+    {
+      "method": "GET",
+      "path": "/api/bootstrap"
+    },
+    {
+      "method": "GET",
+      "path": "/api/events/event-b"
+    },
+    {
+      "method": "GET",
+      "path": "/assets/geist-mono-latin.woff2"
+    },
+    {
+      "method": "GET",
+      "path": "/api/bootstrap"
+    },
+    {
+      "method": "GET",
+      "path": "/api/events/event-b"
+    },
+    {
+      "method": "GET",
+      "path": "/api/bootstrap"
+    },
+    {
+      "method": "GET",
+      "path": "/api/events/event-b"
+    },
+    {
+      "method": "GET",
+      "path": "/api/bootstrap"
+    },
+    {
+      "method": "GET",
+      "path": "/api/events/event-b"
+    },
+    {
+      "method": "GET",
+      "path": "/api/bootstrap"
+    },
+    {
+      "method": "GET",
+      "path": "/"
+    },
+    {
+      "method": "GET",
+      "path": "/assets/geist-latin.woff2"
+    },
+    {
+      "method": "GET",
+      "path": "/styles.css"
+    },
+    {
+      "method": "GET",
+      "path": "/contract-inbox.css"
+    },
+    {
+      "method": "GET",
+      "path": "/assets/instrument-serif-regular.woff2"
+    },
+    {
+      "method": "GET",
+      "path": "/batch-actions.css"
+    },
+    {
+      "method": "GET",
+      "path": "/app.js"
+    },
+    {
+      "method": "GET",
+      "path": "/assets/kleros-logo.svg"
+    },
+    {
+      "method": "GET",
+      "path": "/reconciliation.js"
+    },
+    {
+      "method": "GET",
+      "path": "/hosted-wallet.js"
+    },
+    {
+      "method": "GET",
+      "path": "/contract-inbox.js"
+    },
+    {
+      "method": "GET",
+      "path": "/batch-actions.js"
+    },
+    {
+      "method": "GET",
+      "path": "/batch-pending.js"
+    },
+    {
+      "method": "GET",
+      "path": "/contract-profiles.js"
+    },
+    {
+      "method": "GET",
+      "path": "/transaction-context.js"
+    },
+    {
+      "method": "GET",
+      "path": "/batch-selection.js"
+    },
+    {
+      "method": "GET",
+      "path": "/api/bootstrap"
+    },
+    {
+      "method": "GET",
+      "path": "/api/events/event-b"
+    },
+    {
+      "method": "GET",
+      "path": "/assets/geist-mono-latin.woff2"
+    },
+    {
+      "method": "GET",
+      "path": "/api/bootstrap"
+    },
+    {
+      "method": "GET",
+      "path": "/api/events/event-a"
+    },
+    {
+      "method": "GET",
+      "path": "/api/bootstrap"
+    },
+    {
+      "method": "GET",
+      "path": "/"
+    },
+    {
+      "method": "GET",
+      "path": "/assets/geist-latin.woff2"
+    },
+    {
+      "method": "GET",
+      "path": "/styles.css"
+    },
+    {
+      "method": "GET",
+      "path": "/contract-inbox.css"
+    },
+    {
+      "method": "GET",
+      "path": "/assets/instrument-serif-regular.woff2"
+    },
+    {
+      "method": "GET",
+      "path": "/batch-actions.css"
+    },
+    {
+      "method": "GET",
+      "path": "/app.js"
+    },
+    {
+      "method": "GET",
+      "path": "/assets/kleros-logo.svg"
+    },
+    {
+      "method": "GET",
+      "path": "/reconciliation.js"
+    },
+    {
+      "method": "GET",
+      "path": "/hosted-wallet.js"
+    },
+    {
+      "method": "GET",
+      "path": "/contract-inbox.js"
+    },
+    {
+      "method": "GET",
+      "path": "/batch-actions.js"
+    },
+    {
+      "method": "GET",
+      "path": "/batch-pending.js"
+    },
+    {
+      "method": "GET",
+      "path": "/contract-profiles.js"
+    },
+    {
+      "method": "GET",
+      "path": "/transaction-context.js"
+    },
+    {
+      "method": "GET",
+      "path": "/batch-selection.js"
+    },
+    {
+      "method": "GET",
+      "path": "/api/bootstrap"
+    },
+    {
+      "method": "GET",
+      "path": "/api/events/event-b"
+    },
+    {
+      "method": "GET",
+      "path": "/assets/geist-mono-latin.woff2"
+    },
+    {
+      "method": "GET",
+      "path": "/"
+    },
+    {
+      "method": "GET",
+      "path": "/assets/geist-latin.woff2"
+    },
+    {
+      "method": "GET",
+      "path": "/styles.css"
+    },
+    {
+      "method": "GET",
+      "path": "/contract-inbox.css"
+    },
+    {
+      "method": "GET",
+      "path": "/batch-actions.css"
+    },
+    {
+      "method": "GET",
+      "path": "/assets/instrument-serif-regular.woff2"
+    },
+    {
+      "method": "GET",
+      "path": "/app.js"
+    },
+    {
+      "method": "GET",
+      "path": "/assets/kleros-logo.svg"
+    },
+    {
+      "method": "GET",
+      "path": "/reconciliation.js"
+    },
+    {
+      "method": "GET",
+      "path": "/hosted-wallet.js"
+    },
+    {
+      "method": "GET",
+      "path": "/contract-inbox.js"
+    },
+    {
+      "method": "GET",
+      "path": "/batch-actions.js"
+    },
+    {
+      "method": "GET",
+      "path": "/batch-pending.js"
+    },
+    {
+      "method": "GET",
+      "path": "/contract-profiles.js"
+    },
+    {
+      "method": "GET",
+      "path": "/transaction-context.js"
+    },
+    {
+      "method": "GET",
+      "path": "/batch-selection.js"
+    },
+    {
+      "method": "GET",
+      "path": "/api/bootstrap"
+    },
+    {
+      "method": "GET",
+      "path": "/api/events/event-b"
+    },
+    {
+      "method": "GET",
+      "path": "/assets/geist-mono-latin.woff2"
+    },
+    {
+      "method": "GET",
+      "path": "/api/bootstrap"
+    },
+    {
+      "method": "GET",
+      "path": "/"
+    },
+    {
+      "method": "GET",
+      "path": "/assets/geist-latin.woff2"
+    },
+    {
+      "method": "GET",
+      "path": "/assets/instrument-serif-regular.woff2"
+    },
+    {
+      "method": "GET",
+      "path": "/styles.css"
+    },
+    {
+      "method": "GET",
+      "path": "/contract-inbox.css"
+    },
+    {
+      "method": "GET",
+      "path": "/batch-actions.css"
+    },
+    {
+      "method": "GET",
+      "path": "/app.js"
+    },
+    {
+      "method": "GET",
+      "path": "/assets/kleros-logo.svg"
+    },
+    {
+      "method": "GET",
+      "path": "/reconciliation.js"
+    },
+    {
+      "method": "GET",
+      "path": "/hosted-wallet.js"
+    },
+    {
+      "method": "GET",
+      "path": "/contract-inbox.js"
+    },
+    {
+      "method": "GET",
+      "path": "/batch-actions.js"
+    },
+    {
+      "method": "GET",
+      "path": "/batch-pending.js"
+    },
+    {
+      "method": "GET",
+      "path": "/contract-profiles.js"
+    },
+    {
+      "method": "GET",
+      "path": "/transaction-context.js"
+    },
+    {
+      "method": "GET",
+      "path": "/batch-selection.js"
+    },
+    {
+      "method": "GET",
+      "path": "/api/bootstrap"
+    },
+    {
+      "method": "GET",
+      "path": "/api/events/event-b"
+    },
+    {
+      "method": "GET",
+      "path": "/assets/geist-mono-latin.woff2"
+    },
+    {
+      "method": "GET",
+      "path": "/api/bootstrap"
+    },
+    {
+      "method": "GET",
+      "path": "/"
+    },
+    {
+      "method": "GET",
+      "path": "/assets/geist-latin.woff2"
+    },
+    {
+      "method": "GET",
+      "path": "/styles.css"
+    },
+    {
+      "method": "GET",
+      "path": "/assets/instrument-serif-regular.woff2"
+    },
+    {
+      "method": "GET",
+      "path": "/contract-inbox.css"
+    },
+    {
+      "method": "GET",
+      "path": "/batch-actions.css"
+    },
+    {
+      "method": "GET",
+      "path": "/app.js"
+    },
+    {
+      "method": "GET",
+      "path": "/assets/kleros-logo.svg"
+    },
+    {
+      "method": "GET",
+      "path": "/reconciliation.js"
+    },
+    {
+      "method": "GET",
+      "path": "/hosted-wallet.js"
+    },
+    {
+      "method": "GET",
+      "path": "/contract-inbox.js"
+    },
+    {
+      "method": "GET",
+      "path": "/batch-actions.js"
+    },
+    {
+      "method": "GET",
+      "path": "/batch-pending.js"
+    },
+    {
+      "method": "GET",
+      "path": "/contract-profiles.js"
+    },
+    {
+      "method": "GET",
+      "path": "/transaction-context.js"
+    },
+    {
+      "method": "GET",
+      "path": "/batch-selection.js"
+    },
+    {
+      "method": "GET",
+      "path": "/api/bootstrap"
+    },
+    {
+      "method": "GET",
+      "path": "/api/events/event-b"
+    },
+    {
+      "method": "GET",
+      "path": "/assets/geist-mono-latin.woff2"
+    },
+    {
+      "method": "GET",
+      "path": "/"
+    },
+    {
+      "method": "GET",
+      "path": "/assets/geist-latin.woff2"
+    },
+    {
+      "method": "GET",
+      "path": "/assets/instrument-serif-regular.woff2"
+    },
+    {
+      "method": "GET",
+      "path": "/styles.css"
+    },
+    {
+      "method": "GET",
+      "path": "/contract-inbox.css"
+    },
+    {
+      "method": "GET",
+      "path": "/batch-actions.css"
+    },
+    {
+      "method": "GET",
+      "path": "/app.js"
+    },
+    {
+      "method": "GET",
+      "path": "/assets/kleros-logo.svg"
+    },
+    {
+      "method": "GET",
+      "path": "/reconciliation.js"
+    },
+    {
+      "method": "GET",
+      "path": "/hosted-wallet.js"
+    },
+    {
+      "method": "GET",
+      "path": "/contract-inbox.js"
+    },
+    {
+      "method": "GET",
+      "path": "/batch-actions.js"
+    },
+    {
+      "method": "GET",
+      "path": "/batch-pending.js"
+    },
+    {
+      "method": "GET",
+      "path": "/contract-profiles.js"
+    },
+    {
+      "method": "GET",
+      "path": "/transaction-context.js"
+    },
+    {
+      "method": "GET",
+      "path": "/batch-selection.js"
+    },
+    {
+      "method": "GET",
+      "path": "/api/bootstrap"
+    },
+    {
+      "method": "GET",
+      "path": "/api/events/event-b"
+    },
+    {
+      "method": "GET",
+      "path": "/assets/geist-mono-latin.woff2"
+    },
+    {
+      "method": "GET",
+      "path": "/api/bootstrap"
+    },
+    {
+      "method": "GET",
+      "path": "/"
+    },
+    {
+      "method": "GET",
+      "path": "/api/events/event-b"
+    },
+    {
+      "method": "GET",
+      "path": "/assets/geist-latin.woff2"
+    },
+    {
+      "method": "GET",
+      "path": "/assets/instrument-serif-regular.woff2"
+    },
+    {
+      "method": "GET",
+      "path": "/styles.css"
+    },
+    {
+      "method": "GET",
+      "path": "/contract-inbox.css"
+    },
+    {
+      "method": "GET",
+      "path": "/batch-actions.css"
+    },
+    {
+      "method": "GET",
+      "path": "/app.js"
+    },
+    {
+      "method": "GET",
+      "path": "/assets/kleros-logo.svg"
+    },
+    {
+      "method": "GET",
+      "path": "/reconciliation.js"
+    },
+    {
+      "method": "GET",
+      "path": "/hosted-wallet.js"
+    },
+    {
+      "method": "GET",
+      "path": "/contract-inbox.js"
+    },
+    {
+      "method": "GET",
+      "path": "/batch-actions.js"
+    },
+    {
+      "method": "GET",
+      "path": "/batch-pending.js"
+    },
+    {
+      "method": "GET",
+      "path": "/contract-profiles.js"
+    },
+    {
+      "method": "GET",
+      "path": "/transaction-context.js"
+    },
+    {
+      "method": "GET",
+      "path": "/batch-selection.js"
+    },
+    {
+      "method": "GET",
+      "path": "/api/bootstrap"
+    },
+    {
+      "method": "GET",
+      "path": "/api/events/event-b"
+    },
+    {
+      "method": "GET",
+      "path": "/assets/geist-mono-latin.woff2"
+    },
+    {
+      "method": "GET",
+      "path": "/api/bootstrap"
+    },
+    {
+      "method": "GET",
+      "path": "/"
+    },
+    {
+      "method": "GET",
+      "path": "/api/events/event-b"
+    },
+    {
+      "method": "GET",
+      "path": "/assets/geist-latin.woff2"
+    },
+    {
+      "method": "GET",
+      "path": "/assets/instrument-serif-regular.woff2"
+    },
+    {
+      "method": "GET",
+      "path": "/styles.css"
+    },
+    {
+      "method": "GET",
+      "path": "/contract-inbox.css"
+    },
+    {
+      "method": "GET",
+      "path": "/batch-actions.css"
+    },
+    {
+      "method": "GET",
+      "path": "/app.js"
+    },
+    {
+      "method": "GET",
+      "path": "/assets/kleros-logo.svg"
+    },
+    {
+      "method": "GET",
+      "path": "/reconciliation.js"
+    },
+    {
+      "method": "GET",
+      "path": "/hosted-wallet.js"
+    },
+    {
+      "method": "GET",
+      "path": "/contract-inbox.js"
+    },
+    {
+      "method": "GET",
+      "path": "/batch-actions.js"
+    },
+    {
+      "method": "GET",
+      "path": "/batch-pending.js"
+    },
+    {
+      "method": "GET",
+      "path": "/contract-profiles.js"
+    },
+    {
+      "method": "GET",
+      "path": "/transaction-context.js"
+    },
+    {
+      "method": "GET",
+      "path": "/batch-selection.js"
+    },
+    {
+      "method": "GET",
+      "path": "/api/bootstrap"
+    },
+    {
+      "method": "GET",
+      "path": "/api/events/event-b"
+    },
+    {
+      "method": "GET",
+      "path": "/assets/geist-mono-latin.woff2"
+    },
+    {
+      "method": "GET",
+      "path": "/api/bootstrap"
+    },
+    {
+      "method": "GET",
+      "path": "/"
+    },
+    {
+      "method": "GET",
+      "path": "/assets/geist-latin.woff2"
+    },
+    {
+      "method": "GET",
+      "path": "/styles.css"
+    },
+    {
+      "method": "GET",
+      "path": "/assets/instrument-serif-regular.woff2"
+    },
+    {
+      "method": "GET",
+      "path": "/contract-inbox.css"
+    },
+    {
+      "method": "GET",
+      "path": "/batch-actions.css"
+    },
+    {
+      "method": "GET",
+      "path": "/app.js"
+    },
+    {
+      "method": "GET",
+      "path": "/assets/kleros-logo.svg"
+    },
+    {
+      "method": "GET",
+      "path": "/reconciliation.js"
+    },
+    {
+      "method": "GET",
+      "path": "/hosted-wallet.js"
+    },
+    {
+      "method": "GET",
+      "path": "/contract-inbox.js"
+    },
+    {
+      "method": "GET",
+      "path": "/batch-actions.js"
+    },
+    {
+      "method": "GET",
+      "path": "/batch-pending.js"
+    },
+    {
+      "method": "GET",
+      "path": "/contract-profiles.js"
+    },
+    {
+      "method": "GET",
+      "path": "/transaction-context.js"
+    },
+    {
+      "method": "GET",
+      "path": "/batch-selection.js"
+    },
+    {
+      "method": "GET",
+      "path": "/api/bootstrap"
+    },
+    {
+      "method": "GET",
+      "path": "/api/events/event-b"
+    },
+    {
+      "method": "GET",
+      "path": "/assets/geist-mono-latin.woff2"
+    },
+    {
+      "method": "GET",
+      "path": "/api/bootstrap"
+    },
+    {
+      "method": "GET",
+      "path": "/"
+    },
+    {
+      "method": "GET",
+      "path": "/api/events/event-b"
+    },
+    {
+      "method": "GET",
+      "path": "/assets/geist-latin.woff2"
+    },
+    {
+      "method": "GET",
+      "path": "/assets/instrument-serif-regular.woff2"
+    },
+    {
+      "method": "GET",
+      "path": "/styles.css"
+    },
+    {
+      "method": "GET",
+      "path": "/contract-inbox.css"
+    },
+    {
+      "method": "GET",
+      "path": "/batch-actions.css"
+    },
+    {
+      "method": "GET",
+      "path": "/app.js"
+    },
+    {
+      "method": "GET",
+      "path": "/assets/kleros-logo.svg"
+    },
+    {
+      "method": "GET",
+      "path": "/reconciliation.js"
+    },
+    {
+      "method": "GET",
+      "path": "/hosted-wallet.js"
+    },
+    {
+      "method": "GET",
+      "path": "/contract-inbox.js"
+    },
+    {
+      "method": "GET",
+      "path": "/batch-actions.js"
+    },
+    {
+      "method": "GET",
+      "path": "/batch-pending.js"
+    },
+    {
+      "method": "GET",
+      "path": "/contract-profiles.js"
+    },
+    {
+      "method": "GET",
+      "path": "/transaction-context.js"
+    },
+    {
+      "method": "GET",
+      "path": "/batch-selection.js"
+    },
+    {
+      "method": "GET",
+      "path": "/api/bootstrap"
+    },
+    {
+      "method": "GET",
+      "path": "/api/events/event-b"
+    },
+    {
+      "method": "GET",
+      "path": "/assets/geist-mono-latin.woff2"
+    },
+    {
+      "method": "GET",
+      "path": "/api/bootstrap"
+    },
+    {
+      "method": "GET",
+      "path": "/"
+    },
+    {
+      "method": "GET",
+      "path": "/assets/geist-latin.woff2"
+    },
+    {
+      "method": "GET",
+      "path": "/styles.css"
+    },
+    {
+      "method": "GET",
+      "path": "/contract-inbox.css"
+    },
+    {
+      "method": "GET",
+      "path": "/assets/instrument-serif-regular.woff2"
+    },
+    {
+      "method": "GET",
+      "path": "/batch-actions.css"
+    },
+    {
+      "method": "GET",
+      "path": "/app.js"
+    },
+    {
+      "method": "GET",
+      "path": "/assets/kleros-logo.svg"
+    },
+    {
+      "method": "GET",
+      "path": "/reconciliation.js"
+    },
+    {
+      "method": "GET",
+      "path": "/hosted-wallet.js"
+    },
+    {
+      "method": "GET",
+      "path": "/contract-inbox.js"
+    },
+    {
+      "method": "GET",
+      "path": "/batch-actions.js"
+    },
+    {
+      "method": "GET",
+      "path": "/batch-pending.js"
+    },
+    {
+      "method": "GET",
+      "path": "/contract-profiles.js"
+    },
+    {
+      "method": "GET",
+      "path": "/transaction-context.js"
+    },
+    {
+      "method": "GET",
+      "path": "/batch-selection.js"
+    },
+    {
+      "method": "GET",
+      "path": "/api/bootstrap"
+    },
+    {
+      "method": "GET",
+      "path": "/api/events/event-b"
+    },
+    {
+      "method": "GET",
+      "path": "/assets/geist-mono-latin.woff2"
+    },
+    {
+      "method": "GET",
+      "path": "/"
+    },
+    {
+      "method": "GET",
+      "path": "/assets/geist-latin.woff2"
+    },
+    {
+      "method": "GET",
+      "path": "/assets/instrument-serif-regular.woff2"
+    },
+    {
+      "method": "GET",
+      "path": "/styles.css"
+    },
+    {
+      "method": "GET",
+      "path": "/contract-inbox.css"
+    },
+    {
+      "method": "GET",
+      "path": "/batch-actions.css"
+    },
+    {
+      "method": "GET",
+      "path": "/app.js"
+    },
+    {
+      "method": "GET",
+      "path": "/assets/kleros-logo.svg"
+    },
+    {
+      "method": "GET",
+      "path": "/reconciliation.js"
+    },
+    {
+      "method": "GET",
+      "path": "/hosted-wallet.js"
+    },
+    {
+      "method": "GET",
+      "path": "/contract-inbox.js"
+    },
+    {
+      "method": "GET",
+      "path": "/batch-actions.js"
+    },
+    {
+      "method": "GET",
+      "path": "/batch-pending.js"
+    },
+    {
+      "method": "GET",
+      "path": "/contract-profiles.js"
+    },
+    {
+      "method": "GET",
+      "path": "/transaction-context.js"
+    },
+    {
+      "method": "GET",
+      "path": "/batch-selection.js"
+    },
+    {
+      "method": "GET",
+      "path": "/api/bootstrap"
+    },
+    {
+      "method": "GET",
+      "path": "/api/events/event-b"
+    },
+    {
+      "method": "GET",
+      "path": "/assets/geist-mono-latin.woff2"
+    },
+    {
+      "method": "GET",
+      "path": "/api/bootstrap"
+    }
+  ],
+  "writes": [],
+  "external": [],
+  "errors": [],
+  "screenshots": [
+    "skip-after-render.png",
+    "desktop-participant.png",
+    "desktop-organizer.png",
+    "desktop-cases.png",
+    "settings-closed-details-tab.png",
+    "mobile-participant.png",
+    "mobile-organizer.png",
+    "mobile-cases.png",
+    "mobile-recovery.png",
+    "mobile-cases-200-text.png",
+    "mobile-cases-200-context.png",
+    "loading.png",
+    "load-error.png"
+  ],
+  "assetSha256": {
+    "app.js": "883017cddc320f8f4ca1d16cff3e1b718703ba281def7c8d731f9fb1d04c0f2a",
+    "index.html": "dbd0f2cd8a070df519b8928bea1ba82adaf56ec906f7cc6ff6fef60fb957f8aa",
+    "styles.css": "1bcadbd96a26303ac52d338e1c02093635ded311f7d46ee9879788b4e612cca5",
+    "contract-inbox.js": "28de29dac08d5793c33bf33ded925b4b43cebc7b02d376f47efd3fa6042e949a",
+    "batch-actions.js": "72e51459e3e7a96311b3d5f799e931c6a55626ab82f005d9f81427d3cf4d76e2"
+  }
+}

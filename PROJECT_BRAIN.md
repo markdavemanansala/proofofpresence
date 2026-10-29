@@ -3,6 +3,18 @@
 This root document is the **canonical project brain**. The current checkpoint and linked release
 records supersede historical implementation/deployment statements retained below.
 
+## Isolated UI/UX audit — 29October2026
+
+This branch is the parallel **audit-only** workspace `codex/kleros-ui-ux-speed-audit`, based on
+3332f67abd1e8364891feba7b250c1ec87e257bc. Read [UI_UX_AUDIT](UI_UX_AUDIT.md) and
+[handoff](docs/ui-ux-audit/HANDOFF.md) for measured loading, reproduced keyboard issues and the
+next-screen priorities. No application source, financial behavior, deployment or schedule changed.
+
+The financial checkpoint below is a frozen source snapshot. For live A/B/C/D execution and actual
+deadlines, first read the primary operator’s current canonical brain at
+`/Users/hashmanansala/Documents/ChatGPT/Kleros projects/PROJECT_BRAIN.md`. That chat remains the
+sole signing operator. Never resume financial work from this audit branch’s historical checkpoint.
+
 ## Current phase: simpler v8 app and controlled Chiado testnet
 
 The user requested simpler UX, integration of the new contract, and the full deposit→dispute→kickback

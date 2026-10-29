@@ -1,0 +1,21 @@
+{
+  "checkedAt": "2026-10-29T02:23:19.707Z",
+  "checks": [
+    {
+      "name": "live-app",
+      "url": "https://kleros-event-workbench-preview.netlify.app/app.js",
+      "status": 200,
+      "actualSHA256": "88067cba325b7f154aa7c7bb40d012e59bacfad41a5c51c083cd14b1596cf85e",
+      "expectedSHA256": "88067cba325b7f154aa7c7bb40d012e59bacfad41a5c51c083cd14b1596cf85e",
+      "matchesExpected": true
+    },
+    {
+      "name": "preview-app",
+      "url": "https://kleros-ui-preview-20261028-e32b4c.netlify.app/app.js",
+      "status": 200,
+      "actualSHA256": "db46f1e50420a5024da3b580d34e74c9a215201ac3ec4d1c3aa3e1c737865c6b",
+      "expectedSHA256": "db46f1e50420a5024da3b580d34e74c9a215201ac3ec4d1c3aa3e1c737865c6b",
+      "matchesExpected": true
+    }
+  ]
+}

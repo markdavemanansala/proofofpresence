@@ -1,0 +1,16 @@
+{"target":"preview-deposit","device":"desktop","cache":"cold","failure":false,"fcpMs":1532,"lcpMs":1532,"appReadyMs":null,"cls":0.004039215849783522,"requests":9,"overflow":false,"walletTouches":0}
+{"target":"preview-deposit","device":"desktop","cache":"warm","failure":false,"fcpMs":168,"lcpMs":168,"appReadyMs":null,"cls":0.000193562859010631,"requests":9,"overflow":false,"walletTouches":0}
+{"target":"preview-organizer","device":"desktop","cache":"cold","failure":false,"fcpMs":1168,"lcpMs":2376,"appReadyMs":2348.5999999940395,"cls":0,"requests":21,"overflow":false,"walletTouches":0}
+{"target":"preview-organizer","device":"desktop","cache":"warm","failure":false,"fcpMs":224,"lcpMs":408,"appReadyMs":381.59999999403954,"cls":0,"requests":21,"overflow":false,"walletTouches":0}
+{"target":"preview-disputes","device":"desktop","cache":"cold","failure":false,"fcpMs":824,"lcpMs":2592,"appReadyMs":2573.5999999940395,"cls":0,"requests":20,"overflow":false,"walletTouches":0}
+{"target":"preview-disputes","device":"desktop","cache":"warm","failure":false,"fcpMs":252,"lcpMs":428,"appReadyMs":408.69999998807907,"cls":0,"requests":20,"overflow":false,"walletTouches":0}
+{"target":"live-participant","device":"desktop","cache":"cold","failure":false,"fcpMs":520,"lcpMs":16908,"appReadyMs":16890.09999999404,"cls":0.06035222236622836,"requests":19,"overflow":false,"walletTouches":0}
+{"target":"live-participant","device":"desktop","cache":"warm","failure":false,"fcpMs":232,"lcpMs":15048,"appReadyMs":15033.5,"cls":0.060276461678964124,"requests":19,"overflow":false,"walletTouches":0}
+{"target":"preview-deposit","device":"mobile","cache":"cold","failure":false,"fcpMs":596,"lcpMs":596,"appReadyMs":null,"cls":0.03542843703223601,"requests":9,"overflow":false,"walletTouches":0}
+{"target":"preview-deposit","device":"mobile","cache":"warm","failure":false,"fcpMs":380,"lcpMs":380,"appReadyMs":null,"cls":0.04951994168410298,"requests":9,"overflow":false,"walletTouches":0}
+{"target":"preview-organizer","device":"mobile","cache":"cold","failure":false,"fcpMs":1044,"lcpMs":1896,"appReadyMs":1863.199999988079,"cls":0,"requests":21,"overflow":false,"walletTouches":0}
+{"target":"preview-organizer","device":"mobile","cache":"warm","failure":false,"fcpMs":728,"lcpMs":1456,"appReadyMs":1428.2999999821186,"cls":0,"requests":21,"overflow":false,"walletTouches":0}
+{"target":"preview-disputes","device":"mobile","cache":"cold","failure":false,"fcpMs":1252,"lcpMs":2156,"appReadyMs":2134.2999999821186,"cls":0,"requests":20,"overflow":false,"walletTouches":0}
+{"target":"preview-disputes","device":"mobile","cache":"warm","failure":false,"fcpMs":704,"lcpMs":1444,"appReadyMs":1427.4000000059605,"cls":0,"requests":20,"overflow":false,"walletTouches":0}
+{"target":"live-participant","device":"mobile","cache":"cold","failure":false,"fcpMs":1160,"lcpMs":7808,"appReadyMs":19188.19999998808,"cls":0.37188043804882626,"requests":19,"overflow":false,"walletTouches":0}
+{"target":"live-participant","device":"mobile","cache":"warm","failure":false,"fcpMs":672,"lcpMs":5932,"appReadyMs":16229.90000000596,"cls":0.37224456285331564,"requests":19,"overflow":false,"walletTouches":0}
