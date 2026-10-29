@@ -1,3 +1,11 @@
+## V10 public/owned display support — 29 October2026
+
+[V10_UI_PROJECTIONS_HANDOFF](docs/V10_UI_PROJECTIONS_HANDOFF.md) contains the new bounded three-helper
+change, exact DTO/API and remaining Core integration requirements.18pure tests and2existing local
+browser regression groups pass, with source-bound [combined proof](artifacts/v10-ui/final-provenance.json).
+This V10 addition is **local and not published**. Core owns its combined wallet/adoption/create-to-list
+checks and the backend/Netlify release. The currently published recovery update below remains V9.
+
 ## Progress and recovery update published — 29 October 2026
 
 Core integrated the UI components as `f96ebdf` and published controller/recovery source
