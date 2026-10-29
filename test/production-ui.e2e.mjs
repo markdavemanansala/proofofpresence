@@ -15,6 +15,7 @@ import {
   FIXTURE_DEPOSIT_WEI,
   makeProductionFixture,
   invalidProductionFixture,
+  recoveryOnlyProductionFixture,
   requireConfirmedProductionContract,
 } from "./fixtures/production-ui-fixture.mjs";
 
@@ -124,6 +125,18 @@ export function selfTest() {
   });
   assert.equal(JSON.stringify(baseline), before);
   checks++;
+  for (const code of ["UPGRADE_TRUST_MISMATCH", "SELECTED_EVENT_UNAVAILABLE"]) {
+    const recovery = recoveryOnlyProductionFixture(baseline, code);
+    assert.deepEqual(recovery.bootstrap.events, []);
+    assert.deepEqual(
+      Object.keys(recovery.bootstrap.recoveryEvents[0]).sort(),
+      ["id", "chainId", "contract", "contractVersion", "abiVersion"].sort(),
+    );
+    assert.equal(recovery.bootstrap.selectedEvent.detail, null);
+    assert.equal(recovery.bootstrap.selectedEvent.error.code, code);
+    assert.equal(JSON.stringify(baseline), before);
+    checks++;
+  }
   console.log(
     JSON.stringify(
       {
@@ -351,6 +364,7 @@ async function runLoopback(core) {
           authenticated = true,
           invalid = null,
           errorCode = null,
+          recoveryVariant = null,
           appealQuoteWei = undefined,
           readinessOverride = null,
         } = {},
@@ -376,6 +390,12 @@ async function runLoopback(core) {
             detail: null,
             error: detailError,
           };
+        if (errorCode && recoveryVariant)
+          selected = recoveryOnlyProductionFixture(
+            selected,
+            errorCode,
+            recoveryVariant,
+          );
         await page.goto(
           origin +
             "/?fixture=" +
@@ -388,6 +408,8 @@ async function runLoopback(core) {
             encodeURIComponent(appealQuoteWei ?? "unknown") +
             "&error=" +
             encodeURIComponent(errorCode ?? "none") +
+            "&recovery=" +
+            encodeURIComponent(recoveryVariant ?? "summary") +
             "&readiness=" +
             encodeURIComponent(JSON.stringify(readinessOverride)) +
             "#" +
@@ -751,7 +773,42 @@ async function runLoopback(core) {
         };
         reconcileFixture = { ...original, response: validResponse };
         const beforeError = reconcileCount();
-        await visit("before-deposit", { errorCode });
+        for (const recoveryVariant of [
+          "malformed",
+          "duplicate",
+          "other-wallet",
+          "selected-wallet-mismatch",
+          "other-instance",
+        ]) {
+          const beforeRejected = reconcileCount();
+          await visit("before-deposit", { errorCode, recoveryVariant });
+          await expect(page.locator("[data-submitted-recovery]")).toHaveCount(
+            0,
+          );
+          await expect(page.locator("#content")).not.toContainText(
+            original.hash,
+          );
+          assert.equal(
+            reconcileCount(),
+            beforeRejected,
+            "A rejected recovery identity must not request reconciliation",
+          );
+          assert.deepEqual(
+            await journal(),
+            initialJournal,
+            "A rejected recovery context must preserve the original private journal",
+          );
+        }
+        pass(
+          mode +
+            ": " +
+            errorCode +
+            " rejects malformed/duplicate recovery identities and foreign wallet/instance projections without exposing or mutating the saved journal",
+        );
+        await visit("before-deposit", {
+          errorCode,
+          recoveryVariant: "minimal",
+        });
         await expect(page.locator("[data-submitted-recovery]")).toContainText(
           original.hash,
         );
@@ -768,6 +825,17 @@ async function runLoopback(core) {
           initialJournal,
           "A trust failure must preserve the durable submitted record",
         );
+        assert.deepEqual(selected.bootstrap.events, []);
+        assert.deepEqual(
+          Object.keys(selected.bootstrap.recoveryEvents[0]).sort(),
+          ["id", "chainId", "contract", "contractVersion", "abiVersion"].sort(),
+        );
+        await expect(page.locator("[data-submitted-recovery]")).toContainText(
+          FIXTURE_EVENT_ID,
+        );
+        await expect(
+          page.locator("[data-submitted-recovery]"),
+        ).not.toContainText(selected.detail.event.title);
         const button = page.locator(
           `[data-reconcile-submission="${original.hash}"]`,
         );
@@ -866,7 +934,7 @@ async function runLoopback(core) {
           mode +
             ": " +
             errorCode +
-            " preserves the real scoped journal; only explicit reconciliation accepts an exact terminal receipt and rejects foreign/malformed responses",
+            " recovers the real scoped journal from minimal recoveryEvents with an empty normal catalog; only explicit reconciliation accepts an exact terminal receipt and rejects foreign/malformed responses",
         );
       }
       reconcileFixture = null;

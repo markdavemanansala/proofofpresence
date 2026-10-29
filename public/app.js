@@ -1575,6 +1575,40 @@ function restoreTransactionJournal() {
     /* Signing will show a storage error before a wallet prompt. */
   }
 }
+// Saved-review identities locate existing journal records only. They are never
+// event summaries, verified financial profiles or authority to prepare a send.
+function submittedRecoveryIdentity(bootstrap, eventId) {
+  if (
+    !Array.isArray(bootstrap?.events) ||
+    typeof eventId !== "string" ||
+    !eventId
+  )
+    return null;
+  const normal = bootstrap.events.filter((event) => event?.id === eventId);
+  let identity, source;
+  if (normal.length) {
+    if (normal.length !== 1) return null;
+    identity = normal[0];
+    source = "events";
+  } else {
+    const saved = Array.isArray(bootstrap.recoveryEvents)
+      ? bootstrap.recoveryEvents.filter((event) => event?.id === eventId)
+      : [];
+    if (saved.length !== 1) return null;
+    identity = saved[0];
+    source = "recoveryEvents";
+  }
+  if (
+    identity.chainId !== 1 ||
+    typeof identity.contract !== "string" ||
+    !/^0x[0-9a-f]{40}$/i.test(identity.contract) ||
+    /^0x0{40}$/i.test(identity.contract) ||
+    identity.contractVersion !== "kleros-event-v9-uups" ||
+    identity.abiVersion !== "kleros-event-v9-uups"
+  )
+    return null;
+  return { identity, source };
+}
 function submittedRecoveryFromManifest(record, error) {
   if (
     !transactionJournal ||
@@ -1606,18 +1640,9 @@ function submittedRecoveryFromManifest(record, error) {
   )
     return null;
   const eventId = record.route.eventId;
-  const summaries = Array.isArray(bootstrap.events)
-    ? bootstrap.events.filter((event) => event?.id === eventId)
-    : [];
-  const summary = summaries.length === 1 ? summaries[0] : null;
-  if (
-    !summary ||
-    summary.chainId !== 1 ||
-    !address(summary.contract) ||
-    summary.contractVersion !== "kleros-event-v9-uups" ||
-    summary.abiVersion !== "kleros-event-v9-uups"
-  )
-    return null;
+  const manifest = submittedRecoveryIdentity(bootstrap, eventId);
+  if (!manifest) return null;
+  const summary = manifest.identity;
   const selected = bootstrap.selectedEvent;
   if (
     selected &&
@@ -1639,8 +1664,10 @@ function submittedRecoveryFromManifest(record, error) {
   try {
     return {
       context,
+      manifestSource: manifest.source,
       generation: record.generation,
-      title: summary.title ?? eventId,
+      title:
+        manifest.source === "events" ? (summary.title ?? eventId) : eventId,
       entries: transactionJournal.list(context),
       checking: new Set(),
       journalError: null,
@@ -1648,8 +1675,10 @@ function submittedRecoveryFromManifest(record, error) {
   } catch (journalError) {
     return {
       context,
+      manifestSource: manifest.source,
       generation: record.generation,
-      title: summary.title ?? eventId,
+      title:
+        manifest.source === "events" ? (summary.title ?? eventId) : eventId,
       entries: [],
       checking: new Set(),
       journalError: journalError.message,
@@ -1665,9 +1694,8 @@ function renderSubmittedRecovery() {
 }
 function submittedRecoveryCurrent(recovery) {
   const { context } = recovery;
-  const summary = app.bootstrap?.events?.find(
-    (event) => event?.id === context.eventId,
-  );
+  const manifest = submittedRecoveryIdentity(app.bootstrap, context.eventId);
+  const summary = manifest?.identity;
   return (
     app.submittedRecovery === recovery &&
     app.generation === recovery.generation &&
@@ -1677,6 +1705,7 @@ function submittedRecoveryCurrent(recovery) {
     app.bootstrap?.mode === context.mode &&
     currentIdentity()?.mode === "wallet" &&
     same(currentIdentity()?.wallet, context.wallet) &&
+    manifest?.source === recovery.manifestSource &&
     summary?.chainId === context.chainId &&
     same(summary?.contract, context.contract) &&
     summary?.abiVersion === context.abiVersion

@@ -556,3 +556,43 @@ export function invalidProductionFixture(base, patch) {
   };
   return { bootstrap, detail };
 }
+
+// TEST ONLY: models the authenticated backend's minimal identity projection when
+// an untrusted deployment is absent from the normal event catalog. No event data
+// or permission is restored by this receipt-recovery identity.
+export function recoveryOnlyProductionFixture(base, code, variant = "minimal") {
+  const result = copy(base),
+    bootstrap = result.bootstrap;
+  const event = result.detail.event;
+  const identity = Object.fromEntries(
+    ["id", "chainId", "contract", "contractVersion", "abiVersion"].map(
+      (key) => [key, event[key]],
+    ),
+  );
+  bootstrap.events = [];
+  bootstrap.recoveryEvents = [identity];
+  bootstrap.selectedEvent = {
+    ...bootstrap.selectedEvent,
+    detail: null,
+    error: {
+      status: 409,
+      code,
+      message: "Synthetic event deployment verification is unavailable",
+    },
+  };
+  if (variant === "malformed")
+    bootstrap.recoveryEvents[0].contract = "unverified-address";
+  else if (variant === "duplicate")
+    bootstrap.recoveryEvents.push(copy(identity));
+  else if (variant === "other-wallet") {
+    bootstrap.session.wallet = FIXTURE_OTHER;
+    bootstrap.selectedEvent.wallet = FIXTURE_OTHER;
+  } else if (variant === "selected-wallet-mismatch")
+    bootstrap.selectedEvent.wallet = FIXTURE_OTHER;
+  else if (variant === "other-instance") {
+    bootstrap.instanceId += "-other";
+    bootstrap.selectedEvent.instanceId = bootstrap.instanceId;
+  } else if (variant !== "minimal")
+    throw Error("Unknown recovery fixture variant");
+  return result;
+}

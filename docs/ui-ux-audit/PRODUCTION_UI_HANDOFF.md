@@ -81,8 +81,14 @@ records retain separate meanings. A Finalized phase describes ordinary processin
 ## Recovery when verification fails
 
 `UPGRADE_TRUST_MISMATCH` and optimized `SELECTED_EVENT_UNAVAILABLE` errors retain recorded transaction
-hashes through an exact manifest-summary journal context: event, wallet, chain, contract, ABI, mode
-and server instance. Known captured actor/mode/instance changes reject recovery. The error view does
+hashes through an exact journal context: event, wallet, chain, contract, ABI, mode and server
+instance. The normal directory identity has priority; only when it is absent may exactly one matching
+bootstrap.recoveryEvents identity locate the journal. This authenticated wallet-only saved-review list
+contains only {id,chainId,contract,contractVersion,abiVersion}, no title, financial state or signing grant.
+Anonymous or replaced sessions must not inherit another wallet’s saved-review identities. Duplicate
+or malformed normal identities block fallback; duplicate/malformed saved identities also fail closed.
+The UI displays the stable event ID and binds late results to the same identity source. Known captured
+actor/mode/instance changes reject recovery. The error view does
 not restore signing authority or automatically send any recovery request.
 
 An explicit user action may call the existing authenticated endpoint:
@@ -104,12 +110,14 @@ claim payment delivery or restored event verification. No new draft, wallet send
 - `node test/production-batch-controller.e2e.mjs`: PASS4 groups, actual controller and durable journal;
   marker before synthetic off-chain commit, response-loss retention, reload without replay,
   backend-instance isolation and unchanged legacy scope shape. No network API writes or wallet access.
-- `node test/production-ui.e2e.mjs --self-test`: PASS24 fixture checks, zero browser/network calls.
-- `node test/production-ui.e2e.mjs --run-loopback`: final PASS19 groups. Covers all eight malformed
+- `node test/production-ui.e2e.mjs --self-test`: PASS26 fixture checks, zero browser/network calls.
+- `node test/production-ui.e2e.mjs --run-loopback`: final PASS21 groups. Covers all eight malformed
   production contexts, exact zero/nonzero/null actor quotes, conflicting readiness, EOA422, nonce auth,
   keyboard, URI-only evidence, authenticated contradictory-mode prepare denial, both detail trust
   error codes, durable hash retention, no automatic reconciliation and exact explicit receipt recovery.
-  Includes390px mobile recovery and actual doubled text without overflow. Zero forbidden/external
+  Both error codes are also tested with an empty normal directory and the exact five-field saved
+  identity; malformed/duplicate identity and actor/instance mismatches preserve the journal without
+  exposing its hash or sending a reconciliation request. Includes390px mobile recovery and actual doubled text without overflow. Zero forbidden/external
   requests, page errors, wallet transaction methods or real RPC calls. Only synthetic auth and explicit
   receipt-reconciliation POSTs are served by the local fixture.
 - `node test/simple-ui.e2e.mjs`: final PASS13 on actual local v7.
@@ -125,8 +133,8 @@ claim payment delivery or restored event verification. No new draft, wallet send
 - Source whitespace, syntax and formatting checks PASS. Root inspected final desktop recovery and
   mobile captures; the browser agent also inspected doubled-text and recovery captures.
 
-Evidence: `artifacts/production-ui/results.json`, `final-run.log`, `final-provenance.json` and PNGs. Initial
-partial passes and fixture-only failures remain marked separately. The broad financial/Node suite is
+Evidence: `artifacts/production-ui/results.json`, `recovery-events-run.log`, `final-provenance.json` and PNGs. The earlier19-group pass (before saved-event fallback), initial partial passes
+and fixture-only failures remain marked separately; the previous source checkpoint is ccabb94. The broad financial/Node suite is
 owned by primary and was not rerun or claimed as a new production suite in this UI worktree. These
 UI tests do not prove mainnet deployment, real-wallet extension behavior, contract economics,
 governance security, live Court finality, send-time execution or public payment delivery.
@@ -140,7 +148,8 @@ governance security, live Court finality, send-time execution or public payment 
    do not replace them with the earlier incomplete export. Add app/index/batch-actions/batch-pending
    and both browser harnesses/fixtures to the final source checkpoint.
 3. Confirm each actual v9 event summary/detail includes canonical verified contractProfile, the new
-   helper is served with JS MIME, recovery endpoints precede detail trust failures, and the real signed
+   helper is served with JS MIME, recovery endpoints precede detail trust failures, wallet-scoped minimal recoveryEvents are supplied
+   when normal event disclosure is withheld, and the real signed
    session plus nullable actor rewards match the interface above. Core owns these API guarantees.
 4. Run primary's combined production backend/proxy and regression checks on the integrated source.
    This UI pass is a local integration handoff, not a declaration that the entire app is production ready.
@@ -153,3 +162,12 @@ Read-only final schedule check on29October: both jobs ACTIVE, exact prior config
   `9ac2647729ccc9650f1869ea2c5a43f30c220b356effec96a6197d79d8d62d83`.
 - finish-kleros-ui-testnet-flow-c, daily05:02Bangkok:
   `610c6d7c27ca031c4f0a6586d40b0da1ac00a90a4d838a46acbeb2efaaadb599`.
+
+## Final bounded review
+
+Plan alignment: PASS for the authorized isolated guards, recovery, responsive behavior and tests.
+System integrity: PASS; parent helpers match, journal formats and financial rules remain unchanged,
+and all source/fixture data is scoped. Local readiness: PASS within the explicit UI test limits above;
+primary still owns combined backend/proxy and deployment acceptance. Minor existing presentation
+limit: the error view can retain a Loading breadcrumb while the main error and preserved transaction
+panel accurately show the failure; optional cosmetic work is deferred under the ASAP priority.
