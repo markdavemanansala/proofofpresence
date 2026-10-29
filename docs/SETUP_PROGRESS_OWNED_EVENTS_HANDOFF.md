@@ -1,3 +1,9 @@
+> Publication update: Core integrated these components as `f96ebdf` and published its adapter/recovery
+> source `09ac3a9134fc0cf04cd0179774154df5cfe08df4` on29October2026. See
+> `artifacts/setup-progress/hosted-release.json` and the latest `UI_HANDOFF.md` section for the saved
+> anonymous source verification and unresolved original-event/wallet limitations. The local-only
+> implementation status below describes the bounded delivery at handoff time.
+
 # Setup progress and owned-event presentation handoff
 
 29 October 2026. **Pure components ready; production wiring and live recovery remain with Core.**

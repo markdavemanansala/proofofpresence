@@ -1,3 +1,18 @@
+## Progress and recovery update published — 29 October 2026
+
+Core integrated the UI components as `f96ebdf` and published controller/recovery source
+`09ac3a9134fc0cf04cd0179774154df5cfe08df4` to
+https://kleros-luma-ethereum.netlify.app/ (Netlify `6ae367c7adb51327d1ebbb34`).
+The prior local-only status below is historical. [Release closeout](artifacts/setup-progress/hosted-release.json)
+records the primary proof SHA and exact limits: seven source assets match, recovery GET401,
+public catalog200 with zero events, desktop/mobile screenshots, no errors or wallet/auth/financial actions.
+This chat inspected saved evidence only and made no duplicate live probe.
+
+The original wrapped transaction matches its saved reviewed inner call, but its child is still
+unadopted/not deposit-ready. Full provenance and delegated-wallet financial compatibility remain
+unresolved, as does the MetaMask malicious classification. The new read-only recovery boundary does
+not establish registration/adoption or grant financial permission. Core remains the sole publisher.
+
 ## Urgent setup progress and owned-event components — 29 October 2026
 
 [SETUP_PROGRESS_OWNED_EVENTS_HANDOFF](docs/SETUP_PROGRESS_OWNED_EVENTS_HANDOFF.md) contains the bounded
