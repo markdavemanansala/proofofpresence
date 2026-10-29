@@ -1,0 +1,21 @@
+{
+  "status": "failed",
+  "origin": "https://kleros-event-workbench-preview.netlify.app",
+  "eventId": "chiado-9fe71683-1e9b-48a0-94bd-274da4cf3029-a",
+  "expectedSource": "f4643f8b3a2938d4cbcebe233e202656847a3084",
+  "mode": "explicit-baseline",
+  "startedAt": "2026-10-29T03:30:46.623Z",
+  "validatorSha256": "816618c869e4bd587bdfe965aaa9be60f4be4c3d56f374486593433c644e3d6b",
+  "devices": [],
+  "checks": [],
+  "limitations": [
+    "Anonymous presentation only; no authenticated owner/participant, wallet extension or financial operation.",
+    "Lab cold-load observations, not field Core Web Vitals or WCAG conformance.",
+    "Summary/detail shared-snapshot reuse is proven here only to the extent actual returned pin metadata permits.",
+    "A failed or missing capability/bundle is not reported as optimization success."
+  ],
+  "failure": {
+    "message": "Cannot find package '@playwright/test' imported from /Users/hashmanansala/.codex/worktrees/kleros-ui-ux-speed-audit/Kleros projects/test/ui-release-readonly.mjs",
+    "stack": "Error [ERR_MODULE_NOT_FOUND]: Cannot find package '@playwright/test' imported from /Users/hashmanansala/.codex/worktrees/kleros-ui-ux-speed-audit/Kleros projects/test/ui-release-readonly.mjs\n    at Object.getPackageJSONURL (node:internal/modules/package_json_reader:301:9)\n    at packageResolve (node:internal/modules/esm/resolve:764:81)\n    at moduleResolve (node:internal/modules/esm/resolve:855:18)\n    at defaultResolve (node:internal/modules/esm/resolve:988:11)\n    at #cachedDefaultResolve (node:internal/modules/esm/loader:697:20)\n    at #resolveAndMaybeBlockOnLoaderThread (node:internal/modules/esm/loader:714:38)\n    at ModuleLoader.resolveSync (node:internal/modules/esm/loader:746:52)\n    at #resolve (node:internal/modules/esm/loader:679:17)\n    at ModuleLoader.getOrCreateModuleJob (node:internal/modules/esm/loader:599:35)\n    at onImport.tracePromise.__proto__ (node:internal/modules/esm/loader:628:32)"
+  }
+}
