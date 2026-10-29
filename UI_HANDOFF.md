@@ -1,6 +1,8 @@
 # Loading, mobile stability and keyboard handoff
 
-Latest production launch scope and locally validated source: [compact Luma UI handoff](docs/LM_UI_HANDOFF.md).
+Latest bounded follow-up: [explicit case publication UI](docs/CASE_PUBLICATION_UI_HANDOFF.md).
+
+Production launch scope and locally validated source: [compact Luma UI handoff](docs/LM_UI_HANDOFF.md).
 Older sections below retain their original validation scope.
 
 29 October 2026 · ready for primary-session review; not deployed.

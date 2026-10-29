@@ -283,3 +283,18 @@ action; no duplicate Luma signup, directory, content/history or marketing surfac
 upgrade, gas and recovery rights remain contextually reachable. Confirmation does not mean admission.
 Return to Luma is a validated selected-event association without appended wallet or transaction data.
 Factory uncertainty survives reload and backend-instance changes without regaining signing authority.
+
+
+### Advanced exact case artifact review —29October2026
+
+Files: public/app.js,public/case-publication.js. Production-only native disclosure within each case;
+Waiting challenges expose export without opening matched-only appeal controls. Reuse shared plum
+surfaces, lavender focus/links and cyan primary actions. Existing review dialog, details-list,
+review-code and44px buttons retain their geometry. Full identifiers wrap and exact JSON uses the
+existing bounded scrollable code surface, escaped as text.
+
+The modal separates original artifact provenance from the current canonical case. Download is local;
+publication needs explicit exact-file/permanent-public consent; gateway availability has a separate
+button/status. Text distinguishes exported, upload acknowledged, uncertain, verified, unavailable and
+integrity-failed states. Only authoritative readiness flags allow upload. Status errors leave financial
+rights active. A keyboard-focus annotation is a separately scoped follow-up after the source freeze.

@@ -15,6 +15,10 @@ import {
 } from "./luma-launch.js";
 import { mountLumaSetup } from "./luma-setup.js";
 import {
+  validateCaseArtifact,
+  publicationActions,
+} from "./case-publication.js";
+import {
   isProductionMode,
   isSandboxMode,
   isV9TestnetMode,
@@ -557,6 +561,9 @@ function mountOwnerContractInbox() {
   });
 }
 let toastTimer;
+let caseArtifactReview = null;
+let caseArtifactGeneration = 0;
+const caseUploadAttempts = new Set();
 let hostedNoticeObserver;
 const isHostedDemo = () => app.bootstrap?.mode === "hosted-demo";
 const isProduction = () => isProductionMode(app.bootstrap?.mode);
@@ -939,6 +946,7 @@ function toast(message, error = false) {
   );
 }
 function invalidateDraft() {
+  closeCaseArtifactReview();
   app.unsignedReviewVersion++;
   app.draft = null;
   app.draftParams = null;
@@ -2804,7 +2812,211 @@ function renderCase(item) {
     typeof item.publication === "object"
       ? item.publication.status
       : item.publication;
-  return `<article class="case-card case-summary"><h3>${escape(title)}</h3><p>${escape(statusNote)}</p><div class="panel-header"><div><strong class="case-title">${escape(short(item.wallet))}</strong><span class="small muted">Participant attendance challenge</span></div>${badge(title ?? "Challenge", resolved ? "green" : "amber")}</div><dl class="details-list"><div><dt>Matching deadline</dt><dd>${escape(contractDeadline(item.matchEndsAt, app.detail.event.timezone))}</dd></div><div><dt>Challenge deposit</dt><dd>${eth(item.depositWei)} ${escape(currencySymbol())}</dd></div><div><dt>Reserved share</dt><dd>${eth(item.heldShareWei)} ${escape(currencySymbol())}</dd></div><div><dt>Resolver local ID</dt><dd><code>${!hasCourtCase ? "Not created · no matched case" : escape(item.localDisputeID ?? "Unavailable")}</code></dd></div><div><dt>Arbitrator dispute ID</dt><dd><code>${!hasCourtCase ? "Not created · no matched case" : escape(item.arbitratorDisputeID ?? "Unavailable")}</code></dd></div><div><dt>Final ruling</dt><dd>${!hasRuling ? "Not final" : invalidRuling ? "Unavailable · unsupported result" : escape(["0 · Refused / excluded", "1 · Attended", "2 · Absent"][rulingNumber(item.finalRuling)])}</dd></div></dl>${invalidRuling ? '<div class="button-row"><button class="button button-secondary button-small" data-reload>Refresh ruling status</button></div>' : ""}${isV8() || invalidRuling ? `<details class="disclosure case-source-details"><summary>Case organizer & source details</summary>${isV8() ? `<dl class="details-list"><div><dt>Organizer for this case</dt><dd class="mono">${escape(item.caseOrganizer ?? "Unavailable")}</dd></div></dl><p>The contract captured this organizer when the challenge opened. A later owner change does not rewrite this case identity.</p>` : ""}${invalidRuling ? `<p>Reported ruling, not accepted for settlement: <code>${escape(item.finalRuling)}</code></p>` : ""}</details>` : ""}<div class="button-row"><button class="button button-secondary button-small" data-tx="match" data-wallet="${caseWallet}" ${!currentIdentity() || invalidRuling || !waiting || matchExpired ? "disabled" : ""}>Review matching</button><button class="button button-primary button-small" data-tx="resolve" data-wallet="${caseWallet}" ${!currentIdentity() || invalidRuling || resolved || !((waiting && matchExpired) || (matched && final)) ? "disabled" : ""}>Settle final / unmatched case</button></div><div class="button-row"><button class="button button-secondary button-small" data-tx="passPeriod" data-wallet="${caseWallet}" ${!currentIdentity() || invalidRuling || !matched || final ? "disabled" : ""}>Advance expired appeal</button><button class="button button-secondary button-small" data-tx="deliverRuling" data-wallet="${caseWallet}" ${!currentIdentity() || invalidRuling || !matched || final ? "disabled" : ""}>Deliver final ruling</button></div><details class="disclosure" ${!hasCourtCase ? "hidden" : ""}><summary>Evidence, publication & appeals</summary><p>Case metaevidence: <span class="mono">${escape(item.caseURI ?? "Not created")}</span><br>Publication: <strong>${escape(publication ?? "Not published")}</strong>. A computed CID does not establish IPFS availability.</p><div class="button-row"><button class="button button-secondary button-small" data-publish="${caseWallet}">${publication ? "Retry / verify server copy" : "Store exact bytes on this server"}</button></div><form data-form="evidence" data-wallet="${caseWallet}">${isProduction() ? '<p class="field-help">Enter an evidence URI for a separately reviewed submission. File uploads are unavailable here.</p>' : `<label for="evidence-file-${caseWallet}">Store an evidence file on this server (optional)</label><input id="evidence-file-${caseWallet}" type="file" data-evidence-file><p class="field-help">Maximum 256 KiB. Stored by this app; it is not published to IPFS.</p>`}<label for="evidence-uri-${caseWallet}" style="margin-top:12px">Evidence URI</label><input id="evidence-uri-${caseWallet}" name="uri" required maxlength="2000" placeholder="/ipfs/CID/evidence.json"><div class="button-row"><button class="button button-secondary button-small" ${!currentIdentity() ? "disabled" : ""}>Review evidence submission</button></div></form>${renderAppealStatus(item)}<form data-form="appeal" data-wallet="${caseWallet}"><div class="form-grid"><div><label for="appeal-side-${caseWallet}">Ruling side</label><select id="appeal-side-${caseWallet}" name="side"><option value="1">1 · Attended</option><option value="2">2 · Absent</option><option value="0">0 · Refused</option></select></div><div><label for="appeal-amount-${caseWallet}">Contribution (${escape(currencySymbol())})</label><input id="appeal-amount-${caseWallet}" name="amount" inputmode="decimal" required placeholder="Enter contribution"></div></div><div class="button-row"><button class="button button-secondary button-small" ${!currentIdentity() ? "disabled" : ""}>Review direct appeal contribution</button><button class="button button-secondary button-small" type="button" data-tx="appealRewards" data-wallet="${caseWallet}" ${!currentIdentity() || (isGuardedV9() && !appealRewardsReady(item)) ? "disabled" : ""}>Review appeal rewards</button></div><p class="field-help">Contributions go directly from this wallet to the V1 resolver. A contribution is separate from the attendance share reserved by the event contract.</p></form></details>${owner && isSandbox() ? `<details class="disclosure"><summary>Local Court mock controls</summary><p>Only the local mock arbitrator can be driven here. A final mock ruling still requires settlement through the real ${versionLabel()} event contract.</p><div class="button-row">${[1, 2, 0].map((ruling) => `<button class="button button-secondary button-small" data-ruling="${ruling}" data-wallet="${caseWallet}">${["Refuse", "Attended", "Absent"][ruling]}</button>`).join("")}<button class="button button-secondary button-small" data-open-appeal="${caseWallet}">Open mock appeal period</button></div></details>` : ""}</article>`;
+  return `<article class="case-card case-summary"><h3>${escape(title)}</h3><p>${escape(statusNote)}</p><div class="panel-header"><div><strong class="case-title">${escape(short(item.wallet))}</strong><span class="small muted">Participant attendance challenge</span></div>${badge(title ?? "Challenge", resolved ? "green" : "amber")}</div><dl class="details-list"><div><dt>Matching deadline</dt><dd>${escape(contractDeadline(item.matchEndsAt, app.detail.event.timezone))}</dd></div><div><dt>Challenge deposit</dt><dd>${eth(item.depositWei)} ${escape(currencySymbol())}</dd></div><div><dt>Reserved share</dt><dd>${eth(item.heldShareWei)} ${escape(currencySymbol())}</dd></div><div><dt>Resolver local ID</dt><dd><code>${!hasCourtCase ? "Not created · no matched case" : escape(item.localDisputeID ?? "Unavailable")}</code></dd></div><div><dt>Arbitrator dispute ID</dt><dd><code>${!hasCourtCase ? "Not created · no matched case" : escape(item.arbitratorDisputeID ?? "Unavailable")}</code></dd></div><div><dt>Final ruling</dt><dd>${!hasRuling ? "Not final" : invalidRuling ? "Unavailable · unsupported result" : escape(["0 · Refused / excluded", "1 · Attended", "2 · Absent"][rulingNumber(item.finalRuling)])}</dd></div></dl>${invalidRuling ? '<div class="button-row"><button class="button button-secondary button-small" data-reload>Refresh ruling status</button></div>' : ""}${isV8() || invalidRuling ? `<details class="disclosure case-source-details"><summary>Case organizer & source details</summary>${isV8() ? `<dl class="details-list"><div><dt>Organizer for this case</dt><dd class="mono">${escape(item.caseOrganizer ?? "Unavailable")}</dd></div></dl><p>The contract captured this organizer when the challenge opened. A later owner change does not rewrite this case identity.</p>` : ""}${invalidRuling ? `<p>Reported ruling, not accepted for settlement: <code>${escape(item.finalRuling)}</code></p>` : ""}</details>` : ""}<div class="button-row"><button class="button button-secondary button-small" data-tx="match" data-wallet="${caseWallet}" ${!currentIdentity() || invalidRuling || !waiting || matchExpired ? "disabled" : ""}>Review matching</button><button class="button button-primary button-small" data-tx="resolve" data-wallet="${caseWallet}" ${!currentIdentity() || invalidRuling || resolved || !((waiting && matchExpired) || (matched && final)) ? "disabled" : ""}>Settle final / unmatched case</button></div><div class="button-row"><button class="button button-secondary button-small" data-tx="passPeriod" data-wallet="${caseWallet}" ${!currentIdentity() || invalidRuling || !matched || final ? "disabled" : ""}>Advance expired appeal</button><button class="button button-secondary button-small" data-tx="deliverRuling" data-wallet="${caseWallet}" ${!currentIdentity() || invalidRuling || !matched || final ? "disabled" : ""}>Deliver final ruling</button></div>${renderCasePublication(item)}<details class="disclosure" ${!hasCourtCase ? "hidden" : ""}><summary>Evidence, publication & appeals</summary><p>Case metaevidence: <span class="mono">${escape(item.caseURI ?? "Not created")}</span><br>Publication: <strong>${escape(publication ?? "Not published")}</strong>. A computed CID does not establish IPFS availability.</p>${!isProduction() ? `<div class="button-row"><button class="button button-secondary button-small" data-publish="${caseWallet}">${publication ? "Retry / verify server copy" : "Store exact bytes on this server"}</button></div>` : ""}<form data-form="evidence" data-wallet="${caseWallet}">${isProduction() ? '<p class="field-help">Enter an evidence URI for a separately reviewed submission. File uploads are unavailable here.</p>' : `<label for="evidence-file-${caseWallet}">Store an evidence file on this server (optional)</label><input id="evidence-file-${caseWallet}" type="file" data-evidence-file><p class="field-help">Maximum 256 KiB. Stored by this app; it is not published to IPFS.</p>`}<label for="evidence-uri-${caseWallet}" style="margin-top:12px">Evidence URI</label><input id="evidence-uri-${caseWallet}" name="uri" required maxlength="2000" placeholder="/ipfs/CID/evidence.json"><div class="button-row"><button class="button button-secondary button-small" ${!currentIdentity() ? "disabled" : ""}>Review evidence submission</button></div></form>${renderAppealStatus(item)}<form data-form="appeal" data-wallet="${caseWallet}"><div class="form-grid"><div><label for="appeal-side-${caseWallet}">Ruling side</label><select id="appeal-side-${caseWallet}" name="side"><option value="1">1 · Attended</option><option value="2">2 · Absent</option><option value="0">0 · Refused</option></select></div><div><label for="appeal-amount-${caseWallet}">Contribution (${escape(currencySymbol())})</label><input id="appeal-amount-${caseWallet}" name="amount" inputmode="decimal" required placeholder="Enter contribution"></div></div><div class="button-row"><button class="button button-secondary button-small" ${!currentIdentity() ? "disabled" : ""}>Review direct appeal contribution</button><button class="button button-secondary button-small" type="button" data-tx="appealRewards" data-wallet="${caseWallet}" ${!currentIdentity() || (isGuardedV9() && !appealRewardsReady(item)) ? "disabled" : ""}>Review appeal rewards</button></div><p class="field-help">Contributions go directly from this wallet to the V1 resolver. A contribution is separate from the attendance share reserved by the event contract.</p></form></details>${owner && isSandbox() ? `<details class="disclosure"><summary>Local Court mock controls</summary><p>Only the local mock arbitrator can be driven here. A final mock ruling still requires settlement through the real ${versionLabel()} event contract.</p><div class="button-row">${[1, 2, 0].map((ruling) => `<button class="button button-secondary button-small" data-ruling="${ruling}" data-wallet="${caseWallet}">${["Refuse", "Attended", "Absent"][ruling]}</button>`).join("")}<button class="button button-secondary button-small" data-open-appeal="${caseWallet}">Open mock appeal period</button></div></details>` : ""}</article>`;
+}
+
+function renderCasePublication(item) {
+  if (!isProduction()) return "";
+  const status =
+    item.publication && typeof item.publication === "object"
+      ? item.publication
+      : null;
+  const actions = publicationActions(status);
+  return `<details class="disclosure"><summary>Advanced · exact case artifact</summary><p data-case-publication-summary="${escape(item.wallet)}">${escape(status ? actions.label : "Not exported or uploaded by this app")}</p><p>Review the exact public JSON before any upload. A contract URI or upload acknowledgment does not establish gateway availability.</p><div class="button-row"><button class="button button-secondary button-small" data-case-artifact="review" data-case-wallet="${escape(item.wallet)}" ${!currentIdentity() ? "disabled" : ""}>Review / download exact JSON</button>${status && status.status !== "exported" && actions.canVerify ? `<button class="button button-secondary button-small" data-case-artifact="availability" data-case-wallet="${escape(item.wallet)}" ${!currentIdentity() ? "disabled" : ""}>Check gateway availability</button>` : ""}</div></details>`;
+}
+function closeCaseArtifactReview() {
+  if (!caseArtifactReview) return;
+  caseArtifactReview = null;
+  caseArtifactGeneration++;
+  if ($("#review-dialog").open) $("#review-dialog").close();
+  $("#dialog-body").replaceChildren();
+}
+function caseArtifactCurrent(review) {
+  const scope = review.scope,
+    route = readRoute();
+  return (
+    caseArtifactReview === review &&
+    review.generation === caseArtifactGeneration &&
+    isProduction() &&
+    app.generation === scope.generation &&
+    app.unsignedReviewVersion === scope.unsignedReviewVersion &&
+    app.bootstrap?.instanceId === scope.instanceId &&
+    same(currentIdentity()?.wallet, scope.actorWallet) &&
+    currentIdentity()?.mode === "wallet" &&
+    app.route.eventId === scope.eventId &&
+    route.eventId === scope.eventId &&
+    app.route.view === scope.view &&
+    route.view === scope.view &&
+    app.detail?.event.id === scope.eventId &&
+    app.detail.event.chainId === scope.chainId &&
+    same(app.detail.event.contract, scope.contract) &&
+    app.detail.event.contractVersion === scope.contractVersion
+  );
+}
+function caseAttemptKey(record) {
+  return `${record.artifact.scopeHash}:${record.artifact.sha256}`;
+}
+function acceptCaseArtifactRecord(review, record) {
+  const key = caseAttemptKey(record);
+  if (record.publication.uploadAttempted === true) caseUploadAttempts.add(key);
+  else if (publicationActions(record.publication).canPublish)
+    caseUploadAttempts.delete(key);
+  review.record = record;
+  const item = app.detail?.state?.cases?.find((item) =>
+    same(item.wallet, review.scope.wallet),
+  );
+  if (item) item.publication = { ...record.publication };
+  for (const node of $$("[data-case-publication-summary]"))
+    if (same(node.dataset.casePublicationSummary, review.scope.wallet))
+      node.textContent = publicationActions(record.publication).label;
+}
+function renderCaseArtifactReview(review) {
+  if (!caseArtifactCurrent(review)) return;
+  const { artifact, currentCase, publication } = review.record;
+  const actions = publicationActions(publication),
+    consumed = caseUploadAttempts.has(caseAttemptKey(review.record));
+  const ids = (scope) =>
+    scope.matched
+      ? `Resolver local ID ${scope.localDisputeID} · arbitrator dispute ID ${scope.arbitratorDisputeID}`
+      : "Waiting / unmatched · no case IDs created";
+  showDialog(
+    `<div class="dialog-eyebrow">PUBLIC CASE ARTIFACT · ETHEREUM</div><h2 class="dialog-title" id="dialog-title">Review exact case JSON</h2><div data-case-publication-review><p>Public IPFS publication may be permanent and cannot be reliably removed. Review every byte before consenting. Downloading only saves these exact bytes on your device.</p><dl class="details-list"><div><dt>Event / child contract</dt><dd>${escape(artifact.scope.eventId)}<br><span class="mono">${escape(artifact.scope.contract)}</span></dd></div><div><dt>Challenged wallet</dt><dd class="mono">${escape(artifact.scope.wallet)}</dd></div><div><dt>Signed-in reviewer</dt><dd class="mono">${escape(review.scope.actorWallet)}</dd></div><div><dt>Original artifact provenance</dt><dd>${escape(artifact.scope.instanceId)} · block ${escape(artifact.scope.blockNumber)}<br><span class="mono">${escape(artifact.scope.blockHash)}</span><br>${escape(ids(artifact.scope))}</dd></div><div><dt>Current canonical case</dt><dd>${escape(currentCase.instanceId)} · block ${escape(currentCase.blockNumber)}<br><span class="mono">${escape(currentCase.blockHash)}</span><br>${escape(ids(currentCase))}</dd></div><div><dt>Contract URI · no gateway request made by this view</dt><dd class="mono">${escape(artifact.uri)}</dd></div><div><dt>SHA256 / exact byte length</dt><dd class="mono">${escape(artifact.sha256)}<br>${escape(artifact.byteLength)} bytes</dd></div><div><dt>Original scope SHA256</dt><dd class="mono">${escape(artifact.scopeHash)}</dd></div></dl><pre class="review-code" data-case-publication-json>${escape(artifact.content)}</pre><p class="notice" data-case-publication-status role="status">${escape(consumed && publication.status === "exported" ? "An upload request may have been made. Verify the existing attempt; no automatic retry is permitted." : actions.label)}${publication.reason ? `<br>${escape(publication.reason)}` : ""}</p>${actions.canPublish && !consumed ? '<label><input type="checkbox" data-case-publication-consent> I reviewed this exact public JSON, SHA256, URI and case context, and consent to publishing these exact bytes publicly on IPFS, which may be permanent and cannot be reliably removed.</label>' : ""}<div class="dialog-buttons"><button class="button button-secondary" data-close>Close</button><button class="button button-secondary" data-case-publication="download">Download exact JSON</button><button class="button button-secondary" data-case-publication="availability">Check gateway availability</button><button class="button button-primary" data-case-publication="publish" disabled ${!actions.canPublish || consumed ? "hidden" : ""}>Publish reviewed bytes</button></div></div>`,
+  );
+}
+async function openCaseArtifact(wallet, action = "review") {
+  if (!isProduction() || !/^0x[0-9a-f]{40}$/i.test(wallet))
+    throw new Error("Choose a production attendance case.");
+  if (
+    app.detail?.event.id !== app.route.eventId ||
+    readRoute().eventId !== app.route.eventId
+  )
+    throw new Error(
+      "The selected event changed. Refresh before reviewing its case artifact.",
+    );
+  const issue = productionContextIssue(app.bootstrap, app.detail, {
+    requireWallet: true,
+  });
+  if (issue) throw new Error(issue);
+  invalidateDraft();
+  const event = app.detail.event;
+  const review = {
+    generation: ++caseArtifactGeneration,
+    working: true,
+    record: null,
+    scope: Object.freeze({
+      mode: app.bootstrap.mode,
+      instanceId: app.bootstrap.instanceId,
+      eventId: event.id,
+      chainId: event.chainId,
+      contract: event.contract,
+      contractVersion: event.contractVersion,
+      wallet,
+      actorWallet: currentIdentity().wallet,
+      generation: app.generation,
+      unsignedReviewVersion: app.unsignedReviewVersion,
+      view: app.route.view,
+    }),
+  };
+  review.base = `/api/events/${encodeURIComponent(event.id)}/cases/${encodeURIComponent(wallet)}`;
+  caseArtifactReview = review;
+  try {
+    const response = await post(
+      review.base + (action === "availability" ? "/availability" : "/artifact"),
+      {},
+    );
+    if (!caseArtifactCurrent(review)) return;
+    const record = await validateCaseArtifact(response, review.scope);
+    if (!caseArtifactCurrent(review)) return;
+    acceptCaseArtifactRecord(review, record);
+    review.working = false;
+    renderCaseArtifactReview(review);
+  } catch (error) {
+    if (caseArtifactCurrent(review)) {
+      closeCaseArtifactReview();
+      toast(error.message, true);
+    }
+  }
+}
+async function casePublicationAction(action) {
+  const review = caseArtifactReview;
+  if (
+    !review ||
+    !caseArtifactCurrent(review) ||
+    review.working ||
+    !review.record
+  )
+    return;
+  const artifact = review.record.artifact;
+  if (action === "download") {
+    const url = URL.createObjectURL(
+      new Blob([new TextEncoder().encode(artifact.content)], {
+        type: "application/json",
+      }),
+    );
+    const anchor = document.createElement("a");
+    anchor.href = url;
+    anchor.download = `case-${artifact.scope.eventId}-${artifact.scope.wallet}.json`;
+    anchor.click();
+    setTimeout(() => URL.revokeObjectURL(url), 1000);
+    return;
+  }
+  const publish = action === "publish";
+  if (!publish && action !== "availability") return;
+  if (
+    publish &&
+    (!publicationActions(review.record.publication).canPublish ||
+      caseUploadAttempts.has(caseAttemptKey(review.record)) ||
+      !$("[data-case-publication-consent]")?.checked)
+  )
+    throw new Error(
+      "Review and consent to the exact original artifact before publishing.",
+    );
+  review.working = true;
+  for (const button of $$("[data-case-publication]", $("#dialog-body")))
+    button.disabled = true;
+  if (publish) caseUploadAttempts.add(caseAttemptKey(review.record));
+  try {
+    if (!caseArtifactCurrent(review)) return;
+    const response = await post(
+      review.base + (publish ? "/publish" : "/availability"),
+      publish ? { sha256: artifact.sha256, scopeHash: artifact.scopeHash } : {},
+    );
+    if (!caseArtifactCurrent(review)) return;
+    const validated = await validateCaseArtifact(response, review.scope);
+    if (!caseArtifactCurrent(review)) return;
+    if (
+      validated.artifact.sha256 !== artifact.sha256 ||
+      validated.artifact.scopeHash !== artifact.scopeHash ||
+      validated.artifact.content !== artifact.content
+    )
+      throw new Error(
+        "The original reviewed artifact changed. No further upload is permitted.",
+      );
+    acceptCaseArtifactRecord(review, validated);
+    review.working = false;
+    renderCaseArtifactReview(review);
+  } catch (error) {
+    if (!caseArtifactCurrent(review)) return;
+    if ([401, 403].includes(error.status)) {
+      closeCaseArtifactReview();
+      toast(error.message, true);
+      return;
+    }
+    review.working = false;
+    if (publish)
+      review.record = {
+        ...review.record,
+        publication: {
+          ...review.record.publication,
+          status: "upload-uncertain",
+          reason:
+            "The upload outcome is unknown. Verify the existing attempt; do not upload again.",
+        },
+      };
+    renderCaseArtifactReview(review);
+    const status = $("[data-case-publication-status]");
+    if (status) status.textContent += ` ${error.message}`;
+  }
 }
 
 function renderAppealRewardsStatus(item) {
@@ -3176,6 +3388,22 @@ document.addEventListener("change", async (event) => {
   )
     return;
   try {
+    if (
+      target instanceof HTMLInputElement &&
+      target.matches("[data-case-publication-consent]")
+    ) {
+      const review = caseArtifactReview,
+        button = $("[data-case-publication=publish]");
+      if (button)
+        button.disabled =
+          !review ||
+          !caseArtifactCurrent(review) ||
+          review.working ||
+          !target.checked ||
+          !publicationActions(review.record?.publication).canPublish ||
+          caseUploadAttempts.has(caseAttemptKey(review.record));
+      return;
+    }
     if (target.id === "event-switch") {
       invalidateDraft();
       navigate(target.value, app.route.view, "#event-switch");
@@ -3279,6 +3507,19 @@ document.addEventListener("click", async (event) => {
   if (!button || button.disabled) return;
   const data = button.dataset;
   try {
+    if ("caseArtifact" in data) {
+      button.disabled = true;
+      try {
+        await openCaseArtifact(data.caseWallet, data.caseArtifact);
+      } finally {
+        if (button.isConnected) button.disabled = false;
+      }
+      return;
+    }
+    if ("casePublication" in data) {
+      await casePublicationAction(data.casePublication);
+      return;
+    }
     if ("launchRegister" in data) {
       const person = app.detail?.participants?.find(
         (person) =>
@@ -3435,6 +3676,10 @@ document.addEventListener("click", async (event) => {
       return;
     }
     if ("publish" in data) {
+      if (isProduction())
+        throw new Error(
+          "Review and consent to the exact production artifact before publication.",
+        );
       button.disabled = true;
       const result = await post(
         eventPath(`/cases/${encodeURIComponent(data.publish)}/publish`),
@@ -3684,6 +3929,7 @@ document.addEventListener("submit", async (event) => {
 });
 
 $("#review-dialog").addEventListener("close", () => {
+  closeCaseArtifactReview();
   app.draft = null;
   app.draftParams = null;
   app.importReview = null;

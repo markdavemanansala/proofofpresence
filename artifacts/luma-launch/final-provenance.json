@@ -13,18 +13,19 @@
   "fixtureSha256": "7a009229004a8a4ecb4604751491f51fbf60b456815d5f68ea7e30a56586a884",
   "frontendAssetSha256": {
     "index.html": "8a6e89e6211401840d8730f958f5e9774a509e0d24684ebd53cecc74dcce2eef",
-    "styles.css": "2a9e5aafe5246534976c830153deb7229421ce28b47cb6a66651ba6845a21bcc",
     "contract-inbox.css": "61ed167ebee724c929a3bddbd3c0f8035dabed7b8e121725536a72683c931efe",
+    "styles.css": "2a9e5aafe5246534976c830153deb7229421ce28b47cb6a66651ba6845a21bcc",
     "batch-actions.css": "cdbf18baa8b7b9ba35c5259b16516e0b502687e4c931f3df929c8d84969aa1bc",
     "loading.css": "1b36da4a60eabc44a3346788c6af8a9910b2e50f7634faa2c991e98d86fa30c7",
+    "app.js": "6aef1590d728f746ef300274e0be4f3b540c6146290125ccf53567736a5e5de4",
     "luma-launch.css": "28778fc773590dbf8f5175da9d62aa0191edf6d75dd62c40ba9d42d1d694b2b5",
-    "app.js": "a16f5c054255b13cbe884f92cc249b16e59f5d458023ccd0532765a8be08e96b",
     "ui-keyboard.js": "a2d0cba51373c50c26f203fcca029a11c85cc71c1edda0d5a449ee8b25cdd0c8",
     "selected-event.js": "e590d4717c47abae18dd7547bff9128781d576c8d7687e8c3a67b1a7b6b6cf18",
-    "reconciliation.js": "fb071de09ade412dba1aa8c1183a677c10da4143f63b46615a077bf10433d402",
     "hosted-wallet.js": "6ec533ed08d0a8f57e75ee25971e94d958e2e02319dbab4804e20794defd7015",
+    "reconciliation.js": "fb071de09ade412dba1aa8c1183a677c10da4143f63b46615a077bf10433d402",
     "contract-inbox.js": "28de29dac08d5793c33bf33ded925b4b43cebc7b02d376f47efd3fa6042e949a",
     "batch-actions.js": "88715b4a403519e595fed75705f47d39c4bf270f143248153cb95bef4ee50661",
+    "case-publication.js": "488354b0e9b0de7b80eaca34e1d88300b291333d1fc40f683b2588d2fb8375ca",
     "batch-pending.js": "362c7529ef5ecee100ac3764359eb8730988cded45bbf3ddcd9d700e7377dbe8",
     "luma-launch.js": "134cf6fdaaa6c38dee8463038af5bc6a6fc3468a5b6a5fec7c34c56d29cfc0b4",
     "luma-setup.js": "ec38d46d8da558687f514a91a2d5f24642aa315ef1d99ac8ad9c1835d6e626b1",
@@ -34,7 +35,9 @@
     "batch-selection.js": "08c6c157cf99a72a182300c4021230395c4d03df344e09d46f5394bfd91616b6",
     "luma-factory.js": "a53235c38c9812abeeef524ba56f0d2facee3f6458df4bd2342ab0dff77e37e0"
   },
-  "sourceChangedAfterRun": [],
+  "sourceChangedAfterRun": [
+    "app.js"
+  ],
   "priorProductionCheckpoint": "production-prior-checkpoint.json",
   "syntheticWalletAttempts": 2,
   "syntheticRejectedWalletRequests": 1,
@@ -59,7 +62,9 @@
     "pre-mobile-cta-results.json",
     "pre-mobile-cta-final-provenance.json",
     "pre-attendance-results.json",
-    "pre-attendance-final-provenance.json"
+    "pre-attendance-final-provenance.json",
+    "prior-publication-results.json",
+    "prior-publication-final-provenance.json"
   ],
   "limits": [
     "Synthetic loopback projections only; Core's actual proxy/backend integration test remains a separate acceptance requirement.",
@@ -68,12 +73,19 @@
     "Different wallet/factory and restarted-instance records were tested locally. A second storage origin was not separately mounted; off-origin requests are blocked, and canonical link origin validation is separately covered by pure guard tests.",
     "Prior production21 evidence is an earlier source checkpoint, preserved explicitly rather than claimed against this compact redesign."
   ],
-  "finalLog": "final-attendance-run.log",
+  "finalLog": "final-publication-regression.log",
   "mobileConfirmationCTA": "Return to Luma bounding box is entirely within390x844 viewport without scrolling; full hash remains copyable below; full wallet/contract remain in exact material review.",
   "attendancePolicyChecks": [
     "All24 prior groups plus2 focused policy groups executed in the full current run.",
     "Canonical3 fields are carried at bootstrap.organizerSetup,selecteddetail.event and creationdraft.terms.",
     "Missing or unsupported event metadata blocks stale deposit prepare while owed recovery remains accessible.",
     "Missing or unsupported creation metadata blocks prepare/review; positive immutable policy text is shown before the same approved wallet attempts."
-  ]
+  ],
+  "executedCheckpointAppSha256": "6aef1590d728f746ef300274e0be4f3b540c6146290125ccf53567736a5e5de4",
+  "workingTreeAppSha256": "b4f8ba06fda1d10192d6a326ed7a86aab14910816c82b45b59c901d425b8884a",
+  "workingTreeDeltaAfterRun": [
+    "app.js"
+  ],
+  "annotation": "The only current working app delta adds tabindex=0 and aria-label to the exact-JSON pre. It is OUTSIDE these executed9/26 proofs. No mobile/keyboard assertions were added to the tested harness. Root is preserving/staging the original6aef blob separately.",
+  "sharedModalRegression": "All existing26 groups rerun on original6aef publication source; same2fakewalletattempts/1synthetic hash,0real/public."
 }
