@@ -1,3 +1,9 @@
+## Setup wallet loading/recovery fix — 29 October 2026
+
+[SETUP_WALLET_FEEDBACK_HANDOFF](docs/SETUP_WALLET_FEEDBACK_HANDOFF.md) records the reproduced blank
+setup bug, two-file fix, final10 focused browser groups, exact source pins and Core integration boundary.
+Core owns its separate setup review504 transport/widget; do not overwrite that newer file.
+
 ## Live speed improvement verified — 29 October 2026
 
 The source354e045 UI is integrated/published by primary asfec6211. Its controlled live comparison
