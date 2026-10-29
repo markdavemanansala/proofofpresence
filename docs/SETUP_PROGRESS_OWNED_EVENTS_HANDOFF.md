@@ -97,6 +97,10 @@ pending a reviewed backend boundary. Do not bypass that hold with a client flag 
 - Four pure owned-event Node tests passed: fail-closed context before private-field access,
   canonical organizer-only rows including authorized private/draft, excluded unsupported/duplicate/
   creator-only rows, immutable minimal projection and escaped links, unavailable versus empty.
+- One additional static owned-list visit passed two visual/keyboard assertions at1440px and390px:
+  long public/private titles wrap,44px Manage links work by keyboard, and actor-null removes private
+  rows. Evidence: `artifacts/owned-events/visual-2026-10-29T15-11-28.363Z/proof.json`. No earlier suite
+  rerun or production route/authentication test is implied. Root inspected the mobile screenshot.
 - Typecheck, both module imports without browser globals, syntax, formatting and diff checks passed.
 - Independent bounded source reviews passed. Root inspected the desktop and mobile screenshots;
   the mobile step label was shortened to avoid a midword wrap and the final proof was rerun.
@@ -116,20 +120,26 @@ full accessibility certification, delegated-account support test or live publica
 
 1. Review/copy only this bounded file set or its commit; preserve your newer widget/backend and
    primary project memory. Do not copy the older complete UI worktree over Core.
-2. Wire progress into your own widget after phase/status semantics and original-hash watcher are
+2. Add `/setup-progress.js` and `/owned-events.js` to your local server static allowlist before adapter
+   imports. Hosted frontend packaging recursively copies committed public assets, but local allowlists
+   need those exact paths. The static fixture does not test your server allowlist.
+3. Wire progress into your own widget after phase/status semantics and original-hash watcher are
    settled. Keep receipt/share content mounted while inventory refreshes; avoid forced reload.
-3. Wire owned events only after current actor/auth requirements are resolved. Do not make cold public
+4. Wire owned events only after current actor/auth requirements are resolved. Do not make cold public
    home load a heavy authenticated bootstrap; use an explicit authenticated route/action.
-4. Preserve public search inclusion: explicit public + published + supported summaries only. A created
+5. Preserve public search inclusion: explicit public + published + supported summaries only. A created
    but unadopted event cannot be advertised. Private/draft titles never enter the public catalog.
-5. Fix the duplicate empty-directory copy in your owned `public-home.js`: both publicResultStatus and
+6. Fix the duplicate empty-directory copy in your owned `public-home.js`: both publicResultStatus and
    renderPublicResults currently say No public events yet. A count/status plus one explanatory empty
    paragraph is sufficient. This file stays untouched here under Core's hold.
-6. Run combined widget/current-actor browser checks against the actual DTO and recovery boundary.
+7. Run combined widget/current-actor browser checks against the actual DTO and recovery boundary.
    Include known hash, background refresh, failure, cancellation, stale wallet/server, privacy and no
    resend assertions. Then publish and source-verify through Core's normal hosting path.
 
-The actual transaction's wrapped execution and original saved review still need Core's canonical
-comparison before adoption. The MetaMask malicious classification remains unresolved. No transaction
+Core subsequently verified the original saved review against the one zero-value inner factory call
+byte-for-byte; eventKey and configuration log also match. Public proof in the primary checkout:
+`artifacts/mainnet-release/original-ef60cbf9-review-comparison.json` (passed,15:06:57UTC).
+Full child provenance/adoption remains unverified; the exact-match result does not make a deposit page
+ready. The MetaMask malicious classification remains unresolved. No transaction
 or successful receipt alone proves that alert is a false positive. Do not instruct users to bypass it.
 The retired A/B/C financial schedules remain paused and untouched.

@@ -1,0 +1,67 @@
+{
+  "status": "passed",
+  "kind": "single-static-owned-render-visual",
+  "sourceSha256": {
+    "owned-events.js": "4f57dbd42a55cdc5ccbc805e8f95eec64910781f1494d858581b1771c96ef286",
+    "contract-profiles.js": "00e44f8f22ddeeb88434de711914e08d4f743546885680559834bfd69340a881",
+    "styles.css": "2a9e5aafe5246534976c830153deb7229421ce28b47cb6a66651ba6845a21bcc",
+    "luma-launch.css": "c6ee592c6c2d1bbd1be1207ae186bb1a281e0f1a635ffdf1c88974032e5b523d",
+    "assets/geist-latin.woff2": "9b6f5ff45b278c744b5f379a2c4ecbaf858a842b8eaf82ac8d21b699ca16c608",
+    "assets/geist-mono-latin.woff2": "5f3d6ad60f29d6cb708414ec6887163d63bf197377ef5417d2483ff31ace6c3b",
+    "assets/instrument-serif-regular.woff2": "60c06664b5a95c7de6cc3e00d1f9034d78bd1e40b564016b241674449a067d4d",
+    "index.html": "8799f8c31d11597547b8f47e0dcf0280fb642126bc328e6f77bfe80a179b23d1"
+  },
+  "requests": [
+    "index.html",
+    "styles.css",
+    "luma-launch.css",
+    "owned-events.js",
+    "assets/geist-latin.woff2",
+    "contract-profiles.js",
+    "assets/instrument-serif-regular.woff2"
+  ],
+  "blocked": [],
+  "errors": [],
+  "screenshots": [
+    {
+      "name": "desktop-owned-long-titles",
+      "path": "/Users/hashmanansala/.codex/worktrees/kleros-ui-ux-speed-audit/Kleros projects/artifacts/owned-events/visual-2026-10-29T15-11-28.363Z/desktop-owned-long-titles.png",
+      "sha256": "e981ed4351f9478fbfdf1db58116ce742e11807a374ab9b55fc5f8a4d9389a57"
+    },
+    {
+      "name": "mobile-owned-long-titles",
+      "path": "/Users/hashmanansala/.codex/worktrees/kleros-ui-ux-speed-audit/Kleros projects/artifacts/owned-events/visual-2026-10-29T15-11-28.363Z/mobile-owned-long-titles.png",
+      "sha256": "362367f5dc4955cfb62704034e9c742576e8c7692423df4d73b3986abf6ca3fa"
+    },
+    {
+      "name": "mobile-actor-null-unavailable",
+      "path": "/Users/hashmanansala/.codex/worktrees/kleros-ui-ux-speed-audit/Kleros projects/artifacts/owned-events/visual-2026-10-29T15-11-28.363Z/mobile-actor-null-unavailable.png",
+      "sha256": "84a3636b7e641087b1bb2aaad93120782d8f387817ce2d774d928f6bc98c68e6"
+    }
+  ],
+  "checks": [
+    "Very long public/private titles escape and reflow without overflow at1440px and390px;44px native Manage links support Tab/ShiftTab/Enter with exact organizer fragment",
+    "Actor-null rendering clears private rows and exposes unavailable rather than a misleading empty inventory"
+  ],
+  "effects": {
+    "request": 0,
+    "provider": 0,
+    "storage": 0
+  },
+  "limits": [
+    "One static synthetic page; desktop then390px resize. No MyEvents route, authentication, backend or7702 claim.",
+    "Supplied organizer role/context are synthetic renderer inputs. No live ownership lookup, jobs, financial action, RPC or provider method."
+  ],
+  "checkerSha256": "a59e906744ee501165d25c42dec645239b6ef1f77e5609be5183e8928bd0bb34",
+  "visualInspection": {
+    "inspected": [
+      "desktop-owned-long-titles.png",
+      "mobile-owned-long-titles.png",
+      "mobile-actor-null-unavailable.png"
+    ],
+    "result": "Both long public/private titles safely wrap without clipping or page overflow at1440px and390px. Private markup stays literal. Manage links remain44px and keyboard reachable. Actor-null removes private rows and displays unavailable. No product issue found.",
+    "noNewProductionWiring": true,
+    "previousProgressAndNodeSuitesRerun": false
+  },
+  "sessionsRunning": false
+}
