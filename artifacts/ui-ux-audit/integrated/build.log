@@ -1,0 +1,32 @@
+
+> kleros-event-workbench@1.0.0 build
+> npm run compile && npm run compile:v8 && npm run compile:test15m && node scripts/build.mjs
+
+
+> kleros-event-workbench@1.0.0 compile
+> node references/kickback/scripts/compile.mjs
+
+compiled MockKleros.sol:IArbitrableV1
+compiled MockKleros.sol:IArbitratorV1
+compiled MockKleros.sol:MockArbitrableProxy
+compiled MockKleros.sol:MockKlerosLiquid
+compiled TestToken.sol:TestToken
+compiled TestWallet.sol:GasBurners
+compiled TestWallet.sol:TestWallet
+compiled TruthPaysKickback.sol:IArbitrableProxy
+compiled TruthPaysKickback.sol:IERC20Transfer
+compiled TruthPaysKickback.sol:IKlerosLiquid
+compiled TruthPaysKickback.sol:TruthPaysKickback
+
+> kleros-event-workbench@1.0.0 compile:v8
+> node scripts/compile-contracts.mjs
+
+Compiled KlerosEventV8: creation 24258, runtime 21206 bytes
+Compiled KlerosEventFactoryV8: creation 27944, runtime 2803 bytes
+
+> kleros-event-workbench@1.0.0 compile:test15m
+> node scripts/compile-contracts-test15m.mjs
+
+Compiled KlerosEventV8Test15m: creation 24305, runtime 21205 bytes
+Compiled KlerosEventFactoryV8Test15m: creation 28043, runtime 2807 bytes
+Build verified: static app, Node modules, pinned v7 ABI + bytecode match.

@@ -694,7 +694,11 @@ async function verifyV8Provenance(chain, d, c, template) {
   };
 }
 
-export async function chainState(chain, record) {
+export async function chainState(
+  chain,
+  record,
+  { includeBlockHash = false } = {},
+) {
   const d = record.deployment;
   const v8 = isV8Version(d.contractVersion);
   const c = await verifyDeployment(chain, d);
@@ -859,6 +863,7 @@ export async function chainState(chain, record) {
     ...state,
     fingerprint: hash(state),
     blockNumber: block.number,
+    ...(includeBlockHash ? { blockHash: block.hash } : {}),
     now: block.timestamp,
   };
 }

@@ -1,0 +1,31 @@
+bigint: Failed to load bindings, pure JS will be used (try npm run rebuild?)
+This version of µWS is not compatible with your Node.js build:
+
+Error: Cannot find module '../binaries/uws_darwin_arm64_141.node'
+Require stack:
+- /Users/hashmanansala/Documents/ChatGPT/Kleros projects/node_modules/ganache/node_modules/@trufflesuite/uws-js-unofficial/src/uws.js
+- /Users/hashmanansala/Documents/ChatGPT/Kleros projects/node_modules/ganache/dist/node/core.js
+Falling back to a NodeJS implementation; performance may be degraded.
+
+
+{
+  "status": "passed",
+  "contractVersion": "truth-pays-v7",
+  "checks": 13,
+  "testnetCoverage": "presentation fixture only; no public-chain transaction",
+  "assertions": [
+    "Two separate events remain discoverable",
+    "Participant receives one primary next action",
+    "Technical deployment information starts collapsed",
+    "Seven independent financial facts are available on demand",
+    "Displayed contract version matches the actual event deployment",
+    "Exact transaction terms stay expanded before confirmation",
+    "Real verified deposit does not become host approval or contract registration",
+    "Participant deposit leaves the other event untouched",
+    "The next action explains the actual pending host decision",
+    "Simplified participant journey fits a mobile viewport",
+    "Testnet presentation removes all demo-only controls and incompatible tools",
+    "Testnet presentation checks never send a wallet or API mutation",
+    "No external requests or uncaught browser errors"
+  ]
+}

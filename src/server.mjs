@@ -368,7 +368,42 @@ export async function startServer({
       )
         guardMutation(req, p === "/local-upload");
       if (p === "/api/bootstrap" && req.method === "GET") {
-        const bootstrap = await w.bootstrap(s);
+        const selected = url.searchParams.has("selectedEventId");
+        requireThat(
+          !selected || url.searchParams.getAll("selectedEventId").length === 1,
+          "Choose one stable event identity",
+          "INVALID_INPUT",
+          400,
+        );
+        let bootstrap = await w.bootstrap(
+          s,
+          selected
+            ? { selectedEventId: url.searchParams.get("selectedEventId") }
+            : undefined,
+        );
+        const selectedSession = selected ? getSession(req) : s;
+        if (selected && selectedSession !== s && "selectedEvent" in bootstrap)
+          bootstrap = {
+            ...bootstrap,
+            session: selectedSession
+              ? {
+                  wallet: selectedSession.wallet,
+                  label: selectedSession.label,
+                  mode: selectedSession.mode,
+                }
+              : null,
+            events: [],
+            selectedEvent: {
+              eventId: bootstrap.selectedEvent.eventId,
+              wallet: selectedSession?.wallet ?? null,
+              detail: null,
+              error: {
+                code: "SELECTED_EVENT_SESSION_CHANGED",
+                status: 401,
+                message: "Wallet session changed; refresh and try again",
+              },
+            },
+          };
         const capabilities = external
           ? {
               sharedDemo: false,
@@ -383,10 +418,20 @@ export async function startServer({
           capabilities.contractInbox = true;
           capabilities.batchActions = true;
         }
+        if (selected) capabilities.selectedEventBootstrap = true;
         return send(res, 200, {
           ...bootstrap,
           mode,
           instanceId,
+          ...(selected && "selectedEvent" in bootstrap
+            ? {
+                selectedEvent: {
+                  ...bootstrap.selectedEvent,
+                  instanceId,
+                  wallet: selectedSession?.wallet ?? null,
+                },
+              }
+            : {}),
           chain: {
             ...bootstrap.chain,
             rpcUrl:

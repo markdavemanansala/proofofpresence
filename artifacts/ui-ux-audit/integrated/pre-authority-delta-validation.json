@@ -1,0 +1,24 @@
+{
+  "stage": "validated directory-privacy candidate before authority-block reorg delta; not final release approval",
+  "recordedAt": "2026-10-29T04:27:04.509319+00:00",
+  "backendPatchSha256": "ab8ab6d7653b7faf94773f6ab28a8f62a63539f5e1d25418a50863d517350197",
+  "sourceSha256": {
+    "src/chain.mjs": "daf91b522bcdc876ddc4abd8bcde4641d94e7eac908e1cf78a4862957ccd643b",
+    "src/server.mjs": "f9903eb55ed4234ae7e0cbd8a3db4c4bc4a95daa850b9ac8745b0b65d5f07439",
+    "src/workbench.mjs": "cc755e77f10f50d638cfbb0fb4b0a8cd3f030af64f7609d35b0a05967ec144d1",
+    "test/selected-bootstrap.test.mjs": "72359705087d024c59b5498a62feb1c104ddf060710f4da985dd75efe44841bf",
+    "public/app.js": "c2b25ee10792e3536fce0fead675ef2fec2b93fd45caf47627067d604ecd9e39",
+    "public/selected-event.js": "e590d4717c47abae18dd7547bff9128781d576c8d7687e8c3a67b1a7b6b6cf18"
+  },
+  "node": {
+    "passed": 292,
+    "failed": 0,
+    "skipped": 0,
+    "durationMs": 702039.726125
+  },
+  "build": "passed",
+  "typecheck": "passed",
+  "browserProvenance": "browser/results.json",
+  "jointBrowserProvenance": "joint-browser/2026-10-29T04-15-27-602Z/results.json",
+  "remaining": "primary-owned final authority block canonicality fix and source-safe release plan"
+}

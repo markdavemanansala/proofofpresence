@@ -14,16 +14,22 @@ try {
   const login = await context.request.post(app.url + "/api/session", { data: { identity: "organizer-b" }, headers: { Origin: app.url } });
   assert.equal(login.status(), 200);
   let heldA = false;
+  const isEventARead = request => {
+    const url = new URL(request.url());
+    return request.method() === "GET" && url.origin === app.url &&
+      ((url.pathname === "/api/bootstrap" && url.searchParams.get("selectedEventId") === "event-a") ||
+        url.pathname === "/api/events/event-a");
+  };
   await context.route("**/*", async route => {
     const url = new URL(route.request().url());
     if (url.origin !== app.url) { external.push(url.href); return route.abort("blockedbyclient"); }
-    if (url.pathname === "/api/events/event-a" && !heldA) { heldA = true; await delayedA; }
+    if (isEventARead(route.request()) && !heldA) { heldA = true; await delayedA; }
     return route.continue();
   });
   const page = await context.newPage();
   const canceled = [];
   page.on("requestfailed", request => {
-    if (new URL(request.url()).pathname === "/api/events/event-a") canceled.push(request.failure()?.errorText);
+    if (isEventARead(request)) canceled.push(request.failure()?.errorText);
   });
   page.on("pageerror", error => failures.push(error.message));
   await page.goto(app.url + "/#event=event-a&view=organizer");

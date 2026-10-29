@@ -125,10 +125,10 @@ export async function createWorkbench({
     requireThat(r, "Unknown event", "NOT_FOUND", 404);
     return contractFor(chain, r.deployment);
   };
-  const state = async (eventId) => {
+  const state = async (eventId, options = {}) => {
     const r = events.get(eventId);
     requireThat(r, "Unknown event", "NOT_FOUND", 404);
-    const result = await chainState(chain, r);
+    const result = await chainState(chain, r, options);
     r.financialAccess = [result.owner, result.pendingOwner];
     return result;
   };
@@ -401,7 +401,9 @@ export async function createWorkbench({
       role,
     };
   }
-  async function bootstrap(s) {
+  async function bootstrap(s, options = {}) {
+    if (Object.hasOwn(options, "selectedEventId"))
+      return selectedBootstrap(s, options.selectedEventId);
     await Promise.all(
       [...events.values()]
         .filter(
@@ -449,8 +451,269 @@ export async function createWorkbench({
       now: (await chain.provider.getBlock("latest")).timestamp,
     };
   }
-  async function detail(eventId, s) {
-    const st = await state(eventId),
+  // This map exists for one response only. It never survives a request, wallet
+  // change, ownership change or server instance; its snapshots are all fresh.
+  async function selectedBootstrap(s, selectedEventId) {
+    const snapshots = new Map();
+    const failed = new Set();
+    const snapshot = (eventId) => {
+      if (!snapshots.has(eventId))
+        snapshots.set(
+          eventId,
+          state(eventId, { includeBlockHash: true }).catch((error) => {
+            failed.add(eventId);
+            throw error;
+          }),
+        );
+      return snapshots.get(eventId);
+    };
+    const selected = (async () => {
+      requireThat(
+        typeof selectedEventId === "string" &&
+          /^[a-zA-Z0-9_-]{1,160}$/.test(selectedEventId),
+        "Choose one stable event identity",
+        "INVALID_INPUT",
+        400,
+      );
+      const st = await snapshot(selectedEventId);
+      const result = await detail(selectedEventId, s, st);
+      return {
+        eventId: selectedEventId,
+        wallet: s?.wallet ?? null,
+        detail: result,
+      };
+    })().catch((error) => ({
+      eventId: selectedEventId,
+      wallet: s?.wallet ?? null,
+      detail: null,
+      error: selectedError(error),
+    }));
+    await Promise.all(
+      [...events.values()]
+        .filter(
+          (r) =>
+            r.definition.visibility === "private" ||
+            r.definition.editorialStatus === "draft",
+        )
+        .map((r) =>
+          snapshot(r.definition.id).catch((error) => {
+            if (r.definition.id !== selectedEventId) throw error;
+          }),
+        ),
+    );
+    const visible = [...events.values()].filter((r) => {
+      if (failed.has(r.definition.id)) return false;
+      try {
+        record(r.definition.id, s);
+        return true;
+      } catch {
+        return false;
+      }
+    });
+    const summaries = Promise.all(
+      visible.map(async (r) => {
+        if (r.definition.id === selectedEventId)
+          return (await selected).detail?.event ?? null;
+        try {
+          return await summary(r, s, await snapshot(r.definition.id));
+        } catch (error) {
+          if (r.definition.id !== selectedEventId) throw error;
+          return null;
+        }
+      }),
+    );
+    const [directory, initialSelection, nowBlock, network] = await Promise.all([
+      summaries,
+      selected,
+      chain.provider.getBlock("latest"),
+      external ? Promise.resolve(null) : chain.provider.getNetwork(),
+    ]);
+    // Final authority reads cover the whole bundle, after every slow directory
+    // and metadata read. No other asynchronous work follows disclosure checks.
+    const disclosed = await selectedDisclosure(
+      s,
+      directory.filter(Boolean),
+      initialSelection,
+      initialSelection.detail ? await snapshot(selectedEventId) : null,
+    );
+    return {
+      mode: external ? "testnet" : "local-demo",
+      identities: identities.map(({ signer, ...x }) => x),
+      session: s ? { wallet: s.wallet, label: s.label, mode: s.mode } : null,
+      events: disclosed.directory,
+      chain: external
+        ? testnet.manifest.chain
+        : {
+            chainId: Number(network.chainId),
+            rpcUrl: chain.rpcUrl,
+            name: "Local demo",
+            nativeCurrency: { name: "Demo Ether", symbol: "ETH", decimals: 18 },
+          },
+      contractVersion: external
+        ? testnet.manifest.events[0].deployment.contractVersion
+        : contractVersion,
+      ...(eventV8Profile(
+        external
+          ? testnet.manifest.events[0].deployment.contractVersion
+          : contractVersion,
+      )?.testOnly
+        ? {
+            contractProfile: eventV8Profile(
+              external
+                ? testnet.manifest.events[0].deployment.contractVersion
+                : contractVersion,
+            ),
+          }
+        : {}),
+      ...(external
+        ? {
+            arbitration: {
+              mode: "controlled",
+              notice: "Controlled test arbitrator; no independent jury",
+            },
+          }
+        : {}),
+      now: nowBlock.timestamp,
+      selectedEvent: disclosed.selectedEvent,
+    };
+  }
+  function selectedError(error) {
+    const known = {
+      NOT_FOUND: [404, "Unknown event"],
+      FORBIDDEN: [403, "Private or unpublished event"],
+      INVALID_INPUT: [400, "Choose one stable event identity"],
+      SELECTED_EVENT_ACCESS_CHANGED: [
+        409,
+        "Event access changed; refresh and try again",
+      ],
+      SELECTED_EVENT_REORG: [
+        409,
+        "Event snapshot changed; refresh and try again",
+      ],
+    };
+    const code = Object.hasOwn(known, error?.code)
+      ? error.code
+      : "SELECTED_EVENT_UNAVAILABLE";
+    const [status, message] = known[code] ?? [
+      503,
+      "Selected event is temporarily unavailable",
+    ];
+    return { code, status, message };
+  }
+  async function selectedDisclosure(s, directory, selection, st) {
+    const deniedSelection = (error) => ({
+      eventId: selection.eventId,
+      wallet: s?.wallet ?? null,
+      detail: null,
+      error: selectedError(error),
+    });
+    const targets = new Map(
+      directory.map((item) => [item.id, events.get(item.id)]),
+    );
+    if (selection.detail)
+      targets.set(selection.eventId, events.get(selection.eventId));
+    let rows, canonical;
+    try {
+      const current = await chain.provider.getBlock("latest");
+      [rows, canonical] = await Promise.all([
+        Promise.all(
+          [...targets].map(async ([eventId, r]) => {
+            try {
+              const c = contract(eventId);
+              const [owner, pendingOwner] = await Promise.all([
+                c.owner({ blockTag: current.number }),
+                c.pendingOwner({ blockTag: current.number }),
+              ]);
+              return {
+                eventId,
+                r,
+                owner,
+                pendingOwner,
+                available: true,
+                error: null,
+              };
+            } catch (error) {
+              return {
+                eventId,
+                r,
+                owner: null,
+                pendingOwner: null,
+                available: false,
+                error,
+              };
+            }
+          }),
+        ),
+        st ? chain.provider.getBlock(st.blockNumber) : Promise.resolve(null),
+      ]);
+    } catch (error) {
+      return {
+        directory: [],
+        selectedEvent: selection.detail ? deniedSelection(error) : selection,
+      };
+    }
+    // All authority data is now available. Synchronous checks below observe the
+    // latest app visibility/staff lists without awaiting another event's RPCs.
+    const authority = new Map(rows.map((row) => [row.eventId, row]));
+    for (const row of rows)
+      if (row.available) row.r.financialAccess = [row.owner, row.pendingOwner];
+    const roleOf = (row) =>
+      s && lower(s.wallet) === lower(row.owner)
+        ? "organizer"
+        : s &&
+            row.r.definition.staff.some(
+              (wallet) => lower(wallet) === lower(s.wallet),
+            )
+          ? "staff"
+          : "participant";
+    let selectedEvent = selection;
+    if (selection.detail) {
+      try {
+        const row = authority.get(selection.eventId);
+        if (!row.available) throw row.error;
+        record(selection.eventId, s);
+        requireThat(
+          roleOf(row) === selection.detail.event.role,
+          "Event access changed",
+          "SELECTED_EVENT_ACCESS_CHANGED",
+          409,
+        );
+        requireThat(
+          canonical?.hash === st.blockHash &&
+            selection.detail.payments.blockHash === st.blockHash,
+          "Selected event snapshot changed",
+          "SELECTED_EVENT_REORG",
+          409,
+        );
+      } catch (error) {
+        selectedEvent = deniedSelection(error);
+      }
+    }
+    const visible = directory.filter((item) => {
+      if (item.id === selection.eventId && !selectedEvent.detail) return false;
+      const row = authority.get(item.id);
+      if (!row?.available) return false;
+      try {
+        record(item.id, s);
+      } catch {
+        return false;
+      }
+      // Keep immutable financial fields from the snapshot. Refresh only current
+      // access metadata and role; selected summary remains detail.event itself.
+      Object.assign(item, {
+        visibility: row.r.definition.visibility,
+        editorialStatus: row.r.definition.editorialStatus,
+        staff: row.r.definition.staff,
+        organizers: row.r.definition.organizers,
+        role: roleOf(row),
+      });
+      return true;
+    });
+    return { directory: visible, selectedEvent };
+  }
+
+  async function detail(eventId, s, knownState = null) {
+    const st = knownState ?? (await state(eventId)),
       r = record(eventId, s),
       event = await summary(r, s, st);
     // Wallet-owned recovery is independent of names, contact records or admission.
@@ -488,7 +751,13 @@ export async function createWorkbench({
             verificationError = null;
           if (p.deposit)
             try {
-              await verifyReceipt(eventId, p, p.deposit.txHash, true);
+              await verifyReceipt(
+                eventId,
+                p,
+                p.deposit.txHash,
+                true,
+                knownState ? st.blockNumber : "latest",
+              );
             } catch (e) {
               verificationState =
                 e.code === "RETURNED_DEPOSIT" ? "returned" : "unavailable";
@@ -539,7 +808,11 @@ export async function createWorkbench({
       : [];
     return {
       event,
-      state: st,
+      state: knownState
+        ? Object.fromEntries(
+            Object.entries(st).filter(([key]) => key !== "blockHash"),
+          )
+        : st,
       payments: await projectPayments(chain, r, { blockTag: st.blockNumber }),
       ownWallet,
       participants,
@@ -740,7 +1013,16 @@ export async function createWorkbench({
     r.revision++;
     return p;
   }
-  async function verifyReceipt(eventId, p, txHash, allowLinked = false) {
+  /** @param {string} eventId @param {any} p @param {string} txHash
+   * @param {boolean} [allowLinked] @param {number | "latest"} [blockTag]
+   */
+  async function verifyReceipt(
+    eventId,
+    p,
+    txHash,
+    allowLinked = false,
+    blockTag = "latest",
+  ) {
     requireThat(
       /^0x[0-9a-fA-F]{64}$/.test(txHash ?? ""),
       "A transaction hash is required",
@@ -764,6 +1046,7 @@ export async function createWorkbench({
     const receiptBlock = await chain.provider.getBlock(receipt.blockNumber);
     requireThat(
       receipt.blockNumber >= d.deploymentBlock &&
+        (blockTag === "latest" || receipt.blockNumber <= blockTag) &&
         receiptBlock?.hash === receipt.blockHash,
       "Deposit is not canonical for this deployment",
       "DEPOSIT_REORG",
@@ -804,7 +1087,9 @@ export async function createWorkbench({
       409,
     );
     if (isV8Version(d.contractVersion)) {
-      const person = (await v8DepositCredits(c, d)).get(lower(p.wallet));
+      const person = (await v8DepositCredits(c, d, blockTag)).get(
+        lower(p.wallet),
+      );
       const lot = person?.lots.find(
         (lot) =>
           lower(lot.txHash) === lower(txHash) && lot.logIndex === log.log.index,
@@ -821,7 +1106,7 @@ export async function createWorkbench({
       );
       const pending = person.lots.reduce((sum, lot) => sum + lot.pending, 0n);
       requireThat(
-        pending === (await c.pendingDeposits(p.wallet)),
+        pending === (await c.pendingDeposits(p.wallet, { blockTag })),
         "v8 credit history differs from contract",
         "CREDIT_HISTORY",
         409,
@@ -829,10 +1114,26 @@ export async function createWorkbench({
     } else {
       // Preserve historical v7 pairing: spare returns do not erase held principal.
       const [deposited, rejected, refunded, registered] = await Promise.all([
-        c.queryFilter(c.filters.Deposited(p.wallet), d.deploymentBlock),
-        c.queryFilter(c.filters.Rejected(p.wallet), d.deploymentBlock),
-        c.queryFilter(c.filters.Refunded(p.wallet), d.deploymentBlock),
-        c.queryFilter(c.filters.StakerRegistered(p.wallet), d.deploymentBlock),
+        c.queryFilter(
+          c.filters.Deposited(p.wallet),
+          d.deploymentBlock,
+          blockTag,
+        ),
+        c.queryFilter(
+          c.filters.Rejected(p.wallet),
+          d.deploymentBlock,
+          blockTag,
+        ),
+        c.queryFilter(
+          c.filters.Refunded(p.wallet),
+          d.deploymentBlock,
+          blockTag,
+        ),
+        c.queryFilter(
+          c.filters.StakerRegistered(p.wallet),
+          d.deploymentBlock,
+          blockTag,
+        ),
       ]);
       const deposits = deposited
         .filter((x) => "args" in x)
@@ -856,7 +1157,7 @@ export async function createWorkbench({
             tx: l.transactionHash,
           };
         });
-      const status = Number(await c.status(p.wallet));
+      const status = Number(await c.status(p.wallet, { blockTag }));
       const paired = pairReturns(deposits, returnEvents, {
         deposit: BigInt(d.depositWei),
         prefer: new Set(

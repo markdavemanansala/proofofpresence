@@ -1,0 +1,73 @@
+diff --git a/test/ui-context.e2e.mjs b/test/ui-context.e2e.mjs
+index 927ef5d..963986b 100644
+--- a/test/ui-context.e2e.mjs
++++ b/test/ui-context.e2e.mjs
+@@ -14,16 +14,22 @@ try {
+   const login = await context.request.post(app.url + "/api/session", { data: { identity: "organizer-b" }, headers: { Origin: app.url } });
+   assert.equal(login.status(), 200);
+   let heldA = false;
++  const isEventARead = request => {
++    const url = new URL(request.url());
++    return request.method() === "GET" && url.origin === app.url &&
++      ((url.pathname === "/api/bootstrap" && url.searchParams.get("selectedEventId") === "event-a") ||
++        url.pathname === "/api/events/event-a");
++  };
+   await context.route("**/*", async route => {
+     const url = new URL(route.request().url());
+     if (url.origin !== app.url) { external.push(url.href); return route.abort("blockedbyclient"); }
+-    if (url.pathname === "/api/events/event-a" && !heldA) { heldA = true; await delayedA; }
++    if (isEventARead(route.request()) && !heldA) { heldA = true; await delayedA; }
+     return route.continue();
+   });
+   const page = await context.newPage();
+   const canceled = [];
+   page.on("requestfailed", request => {
+-    if (new URL(request.url()).pathname === "/api/events/event-a") canceled.push(request.failure()?.errorText);
++    if (isEventARead(request)) canceled.push(request.failure()?.errorText);
+   });
+   page.on("pageerror", error => failures.push(error.message));
+   await page.goto(app.url + "/#event=event-a&view=organizer");
+diff --git a/test/ui-redesign.e2e.mjs b/test/ui-redesign.e2e.mjs
+index b398a42..8fdbbae 100644
+--- a/test/ui-redesign.e2e.mjs
++++ b/test/ui-redesign.e2e.mjs
+@@ -59,11 +59,12 @@ try {
+     (await page.request.get(`${server.url}/api/events/${event}`)).json();
+   const navigate = async (event = "event-a", view = "participant") => {
+     const destination = `${server.url}/#${new URLSearchParams({ event, view })}`;
+-    const freshDetail = page.waitForResponse(
+-      (response) =>
+-        response.url() === `${server.url}/api/events/${event}` &&
+-        response.request().method() === "GET",
+-    );
++    const freshDetail = page.waitForResponse((response) => {
++      const url = new URL(response.url());
++      return response.request().method() === "GET" && url.origin === server.url &&
++        ((url.pathname === "/api/bootstrap" && url.searchParams.get("selectedEventId") === event) ||
++          url.pathname === `/api/events/${event}`);
++    });
+     if (page.url() === destination) await page.reload();
+     else await page.goto(destination);
+     await freshDetail;
+@@ -382,16 +383,18 @@ try {
+   await screenshot("desktop-obligations");
+ 
+   // A failed authoritative read removes dependent financial actions until retry.
+-  const eventRead = `${server.url}/api/events/event-a`;
++  const eventRead = (url) => url.origin === server.url &&
++    ((url.pathname === "/api/bootstrap" && url.searchParams.get("selectedEventId") === "event-a") ||
++      url.pathname === "/api/events/event-a");
+   await page.route(eventRead, (route) =>
+-    route.fulfill({
++    route.request().method() === "GET" ? route.fulfill({
+       status: 503,
+       contentType: "application/json",
+       body: JSON.stringify({
+         error: "Synthetic local read unavailable",
+         code: "TEST_UNAVAILABLE",
+       }),
+-    }),
++    }) : route.continue(),
+   );
+   await page.locator("#refresh").click();
+   await expect(page.locator("#content")).toContainText(

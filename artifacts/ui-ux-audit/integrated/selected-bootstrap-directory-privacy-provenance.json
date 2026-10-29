@@ -1,0 +1,83 @@
+{
+  "baseCommit": "67ee1d9bfac68f6925ca5dff638b07b5e56b5eae",
+  "sandbox": "/private/tmp/kleros-selected-bootstrap-67ee1d9",
+  "createdAt": "2026-10-29T04:02:23.779Z",
+  "node": "v25.8.1",
+  "patch": {
+    "path": "selected-bootstrap-67ee1d9-directory-privacy.patch",
+    "sha256": "ab8ab6d7653b7faf94773f6ab28a8f62a63539f5e1d25418a50863d517350197",
+    "bytes": 55420,
+    "supersedes": "selected-bootstrap-67ee1d9.patch",
+    "applyBoth": false
+  },
+  "previousCandidate": {
+    "patchSha256": "c52e81e1580430be793eb632125aadcb61666af4ef1e7fc74b398a3f2b51c7ce",
+    "provenanceSha256": "0ab0f89af8da3c3d0daf18ec3561c9ef8b17333b24af2b8ad2f525a16e0a1981",
+    "prior25PassLogSha256": "4429379350236e8711d3e6c894e42b93e7782ce97443b8dbbe2b0f28ee05432d"
+  },
+  "files": {
+    "src/chain.mjs": {
+      "sha256": "daf91b522bcdc876ddc4abd8bcde4641d94e7eac908e1cf78a4862957ccd643b",
+      "baseSha256": "7167a578e94648ed9c4bd383608cd1fdb9f051664e0dd669d9bacf7537fe5653"
+    },
+    "src/server.mjs": {
+      "sha256": "d4c4a6346fd9000a0b203b03bce075ff47579568eb3e1fdd468e233d22a41e5f",
+      "baseSha256": "203428a03c43132c6f9275341a93459f6ae894f1726dc2607cf44ed6eabf3e0f"
+    },
+    "src/workbench.mjs": {
+      "sha256": "cc755e77f10f50d638cfbb0fb4b0a8cd3f030af64f7609d35b0a05967ec144d1",
+      "baseSha256": "b9ee26b76ee7fda958e9fbfdef6a5a40a1e1f91b6deea138eb5248ac8255a2d8"
+    },
+    "test/selected-bootstrap.test.mjs": {
+      "sha256": "72359705087d024c59b5498a62feb1c104ddf060710f4da985dd75efe44841bf",
+      "baseSha256": null
+    }
+  },
+  "validation": {
+    "command": "node --test --test-concurrency=1 test/selected-bootstrap.test.mjs test/http.test.mjs test/testnet-runtime.test.mjs test/v8-chain-adapter.test.mjs",
+    "passed": 30,
+    "failed": 0,
+    "durationMs": 88029.969583,
+    "focused": {
+      "passed": 5,
+      "actualRevocationScenarios": 4,
+      "durationMs": 28252.939625
+    },
+    "typecheck": "passed",
+    "diffCheck": "passed",
+    "forwardBaseIndexPatchCheck": "passed",
+    "reversePatchCheck": "passed",
+    "selectedChainStateCalls": 1,
+    "legacySerialPrivateChainStateCalls": 4,
+    "nonselectedPrivateBPhaseReads": 1,
+    "nonselectedPrivateBOwnerReads": 2,
+    "logs": {
+      "artifacts/selected-bootstrap-directory-privacy-focused.log": "ec04225553ad8598a1026db0d66360515c9d04d46cb18d94695c02c9dd79ffa2",
+      "artifacts/selected-bootstrap-directory-privacy-final.log": "3fcbf6b53c6c715e8437ec90f5cd9aca5b5b0d651bd99fd9aae573ba368e0a07",
+      "artifacts/selected-bootstrap-directory-privacy-typecheck.log": "74bfb568ea65a9908ed4e1a7ca33240f5b07c996d3cf24a699237c432d32eac8"
+    }
+  },
+  "independentReview": {
+    "reviewer": "testnet_readiness",
+    "scope": "read-only final-directory disclosure delta",
+    "result": "no material blocker; prior nonselected-directory timing limitation addressed",
+    "networkOrTestsRunByReviewer": false
+  },
+  "integrationRemaining": [
+    "Apply only after active financial checkpoint.",
+    "Frontend actor/permission consistency and local static selected-event.js allowlist.",
+    "Combined frontend/mobile/live checks and deployment are separate."
+  ],
+  "isolation": {
+    "rootSourceEdits": 0,
+    "rootGitMutations": 0,
+    "publicNetworkCalls": 0,
+    "liveSigningFilesRead": 0,
+    "publicFinancialSignatures": 0,
+    "publicBroadcasts": 0,
+    "symlinks": [
+      "node_modules only"
+    ],
+    "testFixtures": "Ephemeral loopback HTTP/TLS and synthetic local chains; no live runtime copied."
+  }
+}

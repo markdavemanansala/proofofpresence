@@ -1,0 +1,125 @@
+{
+  "status": "passed",
+  "completedAt": "2026-10-29T04:20:18.783Z",
+  "worktree": "/Users/hashmanansala/.codex/worktrees/kleros-ui-ux-speed-audit/Kleros projects",
+  "head": "ea9fadaad2191da04ec1a5104ffe1efdcabfcd03",
+  "suites": [
+    {
+      "command": "CONTRACT_VERSION=truth-pays-v7 npm run test:ui",
+      "checks": 49,
+      "log": "redesign-v7-final.log",
+      "status": "passed",
+      "exitCode": 0,
+      "logSha256": "9ff98a82c1c3dacffc456eebb8996fd840d449f0b60109adc34a73985b9a979f"
+    },
+    {
+      "command": "CONTRACT_VERSION=truth-pays-v7 node test/simple-ui.e2e.mjs",
+      "checks": 13,
+      "log": "simple-v7.log",
+      "status": "passed",
+      "exitCode": 0,
+      "logSha256": "986c9e5a829a7460c95cd7c18333c7a18a146245938ea0a867178aa36ce9a052"
+    },
+    {
+      "command": "CONTRACT_VERSION=kleros-event-v8 node test/simple-ui.e2e.mjs",
+      "checks": 18,
+      "log": "simple-v8.log",
+      "status": "passed",
+      "exitCode": 0,
+      "logSha256": "64273bbdd410d75386670869c31e54630cc59b087c5ab91ead1799730519416b"
+    },
+    {
+      "command": "CONTRACT_VERSION=truth-pays-v7 node test/ui-context.e2e.mjs",
+      "checks": 4,
+      "log": "context-rerun.log",
+      "status": "passed",
+      "exitCode": 0,
+      "logSha256": "57e5a50b220519334b39240fc53da08a4eed25aea084a44a1ae9d590c135d987"
+    },
+    {
+      "command": "node test/ui-session-bootstrap.e2e.mjs",
+      "checks": 14,
+      "log": "session.log",
+      "status": "passed",
+      "exitCode": 0,
+      "logSha256": "6aa759f12e909ffcf9ddf824b539e34353b384e96d100594a1371fdcaac6cdfb"
+    },
+    {
+      "command": "node test/ui-ux-fixes.e2e.mjs",
+      "checks": 27,
+      "log": "ux.log",
+      "status": "passed",
+      "exitCode": 0,
+      "logSha256": "cd871dfc173a2d741e26d6dfed5159febec590e818167aeeb176c091f9b57eaf"
+    }
+  ],
+  "originalFailures": [
+    {
+      "log": "redesign-v7.log",
+      "exitCode": 1,
+      "reason": "Legacy separate-event GET wait timed out after optional selected bootstrap eliminated that request."
+    },
+    {
+      "log": "redesign-v7-rerun.log",
+      "exitCode": 1,
+      "reason": "Legacy separate-event-only 503 fixture was bypassed by the valid bundled GET."
+    },
+    {
+      "log": "context-original.log",
+      "exitCode": 1,
+      "reason": "Legacy separate-event-only delay fixture was never entered."
+    }
+  ],
+  "approvedChanges": {
+    "files": [
+      "test/ui-redesign.e2e.mjs",
+      "test/ui-context.e2e.mjs"
+    ],
+    "scope": "Only exact same-origin GET predicates for selected bootstrap stable event or legacy detail; includes delay/cancellation/error wait fixtures.",
+    "financialAndUIAssertionsUnchanged": true,
+    "timeoutsUnchanged": true,
+    "patch": "compatibility-matcher.patch"
+  },
+  "sourceHashesBefore": {
+    "src/chain.mjs": "daf91b522bcdc876ddc4abd8bcde4641d94e7eac908e1cf78a4862957ccd643b",
+    "src/server.mjs": "f9903eb55ed4234ae7e0cbd8a3db4c4bc4a95daa850b9ac8745b0b65d5f07439",
+    "src/workbench.mjs": "cc755e77f10f50d638cfbb0fb4b0a8cd3f030af64f7609d35b0a05967ec144d1",
+    "public/app.js": "c2b25ee10792e3536fce0fead675ef2fec2b93fd45caf47627067d604ecd9e39",
+    "public/selected-event.js": "e590d4717c47abae18dd7547bff9128781d576c8d7687e8c3a67b1a7b6b6cf18"
+  },
+  "sourceHashesAfter": {
+    "src/chain.mjs": "daf91b522bcdc876ddc4abd8bcde4641d94e7eac908e1cf78a4862957ccd643b",
+    "src/server.mjs": "f9903eb55ed4234ae7e0cbd8a3db4c4bc4a95daa850b9ac8745b0b65d5f07439",
+    "src/workbench.mjs": "cc755e77f10f50d638cfbb0fb4b0a8cd3f030af64f7609d35b0a05967ec144d1",
+    "public/app.js": "c2b25ee10792e3536fce0fead675ef2fec2b93fd45caf47627067d604ecd9e39",
+    "public/selected-event.js": "e590d4717c47abae18dd7547bff9128781d576c8d7687e8c3a67b1a7b6b6cf18"
+  },
+  "sourcesUnchanged": true,
+  "mobileCLS": [
+    {
+      "baseline": true,
+      "run": 1,
+      "cls": 0.37188043804882626
+    },
+    {
+      "baseline": true,
+      "run": 2,
+      "cls": 0.37188043804882626
+    },
+    {
+      "baseline": false,
+      "run": 1,
+      "cls": 0.09634182464454977
+    },
+    {
+      "baseline": false,
+      "run": 2,
+      "cls": 0.09634182464454977
+    }
+  ],
+  "limits": [
+    "All chain activity uses isolated local Ganache and existing mocked adjudication. No public-network/D/C flow or schedule was operated.",
+    "Session suite uses explicitly synthetic local auth and a fake signature literal; UX suite uses only local mocked GETs.",
+    "Root owns the separate full Node financial suite/build/typecheck; those results are not claimed here."
+  ]
+}
